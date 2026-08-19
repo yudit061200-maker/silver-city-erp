@@ -72,6 +72,15 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Action Controls */}
         <div className="flex items-center space-x-2 sm:space-x-3">
           
+          {/* Sheets / Cloud Sync & Backup Button */}
+          <button
+            onClick={onSyncSheets}
+            title="Google Sheets & Cloud Database Sync / Backup"
+            className="px-2.5 sm:px-3 py-1.5 sm:py-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/70 rounded-2xl border border-emerald-300 dark:border-emerald-700/80 transition shadow-xs cursor-pointer flex items-center gap-1.5 shrink-0 text-xs font-bold"
+          >
+            <i className="fa-solid fa-cloud-arrow-down text-emerald-600 dark:text-emerald-400"></i>
+            <span className="hidden sm:inline">Sync & Backup</span>
+          </button>
 
           {/* Reorder Notification Bell */}
           <button
