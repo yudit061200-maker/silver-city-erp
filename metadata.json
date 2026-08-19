@@ -1,0 +1,10 @@
+{
+  "name": "Silver City ERP",
+  "description": "Enterprise Resource Planning and Stock Management system for PT. Silver City Drilling",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

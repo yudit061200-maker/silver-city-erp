@@ -1,0 +1,103 @@
+{
+  "entities": {
+    "items": {
+      "title": "Inventory Items",
+      "description": "Catalog of inventory items",
+      "properties": {
+        "ItemID": { "type": "string" },
+        "ItemName": { "type": "string" },
+        "Category": { "type": "string" },
+        "Qty": { "type": "number" },
+        "Unit": { "type": "string" },
+        "MinQty": { "type": "number" },
+        "Location": { "type": "string" },
+        "UpdatedBy": { "type": "string" }
+      }
+    },
+    "requests": {
+      "title": "Material Requests",
+      "description": "Material request records",
+      "properties": {
+        "RequestID": { "type": "string" },
+        "Date": { "type": "string" },
+        "Department": { "type": "string" },
+        "WellLoc": { "type": "string" },
+        "RigName": { "type": "string" },
+        "ItemID": { "type": "string" },
+        "ItemName": { "type": "string" },
+        "Qty": { "type": "number" },
+        "Unit": { "type": "string" },
+        "Priority": { "type": "string" },
+        "Remark": { "type": "string" },
+        "UpdatedBy": { "type": "string" }
+      }
+    },
+    "pos": {
+      "title": "Purchase Orders",
+      "description": "Purchase order records",
+      "properties": {
+        "PO_No": { "type": "string" },
+        "Date": { "type": "string" },
+        "Vendor": { "type": "string" },
+        "ItemID": { "type": "string" },
+        "ItemName": { "type": "string" },
+        "Qty": { "type": "number" },
+        "Unit": { "type": "string" },
+        "UnitPrice": { "type": "number" },
+        "TotalPrice": { "type": "number" },
+        "Status": { "type": "string" },
+        "UpdatedBy": { "type": "string" }
+      }
+    },
+    "receives": {
+      "title": "Material Receives",
+      "description": "Material receiving records",
+      "properties": {
+        "ReceiveID": { "type": "string" },
+        "Date": { "type": "string" },
+        "PO_No": { "type": "string" },
+        "ItemID": { "type": "string" },
+        "ItemName": { "type": "string" },
+        "Qty": { "type": "number" },
+        "Unit": { "type": "string" },
+        "Vendor": { "type": "string" },
+        "UpdatedBy": { "type": "string" }
+      }
+    },
+    "issued": {
+      "title": "Material Issued",
+      "description": "Material issue records",
+      "properties": {
+        "IssueID": { "type": "string" },
+        "Date": { "type": "string" },
+        "Department": { "type": "string" },
+        "WellLoc": { "type": "string" },
+        "RigName": { "type": "string" },
+        "ItemID": { "type": "string" },
+        "ItemName": { "type": "string" },
+        "Qty": { "type": "number" },
+        "Unit": { "type": "string" },
+        "UpdatedBy": { "type": "string" }
+      }
+    },
+    "users": {
+      "title": "System Users",
+      "description": "User accounts",
+      "properties": {
+        "username": { "type": "string" },
+        "password": { "type": "string" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string" },
+        "department": { "type": "string" }
+      }
+    },
+    "settings": {
+      "title": "App Settings",
+      "description": "Global ERP configurations and header settings",
+      "properties": {
+        "key": { "type": "string" },
+        "value": { "type": "string" }
+      }
+    }
+  }
+}

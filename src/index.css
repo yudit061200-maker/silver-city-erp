@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@media print {
+  /* Reset page background and dimensions for printing */
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Reset root & min-height wrappers to prevent blank 100vh Page 1 */
+  #root,
+  .min-h-screen,
+  #root > div {
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  /* Hide main application navigation, header, main dashboard/tables, sidebar, footer, toasts, etc */
+  header,
+  main,
+  nav,
+  aside,
+  footer,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Position fixed modal overlay absolutely at top-left of Page 1 */
+  .fixed.inset-0 {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Modal inner card container reset */
+  .fixed.inset-0 > div {
+    position: static !important;
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Remove max-height and scrolling from modal bodies during print */
+  .max-h-\[95vh\],
+  .max-h-\[92vh\],
+  .max-h-\[90vh\],
+  .overflow-y-auto,
+  .overflow-x-auto,
+  .overflow-hidden {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Target main document blueprint and QR code printable areas */
+  #printBlueprintDoc,
+  #printableQrArea {
+    display: block !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    overflow: visible !important;
+  }
+
+  /* Prevent page cuts inside QR card labels */
+  #printableQrArea > div > div {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Form input resets inside print area */
+  #printBlueprintDoc input,
+  #printBlueprintDoc select,
+  #printBlueprintDoc textarea {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    font-weight: bold !important;
+    color: #000000 !important;
+  }
+
+  @page {
+    margin: 8mm;
+    size: auto;
+  }
+}
+
+
