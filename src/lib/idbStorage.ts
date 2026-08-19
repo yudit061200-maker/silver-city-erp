@@ -55,8 +55,47 @@ export function safeSetLocalStorage(key: string, val: any): void {
   try {
     const str = typeof val === 'string' ? val : JSON.stringify(val);
     localStorage.setItem(key, str);
+    // Also mirror to IndexedDB for persistence
+    idbSet(key, val);
+    if (Array.isArray(val) && val.length > 0) {
+      idbSet(key + '_auto_backup', val);
+    }
   } catch (e) {
     // Quota exceeded or disabled localStorage - save to IndexedDB asynchronously
     idbSet(key, val);
+    if (Array.isArray(val) && val.length > 0) {
+      idbSet(key + '_auto_backup', val);
+    }
   }
 }
+
+export async function createFullLocalBackup(store: any): Promise<void> {
+  try {
+    if (!store) return;
+    await idbSet('sc_full_backup_latest', store);
+    await idbSet('sc_full_backup_' + new Date().toISOString().slice(0, 10), store);
+  } catch {
+    // fail silently
+  }
+}
+
+export async function getLatestFullLocalBackup(): Promise<any | null> {
+  try {
+    const latest = await idbGet<any>('sc_full_backup_latest');
+    if (latest) return latest;
+    // Fallback: check individual arrays
+    const items = (await idbGet<any[]>('sc_items_auto_backup')) || (await idbGet<any[]>('sc_items'));
+    const requests = (await idbGet<any[]>('sc_requests_auto_backup')) || (await idbGet<any[]>('sc_requests'));
+    const pos = (await idbGet<any[]>('sc_pos_auto_backup')) || (await idbGet<any[]>('sc_pos'));
+    const receives = (await idbGet<any[]>('sc_receives_auto_backup')) || (await idbGet<any[]>('sc_receives'));
+    const issued = (await idbGet<any[]>('sc_issued_auto_backup')) || (await idbGet<any[]>('sc_issued'));
+    const users = await idbGet<any[]>('sc_users');
+    if ((items && items.length > 0) || (requests && requests.length > 0) || (pos && pos.length > 0)) {
+      return { items, requests, pos, receives, issued, users };
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+

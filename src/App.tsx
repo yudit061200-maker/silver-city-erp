@@ -36,7 +36,7 @@ import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { SpreadsheetSyncModal } from './components/SpreadsheetSyncModal';
 import { db, doc, getDoc, setDoc, onSnapshot } from './lib/firebase';
-import { idbGet, idbSet } from './lib/idbStorage';
+import { idbGet, idbSet, createFullLocalBackup } from './lib/idbStorage';
 import { saveChunkedFirestore, loadChunkedFirestore, getIsFirestoreQuotaExceeded } from './lib/chunkedFirestore';
 
 const initialItems: RecordRow[] = importedItems as any[];
@@ -1648,7 +1648,7 @@ export default function App() {
     setIsSpreadsheetModalOpen(true);
   };
 
-  const handlePullSync = async (customUrl?: string) => {
+  const handlePullSync = async (customUrl?: string, force: boolean = false) => {
     try {
       if (customUrl) {
         const resp = await fetch(customUrl);
@@ -1684,7 +1684,7 @@ export default function App() {
                 return updated;
               });
               await pushSyncToServer();
-              showToast(`Google Sheets CSV synchronized (${parsedRecords.length} records updated)!`);
+              showToast(`Google Sheets CSV synchronized (${parsedRecords.length} records updated)!`, 'success');
               return;
             }
           }
@@ -1699,22 +1699,23 @@ export default function App() {
           const s = await loadChunkedFirestore(rawDoc);
           if (s) {
             const fTs = Number(s.lastUpdated) || 0;
-          if (fTs > lastLocalMutationTimeRef.current) {
-            if (Array.isArray(s.items)) { setItems(s.items); safeSetLocalStorage('sc_items', s.items); }
-            if (Array.isArray(s.requests)) { setRequests(s.requests); safeSetLocalStorage('sc_requests', s.requests); }
-            if (Array.isArray(s.pos)) { setPurchaseOrders(s.pos); safeSetLocalStorage('sc_pos', s.pos); }
-            if (Array.isArray(s.receives)) { setReceives(s.receives); safeSetLocalStorage('sc_receives', s.receives); }
-            if (Array.isArray(s.issued)) { setIssued(s.issued); safeSetLocalStorage('sc_issued', s.issued); }
-            if (Array.isArray(s.users)) { setUsers(s.users); safeSetLocalStorage('sc_users', s.users); }
-            if (s.companyHeader) setCompanyHeader(s.companyHeader);
-            if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
-            if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
-            lastLocalMutationTimeRef.current = fTs;
-            safeSetLocalStorage('sc_last_updated', fTs);
-            showToast('Data disinkronkan dari Firestore cloud!');
-            return;
+            if (force || fTs > lastLocalMutationTimeRef.current || (Array.isArray(s.items) && s.items.length > items.length)) {
+              if (Array.isArray(s.items)) { setItems(s.items); safeSetLocalStorage('sc_items', s.items); }
+              if (Array.isArray(s.requests)) { setRequests(s.requests); safeSetLocalStorage('sc_requests', s.requests); }
+              if (Array.isArray(s.pos)) { setPurchaseOrders(s.pos); safeSetLocalStorage('sc_pos', s.pos); }
+              if (Array.isArray(s.receives)) { setReceives(s.receives); safeSetLocalStorage('sc_receives', s.receives); }
+              if (Array.isArray(s.issued)) { setIssued(s.issued); safeSetLocalStorage('sc_issued', s.issued); }
+              if (Array.isArray(s.users)) { setUsers(s.users); safeSetLocalStorage('sc_users', s.users); }
+              if (s.companyHeader) setCompanyHeader(s.companyHeader);
+              if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
+              if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
+              lastLocalMutationTimeRef.current = Math.max(fTs, Date.now());
+              safeSetLocalStorage('sc_last_updated', lastLocalMutationTimeRef.current);
+              createFullLocalBackup(s);
+              showToast('Data berhasil dimuat dan disinkronkan dari Firestore cloud!', 'success');
+              return;
+            }
           }
-        }
         }
       } catch (e) {
         console.warn("Firestore fetch error in handleSyncAll:", e);
@@ -1727,60 +1728,139 @@ export default function App() {
         if (json && json.store) {
           const s = json.store;
           const sTs = Number(s.lastUpdated) || 0;
-          if (sTs > 0 && sTs > lastLocalMutationTimeRef.current) {
-            if (Array.isArray(s.items)) {
-              setItems(s.items);
-              safeSetLocalStorage('sc_items', s.items);
-            }
-            if (Array.isArray(s.requests)) {
-              setRequests(s.requests);
-              safeSetLocalStorage('sc_requests', s.requests);
-            }
-            if (Array.isArray(s.pos)) {
-              setPurchaseOrders(s.pos);
-              safeSetLocalStorage('sc_pos', s.pos);
-            }
-            if (Array.isArray(s.receives)) {
-              setReceives(s.receives);
-              safeSetLocalStorage('sc_receives', s.receives);
-            }
-            if (Array.isArray(s.issued)) {
-              setIssued(s.issued);
-              safeSetLocalStorage('sc_issued', s.issued);
-            }
-            if (Array.isArray(s.users)) {
-              setUsers(s.users);
-              safeSetLocalStorage('sc_users', s.users);
-            }
+          if (force || sTs > lastLocalMutationTimeRef.current) {
+            if (Array.isArray(s.items)) { setItems(s.items); safeSetLocalStorage('sc_items', s.items); }
+            if (Array.isArray(s.requests)) { setRequests(s.requests); safeSetLocalStorage('sc_requests', s.requests); }
+            if (Array.isArray(s.pos)) { setPurchaseOrders(s.pos); safeSetLocalStorage('sc_pos', s.pos); }
+            if (Array.isArray(s.receives)) { setReceives(s.receives); safeSetLocalStorage('sc_receives', s.receives); }
+            if (Array.isArray(s.issued)) { setIssued(s.issued); safeSetLocalStorage('sc_issued', s.issued); }
+            if (Array.isArray(s.users)) { setUsers(s.users); safeSetLocalStorage('sc_users', s.users); }
             if (s.companyHeader) setCompanyHeader(s.companyHeader);
             if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
             if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
-            if (s.lastUpdated) {
-              lastLocalMutationTimeRef.current = s.lastUpdated;
-              safeSetLocalStorage('sc_last_updated', s.lastUpdated);
-            }
-            showToast('Data disinkronkan dari update server terakhir!');
+            lastLocalMutationTimeRef.current = Math.max(sTs, Date.now());
+            safeSetLocalStorage('sc_last_updated', lastLocalMutationTimeRef.current);
+            createFullLocalBackup(s);
+            showToast('Data disinkronkan dari server!', 'success');
             return;
           } else {
-            // Local data is newer than server/seed, so push local data to server
+            // Local data is newer than server, push to cloud
             await pushSyncToServer();
-            showToast('Data lokal terbaru telah disinkronkan ke cloud server!');
+            showToast('Data lokal telah disinkronkan ke cloud server!', 'success');
             return;
           }
         }
       }
-      showToast('Data lokal sudah sesuai versi terbaru server.');
+      showToast('Data lokal sudah sinkron dengan versi terbaru.');
     } catch {
-      showToast('Gagal terhubung ke server sync.');
+      showToast('Gagal memuat sync data.');
     }
   };
 
   const handlePushSync = async () => {
     try {
       await pushSyncToServer();
-      showToast('ERP data synchronized across all devices successfully!');
+      showToast('Data ERP berhasil disinkronkan ke Cloud & semua perangkat!', 'success');
     } catch {
-      showToast('Offline sync using local cache', 'error');
+      showToast('Sinkronisasi menggunakan cache lokal.', 'error');
+    }
+  };
+
+  const handleExportFullJSONBackup = () => {
+    try {
+      const fullBackup = {
+        exportedAt: new Date().toISOString(),
+        version: SPREADSHEET_DATA_VERSION,
+        items,
+        requests,
+        pos: purchaseOrders,
+        receives,
+        issued,
+        users,
+        companyHeader,
+        savedDocHeaders,
+        customColHeaders
+      };
+      const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SilverCityERP_Backup_${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('File cadangan lengkap JSON berhasil diunduh!', 'success');
+    } catch {
+      showToast('Gagal mengunduh cadangan JSON.', 'error');
+    }
+  };
+
+  const handleImportFullJSONBackup = async (data: any) => {
+    if (!data) return;
+    try {
+      const newItems = Array.isArray(data.items) ? data.items : items;
+      const newRequests = Array.isArray(data.requests) ? data.requests : requests;
+      const newPOs = Array.isArray(data.pos) ? data.pos : (Array.isArray(data.purchaseOrders) ? data.purchaseOrders : purchaseOrders);
+      const newReceives = Array.isArray(data.receives) ? data.receives : receives;
+      const newIssued = Array.isArray(data.issued) ? data.issued : issued;
+      const newUsers = Array.isArray(data.users) ? data.users : users;
+      const newCompanyHeader = data.companyHeader || companyHeader;
+      const newSavedDocHeaders = data.savedDocHeaders || savedDocHeaders;
+      const newCustomColHeaders = data.customColHeaders || customColHeaders;
+
+      setItems(newItems);
+      safeSetLocalStorage('sc_items', newItems);
+
+      setRequests(newRequests);
+      safeSetLocalStorage('sc_requests', newRequests);
+
+      setPurchaseOrders(newPOs);
+      safeSetLocalStorage('sc_pos', newPOs);
+
+      setReceives(newReceives);
+      safeSetLocalStorage('sc_receives', newReceives);
+
+      setIssued(newIssued);
+      safeSetLocalStorage('sc_issued', newIssued);
+
+      setUsers(newUsers);
+      safeSetLocalStorage('sc_users', newUsers);
+
+      if (newCompanyHeader) {
+        setCompanyHeader(newCompanyHeader);
+        safeSetLocalStorage('sc_company_header', newCompanyHeader);
+      }
+      if (newSavedDocHeaders) {
+        setSavedDocHeaders(newSavedDocHeaders);
+        safeSetLocalStorage('sc_doc_headers', newSavedDocHeaders);
+      }
+      if (newCustomColHeaders) {
+        setCustomColHeaders(newCustomColHeaders);
+        safeSetLocalStorage('sc_custom_col_headers', newCustomColHeaders);
+      }
+
+      const now = Date.now();
+      lastLocalMutationTimeRef.current = now;
+      safeSetLocalStorage('sc_last_updated', now);
+
+      latestStoreRef.current = {
+        items: newItems,
+        requests: newRequests,
+        purchaseOrders: newPOs,
+        receives: newReceives,
+        issued: newIssued,
+        users: newUsers,
+        companyHeader: newCompanyHeader,
+        savedDocHeaders: newSavedDocHeaders,
+        customColHeaders: newCustomColHeaders
+      };
+
+      await createFullLocalBackup(latestStoreRef.current);
+      await pushSyncToServer(latestStoreRef.current);
+      showToast('Data berhasil dipulihkan dan disinkronkan ke seluruh sistem!', 'success');
+    } catch {
+      showToast('Gagal menerapkan data cadangan.', 'error');
     }
   };
 
@@ -2874,6 +2954,8 @@ export default function App() {
         onPullSync={handlePullSync}
         onPushSync={handlePushSync}
         onExportAllSheetsCSV={handleExportAllSheetsCSV}
+        onExportFullJSONBackup={handleExportFullJSONBackup}
+        onImportFullJSONBackup={handleImportFullJSONBackup}
         showToast={showToast}
       />
 
