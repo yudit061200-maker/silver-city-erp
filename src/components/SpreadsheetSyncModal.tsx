@@ -66,6 +66,13 @@ export const SpreadsheetSyncModal: React.FC<SpreadsheetSyncModalProps> = ({
     return spreadsheetConfig.lastSyncedAt || new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   });
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setGoogleUser(getGoogleUser());
+      setInputSheetIdOrUrl(spreadsheetConfig.spreadsheetId || '');
+    }
+  }, [isOpen, spreadsheetConfig.spreadsheetId]);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isOpen) return null;
