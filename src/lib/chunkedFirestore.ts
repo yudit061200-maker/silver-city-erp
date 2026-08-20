@@ -1,39 +1,56 @@
-import { db, doc, getDoc, setDoc, deleteDoc } from './firebase';
+import { db, doc, getDoc, setDoc, deleteDoc, onSnapshot } from './firebase';
 
 const CHUNK_SIZE = 1000;
-let isFirestoreQuotaExceeded = false;
-
-export function getIsFirestoreQuotaExceeded(): boolean {
-  return isFirestoreQuotaExceeded;
-}
-
-export function setFirestoreQuotaExceeded(value: boolean): void {
-  isFirestoreQuotaExceeded = value;
-}
 
 function sanitize(obj: any): any {
   if (!obj) return obj;
   return JSON.parse(JSON.stringify(obj, (_key, val) => (val === undefined ? null : val)));
 }
 
-function isQuotaError(err: any): boolean {
-  if (!err) return false;
-  const code = String(err.code || '');
-  const msg = String(err.message || '').toLowerCase();
-  return (
-    code === 'resource-exhausted' ||
-    msg.includes('quota') ||
-    msg.includes('quota limit exceeded') ||
-    msg.includes('daily write units')
-  );
+/**
+ * Purges all stale legacy dataset keys from localStorage and IndexedDB
+ * ensuring the application relies strictly and directly on Firebase Firestore.
+ */
+export function purgeLocalStorageDataset(): void {
+  try {
+    const keysToRemove = [
+      'sc_items',
+      'sc_requests',
+      'sc_pos',
+      'sc_receives',
+      'sc_issued',
+      'sc_users',
+      'sc_last_updated',
+      'sc_company_header',
+      'sc_doc_headers',
+      'sc_custom_col_headers',
+      'sc_data_version'
+    ];
+    keysToRemove.forEach(k => {
+      try {
+        localStorage.removeItem(k);
+      } catch {
+        // Ignore
+      }
+    });
+
+    if (typeof window !== 'undefined' && window.indexedDB) {
+      try {
+        window.indexedDB.deleteDatabase('SilverCityERP_DB');
+      } catch {
+        // Ignore
+      }
+    }
+  } catch {
+    // Ignore cleanup errors
+  }
 }
 
+/**
+ * Direct write to Firebase Firestore.
+ * Breaks large items array into chunk documents and updates main_store manifest.
+ */
 export async function saveChunkedFirestore(storeObj: any): Promise<void> {
-  if (isFirestoreQuotaExceeded) {
-    // Skip Firestore cloud writes if project free quota is exhausted
-    return;
-  }
-
   try {
     const items = Array.isArray(storeObj.items) ? storeObj.items : [];
     
@@ -43,11 +60,12 @@ export async function saveChunkedFirestore(storeObj: any): Promise<void> {
       chunks.push(items.slice(i, i + CHUNK_SIZE));
     }
 
-    // 2. Write each chunk to 'erp_chunks/chunk_X'
+    // 2. Write each chunk to 'erp_chunks/chunk_X' in Firestore
     const chunkPromises = chunks.map((chunk, idx) => {
       return setDoc(doc(db, 'erp_chunks', `chunk_${idx}`), {
         chunkIndex: idx,
-        items: sanitize(chunk)
+        items: sanitize(chunk),
+        updatedAt: new Date().toISOString()
       });
     });
 
@@ -67,11 +85,11 @@ export async function saveChunkedFirestore(storeObj: any): Promise<void> {
           await Promise.all(deletePromises);
         }
       }
-    } catch {
-      // Ignore cleanup error
+    } catch (cleanErr) {
+      console.warn("Firestore chunk cleanup info:", cleanErr);
     }
 
-    // 4. Save main store metadata WITHOUT the full items array to avoid 1MB document limit
+    // 4. Save main store metadata directly to Firestore
     const mainManifest = {
       chunkCount: chunks.length,
       itemCount: items.length,
@@ -84,27 +102,25 @@ export async function saveChunkedFirestore(storeObj: any): Promise<void> {
       savedDocHeaders: sanitize(storeObj.savedDocHeaders || {}),
       customColHeaders: sanitize(storeObj.customColHeaders || {}),
       dataVersion: storeObj.dataVersion,
-      lastUpdated: storeObj.lastUpdated
+      lastUpdated: storeObj.lastUpdated || Date.now()
     };
 
     await setDoc(doc(db, 'erp', 'main_store'), mainManifest);
   } catch (err: any) {
-    if (isQuotaError(err)) {
-      isFirestoreQuotaExceeded = true;
-      console.warn("Firestore daily free write quota exceeded. Automatically switching to local server and IndexedDB storage.");
-      return;
-    }
+    console.error("Direct Firestore save error:", err);
     throw err;
   }
 }
 
+/**
+ * Loads the full chunked store from Firebase Firestore.
+ */
 export async function loadChunkedFirestore(mainData: any): Promise<any> {
   if (!mainData) return null;
 
   try {
     const resultStore = { ...mainData };
 
-    // If chunkCount is defined, fetch item chunks from 'erp_chunks'
     if (typeof mainData.chunkCount === 'number' && mainData.chunkCount >= 0) {
       const chunkPromises = [];
       for (let i = 0; i < mainData.chunkCount; i++) {
@@ -127,12 +143,22 @@ export async function loadChunkedFirestore(mainData: any): Promise<any> {
 
     return resultStore;
   } catch (err: any) {
-    if (isQuotaError(err)) {
-      isFirestoreQuotaExceeded = true;
-      console.warn("Firestore read quota exceeded, using local cached data store.");
-      return mainData;
-    }
+    console.error("Error loading chunked Firestore data:", err);
     return mainData;
   }
 }
 
+/**
+ * Direct fetch of the entire store from Firebase Firestore
+ */
+export async function fetchFullStoreFromFirestore(): Promise<any | null> {
+  try {
+    const mainSnap = await getDoc(doc(db, 'erp', 'main_store'));
+    if (!mainSnap.exists()) return null;
+    const rawData = mainSnap.data();
+    return await loadChunkedFirestore(rawData);
+  } catch (err) {
+    console.error("Failed to fetch full store from Firestore:", err);
+    return null;
+  }
+}

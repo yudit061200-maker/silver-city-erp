@@ -12,6 +12,8 @@ interface HeaderProps {
   onOpenReorderModal?: () => void;
   isDarkMode?: boolean;
   onToggleDarkMode?: () => void;
+  isFirebaseConnected?: boolean;
+  isSavingToFirestore?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -24,7 +26,9 @@ export const Header: React.FC<HeaderProps> = ({
   itemsNeedingOrderCount = 0,
   onOpenReorderModal,
   isDarkMode = false,
-  onToggleDarkMode
+  onToggleDarkMode,
+  isFirebaseConnected = true,
+  isSavingToFirestore = false
 }) => {
   const isYudit = currentUser?.username?.trim().toLowerCase() === 'yudit061200';
   const navTabs: { name: TabName; label: string; icon: string }[] = [
@@ -58,10 +62,22 @@ export const Header: React.FC<HeaderProps> = ({
               <h1 className="text-[12px] font-black tracking-wider bg-gradient-to-r from-yellow-600 to-amber-600 dark:from-yellow-400 dark:to-amber-400 bg-clip-text text-transparent">
                 SILVER CITY
               </h1>
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800" title="Firebase Realtime Cloud Sync Active across all devices">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                Cloud Sync
-              </span>
+              {isSavingToFirestore ? (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 animate-pulse" title="Saving directly to Firebase Firestore">
+                  <i className="fa-solid fa-cloud-arrow-up text-[10px]"></i>
+                  <span>Saving to Firebase...</span>
+                </span>
+              ) : isFirebaseConnected ? (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800" title="Connected directly to Firebase Firestore Database">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>Firebase Live</span>
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-700" title="Connecting to Firebase Firestore...">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+                  <span>Connecting...</span>
+                </span>
+              )}
             </div>
             <p className="text-[8px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest">
               ERP Operations

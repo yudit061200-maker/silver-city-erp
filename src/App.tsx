@@ -35,9 +35,13 @@ import { ReorderNotificationModal } from './components/ReorderNotificationModal'
 import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { SpreadsheetSyncModal } from './components/SpreadsheetSyncModal';
-import { db, doc, getDoc, setDoc, onSnapshot } from './lib/firebase';
-import { idbGet, idbSet } from './lib/idbStorage';
-import { saveChunkedFirestore, loadChunkedFirestore, getIsFirestoreQuotaExceeded } from './lib/chunkedFirestore';
+import { db, doc, onSnapshot } from './lib/firebase';
+import {
+  saveChunkedFirestore,
+  loadChunkedFirestore,
+  fetchFullStoreFromFirestore,
+  purgeLocalStorageDataset
+} from './lib/chunkedFirestore';
 
 const initialItems: RecordRow[] = importedItems as any[];
 const initialRequests: RecordRow[] = importedRequests as any[];
@@ -85,21 +89,13 @@ export const syncAttachmentsForTab = (tab: TabName, data: RecordRow[]): RecordRo
   });
 };
 
-export const safeSetLocalStorage = (key: string, val: any) => {
-  try {
-    const stringVal = typeof val === 'string' ? val : JSON.stringify(val);
-    localStorage.setItem(key, stringVal);
-  } catch (err) {
-    console.warn(`LocalStorage quota exceeded for ${key}, falling back to IndexedDB:`, err);
-  }
-  // Always persist to IndexedDB asynchronously as durable backup
-  idbSet(key, val);
+export const safeSetLocalStorage = (_key: string, _val: any) => {
+  // Legacy stub kept for backward compatibility; all data persists directly to Firebase Firestore
 };
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<UserSession | null>(() => {
     try {
-      // Clear legacy localStorage auto-login session so every fresh opening requires logging in
       localStorage.removeItem('silverCityERP_session');
       const saved = sessionStorage.getItem('silverCityERP_session');
       return saved ? JSON.parse(saved) : null;
@@ -130,100 +126,31 @@ export default function App() {
     setIsDarkMode(prev => !prev);
   };
 
-  // Maintain data version marker in localStorage without wiping user-created records
-  try {
-    localStorage.setItem('sc_data_version', SPREADSHEET_DATA_VERSION);
-  } catch {
-    // Ignore localStorage errors
-  }
-
   const [activeTab, setActiveTab] = useState<TabName>('Dashboard');
   const [currentViewMode, setCurrentViewMode] = useState<'list' | 'report'>('list');
 
-  const [items, setItems] = useState<RecordRow[]>(() => {
-    try {
-      const saved = localStorage.getItem('sc_items');
-      return saved ? JSON.parse(saved) : initialItems;
-    } catch { return initialItems; }
+  // Primary data states initialized directly with defaults; Firestore is the single source of truth
+  const [items, setItems] = useState<RecordRow[]>(initialItems);
+  const [requests, setRequests] = useState<RecordRow[]>(initialRequests);
+  const [purchaseOrders, setPurchaseOrders] = useState<RecordRow[]>(initialPOs);
+  const [receives, setReceives] = useState<RecordRow[]>(initialReceives);
+  const [issued, setIssued] = useState<RecordRow[]>(initialIssued);
+  const [users, setUsers] = useState<RecordRow[]>(initialUsers);
+
+  const [companyHeader, setCompanyHeader] = useState<CompanyHeader>({
+    companyName: 'PT. SILVER CITY DRILLING',
+    supportOffice: 'SUPPORT OFFICE :',
+    addressLine1: 'Block R, Kl. Saraswati No. 9A Blok R, Cipete Utara,',
+    addressLine2: 'Kec. Kebayoran Baru, Kota Jakarta Selatan, D.K.I Jakarta 12150',
+    phone: '(+61) 8 8952 2966',
+    email: 'jakartaoffice@silvercitydrilling.co.id',
+    logoUrl: 'https://static.wixstatic.com/media/6daabc_acbf1201bd204e28becacd2ce16a7fb5~mv2.png/v1/fill/w_357,h_100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/6daabc_acbf1201bd204e28becacd2ce16a7fb5~mv2.png'
   });
 
-  const [requests, setRequests] = useState<RecordRow[]>(() => {
-    try {
-      const saved = localStorage.getItem('sc_requests');
-      return saved ? JSON.parse(saved) : initialRequests;
-    } catch { return initialRequests; }
-  });
-
-  const [purchaseOrders, setPurchaseOrders] = useState<RecordRow[]>(() => {
-    try {
-      const saved = localStorage.getItem('sc_pos');
-      return saved ? JSON.parse(saved) : initialPOs;
-    } catch { return initialPOs; }
-  });
-
-  const [receives, setReceives] = useState<RecordRow[]>(() => {
-    try {
-      const saved = localStorage.getItem('sc_receives');
-      return saved ? JSON.parse(saved) : initialReceives;
-    } catch { return initialReceives; }
-  });
-
-  const [issued, setIssued] = useState<RecordRow[]>(() => {
-    try {
-      const saved = localStorage.getItem('sc_issued');
-      return saved ? JSON.parse(saved) : initialIssued;
-    } catch { return initialIssued; }
-  });
-
-  const [users, setUsers] = useState<RecordRow[]>(() => {
-    try {
-      const saved = localStorage.getItem('sc_users');
-      return saved ? JSON.parse(saved) : initialUsers;
-    } catch { return initialUsers; }
-  });
-
-  const [companyHeader, setCompanyHeader] = useState<CompanyHeader>(() => {
-    try {
-      const saved = localStorage.getItem('sc_company_header');
-      return saved ? JSON.parse(saved) : {
-        companyName: 'PT. SILVER CITY DRILLING',
-        supportOffice: 'SUPPORT OFFICE :',
-        addressLine1: 'Block R, Kl. Saraswati No. 9A Blok R, Cipete Utara,',
-        addressLine2: 'Kec. Kebayoran Baru, Kota Jakarta Selatan, D.K.I Jakarta 12150',
-        phone: '(+61) 8 8952 2966',
-        email: 'jakartaoffice@silvercitydrilling.co.id',
-        logoUrl: 'https://static.wixstatic.com/media/6daabc_acbf1201bd204e28becacd2ce16a7fb5~mv2.png/v1/fill/w_357,h_100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/6daabc_acbf1201bd204e28becacd2ce16a7fb5~mv2.png'
-      };
-    } catch {
-      return {
-        companyName: 'PT. SILVER CITY DRILLING',
-        supportOffice: 'SUPPORT OFFICE :',
-        addressLine1: 'Block R, Kl. Saraswati No. 9A Blok R, Cipete Utara,',
-        addressLine2: 'Kec. Kebayoran Baru, Kota Jakarta Selatan, D.K.I Jakarta 12150',
-        phone: '(+61) 8 8952 2966',
-        email: 'jakartaoffice@silvercitydrilling.co.id',
-        logoUrl: 'https://static.wixstatic.com/media/6daabc_acbf1201bd204e28becacd2ce16a7fb5~mv2.png/v1/fill/w_357,h_100,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/6daabc_acbf1201bd204e28becacd2ce16a7fb5~mv2.png'
-      };
-    }
-  });
-
-  const [savedDocHeaders, setSavedDocHeaders] = useState<Record<string, any>>(() => {
-    try {
-      const saved = localStorage.getItem('sc_doc_headers');
-      return saved ? JSON.parse(saved) : {};
-    } catch { return {}; }
-  });
-
-  const [customColHeaders, setCustomColHeaders] = useState<Record<string, string>>(() => {
-    try {
-      const saved = localStorage.getItem('sc_custom_col_headers');
-      return saved ? JSON.parse(saved) : {};
-    } catch { return {}; }
-  });
-
-  const lastLocalMutationTimeRef = React.useRef<number>(
-    typeof window !== 'undefined' ? Number(localStorage.getItem('sc_last_updated') || 0) : 0
-  );
+  const [savedDocHeaders, setSavedDocHeaders] = useState<Record<string, any>>({});
+  const [customColHeaders, setCustomColHeaders] = useState<Record<string, string>>({});
+  const [isFirebaseConnected, setIsFirebaseConnected] = useState<boolean>(false);
+  const [isSavingToFirestore, setIsSavingToFirestore] = useState<boolean>(false);
 
   const latestStoreRef = React.useRef({
     items,
@@ -251,55 +178,14 @@ export default function App() {
     };
   }, [items, requests, purchaseOrders, receives, issued, users, companyHeader, savedDocHeaders, customColHeaders]);
 
-  useEffect(() => { safeSetLocalStorage('sc_items', items); }, [items]);
-  useEffect(() => { safeSetLocalStorage('sc_requests', requests); }, [requests]);
-  useEffect(() => { safeSetLocalStorage('sc_pos', purchaseOrders); }, [purchaseOrders]);
-  useEffect(() => { safeSetLocalStorage('sc_receives', receives); }, [receives]);
-  useEffect(() => { safeSetLocalStorage('sc_issued', issued); }, [issued]);
-  useEffect(() => { safeSetLocalStorage('sc_users', users); }, [users]);
-
-  // Hydrate from IndexedDB if localStorage was capped or empty
+  // Purge any stale localStorage ERP data on mount to ensure clean Firebase-only operation
   useEffect(() => {
-    let active = true;
-    async function loadIDBCache() {
-      const savedItems = await idbGet<RecordRow[]>('sc_items');
-      if (active && savedItems && Array.isArray(savedItems) && savedItems.length > 0) {
-        setItems(savedItems);
-      }
-      const savedRequests = await idbGet<RecordRow[]>('sc_requests');
-      if (active && savedRequests && Array.isArray(savedRequests)) {
-        setRequests(savedRequests);
-      }
-      const savedPOs = await idbGet<RecordRow[]>('sc_pos');
-      if (active && savedPOs && Array.isArray(savedPOs)) {
-        setPurchaseOrders(savedPOs);
-      }
-      const savedReceives = await idbGet<RecordRow[]>('sc_receives');
-      if (active && savedReceives && Array.isArray(savedReceives)) {
-        setReceives(savedReceives);
-      }
-      const savedIssued = await idbGet<RecordRow[]>('sc_issued');
-      if (active && savedIssued && Array.isArray(savedIssued)) {
-        setIssued(savedIssued);
-      }
-      const savedLastUpdated = await idbGet<number>('sc_last_updated');
-      if (active && savedLastUpdated && Number(savedLastUpdated) > lastLocalMutationTimeRef.current) {
-        lastLocalMutationTimeRef.current = Number(savedLastUpdated);
-      }
-    }
-    loadIDBCache();
-    return () => { active = false; };
+    purgeLocalStorageDataset();
   }, []);
 
-  const sanitizeForFirestore = (obj: any): any => {
-    if (!obj) return obj;
-    return JSON.parse(JSON.stringify(obj, (_key, val) => (val === undefined ? null : val)));
-  };
-
   const pushSyncToServer = async (overrideStore?: any) => {
-    const newTs = Math.max(Date.now(), (lastLocalMutationTimeRef.current || 0) + 1);
-    lastLocalMutationTimeRef.current = newTs;
-    safeSetLocalStorage('sc_last_updated', newTs);
+    setIsSavingToFirestore(true);
+    const newTs = Date.now();
     const storeObj = {
       items: overrideStore?.items !== undefined ? overrideStore.items : latestStoreRef.current.items,
       requests: overrideStore?.requests !== undefined ? overrideStore.requests : latestStoreRef.current.requests,
@@ -314,193 +200,108 @@ export default function App() {
       lastUpdated: newTs
     };
 
-    // Push to Firebase Firestore real-time cloud database in safe chunks (< 1MB per doc)
-    if (!getIsFirestoreQuotaExceeded()) {
-      try {
-        await saveChunkedFirestore(storeObj);
-      } catch (e) {
-        console.warn("Firestore sync write suppressed due to quota/network error:", e);
-      }
+    // Save directly to Firebase Firestore
+    try {
+      await saveChunkedFirestore(storeObj);
+      setIsFirebaseConnected(true);
+    } catch (e) {
+      console.error("Direct Firestore write error:", e);
+    } finally {
+      setIsSavingToFirestore(false);
     }
 
-    const payload = { store: storeObj };
-
     try {
-      const res = await fetch('/api/sync', {
+      await fetch('/api/sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ store: storeObj })
       });
-      if (res.ok) {
-        const resData = await res.json();
-        if (resData && resData.lastUpdated) {
-          lastLocalMutationTimeRef.current = resData.lastUpdated;
-          safeSetLocalStorage('sc_last_updated', resData.lastUpdated);
-        }
-      }
       if (typeof BroadcastChannel !== 'undefined') {
         const bc = new BroadcastChannel('silvercity_erp_sync');
         bc.postMessage({ type: 'SYNC_UPDATE', timestamp: Date.now() });
         bc.close();
       }
     } catch {
-      // offline fallback to localStorage
+      // Offline fallback
     }
   };
 
-  // Real-time server data pull on mount and Firestore live listener
+  // Real-time Firebase Firestore synchronization
   useEffect(() => {
     let isMounted = true;
 
-    // 1. Subscribe to Firebase Firestore real-time changes (< 100ms sync across devices)
+    // 1. Initial direct load from Firebase Firestore
+    fetchFullStoreFromFirestore().then((store) => {
+      if (isMounted && store) {
+        if (Array.isArray(store.items) && store.items.length > 0) setItems(store.items);
+        if (Array.isArray(store.requests) && store.requests.length > 0) setRequests(store.requests);
+        if (Array.isArray(store.pos) && store.pos.length > 0) setPurchaseOrders(store.pos);
+        if (Array.isArray(store.receives) && store.receives.length > 0) setReceives(store.receives);
+        if (Array.isArray(store.issued) && store.issued.length > 0) setIssued(store.issued);
+        if (Array.isArray(store.users) && store.users.length > 0) setUsers(store.users);
+        if (store.companyHeader) setCompanyHeader(store.companyHeader);
+        if (store.savedDocHeaders) setSavedDocHeaders(store.savedDocHeaders);
+        if (store.customColHeaders) setCustomColHeaders(store.customColHeaders);
+        setIsFirebaseConnected(true);
+      }
+    }).catch(err => {
+      console.warn("Initial Firestore fetch notice:", err);
+    });
+
+    // 2. Real-time Firestore snapshot listener
     const unsubscribeFirestore = onSnapshot(doc(db, 'erp', 'main_store'), async (snapshot) => {
-      if (getIsFirestoreQuotaExceeded()) return;
+      if (!isMounted) return;
+      setIsFirebaseConnected(true);
 
       if (!snapshot.exists()) {
-        // Seed Firestore if empty with current state (respecting local storage modifications)
-        if (!getIsFirestoreQuotaExceeded()) {
-          const initialStoreObj = {
-            items: latestStoreRef.current.items,
-            requests: latestStoreRef.current.requests,
-            pos: latestStoreRef.current.purchaseOrders,
-            receives: latestStoreRef.current.receives,
-            issued: latestStoreRef.current.issued,
-            users: latestStoreRef.current.users,
-            companyHeader: latestStoreRef.current.companyHeader,
-            savedDocHeaders: latestStoreRef.current.savedDocHeaders,
-            customColHeaders: latestStoreRef.current.customColHeaders,
-            dataVersion: SPREADSHEET_DATA_VERSION,
-            lastUpdated: Math.max(Date.now(), lastLocalMutationTimeRef.current)
-          };
-          try {
-            await saveChunkedFirestore(initialStoreObj);
-          } catch (err) {
-            console.warn("Error seeding initial Firestore document:", err);
-          }
+        // Seed initial store to Firestore
+        const initialStoreObj = {
+          items: latestStoreRef.current.items,
+          requests: latestStoreRef.current.requests,
+          pos: latestStoreRef.current.purchaseOrders,
+          receives: latestStoreRef.current.receives,
+          issued: latestStoreRef.current.issued,
+          users: latestStoreRef.current.users,
+          companyHeader: latestStoreRef.current.companyHeader,
+          savedDocHeaders: latestStoreRef.current.savedDocHeaders,
+          customColHeaders: latestStoreRef.current.customColHeaders,
+          dataVersion: SPREADSHEET_DATA_VERSION,
+          lastUpdated: Date.now()
+        };
+        try {
+          await saveChunkedFirestore(initialStoreObj);
+        } catch (err) {
+          console.warn("Error seeding initial Firestore store:", err);
         }
         return;
       }
 
-      // Ignore local write echo snapshots from pending setDoc writes
       if (snapshot.metadata.hasPendingWrites) {
         return;
       }
 
       const rawData = snapshot.data();
-      if (isMounted && rawData) {
+      if (rawData) {
         const s = await loadChunkedFirestore(rawData);
-        if (!s) return;
-        const firestoreTimestamp = Number(s.lastUpdated) || 0;
-
-        if (firestoreTimestamp > lastLocalMutationTimeRef.current) {
-          if (Array.isArray(s.items)) {
-            setItems(s.items);
-            safeSetLocalStorage('sc_items', s.items);
-          }
-          if (Array.isArray(s.requests)) {
-            setRequests(s.requests);
-            safeSetLocalStorage('sc_requests', s.requests);
-          }
-          if (Array.isArray(s.pos)) {
-            setPurchaseOrders(s.pos);
-            safeSetLocalStorage('sc_pos', s.pos);
-          }
-          if (Array.isArray(s.receives)) {
-            setReceives(s.receives);
-            safeSetLocalStorage('sc_receives', s.receives);
-          }
-          if (Array.isArray(s.issued)) {
-            setIssued(s.issued);
-            safeSetLocalStorage('sc_issued', s.issued);
-          }
-          if (Array.isArray(s.users)) {
-            setUsers(s.users);
-            safeSetLocalStorage('sc_users', s.users);
-          }
+        if (isMounted && s) {
+          if (Array.isArray(s.items)) setItems(s.items);
+          if (Array.isArray(s.requests)) setRequests(s.requests);
+          if (Array.isArray(s.pos)) setPurchaseOrders(s.pos);
+          if (Array.isArray(s.receives)) setReceives(s.receives);
+          if (Array.isArray(s.issued)) setIssued(s.issued);
+          if (Array.isArray(s.users)) setUsers(s.users);
           if (s.companyHeader) setCompanyHeader(s.companyHeader);
           if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
           if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
-
-          lastLocalMutationTimeRef.current = firestoreTimestamp;
-          safeSetLocalStorage('sc_last_updated', firestoreTimestamp);
-        } else if (lastLocalMutationTimeRef.current > firestoreTimestamp && !getIsFirestoreQuotaExceeded()) {
-          // Local state is newer than Firestore (e.g. offline edits or pending updates)
-          pushSyncToServer();
         }
       }
     }, (error) => {
-      console.warn("Firestore snapshot listener error, using local/REST fallback:", error);
+      console.warn("Firestore snapshot listener notice:", error);
     });
-
-    // 2. REST API Fallback
-    const fetchServerSync = async () => {
-      try {
-        const res = await fetch('/api/sync');
-        if (!res.ok) return;
-        const json = await res.json();
-        if (isMounted && json && json.store) {
-          const s = json.store;
-          const serverTimestamp = Number(s.lastUpdated) || 0;
-
-          if (serverTimestamp > 0 && serverTimestamp > lastLocalMutationTimeRef.current) {
-            if (Array.isArray(s.items)) {
-              setItems(s.items);
-              safeSetLocalStorage('sc_items', s.items);
-            }
-            if (Array.isArray(s.requests)) {
-              setRequests(s.requests);
-              safeSetLocalStorage('sc_requests', s.requests);
-            }
-            if (Array.isArray(s.pos)) {
-              setPurchaseOrders(s.pos);
-              safeSetLocalStorage('sc_pos', s.pos);
-            }
-            if (Array.isArray(s.receives)) {
-              setReceives(s.receives);
-              safeSetLocalStorage('sc_receives', s.receives);
-            }
-            if (Array.isArray(s.issued)) {
-              setIssued(s.issued);
-              safeSetLocalStorage('sc_issued', s.issued);
-            }
-            if (Array.isArray(s.users)) {
-              setUsers(s.users);
-              safeSetLocalStorage('sc_users', s.users);
-            }
-            if (s.companyHeader) setCompanyHeader(s.companyHeader);
-            if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
-            if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
-
-            lastLocalMutationTimeRef.current = serverTimestamp;
-            safeSetLocalStorage('sc_last_updated', serverTimestamp);
-          } else if (lastLocalMutationTimeRef.current > serverTimestamp || serverTimestamp === 0) {
-            // Local state is newer or server returned cold seed (0) -> push client state to server
-            pushSyncToServer();
-          }
-        }
-      } catch {
-        // Fallback to localStorage if offline
-      }
-    };
-
-    fetchServerSync();
-    const interval = setInterval(fetchServerSync, 10000);
-
-    let bc: BroadcastChannel | null = null;
-    if (typeof BroadcastChannel !== 'undefined') {
-      bc = new BroadcastChannel('silvercity_erp_sync');
-      bc.onmessage = (event) => {
-        if (event.data?.type === 'SYNC_UPDATE') {
-          fetchServerSync();
-        }
-      };
-    }
 
     return () => {
       isMounted = false;
       unsubscribeFirestore();
-      clearInterval(interval);
-      if (bc) bc.close();
     };
   }, []);
 
@@ -602,7 +403,7 @@ export default function App() {
 
     const updatedUsers = [...users, createdUser];
     setUsers(updatedUsers);
-    safeSetLocalStorage('sc_users', updatedUsers);
+    latestStoreRef.current.users = updatedUsers;
     await pushSyncToServer({ users: updatedUsers });
     return true;
   };
@@ -675,9 +476,6 @@ export default function App() {
   };
 
   const updateDataForTab = (tab: TabName, updated: RecordRow[]) => {
-    const newTs = Math.max(Date.now(), (lastLocalMutationTimeRef.current || 0) + 1);
-    lastLocalMutationTimeRef.current = newTs;
-    safeSetLocalStorage('sc_last_updated', newTs);
     let newItems = latestStoreRef.current.items;
     let newRequests = latestStoreRef.current.requests;
     let newPOs = latestStoreRef.current.purchaseOrders;
@@ -685,45 +483,31 @@ export default function App() {
     let newIssued = latestStoreRef.current.issued;
     let newUsers = latestStoreRef.current.users;
 
-    const safeSet = (key: string, val: any) => {
-      try {
-        localStorage.setItem(key, JSON.stringify(val));
-      } catch (e) {
-        console.warn(`LocalStorage quota exceeded for ${key}`, e);
-      }
-    };
-
     switch (tab) {
       case 'ItemList':
       case 'Inventory':
         newItems = updated;
         setItems(updated);
-        safeSet('sc_items', updated);
         break;
       case 'MaterialRequest':
         newRequests = updated;
         setRequests(updated);
-        safeSet('sc_requests', updated);
         break;
       case 'PurchaseOrder':
         newPOs = updated;
         setPurchaseOrders(updated);
-        safeSet('sc_pos', updated);
         break;
       case 'MaterialReceive':
         newReceives = updated;
         setReceives(updated);
-        safeSet('sc_receives', updated);
         break;
       case 'MaterialIssued':
         newIssued = updated;
         setIssued(updated);
-        safeSet('sc_issued', updated);
         break;
       case 'Users':
         newUsers = updated;
         setUsers(updated);
-        safeSet('sc_users', updated);
         break;
       default:
         break;
@@ -1584,8 +1368,7 @@ export default function App() {
       [printDocId]: printDocHeader
     };
     setSavedDocHeaders(updatedDocHeaders);
-    safeSetLocalStorage('sc_doc_headers', updatedDocHeaders);
-    safeSetLocalStorage('sc_company_header', companyHeader);
+    pushSyncToServer({ savedDocHeaders: updatedDocHeaders, companyHeader });
 
     const primaryKey = (TAB_SCHEMAS[activeTab] || [])[0];
     const currentData = getRawDataForTab(activeTab);
@@ -1629,10 +1412,12 @@ export default function App() {
 
   const handleSaveColHeaders = (e: React.FormEvent) => {
     e.preventDefault();
-    setCustomColHeaders(prev => ({
-      ...prev,
+    const updated = {
+      ...customColHeaders,
       ...editingColHeaders
-    }));
+    };
+    setCustomColHeaders(updated);
+    pushSyncToServer({ customColHeaders: updated });
     setIsColHeaderModalOpen(false);
     showToast('Column headers updated successfully!');
   };
@@ -1712,7 +1497,6 @@ export default function App() {
                   }
                 });
                 const updated = Array.from(itemMap.values());
-                safeSetLocalStorage('sc_items', updated);
                 return updated;
               });
               await pushSyncToServer();
@@ -1723,87 +1507,25 @@ export default function App() {
         }
       }
 
-      // 1. First check Firebase Firestore real-time cloud store
-      try {
-        const firestoreDoc = await getDoc(doc(db, 'erp', 'main_store'));
-        if (firestoreDoc.exists()) {
-          const rawDoc = firestoreDoc.data();
-          const s = await loadChunkedFirestore(rawDoc);
-          if (s) {
-            const fTs = Number(s.lastUpdated) || 0;
-          if (fTs > lastLocalMutationTimeRef.current) {
-            if (Array.isArray(s.items)) { setItems(s.items); safeSetLocalStorage('sc_items', s.items); }
-            if (Array.isArray(s.requests)) { setRequests(s.requests); safeSetLocalStorage('sc_requests', s.requests); }
-            if (Array.isArray(s.pos)) { setPurchaseOrders(s.pos); safeSetLocalStorage('sc_pos', s.pos); }
-            if (Array.isArray(s.receives)) { setReceives(s.receives); safeSetLocalStorage('sc_receives', s.receives); }
-            if (Array.isArray(s.issued)) { setIssued(s.issued); safeSetLocalStorage('sc_issued', s.issued); }
-            if (Array.isArray(s.users)) { setUsers(s.users); safeSetLocalStorage('sc_users', s.users); }
-            if (s.companyHeader) setCompanyHeader(s.companyHeader);
-            if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
-            if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
-            lastLocalMutationTimeRef.current = fTs;
-            safeSetLocalStorage('sc_last_updated', fTs);
-            showToast('Data disinkronkan dari Firestore cloud!');
-            return;
-          }
-        }
-        }
-      } catch (e) {
-        console.warn("Firestore fetch error in handleSyncAll:", e);
+      // 1. Direct fetch from Firebase Firestore
+      const firestoreStore = await fetchFullStoreFromFirestore();
+      if (firestoreStore) {
+        if (Array.isArray(firestoreStore.items)) setItems(firestoreStore.items);
+        if (Array.isArray(firestoreStore.requests)) setRequests(firestoreStore.requests);
+        if (Array.isArray(firestoreStore.pos)) setPurchaseOrders(firestoreStore.pos);
+        if (Array.isArray(firestoreStore.receives)) setReceives(firestoreStore.receives);
+        if (Array.isArray(firestoreStore.issued)) setIssued(firestoreStore.issued);
+        if (Array.isArray(firestoreStore.users)) setUsers(firestoreStore.users);
+        if (firestoreStore.companyHeader) setCompanyHeader(firestoreStore.companyHeader);
+        if (firestoreStore.savedDocHeaders) setSavedDocHeaders(firestoreStore.savedDocHeaders);
+        if (firestoreStore.customColHeaders) setCustomColHeaders(firestoreStore.customColHeaders);
+        setIsFirebaseConnected(true);
+        showToast('Data refreshed directly from Firebase Firestore!');
+        return;
       }
-
-      // 2. Fetch latest store state from REST server fallback
-      const res = await fetch('/api/sync');
-      if (res.ok) {
-        const json = await res.json();
-        if (json && json.store) {
-          const s = json.store;
-          const sTs = Number(s.lastUpdated) || 0;
-          if (sTs > 0 && sTs > lastLocalMutationTimeRef.current) {
-            if (Array.isArray(s.items)) {
-              setItems(s.items);
-              safeSetLocalStorage('sc_items', s.items);
-            }
-            if (Array.isArray(s.requests)) {
-              setRequests(s.requests);
-              safeSetLocalStorage('sc_requests', s.requests);
-            }
-            if (Array.isArray(s.pos)) {
-              setPurchaseOrders(s.pos);
-              safeSetLocalStorage('sc_pos', s.pos);
-            }
-            if (Array.isArray(s.receives)) {
-              setReceives(s.receives);
-              safeSetLocalStorage('sc_receives', s.receives);
-            }
-            if (Array.isArray(s.issued)) {
-              setIssued(s.issued);
-              safeSetLocalStorage('sc_issued', s.issued);
-            }
-            if (Array.isArray(s.users)) {
-              setUsers(s.users);
-              safeSetLocalStorage('sc_users', s.users);
-            }
-            if (s.companyHeader) setCompanyHeader(s.companyHeader);
-            if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
-            if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
-            if (s.lastUpdated) {
-              lastLocalMutationTimeRef.current = s.lastUpdated;
-              safeSetLocalStorage('sc_last_updated', s.lastUpdated);
-            }
-            showToast('Data disinkronkan dari update server terakhir!');
-            return;
-          } else {
-            // Local data is newer than server/seed, so push local data to server
-            await pushSyncToServer();
-            showToast('Data lokal terbaru telah disinkronkan ke cloud server!');
-            return;
-          }
-        }
-      }
-      showToast('Data lokal sudah sesuai versi terbaru server.');
+      showToast('Firebase Firestore data is already up to date.');
     } catch {
-      showToast('Gagal terhubung ke server sync.');
+      showToast('Failed to sync with Firebase Firestore.', 'error');
     }
   };
 
@@ -1931,6 +1653,8 @@ export default function App() {
             onOpenReorderModal={() => setIsReorderModalOpen(true)}
             isDarkMode={isDarkMode}
             onToggleDarkMode={toggleDarkMode}
+            isFirebaseConnected={isFirebaseConnected}
+            isSavingToFirestore={isSavingToFirestore}
           />
 
           <div className="flex-grow flex flex-col min-w-0">
