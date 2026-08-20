@@ -38,6 +38,13 @@ import { SpreadsheetSyncModal } from './components/SpreadsheetSyncModal';
 import { db, doc, getDoc, setDoc, onSnapshot } from './lib/firebase';
 import { idbGet, idbSet, createFullLocalBackup } from './lib/idbStorage';
 import { saveChunkedFirestore, loadChunkedFirestore, getIsFirestoreQuotaExceeded } from './lib/chunkedFirestore';
+import { initGoogleAuth, getGoogleAccessToken } from './lib/googleAuth';
+import {
+  syncRowAddedToSheet,
+  syncRowUpdatedInSheet,
+  syncRowDeletedFromSheet,
+  SpreadsheetConfig
+} from './lib/googleSheetsService';
 
 const initialItems: RecordRow[] = importedItems as any[];
 const initialRequests: RecordRow[] = importedRequests as any[];
@@ -148,6 +155,66 @@ export default function App() {
   const [isCloudSyncLoading, setIsCloudSyncLoading] = useState<boolean>(true);
   const [cloudSyncStatus, setCloudSyncStatus] = useState<'connecting' | 'connected' | 'error'>('connecting');
 
+  // Google Sheets Live Sync configuration
+  const [spreadsheetConfig, setSpreadsheetConfig] = useState<SpreadsheetConfig>({
+    spreadsheetId: '',
+    spreadsheetUrl: '',
+    title: 'PT Silver City Drilling - Live ERP Database',
+    autoSync: true,
+    lastSyncedAt: ''
+  });
+  const spreadsheetConfigRef = React.useRef(spreadsheetConfig);
+  useEffect(() => {
+    spreadsheetConfigRef.current = spreadsheetConfig;
+  }, [spreadsheetConfig]);
+
+  const [isGoogleConnected, setIsGoogleConnected] = useState<boolean>(false);
+
+  // Initialize Google Auth state listener
+  useEffect(() => {
+    const unsub = initGoogleAuth(
+      () => setIsGoogleConnected(true),
+      () => setIsGoogleConnected(false)
+    );
+    return () => {
+      if (unsub) unsub();
+    };
+  }, []);
+
+  // Background Google Sheets sync helpers for Real-Time 2-Way Sync
+  const triggerSheetRowAdded = async (tab: TabName, row: RecordRow) => {
+    const token = getGoogleAccessToken();
+    const cfg = spreadsheetConfigRef.current;
+    if (!token || !cfg.spreadsheetId || cfg.autoSync === false) return;
+    try {
+      await syncRowAddedToSheet(token, cfg.spreadsheetId, tab, row);
+    } catch (err) {
+      console.warn(`[Auto-Sync Sheets Add Error (${tab})]:`, err);
+    }
+  };
+
+  const triggerSheetRowUpdated = async (tab: TabName, pkField: string, pkVal: any, row: RecordRow) => {
+    const token = getGoogleAccessToken();
+    const cfg = spreadsheetConfigRef.current;
+    if (!token || !cfg.spreadsheetId || cfg.autoSync === false) return;
+    try {
+      await syncRowUpdatedInSheet(token, cfg.spreadsheetId, tab, pkField, pkVal, row);
+    } catch (err) {
+      console.warn(`[Auto-Sync Sheets Update Error (${tab})]:`, err);
+    }
+  };
+
+  const triggerSheetRowDeleted = async (tab: TabName, pkField: string, pkVal: any) => {
+    const token = getGoogleAccessToken();
+    const cfg = spreadsheetConfigRef.current;
+    if (!token || !cfg.spreadsheetId || cfg.autoSync === false) return;
+    try {
+      await syncRowDeletedFromSheet(token, cfg.spreadsheetId, tab, pkField, pkVal);
+    } catch (err) {
+      console.warn(`[Auto-Sync Sheets Delete Error (${tab})]:`, err);
+    }
+  };
+
   const lastLocalMutationTimeRef = React.useRef<number>(0);
 
   const latestStoreRef = React.useRef({
@@ -159,7 +226,8 @@ export default function App() {
     users,
     companyHeader,
     savedDocHeaders,
-    customColHeaders
+    customColHeaders,
+    spreadsheetConfig
   });
 
   useEffect(() => {
@@ -172,9 +240,10 @@ export default function App() {
       users,
       companyHeader,
       savedDocHeaders,
-      customColHeaders
+      customColHeaders,
+      spreadsheetConfig
     };
-  }, [items, requests, purchaseOrders, receives, issued, users, companyHeader, savedDocHeaders, customColHeaders]);
+  }, [items, requests, purchaseOrders, receives, issued, users, companyHeader, savedDocHeaders, customColHeaders, spreadsheetConfig]);
 
   const sanitizeForFirestore = (obj: any): any => {
     if (!obj) return obj;
@@ -194,6 +263,7 @@ export default function App() {
       companyHeader: overrideStore?.companyHeader || latestStoreRef.current.companyHeader,
       savedDocHeaders: overrideStore?.savedDocHeaders || latestStoreRef.current.savedDocHeaders,
       customColHeaders: overrideStore?.customColHeaders || latestStoreRef.current.customColHeaders,
+      spreadsheetConfig: overrideStore?.spreadsheetConfig || latestStoreRef.current.spreadsheetConfig,
       dataVersion: SPREADSHEET_DATA_VERSION,
       lastUpdated: newTs
     };
@@ -288,6 +358,7 @@ export default function App() {
           if (s.companyHeader) setCompanyHeader(s.companyHeader);
           if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
           if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
+          if (s.spreadsheetConfig) setSpreadsheetConfig(s.spreadsheetConfig);
 
           lastLocalMutationTimeRef.current = firestoreTimestamp || Date.now();
           setIsCloudSyncLoading(false);
@@ -327,6 +398,7 @@ export default function App() {
             if (s.companyHeader) setCompanyHeader(s.companyHeader);
             if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
             if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
+            if (s.spreadsheetConfig) setSpreadsheetConfig(s.spreadsheetConfig);
 
             lastLocalMutationTimeRef.current = serverTimestamp;
             setIsCloudSyncLoading(false);
@@ -748,6 +820,9 @@ export default function App() {
     }
 
     updateDataForTab(activeTab, currentData);
+    if (primaryKey && primaryVal) {
+      triggerSheetRowUpdated(activeTab, primaryKey, primaryVal, row);
+    }
   };
 
   const promptDeleteRow = (globalRowIndex: number, rowObj?: RecordRow) => {
@@ -820,6 +895,12 @@ export default function App() {
 
     updateDataForTab(targetTab, updatedList);
 
+    const primaryKey = (TAB_SCHEMAS[targetTab] || [])[0] || 'ItemID';
+    const primaryVal = targetItem[primaryKey];
+    if (primaryVal) {
+      triggerSheetRowDeleted(targetTab, primaryKey, primaryVal);
+    }
+
     showToast('Record deleted successfully!');
     setIsDeleteModalOpen(false);
     setRecordToDelete(null);
@@ -854,6 +935,14 @@ export default function App() {
     );
 
     updateDataForTab(targetTab, updatedList);
+
+    const primaryKey = (TAB_SCHEMAS[targetTab] || [])[0] || 'ItemID';
+    selectedRecords.forEach(item => {
+      const primaryVal = item[primaryKey];
+      if (primaryVal) {
+        triggerSheetRowDeleted(targetTab, primaryKey, primaryVal);
+      }
+    });
 
     showToast(`${selectedRecords.length} record(s) deleted successfully!`);
     setSelectedRowIndices([]);
@@ -981,6 +1070,13 @@ export default function App() {
     }
 
     updateDataForTab(activeTab, currentData);
+
+    if (isCreatingNew) {
+      triggerSheetRowAdded(activeTab, recordToSave);
+    } else {
+      triggerSheetRowUpdated(activeTab, primaryKey, primaryVal, recordToSave);
+    }
+
     setIsSingleModalOpen(false);
     setEditingOriginalRecord(null);
     setEditingOriginalPrimaryKey('');
@@ -1091,6 +1187,12 @@ export default function App() {
     const combined = [...processedRows, ...currentData];
     const syncedCombined = syncAttachmentsForTab(activeTab, combined);
     updateDataForTab(activeTab, syncedCombined);
+
+    // Auto-sync each added row to Google Sheets
+    processedRows.forEach(row => {
+      triggerSheetRowAdded(activeTab, row);
+    });
+
     setIsMultiModalOpen(false);
     showToast(`${processedRows.length} data baru berhasil disimpan!`);
   };
@@ -1670,7 +1772,8 @@ export default function App() {
         users: newUsers,
         companyHeader: newCompanyHeader,
         savedDocHeaders: newSavedDocHeaders,
-        customColHeaders: newCustomColHeaders
+        customColHeaders: newCustomColHeaders,
+        spreadsheetConfig: spreadsheetConfigRef.current
       };
 
       await pushSyncToServer(latestStoreRef.current);
@@ -1790,6 +1893,7 @@ export default function App() {
             onOpenReorderModal={() => setIsReorderModalOpen(true)}
             isDarkMode={isDarkMode}
             onToggleDarkMode={toggleDarkMode}
+            isGoogleSheetsConnected={isGoogleConnected && !!spreadsheetConfig.spreadsheetId}
           />
 
           <div className="flex-grow flex flex-col min-w-0">
@@ -2773,6 +2877,42 @@ export default function App() {
         onExportFullJSONBackup={handleExportFullJSONBackup}
         onImportFullJSONBackup={handleImportFullJSONBackup}
         showToast={showToast}
+        spreadsheetConfig={spreadsheetConfig}
+        onUpdateSpreadsheetConfig={(updated) => {
+          setSpreadsheetConfig(prev => {
+            const next = { ...prev, ...updated };
+            pushSyncToServer({ spreadsheetConfig: next });
+            return next;
+          });
+        }}
+        getAllStoreData={() => ({
+          items: latestStoreRef.current.items,
+          requests: latestStoreRef.current.requests,
+          pos: latestStoreRef.current.purchaseOrders,
+          receives: latestStoreRef.current.receives,
+          issued: latestStoreRef.current.issued,
+          users: latestStoreRef.current.users
+        })}
+        onApplyImportedData={(importedData) => {
+          if (!importedData) return;
+          if (Array.isArray(importedData.items)) setItems(importedData.items);
+          if (Array.isArray(importedData.requests)) setRequests(importedData.requests);
+          if (Array.isArray(importedData.pos)) setPurchaseOrders(importedData.pos);
+          if (Array.isArray(importedData.receives)) setReceives(importedData.receives);
+          if (Array.isArray(importedData.issued)) setIssued(importedData.issued);
+          if (Array.isArray(importedData.users)) setUsers(importedData.users);
+
+          latestStoreRef.current = {
+            ...latestStoreRef.current,
+            items: Array.isArray(importedData.items) ? importedData.items : latestStoreRef.current.items,
+            requests: Array.isArray(importedData.requests) ? importedData.requests : latestStoreRef.current.requests,
+            purchaseOrders: Array.isArray(importedData.pos) ? importedData.pos : latestStoreRef.current.purchaseOrders,
+            receives: Array.isArray(importedData.receives) ? importedData.receives : latestStoreRef.current.receives,
+            issued: Array.isArray(importedData.issued) ? importedData.issued : latestStoreRef.current.issued,
+            users: Array.isArray(importedData.users) ? importedData.users : latestStoreRef.current.users
+          };
+          pushSyncToServer(latestStoreRef.current);
+        }}
       />
 
       <datalist id="items-id-datalist">
