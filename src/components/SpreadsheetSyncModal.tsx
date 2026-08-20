@@ -454,6 +454,22 @@ export const SpreadsheetSyncModal: React.FC<SpreadsheetSyncModalProps> = ({
                       </svg>
                       <span>{isSigningInGoogle ? 'Menghubungkan...' : 'Sign in with Google'}</span>
                     </button>
+
+                    <div className="mt-2.5 pt-2 border-t border-slate-200/70 dark:border-slate-700/60 flex items-center justify-between text-[10px] text-slate-500">
+                      <span>Domain aktif: <strong className="font-mono text-slate-700 dark:text-slate-300">{typeof window !== 'undefined' ? window.location.hostname : ''}</strong></span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (navigator.clipboard) {
+                            navigator.clipboard.writeText(window.location.hostname);
+                            showToast('Domain disalin ke clipboard!', 'success');
+                          }
+                        }}
+                        className="text-emerald-600 dark:text-emerald-400 hover:underline font-bold cursor-pointer"
+                      >
+                        Salin Domain
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex items-center justify-between p-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
