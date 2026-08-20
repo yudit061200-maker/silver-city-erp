@@ -12,7 +12,6 @@ interface HeaderProps {
   onOpenReorderModal?: () => void;
   isDarkMode?: boolean;
   onToggleDarkMode?: () => void;
-  isGoogleSheetsConnected?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -25,8 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
   itemsNeedingOrderCount = 0,
   onOpenReorderModal,
   isDarkMode = false,
-  onToggleDarkMode,
-  isGoogleSheetsConnected = false
+  onToggleDarkMode
 }) => {
   const isYudit = currentUser?.username?.trim().toLowerCase() === 'yudit061200';
   const navTabs: { name: TabName; label: string; icon: string }[] = [
@@ -77,20 +75,11 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Sheets / Cloud Sync & Backup Button */}
           <button
             onClick={onSyncSheets}
-            title={isGoogleSheetsConnected ? "Google Sheets 2-Way Live Sync Connected" : "Google Sheets & Cloud Database Sync / Backup"}
-            className={`px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-2xl border transition shadow-xs cursor-pointer flex items-center gap-1.5 shrink-0 text-xs font-bold ${
-              isGoogleSheetsConnected
-                ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-200 border-emerald-400 dark:border-emerald-600 ring-2 ring-emerald-500/20'
-                : 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/70 border-emerald-300 dark:border-emerald-700/80'
-            }`}
+            title="Google Sheets & Cloud Database Sync / Backup"
+            className="px-2.5 sm:px-3 py-1.5 sm:py-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/70 rounded-2xl border border-emerald-300 dark:border-emerald-700/80 transition shadow-xs cursor-pointer flex items-center gap-1.5 shrink-0 text-xs font-bold"
           >
-            <i className={`fa-solid ${isGoogleSheetsConnected ? 'fa-table-cells text-emerald-600 dark:text-emerald-400' : 'fa-cloud-arrow-down text-emerald-600 dark:text-emerald-400'}`}></i>
-            <span className="hidden sm:inline">
-              {isGoogleSheetsConnected ? 'Sheets Live Sync' : 'Sync & Backup'}
-            </span>
-            {isGoogleSheetsConnected && (
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse hidden xs:inline-block"></span>
-            )}
+            <i className="fa-solid fa-cloud-arrow-down text-emerald-600 dark:text-emerald-400"></i>
+            <span className="hidden sm:inline">Sync & Backup</span>
           </button>
 
           {/* Reorder Notification Bell */}
