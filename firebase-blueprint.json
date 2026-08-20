@@ -85,6 +85,7 @@
       "description": "User accounts",
       "properties": {
         "username": { "type": "string" },
+        "email": { "type": "string" },
         "password": { "type": "string" },
         "fullName": { "type": "string" },
         "role": { "type": "string" },

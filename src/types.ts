@@ -12,6 +12,7 @@ export interface UserSession {
   username: string;
   fullname: string;
   role: string;
+  email?: string;
 }
 
 export interface RecordRow {
@@ -63,5 +64,5 @@ export const TAB_SCHEMAS: Record<TabName, string[]> = {
   MaterialReceive: ['ReceiveID', 'Date', 'ItemID', 'ItemName', 'Qty', 'UoM', 'UnitPriceUSD', 'UnitPriceIDR', 'TotalPriceUSD', 'TotalPriceIDR', 'Supplier', 'Remark', 'UpdatedBy', 'Attachment'],
   MaterialIssued: ['IssueID', 'Date', 'ItemID', 'ItemName', 'Qty', 'UoM', 'UnitPriceIDR', 'UnitPriceUSD', 'TotalPriceIDR', 'TotalPriceUSD', 'Department', 'Remark', 'UpdatedBy', 'Attachment'],
   Inventory: ['ItemID', 'ItemName', 'UoM', 'UnitPriceUSD', 'UnitPriceIDR', 'MinStock', 'LastStock', 'StockIn', 'StockOut', 'CurrentStock', 'Status', 'Location', 'TotalPriceUSD', 'TotalPriceIDR', 'UpdatedBy'],
-  Users: ['Username', 'Password', 'Role', 'Fullname', 'UpdatedBy']
+  Users: ['Username', 'Email', 'Password', 'Role', 'Fullname', 'UpdatedBy']
 };

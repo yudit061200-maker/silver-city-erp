@@ -352,6 +352,63 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                 );
               }
 
+              if (col === 'Email') {
+                return (
+                  <div key={col} className="space-y-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <i className="fa-solid fa-envelope mr-1 text-slate-400"></i> Alamat Email
+                    </label>
+                    <input
+                      type="email"
+                      value={val}
+                      onChange={(e) => handleSingleFieldChange(col, e.target.value)}
+                      placeholder="user@silvercitydrilling.co.id"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
+                    />
+                  </div>
+                );
+              }
+
+              if (col === 'Role') {
+                return (
+                  <div key={col} className="space-y-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <i className="fa-solid fa-briefcase mr-1 text-slate-400"></i> Role / Peran
+                    </label>
+                    <select
+                      value={val || 'Operator'}
+                      onChange={(e) => handleSingleFieldChange(col, e.target.value)}
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition cursor-pointer"
+                    >
+                      <option value="Operator">Operator</option>
+                      <option value="Materialman">Materialman</option>
+                      <option value="Staff">Staff</option>
+                      <option value="Rig Manager">Rig Manager</option>
+                      <option value="Viewer">Viewer</option>
+                      <option value="Admin">Admin</option>
+                    </select>
+                  </div>
+                );
+              }
+
+              if (col === 'Password') {
+                return (
+                  <div key={col} className="space-y-1.5">
+                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <i className="fa-solid fa-lock mr-1 text-slate-400"></i> Password
+                    </label>
+                    <input
+                      type="text"
+                      value={val}
+                      onChange={(e) => handleSingleFieldChange(col, e.target.value)}
+                      required
+                      placeholder="Enter password..."
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
+                    />
+                  </div>
+                );
+              }
+
               if (col === 'UpdatedBy') {
                 return (
                   <div key={col} className="space-y-1.5">

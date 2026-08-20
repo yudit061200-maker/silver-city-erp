@@ -236,6 +236,53 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                         );
                       }
 
+                      if (col === 'Role') {
+                        return (
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2">
+                            <select
+                              value={val || 'Operator'}
+                              onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold outline-none"
+                            >
+                              <option value="Operator">Operator</option>
+                              <option value="Materialman">Materialman</option>
+                              <option value="Staff">Staff</option>
+                              <option value="Rig Manager">Rig Manager</option>
+                              <option value="Viewer">Viewer</option>
+                              <option value="Admin">Admin</option>
+                            </select>
+                          </td>
+                        );
+                      }
+
+                      if (col === 'Email') {
+                        return (
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[170px]">
+                            <input
+                              type="email"
+                              value={val}
+                              onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
+                              placeholder="user@example.com"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400"
+                            />
+                          </td>
+                        );
+                      }
+
+                      if (col === 'Password') {
+                        return (
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[120px]">
+                            <input
+                              type="password"
+                              value={val}
+                              onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
+                              placeholder="••••••••"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-mono outline-none focus:ring-1 focus:ring-yellow-400"
+                            />
+                          </td>
+                        );
+                      }
+
                       if (col === 'UpdatedBy') {
                         return (
                           <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[120px]">

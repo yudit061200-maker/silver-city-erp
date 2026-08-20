@@ -44,9 +44,12 @@ const initialRequests: RecordRow[] = importedRequests as any[];
 const initialPOs: RecordRow[] = importedPOs as any[];
 const initialReceives: RecordRow[] = importedReceives as any[];
 const initialIssued: RecordRow[] = importedIssued as any[];
-const initialUsers: RecordRow[] = (importedUsers && importedUsers.length > 0) ? (importedUsers as any[]) : [
-  { _rowIndex: 2, Username: 'admin', Password: '123', Role: 'Admin', Fullname: 'System Admin' },
-  { _rowIndex: 3, Username: 'operator', Password: '123', Role: 'Operator', Fullname: 'Rig Material Man' }
+const initialUsers: RecordRow[] = (importedUsers && importedUsers.length > 0) ? (importedUsers as any[]).map(u => ({
+  ...u,
+  Email: u.Email || (u.Username === 'yudit061200' ? 'yudit061200@gmail.com' : `${String(u.Username || '').toLowerCase()}@silvercitydrilling.co.id`)
+})) : [
+  { _rowIndex: 2, Username: 'admin', Email: 'admin@silvercitydrilling.co.id', Password: '123', Role: 'Admin', Fullname: 'System Admin' },
+  { _rowIndex: 3, Username: 'operator', Email: 'operator@silvercitydrilling.co.id', Password: '123', Role: 'Operator', Fullname: 'Rig Material Man' }
 ];
 
 export const syncAttachmentsForTab = (tab: TabName, data: RecordRow[]): RecordRow[] => {
@@ -573,6 +576,35 @@ export default function App() {
     setTimeout(() => {
       setToasts(prev => prev.filter(t => t.id !== id));
     }, 3000);
+  };
+
+  const handleSignUpUser = async (newUser: RecordRow): Promise<boolean> => {
+    const targetEmail = String(newUser.Email || '').trim().toLowerCase();
+    const targetUsername = String(newUser.Username || '').trim().toLowerCase();
+
+    const exists = users.some(u => {
+      const uEmail = String(u.Email ?? u.email ?? '').trim().toLowerCase();
+      const uName = String(u.Username ?? u.username ?? '').trim().toLowerCase();
+      return (targetEmail !== '' && uEmail === targetEmail) || (targetUsername !== '' && uName === targetUsername);
+    });
+
+    if (exists) {
+      showToast('Username or Email is already registered in the database!', 'error');
+      return false;
+    }
+
+    const maxRowIndex = users.reduce((max, u) => Math.max(max, u._rowIndex || 0), 1);
+    const createdUser: RecordRow = {
+      ...newUser,
+      _rowIndex: maxRowIndex + 1,
+      UpdatedBy: 'Self-Registered'
+    };
+
+    const updatedUsers = [...users, createdUser];
+    setUsers(updatedUsers);
+    safeSetLocalStorage('sc_users', updatedUsers);
+    await pushSyncToServer({ users: updatedUsers });
+    return true;
   };
 
   const handleLoginSuccess = (userObj: UserSession) => {
@@ -1871,7 +1903,12 @@ export default function App() {
 
       {/* LOGIN OVERLAY SCREEN */}
       {!currentUser && (
-        <LoginModal users={users} onLoginSuccess={handleLoginSuccess} showToast={showToast} />
+        <LoginModal
+          users={users}
+          onLoginSuccess={handleLoginSuccess}
+          onSignUpUser={handleSignUpUser}
+          showToast={showToast}
+        />
       )}
 
       {/* MAIN APPLICATION CONTAINER */}
@@ -2491,16 +2528,48 @@ export default function App() {
 
                                       if (col === 'Role') {
                                         return (
-                                          <td key={col} className="p-1.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[110px]">
+                                          <td key={col} className="p-1.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[120px]">
                                             <select
-                                              value={val}
+                                              value={val || 'Operator'}
                                               onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
-                                              className="bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 rounded-lg px-2 py-1 text-xs font-bold text-slate-800 dark:text-slate-100 outline-none transition cursor-pointer min-w-[90px]"
+                                              className="bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 rounded-lg px-2 py-1 text-xs font-bold text-slate-800 dark:text-slate-100 outline-none transition cursor-pointer min-w-[100px]"
                                             >
                                               <option value="Admin" className="dark:bg-slate-800">Admin</option>
+                                              <option value="Operator" className="dark:bg-slate-800">Operator</option>
+                                              <option value="Materialman" className="dark:bg-slate-800">Materialman</option>
+                                              <option value="Rig Manager" className="dark:bg-slate-800">Rig Manager</option>
+                                              <option value="Staff" className="dark:bg-slate-800">Staff</option>
                                               <option value="Manager" className="dark:bg-slate-800">Manager</option>
                                               <option value="Viewer" className="dark:bg-slate-800">Viewer</option>
                                             </select>
+                                          </td>
+                                        );
+                                      }
+
+                                      if (col === 'Email') {
+                                        return (
+                                          <td key={col} className="p-1.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[180px]">
+                                            <input
+                                              type="email"
+                                              value={val}
+                                              onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                              placeholder="email@example.com"
+                                              className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[150px] text-xs font-medium text-slate-800 dark:text-slate-100 outline-none transition"
+                                            />
+                                          </td>
+                                        );
+                                      }
+
+                                      if (col === 'Password') {
+                                        return (
+                                          <td key={col} className="p-1.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[130px]">
+                                            <input
+                                              type="password"
+                                              value={val}
+                                              onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                              placeholder="••••••••"
+                                              className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[100px] text-xs font-mono text-slate-800 dark:text-slate-100 outline-none transition"
+                                            />
                                           </td>
                                         );
                                       }
