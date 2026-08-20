@@ -52,12 +52,14 @@ export const signInWithGoogle = async (): Promise<{ user: User; accessToken: str
     currentUser = result.user;
     return { user: result.user, accessToken: cachedAccessToken };
   } catch (error: any) {
+    if (error?.code === 'auth/popup-closed-by-user' || error?.code === 'auth/cancelled-popup-request') {
+      console.warn('Google Sign In popup was closed before completion.');
+      return null;
+    }
     console.error('Google Sign In error:', error);
-    if (error.code === 'auth/popup-blocked') {
-      throw new Error('Jendela popup diblokir oleh browser. Harap izinkan popup (pop-up blocker) di bilah alamat browser Anda.');
-    } else if (error.code === 'auth/popup-closed-by-user') {
-      throw new Error('Login dibatalkan karena jendela popup Google ditutup sebelum selesai.');
-    } else if (error.code === 'auth/unauthorized-domain') {
+    if (error?.code === 'auth/popup-blocked') {
+      throw new Error('Jendela popup diblokir oleh browser. Harap izinkan popup di pengaturan browser Anda.');
+    } else if (error?.code === 'auth/unauthorized-domain') {
       throw new Error('Domain preview sedang diproses oleh Google Auth. Silakan coba kembali dalam beberapa detik.');
     }
     throw error;
