@@ -1546,12 +1546,7 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                     <span className="font-bold text-[10px] uppercase">RECEIVED BY,</span>
                     
                     {/* Signature Area */}
-                    <div className="my-1 flex justify-center items-center">
-                      <svg className="h-10 w-28" viewBox="0 0 120 40" fill="none" stroke="#000080" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M 12 28 Q 25 8 38 24 T 52 14 T 68 28 T 88 12 T 108 30" />
-                        <path d="M 22 18 L 98 20" />
-                      </svg>
-                    </div>
+                    <div className="my-1 h-10"></div>
 
                     <div className="text-center">
                       {isHeaderEditMode ? (
