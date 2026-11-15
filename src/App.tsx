@@ -370,6 +370,7 @@ export default function App() {
   useEffect(() => { safeSetLocalStorage('sc_company_header', companyHeader); }, [companyHeader]);
   useEffect(() => { safeSetLocalStorage('sc_doc_headers', savedDocHeaders); }, [savedDocHeaders]);
   useEffect(() => { safeSetLocalStorage('sc_custom_col_headers', customColHeaders); }, [customColHeaders]);
+  useEffect(() => { setSelectedRowIndices([]); }, [activeTab, searchTerm, filterColumn, sortCol, sortDir]);
 
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
     const id = Date.now();
@@ -601,6 +602,39 @@ export default function App() {
   const startIdx = (currentPage - 1) * rowsPerPage;
   const pageData = filteredData.slice(startIdx, startIdx + rowsPerPage);
 
+  const canMultiDelete = activeTab !== 'Dashboard' && activeTab !== 'Inventory' && (activeTab !== 'Users' || isYudit);
+  const pageRowIndices = pageData.map((_, i) => startIdx + i);
+  const isAllPageSelected = pageRowIndices.length > 0 && pageRowIndices.every(idx => selectedRowIndices.includes(idx));
+  const isAllFilteredSelected = filteredData.length > 0 && selectedRowIndices.length === filteredData.length;
+  const selectedRecordsList = selectedRowIndices
+    .map(idx => filteredData[idx])
+    .filter((r): r is RecordRow => r !== undefined && r !== null);
+
+  const toggleSelectRow = (actualRowIndex: number) => {
+    setSelectedRowIndices(prev =>
+      prev.includes(actualRowIndex)
+        ? prev.filter(i => i !== actualRowIndex)
+        : [...prev, actualRowIndex]
+    );
+  };
+
+  const toggleSelectPage = () => {
+    if (isAllPageSelected) {
+      const pageSet = new Set(pageRowIndices);
+      setSelectedRowIndices(prev => prev.filter(i => !pageSet.has(i)));
+    } else {
+      setSelectedRowIndices(prev => Array.from(new Set([...prev, ...pageRowIndices])));
+    }
+  };
+
+  const selectAllFiltered = () => {
+    setSelectedRowIndices(filteredData.map((_, idx) => idx));
+  };
+
+  const clearSelection = () => {
+    setSelectedRowIndices([]);
+  };
+
   const handleSort = (col: string) => {
     if (sortCol === col) {
       setSortDir(prev => prev === 'asc' ? 'desc' : 'asc');
@@ -757,6 +791,13 @@ export default function App() {
     if (pkA !== undefined && pkA !== null && String(pkA).trim() !== '' &&
         pkB !== undefined && pkB !== null && String(pkB).trim() !== '') {
       if (String(pkA).trim().toLowerCase() === String(pkB).trim().toLowerCase()) {
+        if (['MaterialRequest', 'PurchaseOrder', 'MaterialReceive', 'MaterialIssued'].includes(tab)) {
+          const itemA = String(a.ItemID || a.ItemName || '').trim().toLowerCase();
+          const itemB = String(b.ItemID || b.ItemName || '').trim().toLowerCase();
+          const qtyA = String(a.Qty ?? '');
+          const qtyB = String(b.Qty ?? '');
+          return itemA === itemB && qtyA === qtyB;
+        }
         return true;
       }
     }
@@ -800,19 +841,34 @@ export default function App() {
 
     const targetTab = (activeTab === 'Inventory') ? 'ItemList' : activeTab;
     const currentList = getRawDataForTab(targetTab);
-    const updatedList = currentList.filter(item => !matchRecord(item, targetItem, targetTab));
+    const hasExactRef = currentList.includes(targetItem);
+    const updatedList = hasExactRef
+      ? currentList.filter(item => item !== targetItem)
+      : currentList.filter(item => !matchRecord(item, targetItem, targetTab));
 
     updateDataForTab(targetTab, updatedList);
 
+    const remainingCount = Math.max(0, filteredData.length - 1);
+    const newMaxPages = Math.max(1, Math.ceil(remainingCount / rowsPerPage));
+    if (currentPage > newMaxPages) {
+      setCurrentPage(newMaxPages);
+    }
+
     showToast('Record deleted successfully!');
+    setSelectedRowIndices([]);
     setIsDeleteModalOpen(false);
     setRecordToDelete(null);
     setDeleteRowIndex(null);
   };
 
   const promptBatchDelete = () => {
+    if (activeTab === 'Users' && !isYudit) {
+      showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
+      return;
+    }
+    if (activeTab === 'Inventory') return;
     if (selectedRowIndices.length === 0) {
-      showToast('No records selected for deletion', 'error');
+      showToast('Pilih minimal 1 data terlebih dahulu untuk dihapus', 'error');
       return;
     }
     setIsBatchDelete(true);
@@ -833,13 +889,21 @@ export default function App() {
 
     const targetTab = (activeTab === 'Inventory') ? 'ItemList' : activeTab;
     const currentList = getRawDataForTab(targetTab);
-    const updatedList = currentList.filter(item => 
-      !selectedRecords.some(sel => matchRecord(item, sel, targetTab))
+    const selectedSet = new Set(selectedRecords);
+    const updatedList = currentList.filter(item =>
+      !selectedRecords.some(sel => (currentList.includes(sel) ? item === sel : matchRecord(item, sel, targetTab))) &&
+      !selectedSet.has(item)
     );
 
     updateDataForTab(targetTab, updatedList);
 
-    showToast(`${selectedRecords.length} record(s) deleted successfully!`);
+    const remainingCount = Math.max(0, filteredData.length - selectedRecords.length);
+    const newMaxPages = Math.max(1, Math.ceil(remainingCount / rowsPerPage));
+    if (currentPage > newMaxPages) {
+      setCurrentPage(newMaxPages);
+    }
+
+    showToast(`${selectedRecords.length} data berhasil dihapus sekaligus!`);
     setSelectedRowIndices([]);
     setIsDeleteModalOpen(false);
   };
@@ -1771,6 +1835,16 @@ export default function App() {
                         </>
                       )}
 
+                      {canMultiDelete && selectedRowIndices.length > 0 && (
+                        <button
+                          onClick={promptBatchDelete}
+                          className="bg-rose-600 hover:bg-rose-700 text-white font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-xs shadow-md shadow-rose-600/25 flex items-center justify-center gap-2 transition cursor-pointer w-full sm:w-auto animate-fadeIn"
+                          title="Hapus semua data yang dipilih sekaligus"
+                        >
+                          <i className="fa-solid fa-trash-can text-[11px]"></i> Hapus Terpilih ({selectedRowIndices.length})
+                        </button>
+                      )}
+
                       <button
                         onClick={handleExportCSV}
                         className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-xs shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 transition cursor-pointer w-full sm:w-auto"
@@ -1799,6 +1873,58 @@ export default function App() {
                     </div>
                   ) : currentViewMode === 'report' ? (
                     <div className="space-y-4">
+                      {canMultiDelete && pageData.length > 0 && (
+                        <div className={`rounded-2xl px-4 py-2.5 border flex flex-wrap items-center justify-between gap-2.5 transition ${
+                          selectedRowIndices.length > 0
+                            ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-900/60 shadow-xs'
+                            : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 shadow-xs'
+                        }`}>
+                          <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer select-none">
+                            <input
+                              type="checkbox"
+                              checked={isAllPageSelected}
+                              onChange={toggleSelectPage}
+                              className="w-4 h-4 accent-rose-600 rounded cursor-pointer"
+                            />
+                            <span>Pilih Semua di Halaman Ini ({pageData.length})</span>
+                          </label>
+
+                          <div className="flex flex-wrap items-center gap-2">
+                            {selectedRowIndices.length > 0 && (
+                              <>
+                                <span className="px-2.5 py-1 rounded-xl bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300 text-[11px] font-black">
+                                  {selectedRowIndices.length} data dipilih
+                                </span>
+                                {!isAllFilteredSelected && filteredData.length > pageData.length && (
+                                  <button
+                                    type="button"
+                                    onClick={selectAllFiltered}
+                                    className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 text-[11px] font-bold transition cursor-pointer"
+                                  >
+                                    Pilih Semua ({filteredData.length})
+                                  </button>
+                                )}
+                                <button
+                                  type="button"
+                                  onClick={clearSelection}
+                                  className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-[11px] font-bold transition cursor-pointer"
+                                >
+                                  Batal Pilih
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={promptBatchDelete}
+                                  className="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold shadow-xs flex items-center gap-1.5 transition cursor-pointer"
+                                >
+                                  <i className="fa-solid fa-trash-can text-[10px]"></i>
+                                  Hapus ({selectedRowIndices.length})
+                                </button>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
                       <div className="space-y-3">
                         {pageData.length === 0 ? (
                           <div className="bg-white dark:bg-slate-900 rounded-3xl p-10 text-center text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800 font-medium flex flex-col items-center justify-center gap-3">
@@ -1824,6 +1950,7 @@ export default function App() {
                           pageData.map((row, index) => {
                             const globalIdx = startIdx + index + 1;
                             const actualRowIndex = startIdx + index;
+                            const isSelected = selectedRowIndices.includes(actualRowIndex);
                             const primaryKeyCol = (TAB_SCHEMAS[activeTab] || [])[0];
                             const primaryVal = row[primaryKeyCol] || `#${globalIdx}`;
                             const itemName = row.ItemName || row.Fullname || row.Username || primaryVal;
@@ -1843,10 +1970,23 @@ export default function App() {
                             return (
                               <div
                                 key={`datalist-${activeTab}-${globalIdx}`}
-                                className="bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-5 border border-slate-100 dark:border-slate-800 shadow-xs hover:border-yellow-400/80 hover:shadow-md transition flex flex-col md:flex-row md:items-center justify-between gap-4"
+                                className={`bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-5 border shadow-xs hover:shadow-md transition flex flex-col md:flex-row md:items-center justify-between gap-4 ${
+                                  isSelected
+                                    ? 'border-rose-400 dark:border-rose-500 ring-2 ring-rose-400/25 bg-rose-50/30 dark:bg-rose-950/20'
+                                    : 'border-slate-100 dark:border-slate-800 hover:border-yellow-400/80'
+                                }`}
                               >
-                                {/* Left: Index, Photo/Icon, Code, Title, Badges */}
+                                {/* Left: Checkbox, Index, Photo/Icon, Code, Title, Badges */}
                                 <div className="flex items-center gap-3 min-w-0 flex-grow">
+                                  {canMultiDelete && (
+                                    <input
+                                      type="checkbox"
+                                      checked={isSelected}
+                                      onChange={() => toggleSelectRow(actualRowIndex)}
+                                      aria-label={`Pilih baris ${globalIdx}`}
+                                      className="w-4 h-4 accent-rose-600 rounded cursor-pointer shrink-0"
+                                    />
+                                  )}
                                   <span className="w-8 h-8 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center text-xs font-black shrink-0">
                                     {globalIdx}
                                   </span>
@@ -2004,14 +2144,66 @@ export default function App() {
                     </div>
                   ) : (
                     /* Table View (Spreadsheet Table View) */
-                    <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xs border border-slate-100 dark:border-slate-800 overflow-hidden transition-colors">
-                      <div className="overflow-x-auto w-full">
-                        <table className="w-full min-w-[1050px] text-left text-xs border-collapse">
-                          <thead className="bg-slate-900 text-white uppercase text-[10px] tracking-wider">
-                            <tr>
-                              <th className="p-3.5 border-b border-slate-800 min-w-[80px] text-white font-black text-center select-none shrink-0 whitespace-nowrap">
-                                # / Actions
-                              </th>
+                    <div className="space-y-3">
+                      {canMultiDelete && selectedRowIndices.length > 0 && (
+                        <div className="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 rounded-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2.5 shadow-xs animate-fadeIn">
+                          <div className="flex items-center gap-2.5">
+                            <span className="w-6 h-6 rounded-lg bg-rose-600 text-white flex items-center justify-center text-[11px] font-black">
+                              {selectedRowIndices.length}
+                            </span>
+                            <span className="text-xs font-extrabold text-rose-900 dark:text-rose-200">
+                              data terpilih siap dihapus sekaligus
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            {!isAllFilteredSelected && filteredData.length > pageData.length && (
+                              <button
+                                type="button"
+                                onClick={selectAllFiltered}
+                                className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 text-[11px] font-bold transition cursor-pointer"
+                              >
+                                Pilih Semua ({filteredData.length})
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={clearSelection}
+                              className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-[11px] font-bold transition cursor-pointer"
+                            >
+                              Batal Pilih
+                            </button>
+                            <button
+                              type="button"
+                              onClick={promptBatchDelete}
+                              className="px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-bold shadow-xs flex items-center gap-1.5 transition cursor-pointer"
+                            >
+                              <i className="fa-solid fa-trash-can text-[10px]"></i>
+                              Hapus ({selectedRowIndices.length}) Data
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xs border border-slate-100 dark:border-slate-800 overflow-hidden transition-colors">
+                        <div className="overflow-x-auto w-full">
+                          <table className="w-full min-w-[1050px] text-left text-xs border-collapse">
+                            <thead className="bg-slate-900 text-white uppercase text-[10px] tracking-wider">
+                              <tr>
+                                <th className="p-3.5 border-b border-slate-800 min-w-[105px] text-white font-black text-center select-none shrink-0 whitespace-nowrap">
+                                  <div className="flex items-center justify-center gap-2">
+                                    {canMultiDelete && pageData.length > 0 && (
+                                      <input
+                                        type="checkbox"
+                                        checked={isAllPageSelected}
+                                        onChange={toggleSelectPage}
+                                        title="Pilih semua baris di halaman ini"
+                                        aria-label="Pilih semua baris di halaman ini"
+                                        className="w-3.5 h-3.5 accent-rose-500 rounded cursor-pointer"
+                                      />
+                                    )}
+                                    <span># / Actions</span>
+                                  </div>
+                                </th>
                               {getDisplayColumns().map((col, colIdx) => {
                                 const isSorted = sortCol === col;
                                 const colLabel = customColHeaders[col] || col;
@@ -2051,14 +2243,31 @@ export default function App() {
                               pageData.map((row, index) => {
                                 const globalIdx = startIdx + index + 1;
                                 const actualRowIndex = startIdx + index;
+                                const isSelected = selectedRowIndices.includes(actualRowIndex);
                                 const primaryKeyCol = (TAB_SCHEMAS[activeTab] || [])[0];
 
                                 return (
-                                  <tr key={`tbl-row-${activeTab}-${startIdx + index}-${row._rowIndex ?? index}`} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition">
-                                    <td className="p-2 border-b border-slate-100 dark:border-slate-800 font-bold text-slate-400 dark:text-slate-500 text-center bg-slate-50/40 dark:bg-slate-900/40 select-none whitespace-nowrap min-w-[80px]">
+                                  <tr
+                                    key={`tbl-row-${activeTab}-${startIdx + index}-${row._rowIndex ?? index}`}
+                                    className={`transition ${
+                                      isSelected
+                                        ? 'bg-rose-50/70 dark:bg-rose-950/25 hover:bg-rose-100/70 dark:hover:bg-rose-950/35'
+                                        : 'hover:bg-slate-50/80 dark:hover:bg-slate-800/50'
+                                    }`}
+                                  >
+                                    <td className="p-2 border-b border-slate-100 dark:border-slate-800 font-bold text-slate-400 dark:text-slate-500 text-center bg-slate-50/40 dark:bg-slate-900/40 select-none whitespace-nowrap min-w-[105px]">
                                       {activeTab !== 'Inventory' ? (
                                         <div className="flex items-center justify-center gap-1.5">
-                                          <span className="text-slate-500 dark:text-slate-400 font-extrabold text-xs">{globalIdx}</span>
+                                          {canMultiDelete && (
+                                            <input
+                                              type="checkbox"
+                                              checked={isSelected}
+                                              onChange={() => toggleSelectRow(actualRowIndex)}
+                                              aria-label={`Pilih baris ${globalIdx}`}
+                                              className="w-3.5 h-3.5 accent-rose-600 rounded cursor-pointer shrink-0"
+                                            />
+                                          )}
+                                          <span className="text-slate-500 dark:text-slate-400 font-extrabold text-xs min-w-[18px]">{globalIdx}</span>
                                           <button
                                             onClick={() => openSingleModal(row, actualRowIndex)}
                                             title="Edit this record via Modal"
@@ -2511,6 +2720,7 @@ export default function App() {
                         </div>
                       </div>
                     </div>
+                    </div>
                   )}
                 </div>
               )}
@@ -2627,6 +2837,7 @@ export default function App() {
         activeTab={activeTab}
         recordToDelete={recordToDelete}
         selectedCount={selectedRowIndices.length}
+        selectedRecords={selectedRecordsList}
         isBatchDelete={isBatchDelete}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={isBatchDelete ? confirmBatchDelete : confirmDeleteSingleRow}

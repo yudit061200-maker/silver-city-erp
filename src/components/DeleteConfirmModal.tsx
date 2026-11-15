@@ -6,6 +6,7 @@ interface DeleteConfirmModalProps {
   activeTab: TabName;
   recordToDelete: RecordRow | null;
   selectedCount?: number;
+  selectedRecords?: RecordRow[];
   isBatchDelete?: boolean;
   onClose: () => void;
   onConfirm: () => void;
@@ -16,11 +17,18 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   activeTab,
   recordToDelete,
   selectedCount = 0,
+  selectedRecords = [],
   isBatchDelete = false,
   onClose,
   onConfirm
 }) => {
   if (!isOpen) return null;
+
+  const getRecordLabel = (r: RecordRow) => {
+    const id = r.ItemID || r.RequestID || r.POID || r.ReceiveID || r.IssueID || r.Username || '#';
+    const title = r.ItemName || r.Fullname || r.Username || r.Category || '';
+    return { id: String(id), title: String(title) };
+  };
 
   const itemTitle = recordToDelete
     ? recordToDelete.ItemName || recordToDelete.ItemID || recordToDelete.RequestID || recordToDelete.POID || recordToDelete.ReceiveID || recordToDelete.IssueID || recordToDelete.Username || 'Record'
@@ -36,7 +44,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
           </div>
           <div>
             <h3 className="font-extrabold text-sm text-rose-900 dark:text-rose-200">
-              {isBatchDelete ? `Delete ${selectedCount} Records?` : 'Confirm Delete Record'}
+              {isBatchDelete ? `Hapus ${selectedCount} Data Sekaligus?` : 'Confirm Delete Record'}
             </h3>
             <p className="text-[11px] font-medium text-rose-700/80 dark:text-rose-300/80">
               Module: <span className="font-bold uppercase">{activeTab}</span>
@@ -53,10 +61,28 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
         {/* Content Details */}
         <div className="p-5 space-y-4">
           {isBatchDelete ? (
-            <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-2.5">
               <p className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                You are about to permanently remove <span className="text-rose-600 dark:text-rose-400 font-black">{selectedCount} selected items</span> from {activeTab}.
+                Anda akan menghapus <span className="text-rose-600 dark:text-rose-400 font-black">{selectedCount} data terpilih</span> secara permanen dari modul {activeTab}.
               </p>
+              {selectedRecords.length > 0 && (
+                <div className="max-h-36 overflow-y-auto space-y-1.5 pt-1 border-t border-slate-200 dark:border-slate-700">
+                  {selectedRecords.slice(0, 5).map((rec, idx) => {
+                    const { id, title } = getRecordLabel(rec);
+                    return (
+                      <div key={`del-prev-${idx}`} className="flex items-center justify-between gap-2 text-[11px] bg-white dark:bg-slate-900/70 px-2.5 py-1.5 rounded-xl border border-slate-200/70 dark:border-slate-700/70">
+                        <span className="font-black text-rose-600 dark:text-rose-400 shrink-0">{id}</span>
+                        <span className="font-medium text-slate-600 dark:text-slate-300 truncate">{title || '-'}</span>
+                      </div>
+                    );
+                  })}
+                  {selectedCount > 5 && (
+                    <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 text-center pt-0.5">
+                      + {selectedCount - 5} data lainnya
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           ) : recordToDelete ? (
             <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-2">
@@ -78,7 +104,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
           <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 text-amber-800 dark:text-amber-300 text-xs">
             <i className="fa-solid fa-circle-info text-amber-500 mt-0.5 shrink-0"></i>
             <p className="text-[11px] font-medium leading-relaxed">
-              This action will delete the entry from the ERP workspace. If synced, changes will be pushed to Google Sheets.
+              Tindakan ini akan menghapus data dari ERP workspace dan langsung menyinkronkan perubahan ke Firebase Firestore.
             </p>
           </div>
         </div>
@@ -98,7 +124,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
             className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition shadow-md shadow-rose-600/30 flex items-center gap-1.5 cursor-pointer"
           >
             <i className="fa-solid fa-trash-can text-[11px]"></i>
-            Confirm Delete
+            {isBatchDelete ? `Hapus (${selectedCount}) Data` : 'Confirm Delete'}
           </button>
         </div>
       </div>
