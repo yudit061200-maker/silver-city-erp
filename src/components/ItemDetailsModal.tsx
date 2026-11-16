@@ -54,6 +54,17 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="bg-blue-50 dark:bg-blue-950/50 p-3 rounded-2xl border border-blue-200 dark:border-blue-800/70">
+                  <p className="text-[10px] text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider mb-1">Current Stock</p>
+                  <p className="font-black text-blue-700 dark:text-blue-300 flex items-center gap-1.5">
+                    <i className="fa-solid fa-boxes-stacked text-[11px]"></i>
+                    {Number(viewingItem.CurrentStock ?? viewingItem.LastStock ?? 0).toLocaleString('id-ID')} {viewingItem.UoM || ''}
+                  </p>
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Min Stock</p>
+                  <p className="font-bold text-slate-800 dark:text-slate-200">{viewingItem.MinStock || 0} {viewingItem.UoM || ''}</p>
+                </div>
                 <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Category</p>
                   <p className="font-bold text-slate-800 dark:text-slate-200">{viewingItem.Category || '-'}</p>
@@ -70,11 +81,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Price (IDR)</p>
                   <p className="font-bold text-slate-800 dark:text-slate-200">Rp {Number(viewingItem.UnitPriceIDR || 0).toLocaleString('id-ID')}</p>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Min Stock</p>
-                  <p className="font-bold text-slate-800 dark:text-slate-200">{viewingItem.MinStock || 0}</p>
-                </div>
-                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
+                <div className="col-span-2 bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Warehouse Location</p>
                   <p className="font-bold text-slate-800 dark:text-slate-200">{viewingItem.Location || '-'}</p>
                 </div>

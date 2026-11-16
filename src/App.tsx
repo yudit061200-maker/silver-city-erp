@@ -1487,7 +1487,8 @@ export default function App() {
   };
 
   const openItemDetails = (itemId: string) => {
-    const match = items.find(i => String(i.ItemID).toLowerCase() === String(itemId).toLowerCase());
+    const invMatch = getRawDataForTab('Inventory').find(i => String(i.ItemID).toLowerCase() === String(itemId).toLowerCase());
+    const match = invMatch || items.find(i => String(i.ItemID).toLowerCase() === String(itemId).toLowerCase());
     if (match) {
       setViewingItem({ ...match });
       setEditingOriginalItemId(String(match.ItemID));
@@ -1501,20 +1502,23 @@ export default function App() {
   const handleSaveItemDetailsInline = (e: React.FormEvent) => {
     e.preventDefault();
     if (!viewingItem) return;
-    viewingItem.UpdatedBy = currentUser ? currentUser.username : 'System';
-    const orig = editingOriginalItemId || viewingItem.ItemID;
+    const { StockIn: _si, StockOut: _so, CurrentStock: _cs, TotalPriceUSD: _tu, TotalPriceIDR: _ti, Status: _st, ...cleanItem } = viewingItem;
+    cleanItem.UpdatedBy = currentUser ? currentUser.username : 'System';
+    const orig = editingOriginalItemId || cleanItem.ItemID;
     const currentItems = [...items];
     const existingIdx = currentItems.findIndex(i => String(i.ItemID).toLowerCase() === String(orig).toLowerCase());
 
     let updatedItems: RecordRow[];
     if (existingIdx >= 0) {
-      currentItems[existingIdx] = viewingItem;
+      currentItems[existingIdx] = cleanItem;
       updatedItems = currentItems;
     } else {
-      updatedItems = [viewingItem, ...currentItems];
+      updatedItems = [cleanItem, ...currentItems];
     }
 
     updateDataForTab('ItemList', updatedItems);
+    const updatedCurrentStock = parseNumberValue(cleanItem.LastStock) + parseNumberValue(viewingItem.StockIn) - parseNumberValue(viewingItem.StockOut);
+    setViewingItem({ ...viewingItem, ...cleanItem, CurrentStock: updatedCurrentStock });
     setIsEditingInDetails(false);
     showToast('Item updated successfully!');
   };
@@ -2023,6 +2027,12 @@ export default function App() {
                                           {row.Category}
                                         </span>
                                       )}
+                                      {activeTab === 'Inventory' && (
+                                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                                          <i className="fa-solid fa-boxes-stacked text-[9px] text-blue-500"></i>
+                                          Current Stock: {typeof row.CurrentStock === 'number' ? row.CurrentStock.toLocaleString('id-ID') : (row.CurrentStock ?? 0)} {row.UoM || ''}
+                                        </span>
+                                      )}
                                     </div>
                                     <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white whitespace-normal break-words leading-snug">
                                       {itemName}
@@ -2036,29 +2046,36 @@ export default function App() {
                                 </div>
 
                                 {/* Center: Attributes Grid */}
-                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 text-xs bg-slate-50/80 dark:bg-slate-800/40 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 md:min-w-[320px]">
-                                  {getDisplayColumns()
-                                    .filter(col => col !== primaryKeyCol && col !== 'ItemName' && col !== 'Status' && col !== 'Photo' && col !== 'Location')
-                                    .slice(0, 4)
-                                    .map(col => {
-                                      let v = row[col] !== undefined && row[col] !== null ? row[col] : '-';
-                                      if ((col === 'Date' || col.includes('Date')) && v) {
-                                        v = String(v).split('T')[0];
-                                      }
-                                      if (col.includes('USD') && typeof v === 'number') v = `$${v.toLocaleString('en-US')}`;
-                                      if (col.includes('IDR') && typeof v === 'number') v = `Rp ${v.toLocaleString('id-ID')}`;
+                                <div className={`grid grid-cols-2 sm:grid-cols-3 ${activeTab === 'Inventory' ? 'lg:grid-cols-3 md:min-w-[340px]' : 'lg:grid-cols-4 md:min-w-[320px]'} gap-2 text-xs bg-slate-50/80 dark:bg-slate-800/40 p-3 rounded-2xl border border-slate-100 dark:border-slate-800`}>
+                                  {(activeTab === 'Inventory'
+                                    ? ['CurrentStock', 'LastStock', 'StockIn', 'StockOut', 'MinStock', 'UoM']
+                                    : getDisplayColumns()
+                                        .filter(col => col !== primaryKeyCol && col !== 'ItemName' && col !== 'Status' && col !== 'Photo' && col !== 'Location')
+                                        .slice(0, 4)
+                                  ).map(col => {
+                                    let v = row[col] !== undefined && row[col] !== null ? row[col] : '-';
+                                    if ((col === 'Date' || col.includes('Date')) && v) {
+                                      v = String(v).split('T')[0];
+                                    }
+                                    if (col.includes('USD') && typeof v === 'number') v = `$${v.toLocaleString('en-US')}`;
+                                    if (col.includes('IDR') && typeof v === 'number') v = `Rp ${v.toLocaleString('id-ID')}`;
+                                    if (col === 'CurrentStock' && typeof v === 'number') v = v.toLocaleString('id-ID');
 
-                                      return (
-                                        <div key={col} className="min-w-0">
-                                          <span className="text-[9px] sm:text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider block truncate">
-                                            {customColHeaders[col] || col}
-                                          </span>
-                                          <span className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block">
-                                            {String(v)}
-                                          </span>
-                                        </div>
-                                      );
-                                    })}
+                                    return (
+                                      <div key={col} className="min-w-0">
+                                        <span className="text-[9px] sm:text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider block truncate">
+                                          {customColHeaders[col] || col}
+                                        </span>
+                                        <span className={`text-xs truncate block ${
+                                          col === 'CurrentStock'
+                                            ? 'font-black text-blue-700 dark:text-blue-300'
+                                            : 'font-bold text-slate-800 dark:text-slate-200'
+                                        }`}>
+                                          {String(v)}
+                                        </span>
+                                      </div>
+                                    );
+                                  })}
                                 </div>
 
                                 {/* Right: Action Buttons */}
@@ -2330,7 +2347,14 @@ export default function App() {
                                         }
 
                                         return (
-                                          <td key={col} className="p-3 border-b border-slate-100 dark:border-slate-800 font-semibold text-slate-700 dark:text-slate-200 whitespace-nowrap min-w-[120px]">
+                                          <td
+                                            key={col}
+                                            className={`p-3 border-b border-slate-100 dark:border-slate-800 font-semibold text-slate-700 dark:text-slate-200 ${
+                                              col === 'ItemName'
+                                                ? 'min-w-[180px] max-w-[260px] whitespace-normal break-words'
+                                                : 'whitespace-nowrap min-w-[100px]'
+                                            }`}
+                                          >
                                             {col.includes('USD') && typeof val === 'number'
                                               ? `$${val.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
                                               : col.includes('IDR') && typeof val === 'number'
