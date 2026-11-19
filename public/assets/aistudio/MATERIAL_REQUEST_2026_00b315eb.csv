@@ -1,0 +1,256 @@
+﻿Sheet_Name,MRQ_No,Date,Well_Location,Rig_Name,Department,Client,Project,Purchase_By,Priority,Destination_Needed_For,Item_No,Qty,UoM,Mat_Code,Description_Full,Stock_On_Hand_Qty,Stock_On_Hand_UoM
+091,091/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,"Mud Tank 2 Pre Charge, Mud Tank 1 Primary Mixing Motor, Centrifugal Pump",1,1,Set,,"Centrifugal Sand Pump 37Kw MDL: 6x5x14 Impeller Size: 11"" | C/W. Housing 6x5x14",0,Set
+091,091/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,"Mud Tank 2 Pre Charge, Mud Tank 1 Primary Mixing Motor, Centrifugal Pump",2,1,Ea,,"Electric Motor 37Kw, 50Hp, 50Hz, 380/660V, RPM 1490 r/min | Type: Y3 225S-4  S/N. HJ20250313-157",0,Ea
+091,091/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,"Mud Tank 2 Pre Charge, Mud Tank 1 Primary Mixing Motor, Centrifugal Pump",3,1,Ea,,"Electric Motor 55Kw, 75Hp, 50Hz, 380/660V, RPM 1490 r/min | Type: Y3 250M-4  S/N. HJ20250519-288",0,Ea
+091,091/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,"Mud Tank 2 Pre Charge, Mud Tank 1 Primary Mixing Motor, Centrifugal Pump",4,3,Ea,,"Impeler 11""",0,Ea
+091,091/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,"Mud Tank 2 Pre Charge, Mud Tank 1 Primary Mixing Motor, Centrifugal Pump",5,1,Roll,,Gland Packing 12mm,0,Roll
+091,091/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,"Mud Tank 2 Pre Charge, Mud Tank 1 Primary Mixing Motor, Centrifugal Pump",6,10,Ea,,Mechanical Seal Tung/Tung P/N. P25MS/TT - 250,1,Ea
+091,091/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,"Mud Tank 2 Pre Charge, Mud Tank 1 Primary Mixing Motor, Centrifugal Pump",7,2,Ea,,Rubber Coupling Fenner Fenaflex Type F90,2,Ea
+091,091/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,"Mud Tank 2 Pre Charge, Mud Tank 1 Primary Mixing Motor, Centrifugal Pump",8,50,Mtr,,"Water Hose 2"" x 150 Psi",0,Mtr
+092,092/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Urgent,EQUIPMENT HSE,1,1,Ea,,"Fire Extinguisher, 150 lbs Dry Chemical On Wheel | c/w. Hose & Nozzle",0,Ea
+092,092/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Urgent,EQUIPMENT HSE,2,1,Ea,,Firefighting Foam And Water Applicator,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,2,4,Ea,,Socket Lamp Trailer 7 Pin Male N-Type  24V,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,3,4,Ea,,Stop Lamp Trailer 24V (Red-White-Yellow),0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,4,4,Ea,,Manual Switch On/Off 8 Pin(4 Pin)5A 250VAC FORT S/N. SS2511/3,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,5,1,Ea,,"Elmot Bug Blower 4Kw,11440 RPm 220/380V FANGLI YBX3-112M-4",0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,6,2,Ea,,"Starter Motor Lighting Tower 8 Teeth 12V 1,2Kw HW12,KM198 HR25-06-14",0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,7,2,Box,,Cable Connector S/N. WAGO 221,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,8,1,Ea,,"Hyd. Pump Motor Electric for. Jack Mud Pump MOCEN 416A-2P-M | 12V, 1,6Kw, 2650Rpm IP 54",0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,9,1,Box,,Bulb Lamp TLD Cool Daylight 18W PHILIPS,11,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,10,12,Tube,,Water Accu Refill,0,T
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,11,2,Ea,,SPM Sensor BilO-M30-YIX H1141/S56  KEMA: 02ATEX1090X,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,12,2,Ea,,Disconnect Battery Switch On/Off 100-200A,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,13,3,Ea,,Plug Male 5 Pin Australia Std Easy plug 32A 500V CLIPSAL EY56P532,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,14,15,Ea,,Plug Female 3 Pin Flat Australia Std 13A 250V CLIPSAL 56CSC310EO,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,15,1,Ea,,Magnetic Contactor 3Kw 3 Phase Coil 220V CHINT NXC-86,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,16,1,Ea,,Thermal Overload Relay 3 Phase 100A CHINT NXR-100,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,17,2,Ea,,Fuel Sensor (Pressure Sensor) MTU Engine S/N. 0025358931,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,18,2,Ea,,Manual Contact Breaker 3 Phase/Manual Starter Circuit Breaker | SPRECHERTSCHUH KTA-C2A/ABB 140-MN-0160,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,19,2,Ea,,AC Split 1/2 PK 220V R32 for Lunch Room & Office HSE,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,20,1,Ea,,Refrigeran R32,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,21,25,Mtr,,Welding Cable 1 x 50Mm,0,Mtr
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,22,2,Ea,,Welding Holder 500A,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,23,2,Ea,,Ground Clamp 500A,0,Ea
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,24,1,Set,,Screw Driver for Electric,0,Set
+093A,093A/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,25,2,Ea,,"Adjustable Wrench 8""",0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,27,100,Mtr,,Cable NYYHY (Serabut) 3 x 2.5Mm JEMBO,0,Mtr
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,28,100,Mtr,,Cable NYYHY (Serabut) 5 x 4Mm JEMBO,0,Mtr
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,29,1,Ea,,Alternator 46Kva Volt: 14V Power: 500W MDL: JF11 ON. KF 22123885,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,30,1,Ea,,AVR Generator 46Kva 400V 12A MDL: SPD184,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,31,2,Ea,,Switch On/Off Battery  OEM Part. WG9100760100,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,32,1,Box,,Motor Starter 12V 5.8Kw 11 Teeth | MDL: QDJ-1409 No. KF 2022122029 P/N. BC 031096,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,33,1,Ea,,Deep Seal Monitor S/N. DSE 7320 MKll,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,34,6,Ea,,Relay 12V 4 Pin,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,35,2,Ea,,AVR Lighting Tower S/N. MCU 241102-HJ-815C-GY,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,36,1,Set,,Rotor & Stator Lighting Tower 7Kw/220V 50Hz | S/N. SC2506009781 20046-10750-00,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,37,2,Ea,,Selenoid Relay 12V,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,38,1,Ea,,"Motor Starter Engine 250Kw 24V, CW ""DELCO REMY"" 820072 38M",0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,39,2,Set,,Red & Black Welding Cable Socket DKJ35-50 315A,0,Set
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,40,4,Ea,,Carbon Block Catridge Filter Water S/N. CBCA-10,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,41,4,Ea,,"Ballast Bulb Lamp Gasproof 220V-240V, 0.370A  WAROM YZ20Z",0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,42,4,Ea,,Capacitor Bank 20UF/450V,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,43,4,Ea,,Capacitor Bank 45UF/450V,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,44,4,Ea,,Capacitor Bank 1.5UF/450V,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,45,4,Ea,,Overload AC Compressor 1/2 PK  S/N. MRA 98688,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,46,4,Ea,,Overload AC Compressor 1 PK  S/N. MRA 98776,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,47,4,Ea,,Overload AC Compressor 1/2 PK  S/N. MRA 99120,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,48,50,Ea,,Scun Cable SC 6-8,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,49,50,Ea,,Scun Cable SC 6-12,0,Ea
+093B,093B/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,50,50,Ea,,Scun Cable SC 4-8,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,52,50,Ea,,Scun Cable SC 16-12,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,53,50,Ea,,Scun Cable SC 16-10,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,54,50,Ea,,Scun Cable SC 2.5-8,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,55,50,Ea,,Ferrules Scun Cable Size: 10Mm,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,56,50,Ea,,Ferrules Scun Cable Size: 16Mm,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,57,50,Ea,,Ferrules Scun Cable Size: 35Mm,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,58,50,Ea,,Ferrules Scun Cable Size: 25Mm,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,59,50,Ea,,Ferrules Scun Cable Size: 6Mm,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,60,50,Ea,,Ferrules Scun Cable Size: 4Mm,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,61,4,Ea,,Terminal Block Size: 6Mm,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,62,1,Set,,"Lightening Pad + Cable, Size: 25-50Mm Cable for. Lightening Pad",0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,63,5,Set,,Carbon Brush BOSH A86 for. Grinding Machine,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,64,6,Ea,,Co-Contact Cleaner,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,65,4,Ea,,WD-40,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,66,8,Set,,Terminal Battery Accu /Head Clamp Battery Connector,0,Set
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,67,10,Ea,,Isolation Tape 3M/NATIONAL,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,68,5,Ea,,Rubber Splicing Tape 3M,0,Ea
+093C,093C/MRQ/SCD#20/VI/26,2026-06-25,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Normal,Prepare Part Operational,69,4,Can,,Insulating Varnis Spray (Sirlak Spray),0,Ea
+094,094/MRQ/SCD#20/VI/26,2026-06-28,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Engine MTU DETROIT,1,1,Ea,,"Air Starting - Gear 11 Teeth  Max. Inlet Pressure 120 Psi ( 8 Bar ) | ""TDI"" MDL: T30I  S/N. 1708-0295",0,Ea
+095,095/MRQ/SCD#20/VI/26,2026-06-29,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Normal,Diverter Line & Suction Line New Mud Tank,1,37,Ea,,"Stud Bolt Full Drat 7/8"" x 1 Mtr",1,Ea
+095,095/MRQ/SCD#20/VI/26,2026-06-29,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Normal,Diverter Line & Suction Line New Mud Tank,2,420,Ea,,"Nut 7/8""",0,Ea
+095,095/MRQ/SCD#20/VI/26,2026-06-29,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Normal,Diverter Line & Suction Line New Mud Tank,3,420,Ea,,"Washer Plate 7/8""",0,Ea
+095,095/MRQ/SCD#20/VI/26,2026-06-29,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Normal,Diverter Line & Suction Line New Mud Tank,4,6,Ea,,"Stud Bolt Full Drat 3/4"" x 1 Mtr",0,Ea
+095,095/MRQ/SCD#20/VI/26,2026-06-29,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Normal,Diverter Line & Suction Line New Mud Tank,5,100,Ea,,"Nut 3/4""",0,Ea
+095,095/MRQ/SCD#20/VI/26,2026-06-29,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Normal,Diverter Line & Suction Line New Mud Tank,6,100,Ea,,"Washer Plate 3/4""",0,Ea
+096,096/MRQ/SCD#20/VI/26,2026-06-29,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Suction Line New Mud Tank & Vent Line,1,14,Ea,,"Flange 10"" - ANSI 150 Welded Type",34,Ea
+096,096/MRQ/SCD#20/VI/26,2026-06-29,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Suction Line New Mud Tank & Vent Line,2,10,Ea,,Butterfly Valve 10 Inch,4,Ea
+096,096/MRQ/SCD#20/VI/26,2026-06-29,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Suction Line New Mud Tank & Vent Line,3,5,Ea,,"Elbow 10"" - 90 Degree  SCH 40 | Note: Additional",5,Ea
+097,097/MRQ/SCD#20/VI/26,2026-06-30,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up Accessories Shale Shaker No. 1 & 2,1,10,Ea,,Rubber Mounting DERRICK  PN. 1129  for. Derrick Shaker Hyperpool,11,Ea
+097,097/MRQ/SCD#20/VI/26,2026-06-30,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up Accessories Shale Shaker No. 1 & 2,2,24,Ea,,Protector Bulkhade Single 41.250  DERRICK  P/N. 16848-10,12,Ea
+097,097/MRQ/SCD#20/VI/26,2026-06-30,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up Accessories Shale Shaker No. 1 & 2,3,8,Ea,,Protector Bulkhade Double 41.250  DERRICK  P/N. 16848-11,8,Ea
+097,097/MRQ/SCD#20/VI/26,2026-06-30,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up Accessories Shale Shaker No. 1 & 2,4,2,Ea,,Protector Rear Cross Support 41.250  DERRICK  P/N. 16848-13,2,Ea
+097,097/MRQ/SCD#20/VI/26,2026-06-30,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up Accessories Shale Shaker No. 1 & 2,5,8,Ea,,Protector Side Support Outer  46 Inch  DERRICK  P/N. 16848-01-001,6,Ea
+098,098/MRQ/SCD#20/VII/26,2026-07-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Rig Floor, Additional Transfer Line & Water Line New Mud Tank",1,1,Sht,,Greating Fiber - Thickness 37Mm for. Change Buttom Rotary Table,0,Sht
+098,098/MRQ/SCD#20/VII/26,2026-07-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Rig Floor, Additional Transfer Line & Water Line New Mud Tank",2,5,Jts,,"Steel Pipe 10"" - SCH40 for. Vent Line,Flow Line, Extend Suction Line",14,Jts
+098,098/MRQ/SCD#20/VII/26,2026-07-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Rig Floor, Additional Transfer Line & Water Line New Mud Tank",3,10,Ea,,"Flange 6"" - ANSI 150 Welded Type for. Transfer Line New Mud Tank",0,Ea
+098,098/MRQ/SCD#20/VII/26,2026-07-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Rig Floor, Additional Transfer Line & Water Line New Mud Tank",4,5,Ea,,Butterfly Valve 6 Inch for. Transfer Suction Line New Mud Tank,2,Ea
+098,098/MRQ/SCD#20/VII/26,2026-07-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Rig Floor, Additional Transfer Line & Water Line New Mud Tank",5,30,Ea,,"Stud Bolt Full Drat 3/4"" x 1 Mtr",0,Ea
+098,098/MRQ/SCD#20/VII/26,2026-07-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Rig Floor, Additional Transfer Line & Water Line New Mud Tank",6,300,Set,,"Nut 3/4"" C/W. Washer Plate | NOTE: Additional",0,Ea
+099,099/MRQ/SCD#20/VII/26,2026-07-12,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,JAKARTA,Urgent,New Mud Tank,1,2,Sht,,Stell Grating Plate 6 Mtr For. Additional New Mud Tank,0,Sht
+099,099/MRQ/SCD#20/VII/26,2026-07-12,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,JAKARTA,Urgent,New Mud Tank,2,200,Kg,,Welding Rod LB 52 (3.2 Mm),20,Kg
+099,099/MRQ/SCD#20/VII/26,2026-07-12,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,JAKARTA,Urgent,New Mud Tank,3,3,Ea,,"Elbow 6"" - 90 Degree  SCH 40 For. Water Line Supply New Mud Tank | NOTE: Additional",4,Ea
+100,099/MRQ/SCD#20/VII/26,2026-07-12,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Panel MCC Day Tank,1,2,Ea,,MCCB Breaker - 250A STR 22 SE  for. Panel MCC Day Tank,0,Ea
+100,099/MRQ/SCD#20/VII/26,2026-07-12,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Panel MCC Day Tank,2,1,Ea,,Junction Box H:70Cm x L:60Cm x W:30Cm  For. Soft Starter,0,Ea
+100,099/MRQ/SCD#20/VII/26,2026-07-12,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Panel MCC Day Tank,3,50,Mtr,,"Flexible Conduit PVC 1/2""",0,Ea
+100,099/MRQ/SCD#20/VII/26,2026-07-12,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Panel MCC Day Tank,4,50,Mtr,,"Flexible Conduit PVC 3/4""",0,Ea
+101,101/MRQ/SCD#20/VII/26,2026-07-10,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Water Supply,1,50,Mtr,,"Hose 2DN - 2"" - 150 Psi   For. Suction Line Pit to Water Tank",0,Mtr
+101,101/MRQ/SCD#20/VII/26,2026-07-10,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Water Supply,2,20,Mtr,,"Hose 2DN - 3"" - 150 Psi   For. Suction Line Fire Pump & Water Pump",0,Mtr
+101,101/MRQ/SCD#20/VII/26,2026-07-10,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Water Supply,3,50,Mtr,,"Hose 2DN - 4"" - 150 Psi   For. Water Line Mud Tank",0,Mtr
+101,101/MRQ/SCD#20/VII/26,2026-07-10,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Water Supply,4,25,Mtr,,"Air Hose 1"" x 300 Psi  For. Air Hose Accumulator",0,Mtr
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,1,10,Ea,,Camlock Conn Male Coupler  X  Hose Shank Size: 1 Inch  SN. E100,0,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,2,4,Ea,,Camlock Conn Male Adapter  X  Female Thread Size: 1-1/4 Inch SN. A125,0,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,3,5,Ea,,Camlock Plastic - Conn Female Coupler  X  Hose Shank Size: 1-1/4 Inch  SN. C125,1,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,4,3,Ea,,Camlock Plastic Conn Male Adapter  X  Male Thread Size: 1 Inch  SN. F100,3,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,5,5,Ea,,Camlock Conn Female Coupler  X  Female Thread Size: 2 Inch  SN. D200,5,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,6,5,Ea,,Camlock Conn Female Coupler  X  Male Thread Size: 2 Inch  SN. B200,1,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,7,6,Ea,,Camlock Plastic Conn Male Adapter  X  Male Thread Size: 2 Inch  SN. F200,0,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,8,4,Ea,,Camlock Conn Male Adapter  X  Female Thread Size: 2 Inch  SN. A200,2,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,9,7,Ea,,Camlock Plastic Conn Female Coupler  X  Male Thread Size: 2 Inch  SN. B200,3,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,10,3,Ea,,Camlock Conn Female Coupler  X  Hose Shank Size: 3 Inch  SN. C300,3,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,11,2,Ea,,Camlock Conn Female Coupler  X  Male Thread Size: 4 Inch  SN. B400,2,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,12,2,Ea,,Camlock Conn Male Adapter  X  Male Thread Size: 4 Inch  SN. F400,2,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,13,2,Ea,,Camlock Conn Female Coupler  X  Female Thread Size: 4 Inch  SN. D400,2,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,14,3,Ea,,Camlock Conn Male Adapter  X  Hose Shank Size: 4 Inch  SN. E400,3,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,15,5,Ea,,Camlock Conn Female Coupler  X  Hose Shank Size: 4 Inch  SN. C400,1,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,16,5,Ea,,Camlock Conn Female Coupler Size: 4 Inch  X  Male Coupler Size:2Inch SN. DA4020,1,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,17,5,Ea,,Camlock Conn Male Adapter  X  Hose Shank Size: 2 Inch  SN. E200,1,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,18,4,Ea,,Camlock Conn. Female Coupler x Hose Shank Size : 4 Inch  SN. C400,2,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,19,4,Ea,,Camlock Conn. Male Adapter x Hose Shank Size : 4 Inch  SN. E400,2,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,20,6,Ea,,Camlock Conn. Female Coupler x Female Thread Size : 4 Inch  SN. B400,0,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,21,3,Ea,,Camlock Conn. Female Coupler x Hose Shank Size : 3 Inch  SN. E300,3,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,22,4,Ea,,Camlock Conn. Female Coupler x Hose Shank Size : 3 Inch  SN. C300,2,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,23,5,Ea,,Camlock Conn. Female Coupler x Male Thread Size : 3 Inch  SN. B300,1,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,24,2,Ea,,Camlock Conn. Female Coupler x Hose Shank Size : 6 Inch  SN. C600,2,Ea
+102,102/MRQ/SCD#20/VII/26,2026-07-15,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Operational,25,1,Ea,,Camlock Conn. Male Adapter x Male Thread Size : 6 Inch  SN. F600,3,Ea
+103,103/MRQ/SCD#20/VII/26,2026-07-16,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Spare New Tyre,1,5,Ea,,Tyre Size: 11R 22.5   For. Spare,0,Ea
+103,103/MRQ/SCD#20/VII/26,2026-07-16,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Spare New Tyre,2,2,Ea,,Tyre Size: 265/70 R19.5   For. Spare Loadsafe,0,Ea
+103,103/MRQ/SCD#20/VII/26,2026-07-16,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Spare New Tyre,3,1,Ea,,Tyre Size: 385/65R 22.5   For. Spare White Trailer,0,Ea
+104,104/MRQ/SCD#20/VII/26,2026-07-19,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Back Up Kelly Hose & Line Mud Pump to Stand Pipe,1,3,Ea,,"Rotary Drilling Hose Assembly 3"" x 7.5K Psi x 10.2 Mtr | Integral Crimp Fitting FIG 1502 Male - Female",0,Ea
+104,104/MRQ/SCD#20/VII/26,2026-07-19,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Back Up Kelly Hose & Line Mud Pump to Stand Pipe,2,2,Ea,,"Rotary Drilling Hose Assembly 3"" x 7.5K Psi x 6 Mtr | Integral Crimp Fitting FIG 1502 Male - Female",0,Ea
+104,104/MRQ/SCD#20/VII/26,2026-07-19,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Back Up Kelly Hose & Line Mud Pump to Stand Pipe,3,1,Ea,,"Integral 90 Degree Long Sweep Elbow, 3"" FIG 1502",1,Ea
+104,104/MRQ/SCD#20/VII/26,2026-07-19,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Back Up Kelly Hose & Line Mud Pump to Stand Pipe,4,3,Ea,,"3"" Hose Sleeve Protective Cover x 10.2 Mtr",0,Ea
+104,104/MRQ/SCD#20/VII/26,2026-07-19,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Back Up Kelly Hose & Line Mud Pump to Stand Pipe,5,2,Ea,,"3"" Hose Sleeve Protective Cover x 6 Mtr",0,Ea
+105,105/MRQ/SCD#20/VII/26,2026-07-19,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Spare Back Up Repair Kit Gate Valve 3""",1,3,Set,,"Minor Repair Kit For SANYI 3"" x 5K Psi FIG 1502 DEMCO Type Gate Valve | P/N. #RK3IN15025KMI | #Consist : - 1 Ea Bonnet Seal M5526-433 | 1 Ea Gate M1886-002 | 1 Ea Seat Assembly M1876-0011",0,Set
+105,105/MRQ/SCD#20/VII/26,2026-07-19,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Spare Back Up Repair Kit Gate Valve 3""",2,3,Set,,"Major Repair Kit For 3"" x 5K Psi FIG 1502 DEMCO Type Gate Valve | P/N. #RK3IN15025KMA | #Consist : - 1 Ea Stem Screw M1914-003 | 1 Ea Stem Screw Seal M5526-226 | 1 Ea Stem M1932-002 | 1 Ea Secondary Seal M5526-212 | 1 Ea Stem Seal Assembly M1950-001 (Include Bronze Bushing) | 1 Ea Bonnet Seal M5526-433 | 1 Ea Gate M1886-002 | 1 Ea Seat Assembly M1876-0011",0,Set
+105,105/MRQ/SCD#20/VII/26,2026-07-19,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Spare Back Up Repair Kit Gate Valve 3""",3,1,Ea,,"Pressure Relief Valve Shear Pin Type 3"" x 5000 Psi OTECO P/N.#133050",0,Ea
+106,106/MRQ/SCD#20/VII/26,2026-07-21,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Tread Lock Casing,1,2,Pail,,BESTOLIFE Premium Compounds For Casing P/N. 613357,0,Pail
+107,106/MRQ/SCD#20/VII/26,2026-07-25,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,,1,6,Ea,,"Hammer Union Coupling Size 3"" Fig 1502 Weld Type",0,Ea
+108,108/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Recerficate Fire Extinguisher,1,17,Btl,,"Refill, Inspeksi & Recertificate Fire Extinguisher Bottle 9 Kg",17,Btl
+108,108/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Recerficate Fire Extinguisher,2,5,Btl,,"Refill, Inspeksi & Recertificate Fire Extinguisher Bottle 4.5
+   Kg",5,Btl
+109,109/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Fuel Distribution,1,1,Roll,,"Fuel Hose Size 3/4"" x 50 Mtr On Reel",0,roll
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,1,25,Pair,,Heavy Duty High Impact Glove (Kong) Size L,0,Pair
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,2,25,Pair,,Heavy Duty High Impact Glove (Kong) Size XL,0,Pair
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,3,30,Pair,,Cut Resitance Glove,0,Pair
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,4,2,Box,,Dark Safety Glass King's,0,Ea
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,5,2,Box,,Clear Safety Glass King's,0,Ea
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,6,20,Ea,,Suspension Helmet Fastrack,0,Ea
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,7,15,Pair,,Safety Shoes Size 7 aetos litium,0,Pair
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,8,10,Pair,,Safety Shoes Size 8 aetos litium,0,Pair
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,9,5,Pair,,Safety Shoes Size 9 aetos litium,0,Pair
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,10,5,Ea,,Safety Shoes Size 10 aetos litium,0,Ea
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,11,5,Ea,,Safety Shoes Size 11 aetos litium,0,Ea
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,12,15,Ea,,Safety Helmet Fullbream MSA C/W Suspension Helmet,0,Ea
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,13,20,Ea,,Chain Strap,0,Ea
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,14,6,Ea,,Radio HT Icom,0,Ea
+110,110/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Safety Equipme,15,2,Ea,,Eyewash | Ceviar Collar (Medic) | P3k C/W Medicine,0,Ea
+111,111/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Booster & Man Hole Mud Tank 2,1,1,Jts,,"H-Beam Size 8"" X 12 Meters",0,Jts
+111,111/MRQ/SCD#20/VII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Booster & Man Hole Mud Tank 2,2,1,Sheet,,Mild Steel Plate Size 16 mm,0,Sheet
+112,112/MRQ/SCD#20/VIII/26,2026-07-26,YARD - PAMANUKAN,SCD #20,Mechanic,,MAINTENANCE,JAKARTA,Urgent,Engine Deep Sea Minicamp,1,1,Ea,,Expantion Display Module Provide Remote Control DSE 7320MKII,0,Ea
+113,113/MRQ/SCD#20/VII/26,2026-08-01,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,Mud Transfer Line From Premix To Active Tank,1,2,Ea,,"Hammer Union 6"" Fig 200 Weld Type",0,Ea
+113,113/MRQ/SCD#20/VII/26,2026-08-01,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,Mud Transfer Line From Premix To Active Tank,2,2,Ea,,"Weldneck Flange Size 6"" Sch 40",0,Ea
+114,114/MRQ/SCD#20/VIII/26,2026-08-07,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,Mud Transfer Line From Premix To Active Tank,1,1,Set,,Plastic Banding Kit,0,Ea
+114,114/MRQ/SCD#20/VIII/26,2026-08-07,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,Mud Transfer Line From Premix To Active Tank,2,1,Set,,Metal Strapping Kit,0,Ea
+115,115/MRQ/SCD#20/VIII/26,2026-08-07,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,,Urgent,"X/O From Ball Valve To Diverter Line 10""",1,1,Ea,,"Fabricate Flange For X/O From Ball Valve To Diverter Line 10""",0,Ea
+116,116/MRQ/SCD#20/VIII/26,2026-08-09,YARD - PAMANUKAN,SCD #20,Mechanic,,MAINTENANCE,,Urgent,"X/O From Ball Valve To Diverter Line 10""",1,3,Kit,,"Repair Kit Swivel Joint 3"" P/N P505433",1,Kit
+117,117/MRQ/SCD#20/VIII/26,2026-08-11,YARD - PAMANUKAN,SCD #20,Mechanic,,MAINTENANCE,,Urgent,For Spare Filter Engine Mud Pump,1,6,Set,,Primary & Secondary Air Filter AF890/891,0,Set
+118,118/MRQ/SCD#20/VIII/26,2026-08-13,YARD - PAMANUKAN,SCD #20,Mechanic,,MAINTENANCE,,Urgent,Spare Back Up,1,14,Ea,,"Hyd Filter ""DONALDSON"" P163903",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,1,10,Set,,"Fitting Hose Crimping 3/8"" Elbow 90°  C/W. Ferroul  FNP-06 JIC",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,2,10,Set,,"Fitting Hose Crimping 3/8"" Straight   C/W. Ferroul  FNP-06 JIC",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,3,10,Ea,,"Reducer Double Nipple 3/8"" x 1/4"" NPT",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,4,10,Ea,,"Reducer Double Nipple 1/2"" x 1/4"" NPT",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,5,6,Ea,,"Tee 1"" High Pressure",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,6,6,Ea,,"Tee 3/8"" High Pressure",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,7,10,Ea,,"Double Nipple 3/8"" NPT x 3/8"" JIC",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,8,10,Ea,,"Double Nipple 1"" NPT x 3/8"" JIC",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,9,6,Ea,,"Hydraulic Quick Coupling NPT  3/8""  X  3000 Psi",5,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,10,2,Ea,,"Needle Valve 1/2"" x 6000 Psi",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,11,2,Ea,,"Check Valve 1/2"" x 6000 Psi",2,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,12,10,Set,,"Fitting Hose Crimping 1/4"" Elbow 90°  C/W. Ferroul  FNP-06 JIC",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,13,10,Set,,"Fitting Hose Crimping 1/4"" Straight   C/W. Ferroul  FNP-06 JIC",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,14,10,Ea,,"Reducer Medium / H.P Size: 1"" Box X 3/8"" Box",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,15,10,Ea,,"Reducer Double Nipple 3/8"" JIC x 1/4"" JIC",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,16,4,Ea,,"Pressure Gauge 2.5 Face Conn. 1/4"" - 300 Psi",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,17,1,Roll,,"Water Hose 1"" @50 Mtr",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,18,1,Ea,,MD TOTCO Fluid W-15 (Ea/5 Ltr),0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,19,1,Doz,,WD-40 333 Ml,0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,20,1,Ea,,"Pipe Wrench 10"" RIDGID",0,Ea
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,21,1,Ea,,"Fitting Hose Crimping 1/2"" Elbow 90°  C/W. Ferroul  FNP-06 JIC",,
+119,119/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Urgent,Spare Back Up & Prepare Connection Hyd. Ball Valve,22,1,Ea,,"Fitting Hose Crimping 1/2"" Straight   C/W. Ferroul  FNP-06 JIC",,
+120,120/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Operational,1,10,Ea,,Plug 8 Pin 10A/250V (STD Australia) SCHNEIDER P/N. EY56P310,0,Ea
+120,120/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Operational,2,10,Ea,,Receptacle 3 Pin 10A/250V (STD Australia) CLIPSAL P/N. 56CSC810,0,Ea
+120,120/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Operational,3,1,Roll,,Cable NYYHY 3 x 2.5Mm @50 Mtr,0,Roll
+120,120/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Operational,4,1,Roll,,Cable Grounding (Green Strip Yellow) 6 x 25Mm  @50 Mtr,0,Roll
+120,120/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Operational,5,3,Ea,,Explotion Proof Gas Proof Light 500W/220V  For. New Mud Tank,0,Ea
+120,120/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Operational,6,10,Ea,,Co-Contact Cleaner,0,Ea
+120,120/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Operational,7,3,Ea,,"Stick Cooper Grounding Rod 3/4"" x 2 Mtr",0,Ea
+120,120/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,ELECTRIC,,MAINTENANCE,JAKARTA,Urgent,Operational,8,1,Ea,,Relay MERLIN GERIN Vigirex S/N. RM12T for. MCC,0,Ea
+121,121/MRQ/SCD#20/VIII/26,2026-08-19,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,LOCAL,Urgent,"Fabrication Skid Annular 21-1/4"" & 13-5/8""",1,4,Sht,,Steel Plate 10Mm,0,Sht
+121,121/MRQ/SCD#20/VIII/26,2026-08-19,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,LOCAL,Urgent,"Fabrication Skid Annular 21-1/4"" & 13-5/8""",2,3,Ea,,Steel UNC 150Mm,0,Ea
+122,122/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,JAKARTA,Normal,Additional & Prepare Job Welding Well Head,1,40,Kg,,Welding Rod LB 52 18 ( 3.2 ) for. Welding Jobs Well Head,0,Kg
+122,122/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,JAKARTA,Normal,Additional & Prepare Job Welding Well Head,2,1,Ea,,Dryer/Oven Welding Rod TRB-5A,0,Ea
+122,122/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,JAKARTA,Normal,Additional & Prepare Job Welding Well Head,3,5,Box,,"Grinding Disc 4""",0,Ea
+122,122/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,JAKARTA,Normal,Additional & Prepare Job Welding Well Head,4,5,Box,,"Cutting Wheel 4"" WD",0,Ea
+122,122/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,JAKARTA,Normal,Additional & Prepare Job Welding Well Head,5,100,Kg,,Welding Rod LB 52 ( 3.2 ) for. Balam Project,55,Kg
+123,123/MRQ/SCD#20/VIII/26,2026-08-25,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,LOCAL,Normal,Fabrication Rack WHS Red,1,10,Ea,,Square Steel Tube 4 X 4,0,Ea
+123,123/MRQ/SCD#20/VIII/26,2026-08-25,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,LOCAL,Normal,Fabrication Rack WHS Red,2,10,Ea,,Square Steel Tube 5 X 5,0,Ea
+123,123/MRQ/SCD#20/VIII/26,2026-08-25,YARD - PAMANUKAN,SCD #20,WELDER,,MAINTENANCE,LOCAL,Normal,Fabrication Rack WHS Red,3,28,Ea,,Iron Elbow 5 X 5,0,Ea
+124,124/MRQ/SCD#20/VIII/26,2026-08-26,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"Stump Test Annular 21-1/4"" x 2K Psi",1,1,Ea,,"Flange for Stump Test Annular 21-1/4"" C/W. Tool Joint Drill Pipe",0,Ea
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,1,5,Pair,,Welding Gloves ENDURA 505BUWS,1,Pair
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,2,5,Ea,,Apron for Welding,0,Ea
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,3,2,Set,,Faceshield for Mixing Chemical,0,Set
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,4,5,Pair,,Handgloves for Electric,0,Pair
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,5,3,Ea,,Life Jacket,0,Ea
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,6,5,Roll,,Police Line / Safety Line ( Yellow Black 3 Roll & White Red 2 Roll ),0,Roll
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,7,10,Ea,,LOTO Lock,0,Ea
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,8,1,Ea,,Emergency Shower,1,Ea
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,9,3,Ea,,Fire Extinguisher 9 Kg Type CO2,0,Ea
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,10,2,Ea,,Fire Extinguisher 9 Kg Type B ( Foam ),0,Ea
+125,125/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Equipment HSE,11,1,Ea,,Fire Axe,0,Ea
+126,126/MRQ/SCD#20/VIII/26,2026-08-29,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Hydro Test Fire Extinguisher 9 & 4.5 Kg,1,2,Ea,,Hydro Test Fire Extinguisher Bottle 4.5,0,Ea
+126,126/MRQ/SCD#20/VIII/26,2026-08-29,YARD - PAMANUKAN,SCD #20,HSE,,MAINTENANCE,JAKARTA,Normal,Hydro Test Fire Extinguisher 9 & 4.5 Kg,2,17,Ea,,Hydro Test Fire Extinguisher Bottle 9 Kg,0,Ea
+127,127/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"BOP Stuck 21.1/4""",1,40,Ea,,"Stud Bolt And Nut 1.5/8"" x 12.3/4"" ( for. 21.1/4"" x 2M )",68,Ea
+127,127/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"BOP Stuck 21.1/4""",2,2,Ea,,Ring Joint RX-53 Octagonal ( for. Spare Back Up ),4,Ea
+127,127/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"BOP Stuck 21.1/4""",3,1,Ea,,"Hammer Wrench / Slogging Wrench Ring 1.3/8"" Hexagonal Style",0,Ea
+127,127/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"BOP Stuck 21.1/4""",4,1,Ea,,"Hammer Wrench / Slogging Wrench Ring 1.2/8"" Hexagonal Style",0,Ea
+127,127/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"BOP Stuck 21.1/4""",5,1,Ea,,"Hammer Wrench / Slogging Wrench Ring 1.2/8"" 12 Point Socket Style",0,Ea
+127,127/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,"BOP Stuck 21.1/4""",6,1,Ea,,"Hammer Wrench / Slogging Wrench Ring 1.5/8"" Hexagonal Style",0,Ea
+128,128/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Fabrication DSA,1,1,Ea,,"DSAF 11"" x 5M  -  11"" x 2M",0,Ea
+128,128/MRQ/SCD#20/IX/26,2026-09-06,YARD - PAMANUKAN,SCD #20,DRILLING,,MAINTENANCE,JAKARTA,Urgent,Fabrication DSA,2,1,Ea,,"Adapter Flange 1-7/16"" x 2M  -  2"" 1502",0,Ea
+129,129/MRQ/SCD#20/IX/26,2026-09-07,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Replace Steam Wash,1,1,Set,,Triplex High Pressure Water Pump S/N. MPW 3600 DE,0,Ea
+130,130/MRQ/SCD#20/IX/26,2026-09-08,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Additional Prepare De-Mobilisasi,1,20,Ea,,"Webbing Lashing System 2 Technotec, 50Mm - 5T x 10Mtr (SWL 2.5T)",0,Ea
+130,130/MRQ/SCD#20/IX/26,2026-09-08,YARD - PAMANUKAN,SCD #20,MECHANIC,,MAINTENANCE,JAKARTA,Normal,Additional Prepare De-Mobilisasi,2,1,Ea,,Chain Block 2 T,0,Ea
+131,131/MRQ/SCD#20/IX/26,2026-09-19,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,For Prepare Stock In Balam Project,1,4,Ea,,Ring Joint RX-73,3,Ea
+131,131/MRQ/SCD#20/IX/26,2026-09-19,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,For Prepare Stock In Balam Project,2,1,Ea,,Ring Joint R-73 (Urgent For Install At Bill Nipple),0,Ea
+131,131/MRQ/SCD#20/IX/26,2026-09-19,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,For Prepare Stock In Balam Project,3,5,Ea,,Ring Joint R-35,5,Ea
+131,131/MRQ/SCD#20/IX/26,2026-09-19,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,For Prepare Stock In Balam Project,4,5,Ea,,Ring Joint R-39,3,Ea
+131,131/MRQ/SCD#20/IX/26,2026-09-19,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,For Prepare Stock In Balam Project,5,5,Ea,,Ring Joint BX-160,10,Ea
+132,132/MRQ/SCD#20/IX/26,2026-09-24,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,"For DSAF 11"" 2K& reducer 7.1/16"" 2K",1,16,Ea,,"Tap End Stud Bolt 1.1/4"" x6.1/2"" F/ 11"" 2K DSAF",0,Ea
+132,132/MRQ/SCD#20/IX/26,2026-09-24,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,"For DSAF 11"" 2K& reducer 7.1/16"" 2K",2,12,Ea,,"Stud Bolt Size 1"" x 7.1/2"" F/Reducer 7.1/16"" 2K x 2"" 1502 Union Hummer",0,Ea
+133,133/MRQ/SCD#20/IX/26,2026-10-03,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Normal,Webbing Sling,1,6,Ea,,Round Sling 2T X 2 Mtr,1,Ea
+133,133/MRQ/SCD#20/IX/26,2026-10-03,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Normal,Webbing Sling,2,6,Ea,,Round Sling 4T X 2 Mtr,0,Ea
+133,133/MRQ/SCD#20/IX/26,2026-10-03,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Normal,Webbing Sling,3,6,Ea,,Round Sling 6T X 2 Mtr,0,Ea
+134,134/MRQ/SCD#20/IX/26,2026-11-15,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,Part Mud Pump,1,12,Ea,,Insert Valve Full Open PN. MK-6FO-V1,1,Ea
+134,134/MRQ/SCD#20/IX/26,2026-11-15,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,Part Mud Pump,2,12,Ea,,Seat Valve Full Open PN. MK-6FO-S6,4,Ea
+134 (2),134/MRQ/SCD#20/IX/26,2026-11-15,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,Part Mud Pump,1,12,Ea,,Insert Valve Full Open PN. MK-6FO-V1,1,Ea
+134 (2),134/MRQ/SCD#20/IX/26,2026-11-15,YARD - PAMANUKAN,SCD #20,Drilling,,MAINTENANCE,JAKARTA,Urgent,Part Mud Pump,2,12,Ea,,Seat Valve Full Open PN. MK-6FO-S6,4,Ea

@@ -1,0 +1,181 @@
+Update inventory 19 November 2026,,,,,,,,,
+ItemID,No,ItemName,UoM,LastStock,StockIn,StockOut,CurrentStock,Status,Location
+01.01.0001,1,"Piston Assembly Size 5.1/2"" P/N MK-154HB14/15",ea,22,,,22,In Stock,1/H
+01.01.0002,2,"Red Thunder High Bonded Piston Size Size 5.1/2"" MK-RT-540",ea,6,,,6,Need Order,1/H
+01.01.0003,3,"Piston Assembly Size 6"" P/N MK-160HB-14/15",ea,7,,,7,Need Order,1/H
+01.01.0004,4,"Rubber Piston Assembly Size 6"" P/N MK-160HB",ea,3,,,3,Need Order,1/H
+01.01.0005,5,"Piston Rubber Assembly Size 5.1/2"" Series B MK-154HB",ea,14,,,14,In Stock,1/H
+01.01.0006,6,"Piston Assembly Size 6"" P/N PIST600NBRC F/Ceramic Liner Banded NBR",ea,12,,,12,Need Order,1/H
+01.01.0007,7,"Piston Assembly Size 6.3/4"" P/N PIST675NBRC F/Ceramic Liner Banded NBR",ea,6,,,6,Need Order,1/H
+01.01.0008,8,"Piston Assembly Size 6.1/2"" P/N PIST600NBRC F/Ceramic Liner Banded NBR",ea,12,,,12,Need Order,1/H
+01.01.0009,9,"Piston Assembly Black Rubber Bonded Size 6"" P/N MK-RB600",ea,5,,,5,Need Order,1/H
+01.01.0016,10,"Piston Assembly Size 5"" P/N PIST500NBRC F/Ceramic Liner Banded NBR",ea,12,,,12,Need Order,1/H
+01.01.0017,11,"Piston Caliber x400 Ultra High Pressure Size 6"" P/N 424-60FLS-VT",ea,1,,,1,Need Order,1 F
+01.01.0029,12,"Piston Assembly White Lighting Single Bonded Size 5.1/2"" ""NOV"" P/N 10350663",ea,6,,,6,In Stock,1H
+01.01.0011,13,"Liner Ceramic Size 6"" P/N 0148-60C",ea,9,,,9,Need Order,1
+01.01.0012,14,"Steel Chrome Liner Size 5"" P/N MK-0148-50",ea,16,,,16,In Stock,1
+01.01.0013,15,"Steel Chrome Liner Size 6"" P/N MK-0148-60",ea,5,,,5,Need Order,1
+01.01.0014,16,"Liner Ceramic Size 5.1/2""",ea,6,,,6,Need Order,1
+01.01.0015,17,"Steel Chrome Liner Size 5.1/2"" P/N MK-0148-54",ea,2,,,2,Need Order,1
+01.01.0037,18,"Liner Ceramic 6.1/2""",ea,,,,,Need Order,1
+01.01.0010,,Liner Packing P/N MKG-0287,ea,26,,,26,In Stock,1/H
+01.01.0018,,Full Open Valve Assy MK-6FO-V1,ea,1,12,,13,In Stock,1I
+01.01.0019,,Valve Seat P/N MK-6FO-56,ea,4,12,,16,In Stock,1I
+01.01.0021,,Valve Spring ,ea,42,,,42,In Stock,1I
+01.01.0022,,Lower Valve Guide C/W Bushing P/N MK-6319008700,ea,6,,,6,Need Order,1I
+01.01.0023,,Piston Rod Nut P/N MK-7403364,ea,2,,,2,Need Order,1I
+01.01.0024,, Lower Valve Guide Bushing  MUD KING  P/N MK-6316009600,ea,29,,,29,In Stock,1I
+01.01.0025,,Retainer Plate P/N MK 6397060300,ea,12,,,12,In Stock,1I
+01.01.0026,,"Liner Ceramic Size 6.3/4""",ea,3,,,3,Need Order,1
+01.01.0027,,"Steel Chrome Liner Size 6.1/2"" MK-0148-66",ea,9,,,9,Need Order,New Warehouse
+01.01.0028,,Extension Rod P/N MK-16-0150,ea,3,,,3,Need Order,1
+01.01.0030,,Piston Rod Clamp P/N MK-240150,ea,2,,,2,Need Order,1 Floor
+01.01.0031,,Cylinder Head Plug P/N MK6319-0031-00,ea,4,,,4,In Stock,1
+01.01.0032,,Cylinder Head P/N MK6319-0090-00,ea,2,,,2,Need Order,1 Floor
+01.01.0033,,Liner Cage P/N MK,ea,5,,,5,In Stock,1L
+01.01.0034,,Suction Manifold O-ring P/N MK-7602160061,ea,12,,,12,In Stock,1I
+01.01.0035,,Discharge Manifold O-Ring P/N OBS-000262,ea,7,,,7,In Stock,1I
+01.01.0036,,Piston Rod P/N MK-0150,ea,,,,,Need Order,1
+02.01.0001,,Protector Rubber Deck Bulkhead (Double,ea,11,,,11,In Stock,1E
+02.01.0002,,Protector Rubber Side Cross Support,ea,6,,,6,Need Order,1E
+02.01.0003,,Protector Rubber Rear Cross Support,ea,5,,,5,In Stock,1E
+02.01.0004,,Curtain Assy Disch 188x70x40,Sht,1,,,1,Need Order,1E
+02.01.0005,,Protector Rubebr Deck Bulkhead (Single),ea,12,,,12,In Stock,1E
+02.01.0006,,Rubber Mounting ,ea,22,,,22,In Stock,1E
+02.01.0007,,Pawl Lock Assembly,Set,2,,,2,Need Order,1E
+02.01.0008,,Screen Shaker Pyramid Pmd HYP DX-A80,Sht,10,,,10,In Stock,WHS Pason
+02.01.0009,,Screen Shaker Pyramid PMD HYP DX-A100,Sht,12,,,12,In Stock,WHS Pason
+02.01.0010,,Screen Shaker Pyramid PMD HYP DX-A120,Sht,12,,,12,In Stock,WHS Pason
+02.01.0011,,Screen Shaker Pyramid PMD HYP DX-A140,Sht,17,,,17,In Stock,WHS Pason
+02.01.0012,,Screen Shaker Pyramid PMD HYP DX-A170,Sht,18,,4,14,In Stock,WHS Pason
+02.01.0013,,Screen Shaker Pyramid PMD HYP DX-A200,Sht,12,,6,6,Need Order,WHS Pason
+02.01.0014,,Screen Shaker Pyramid PMD HYP DX-A230,Sht,7,,,7,Need Order,WHS Pason
+02.01.0015,,Screen Shaker Pyramid PMD HYP DX-A270,Sht,2,,,2,Need Order,WHS Pason
+03.01.0001,,Ring Joint Rx-35,ea,21,,,21,In Stock,1L
+03.01.0002,,Ring Joint RX-39,ea,13,,,13,In Stock,1L
+03.01.0003,,Ring Joint RX-44,ea,9,,,9,In Stock,1L
+03.01.0004,,Ring Joint R-44,ea,4,,,4,In Stock,1L
+03.01.0005,,Ring Joint RX-37,ea,1,,,1,Need Order,1L
+03.01.0006,,Ring Joint RX-45,ea,27,,,27,In Stock,1L
+03.01.0007,,Ring Joint RX-53,ea,11,,,11,In Stock,1L
+03.01.0008,,Ring Joint RX-49,ea,1,,,1,Need Order,1L
+03.01.0009,,Ring Joint R-49,ea,4,,,4,In Stock,1L
+03.01.0010,,Ring Joint R-35,ea,5,,,5,In Stock,1L
+03.01.0011,,Ring Joint R-39,ea,1,,,1,Need Order,1L
+03.01.0012,,Ring Joint RX-24,ea,22,,,22,In Stock,1L
+03.01.0013,,Ring Joint R-24,ea,12,,,12,In Stock,1L
+03.01.0014,,Ring Joint RX-73,ea,3,,,3,Need Order,1L
+03.01.0015,,Ring Joint RX-54,ea,2,,,2,Need Order,1L
+03.01.0016,,Ring Joint RX-57,ea,3,,,3,Need Order,1L
+03.01.0017,,Ring Joint BX-160,ea,5,,,5,Need Order,1L
+03.01.0018,,Ring Joint R-73,ea,,,,0,Need Order,1
+04.01.0001,,"Protector Cable Size 3/4""",Roll,1,,,1,Need Order,3/A1
+05.01.0001,,"Sleeve Protector Size 3/8""",Roll,1,,,1,Need Order,3/A1
+05.01.0002,,Sleeve Protector Hose,Roll,1,,,1,Need Order,3/A1
+05.01.0003,,"Fitting Hose Elbow Size 1/2"" JIC",ea,11,,,11,In Stock,3/A2
+05.01.0004,,"Fitting Hose Straight Size 1/2"" JIC",ea,5,,,5,Need Order,3/A2
+06.01.0001,,"Tubing AC 1/4"" X 5/8""",Roll,1,,,1,In Stock,3/A1
+06.01.0002,,Air Conditioner Split Indoor & outdoor,Unit,1,,1,0,Need Order,?
+07.01.0001,,WD-40 220ml,Btl,5,,,5,In Stock,3/A2
+07.01.0002,,Contact Cleaner 220ml,Btl,6,,,6,In Stock,3/A2
+07.01.0003,,Plastic Steel 5 Mnt,Ea,10,,,10,In Stock,3/A2
+07.01.0004,,Red Silicone,ea,10,,,10,In Stock,3/A2
+07.01.0005,,W-15 Fluid 0.945 Ltr,Can,2,,,2,Need Order,3/A2
+07.01.0006,,"Casing Thread Compound ""BESTOLIFE"" P/N 613357",pail,2,,,2,In Stock,
+07.01.0007,,"Dp & DC Thread Compound ""BESTOLIFE"" P/N 635086",pail,5,,,5,In Stock,
+08.01.0001,,"Camlock Size 4"" Type A400 (IRON)",ea,12,,,12,In Stock,1/O4
+08.01.0002,,"Camlock Size 4"" Type B400 (IRON)",ea,5,,,5,In Stock,1/O4
+08.01.0003,,"Camlock Size 4"" Type C400 (IRON)",ea,6,,,6,In Stock,1/O4
+08.01.0004,,"Camlock Size 4"" Type D400 (IRON)",ea,6,,,6,In Stock,1/O4
+08.01.0005,,"Camlock Size 4"" Type D400 (IRON)",ea,6,,,6,In Stock,1/O4
+08.01.0006,,"Camlock Size 3"" Type A300 (IRON)",ea,7,,,7,In Stock,1/O3
+08.01.0007,,"Camlock Size 3"" Type B300 (IRON)",ea,8,,,8,In Stock,1/O3
+08.01.0008,,"Camlock Size 3"" Type C300 (IRON)",ea,7,,,7,In Stock,1/O3
+08.01.0009,,"Camlock Size 3"" Type D300 (IRON)",ea,4,,,4,In Stock,1/O3
+08.01.0010,,"Camlock Size 3"" Type F300 (IRON)",ea,11,,,11,In Stock,1/O3
+08.01.0011,,"Camlock Size 3"" Type E300 (IRON)",ea,2,,,2,Need Order,1/O3
+08.01.0012,,"Camlock Size 2"" Type C200 (IRON)",ea,11,,,11,In Stock,1/O2
+08.01.0013,,"Camlock Size 2"" Type E200 (IRON)",ea,9,,,9,In Stock,1/O2
+08.01.0014,,"Camlock Size 2"" Type A200 (IRON)",ea,3,,,3,Need Order,1/O2
+08.01.0015,,"Camlock Size 2"" Type D200 (IRON)",ea,5,,,5,In Stock,1/O2
+08.01.0016,,"Camlock Size 2"" Type B200 (Plastic)",ea,10,,,10,In Stock,1/O2
+08.01.0017,,"Camlock Size 2"" Type F200 (Plastic)",ea,7,,,7,In Stock,1/O2
+08.01.0018,,"Camlock Size 4"" Type DA4020 (IRON)",ea,5,,,5,In Stock,1/O4
+08.01.0019,,"Double Nipple  Size 4"" Type 4-150 (IRON)",ea,1,,,1,Need Order,1/O4
+08.01.0020,,"Camlock Size 1.1/2"" Type DC1.1/2 (Platic)",ea,5,,,5,In Stock,1/O2
+08.01.0021,,"Camlock Size 1.1/2"" Type DP1.1/2 (Platic)",ea,1,,,1,Need Order,1/O2
+08.01.0022,,"Camlock Size 1.1/4"" Type A125 (IRON)",ea,4,,,4,In Stock,1/O2
+08.01.0023,,"Camlock Size 1.1/4"" Type C125 (IRON)",ea,7,,,7,In Stock,1/O2
+08.01.0024,,"Camlock Size 1"" Type C100 (IRON)",ea,5,,,5,In Stock,1/O1
+08.01.0025,,"Camlock Size 1"" Type F100 (IRON)",ea,11,,1,10,In Stock,1/O1
+08.01.0026,,"Camlock Size 1"" Type E100 (IRON)",ea,6,,1,5,In Stock,1/O1
+08.01.0027,,"Camlock Size 1"" Type DC100 (IRON)",ea,2,,,2,Need Order,1/O1
+08.01.0028,,"Camlock Size 1"" Type B100 (IRON)",ea,2,,,2,Need Order,1/O1
+08.01.0029,,"Camlock Size 1"" Type F100(Plastic)",ea,1,,,1,Need Order,1/O1
+08.01.0030,,"Camlock Size 1"" Type DC100 (Plastic)",ea,4,,,4,In Stock,1/O1
+08.01.0031,,"Camlock Size 3/4"" Type C75 (IRON)",ea,17,,1,16,In Stock,1/O1
+08.01.0032,,"Camlock Size 6"" Type C600 (IRON)",ea,3,,,3,In Stock,1E
+08.01.0033,,"Camlock Size 6"" Type E600 (IRON)",ea,3,,,3,In Stock,1E
+08.01.0034,,"Camlock Size 6"" Type F600 (IRON)",ea,3,,,3,In Stock,1E
+09.01.0001,,"Seal Union Hummer 2""",ea,19,,,19,In Stock,1/E
+09.01.0002,,"Seal Union Hummer Size 2""",ea,8,,,8,In Stock,1/E
+09.01.0003,,"Seal O-Grip Union Size 10"" P/N Dn10",ea,11,,,11,In Stock,1E
+09.01.0004,,"Butterfly Valve Size 8""",ea,7,,,7,In Stock,1S
+09.01.0005,,"Butterfly Valve Size 10""",ea,5,,,5,In Stock,1S
+09.01.0006,,"Butterfly Valve Size 6""",ea,1,,,1,Need Order,1S
+09.01.0007,,"Butterfly Valve Size 4""",ea,2,,,2,Need Order,1S
+09.01.0008,,"Butterfly Valve Size 3""",ea,4,,,4,In Stock,1S
+09.01.0009,,"Butterfly Valve Size 2""",ea,4,,,4,In Stock,1S
+09.01.0010,,"Expansion Joint Size 3""",ea,1,,,1,Need Order,1/R
+09.01.0011,,"Expansion Joint Size 6""",ea,3,,,3,In Stock,1/R
+09.01.0012,,"Ball Valve 4""",ea,2,,,2,In Stock,1R
+09.01.0013,,"Elbow Galvanized 4""",ea,3,,,3,In Stock,1R
+09.01.0014,,"Tee SS304 4""",ea,2,,,2,In Stock,1R
+09.01.0015,,"Tee Galvanized 3""",ea,1,,,1,Need Order,1R
+09.01.0016,,"Tee Galvanized 2""",ea,2,,,2,In Stock,1R
+09.01.0017,,"Double Nipple Galvanized 3""",ea,4,,,4,In Stock,1R
+09.01.0018,,"Collar Galvanized 3""",ea,1,,,1,Need Order,1R
+09.01.0019,,"Collar 3M A105 2""",ea,1,,,1,Need Order,1R
+09.01.0020,,"Plug Galvanized Female 2""",ea,1,,,1,Need Order,1R
+09.01.0021,,"Ball Valve 1/2""",ea,1,,,1,Need Order,1R
+09.01.0022,,"Reducer 3"" NPT x 2"" NPT",ea,1,,,1,Need Order,1R
+09.01.0023,,"Gasket F/Flange Size 8""",ea,6,,,6,In Stock,
+09.01.0024,,"Gasket F/Flange Size 6""",ea,6,,,6,In Stock,
+09.01.0025,,Graphite Spiral Wound Gasket,ea,6,,,6,In Stock,
+09.01.0026,,"Weldneck Flange Sch 40 Size 10""",ea,10,,,10,In Stock,
+09.01.0027,,"Weldneck Flange Sch 40 Size 6""",ea,3,,,3,In Stock,
+09.01.0028,,"Weldneck Flange Sch 40 Size 5""",ea,3,,,3,In Stock,
+09.01.0029,,"Weldneck Flange Sch 40 Size 8""",ea,8,,,8,In Stock,
+09.01.0030,,"Welded Elbow Sch 40 Size 8""",ea,4,,,4,In Stock,
+09.01.0031,,"Welded Elbow Sch 40 Size 4""",ea,2,,,2,In Stock,
+09.01.0032,,"Welded Elbow Sch 40 Size 3""",ea,6,,,6,In Stock,
+09.01.0033,,"Welded Reducer Size 10"" x 6""",ea,1,,,1,In Stock,
+09.01.0034,,"Welded Reducer Size 8"" x 6""",ea,2,,,2,In Stock,
+09.01.0035,,"Hummer Union Coupling 3"" Fig 1502",ea,6,,,6,In Stock,
+09.01.0036,,"Welded Elbow Sch 40 Size 6""",ea,2,,,2,In Stock,
+11.01.0001,,Welding Rod LB-52 3.2mm (5Kg/Box),Box,18,,,18,In Stock,1/Q
+11.01.0002,,Welding Rod LB52-18 (5Kg/Box),Box,3,,,3,Need Order,1/Q
+12.01.0001,,Tester Cup Size 9.5/8 F/ 4.1/2 IF Pin & Box Conn  P/N 30601-01,ea,1,,,1,Need Order,1/Q
+12.01.0002,,Tester Cup Size 9.5/8 F/ 3.1/2 IF Pin & Box Conn ,ea,1,,,1,Need Order,1/Q
+13.01.0001,,Dies 3/8 x 1/4 x 4.1/2 P/N PDT381412,ea,90,,6,84,In Stock,??
+14.01.0001,,Fuel Water Separator Racor P/N P552020TM,Ea,22,,2,20,In Stock,WHS PASON
+15.01.0001,,Liner Washpipe P/N CA177,ea,1,,,1,Need Order,1S
+16.01.0001,,Major Repair Kit PRV P/N K-30550/140351,Kit,2,,,2,In Stock,1B
+16.01.0002,,Cushion Seal P/N SC6110NBR OR 140335,ea,2,,,2,In Stock,
+16.01.0003,,O-Ring Seal P/N RO355/353 OR 140735,ea,3,,,3,In Stock,
+17.01.0001,,Mechanical Seal F/Centrifuga Pump,ea,2,,,2,In Stock,1C
+17.01.0002,,Inboard Bearing P/N P25IBBRG,ea,2,,,2,In Stock,1C
+18.01.0001,,"Double Shield Bearing ""FAG"" P/N 6312 ZZ/C3",ea,4,,,4,In Stock,
+18.01.0002,,"Double Shield Bearing ""FAG"" P/N 6311 ZZ/C3",ea,1,,,1,Need Order,1C
+18.01.0003,,"Double Shield Bearing ""FAG"" P/N 6308 ZZ/C3",ea,1,,,1,Need Order,1C
+18.01.0004,,"Double Shield Bearing ""NSK"" P/N 6308 ZZ/C3",ea,2,,,2,In Stock,1C
+18.01.0005,,"Double Shield Bearing ""Nachi"" P/N 6308 ZZ/C3",ea,1,,,1,Need Order,1C
+18.01.0006,,"Double Shield Bearing ""NSK"" P/N 6306 ZZ/C3",ea,1,,,1,Need Order,1C
+18.01.0006,,Bearing Mud Mixing,ea,1,,,1,Need Order,1C
+19.01.0001,,"Valve Seat 2"" P/N V240N",ea,6,,,6,In Stock,1B
+19.01.0002,,Diaphragm  P/N V224N,Ea,2,,,2,In Stock,1B
+20.01.0001,,"Tap End Stud Bolt 1.1/4"" x 6.1/2"" F/11"" 2K DSAF",ea,,,,0,Need Order,whs
+20.01.0002,,"Stud Bolt 1"" x 7.1/2"" F/ Reducer 7.1/16"" 2K x 2"" Fig 1502",ea,,,,0,Need Order,whs
+21.01.0001,,Round Sling 2T x 2 Mtr,ea,6,,,6,In Stock,
+21.01.0002,,Round Sling 4T x 2 Mtr,ea,6,,,6,In Stock,
+21.01.0003,,Round Sling 6T x 4 Mtr,ea,6,,,6,In Stock,

@@ -3,6 +3,7 @@ import {
   getFirestore, 
   doc, 
   getDoc, 
+  getDocFromServer,
   setDoc, 
   deleteDoc,
   onSnapshot 
@@ -18,6 +19,7 @@ export const db = firebaseConfig.firestoreDatabaseId
 export {
   doc,
   getDoc,
+  getDocFromServer,
   setDoc,
   deleteDoc,
   onSnapshot

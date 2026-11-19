@@ -1,4 +1,4 @@
-import { db, doc, getDoc, setDoc, deleteDoc, onSnapshot } from './firebase';
+import { db, doc, getDoc, getDocFromServer, setDoc, deleteDoc, onSnapshot } from './firebase';
 
 const CHUNK_SIZE = 1000;
 
@@ -153,7 +153,12 @@ export async function loadChunkedFirestore(mainData: any): Promise<any> {
  */
 export async function fetchFullStoreFromFirestore(): Promise<any | null> {
   try {
-    const mainSnap = await getDoc(doc(db, 'erp', 'main_store'));
+    let mainSnap;
+    try {
+      mainSnap = await getDocFromServer(doc(db, 'erp', 'main_store'));
+    } catch {
+      mainSnap = await getDoc(doc(db, 'erp', 'main_store'));
+    }
     if (!mainSnap.exists()) return null;
     const rawData = mainSnap.data();
     return await loadChunkedFirestore(rawData);

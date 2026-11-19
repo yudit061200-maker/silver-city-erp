@@ -22,6 +22,7 @@ import { LoginModal } from './components/LoginModal';
 import { processFileUpload } from './utils/fileUpload';
 import { processPriceUpdates, parseNumberValue, DEFAULT_EXCHANGE_RATE } from './utils/currency';
 import { matchesSearchQuery } from './utils/search';
+import { calculateIssuedStockOnHand } from './utils/stock';
 import { Header } from './components/Header';
 import { DashboardView } from './components/DashboardView';
 import { SingleRecordModal } from './components/SingleRecordModal';
@@ -36,7 +37,7 @@ import { ReorderNotificationModal } from './components/ReorderNotificationModal'
 import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { SpreadsheetSyncModal } from './components/SpreadsheetSyncModal';
-import { db, doc, onSnapshot } from './lib/firebase';
+import { db, doc, getDocFromServer, onSnapshot } from './lib/firebase';
 import {
   saveChunkedFirestore,
   loadChunkedFirestore,
@@ -153,6 +154,8 @@ export default function App() {
   const [isFirebaseConnected, setIsFirebaseConnected] = useState<boolean>(false);
   const [isSavingToFirestore, setIsSavingToFirestore] = useState<boolean>(false);
 
+  const isFirestoreHydratedRef = React.useRef<boolean>(false);
+
   const latestStoreRef = React.useRef({
     items,
     requests,
@@ -184,19 +187,97 @@ export default function App() {
     purgeLocalStorageDataset();
   }, []);
 
+  const applyHydratedStore = (store: any) => {
+    if (!store) return;
+    if (Array.isArray(store.items)) {
+      setItems(store.items);
+      latestStoreRef.current.items = store.items;
+    }
+    if (Array.isArray(store.requests)) {
+      setRequests(store.requests);
+      latestStoreRef.current.requests = store.requests;
+    }
+    if (Array.isArray(store.pos)) {
+      setPurchaseOrders(store.pos);
+      latestStoreRef.current.purchaseOrders = store.pos;
+    }
+    if (Array.isArray(store.receives)) {
+      setReceives(store.receives);
+      latestStoreRef.current.receives = store.receives;
+    }
+    if (Array.isArray(store.issued)) {
+      setIssued(store.issued);
+      latestStoreRef.current.issued = store.issued;
+    }
+    if (Array.isArray(store.users)) {
+      setUsers(store.users);
+      latestStoreRef.current.users = store.users;
+    }
+    if (store.companyHeader) {
+      setCompanyHeader(store.companyHeader);
+      latestStoreRef.current.companyHeader = store.companyHeader;
+    }
+    if (store.savedDocHeaders) {
+      setSavedDocHeaders(store.savedDocHeaders);
+      latestStoreRef.current.savedDocHeaders = store.savedDocHeaders;
+    }
+    if (store.customColHeaders) {
+      setCustomColHeaders(store.customColHeaders);
+      latestStoreRef.current.customColHeaders = store.customColHeaders;
+    }
+    isFirestoreHydratedRef.current = true;
+  };
+
   const pushSyncToServer = async (overrideStore?: any) => {
     setIsSavingToFirestore(true);
+
+    // Guard: if Firestore hasn't finished initial hydration yet, fetch server store first
+    // so we never accidentally overwrite existing cloud data with default initial arrays.
+    let baseStore: any = {
+      items: latestStoreRef.current.items,
+      requests: latestStoreRef.current.requests,
+      pos: latestStoreRef.current.purchaseOrders,
+      receives: latestStoreRef.current.receives,
+      issued: latestStoreRef.current.issued,
+      users: latestStoreRef.current.users,
+      companyHeader: latestStoreRef.current.companyHeader,
+      savedDocHeaders: latestStoreRef.current.savedDocHeaders,
+      customColHeaders: latestStoreRef.current.customColHeaders,
+    };
+
+    if (!isFirestoreHydratedRef.current) {
+      try {
+        const existingServerStore = await fetchFullStoreFromFirestore();
+        if (existingServerStore) {
+          baseStore = {
+            items: Array.isArray(existingServerStore.items) ? existingServerStore.items : baseStore.items,
+            requests: Array.isArray(existingServerStore.requests) ? existingServerStore.requests : baseStore.requests,
+            pos: Array.isArray(existingServerStore.pos) ? existingServerStore.pos : baseStore.pos,
+            receives: Array.isArray(existingServerStore.receives) ? existingServerStore.receives : baseStore.receives,
+            issued: Array.isArray(existingServerStore.issued) ? existingServerStore.issued : baseStore.issued,
+            users: Array.isArray(existingServerStore.users) ? existingServerStore.users : baseStore.users,
+            companyHeader: existingServerStore.companyHeader || baseStore.companyHeader,
+            savedDocHeaders: existingServerStore.savedDocHeaders || baseStore.savedDocHeaders,
+            customColHeaders: existingServerStore.customColHeaders || baseStore.customColHeaders,
+          };
+          isFirestoreHydratedRef.current = true;
+        }
+      } catch (fetchErr) {
+        console.warn("Pre-write hydration check failed:", fetchErr);
+      }
+    }
+
     const newTs = Date.now();
     const storeObj = {
-      items: overrideStore?.items !== undefined ? overrideStore.items : latestStoreRef.current.items,
-      requests: overrideStore?.requests !== undefined ? overrideStore.requests : latestStoreRef.current.requests,
-      pos: overrideStore?.pos !== undefined ? overrideStore.pos : latestStoreRef.current.purchaseOrders,
-      receives: overrideStore?.receives !== undefined ? overrideStore.receives : latestStoreRef.current.receives,
-      issued: overrideStore?.issued !== undefined ? overrideStore.issued : latestStoreRef.current.issued,
-      users: overrideStore?.users !== undefined ? overrideStore.users : latestStoreRef.current.users,
-      companyHeader: overrideStore?.companyHeader || latestStoreRef.current.companyHeader,
-      savedDocHeaders: overrideStore?.savedDocHeaders || latestStoreRef.current.savedDocHeaders,
-      customColHeaders: overrideStore?.customColHeaders || latestStoreRef.current.customColHeaders,
+      items: overrideStore?.items !== undefined ? overrideStore.items : baseStore.items,
+      requests: overrideStore?.requests !== undefined ? overrideStore.requests : baseStore.requests,
+      pos: overrideStore?.pos !== undefined ? overrideStore.pos : baseStore.pos,
+      receives: overrideStore?.receives !== undefined ? overrideStore.receives : baseStore.receives,
+      issued: overrideStore?.issued !== undefined ? overrideStore.issued : baseStore.issued,
+      users: overrideStore?.users !== undefined ? overrideStore.users : baseStore.users,
+      companyHeader: overrideStore?.companyHeader || baseStore.companyHeader,
+      savedDocHeaders: overrideStore?.savedDocHeaders || baseStore.savedDocHeaders,
+      customColHeaders: overrideStore?.customColHeaders || baseStore.customColHeaders,
       dataVersion: SPREADSHEET_DATA_VERSION,
       lastUpdated: newTs
     };
@@ -204,6 +285,7 @@ export default function App() {
     // Save directly to Firebase Firestore
     try {
       await saveChunkedFirestore(storeObj);
+      isFirestoreHydratedRef.current = true;
       setIsFirebaseConnected(true);
     } catch (e) {
       console.error("Direct Firestore write error:", e);
@@ -234,15 +316,7 @@ export default function App() {
     // 1. Initial direct load from Firebase Firestore
     fetchFullStoreFromFirestore().then((store) => {
       if (isMounted && store) {
-        if (Array.isArray(store.items) && store.items.length > 0) setItems(store.items);
-        if (Array.isArray(store.requests) && store.requests.length > 0) setRequests(store.requests);
-        if (Array.isArray(store.pos) && store.pos.length > 0) setPurchaseOrders(store.pos);
-        if (Array.isArray(store.receives) && store.receives.length > 0) setReceives(store.receives);
-        if (Array.isArray(store.issued) && store.issued.length > 0) setIssued(store.issued);
-        if (Array.isArray(store.users) && store.users.length > 0) setUsers(store.users);
-        if (store.companyHeader) setCompanyHeader(store.companyHeader);
-        if (store.savedDocHeaders) setSavedDocHeaders(store.savedDocHeaders);
-        if (store.customColHeaders) setCustomColHeaders(store.customColHeaders);
+        applyHydratedStore(store);
         setIsFirebaseConnected(true);
       }
     }).catch(err => {
@@ -254,8 +328,24 @@ export default function App() {
       if (!isMounted) return;
       setIsFirebaseConnected(true);
 
+      const isFromCache = snapshot.metadata.fromCache;
+
       if (!snapshot.exists()) {
-        // Seed initial store to Firestore
+        // Never seed from a cached-only miss; confirm directly against the Firestore server first
+        if (isFromCache) return;
+        try {
+          const serverCheck = await getDocFromServer(doc(db, 'erp', 'main_store'));
+          if (serverCheck.exists()) {
+            const s = await loadChunkedFirestore(serverCheck.data());
+            if (isMounted && s) applyHydratedStore(s);
+            return;
+          }
+        } catch (checkErr) {
+          console.warn("Firestore server check notice (skipping seed to protect data):", checkErr);
+          return;
+        }
+
+        // Confirmed missing on Firestore server: seed initial store once
         const initialStoreObj = {
           items: latestStoreRef.current.items,
           requests: latestStoreRef.current.requests,
@@ -271,6 +361,7 @@ export default function App() {
         };
         try {
           await saveChunkedFirestore(initialStoreObj);
+          isFirestoreHydratedRef.current = true;
         } catch (err) {
           console.warn("Error seeding initial Firestore store:", err);
         }
@@ -285,15 +376,7 @@ export default function App() {
       if (rawData) {
         const s = await loadChunkedFirestore(rawData);
         if (isMounted && s) {
-          if (Array.isArray(s.items)) setItems(s.items);
-          if (Array.isArray(s.requests)) setRequests(s.requests);
-          if (Array.isArray(s.pos)) setPurchaseOrders(s.pos);
-          if (Array.isArray(s.receives)) setReceives(s.receives);
-          if (Array.isArray(s.issued)) setIssued(s.issued);
-          if (Array.isArray(s.users)) setUsers(s.users);
-          if (s.companyHeader) setCompanyHeader(s.companyHeader);
-          if (s.savedDocHeaders) setSavedDocHeaders(s.savedDocHeaders);
-          if (s.customColHeaders) setCustomColHeaders(s.customColHeaders);
+          applyHydratedStore(s);
         }
       }
     }, (error) => {
@@ -437,12 +520,12 @@ export default function App() {
           const rawId = item.ItemID;
           const normItemId = String(rawId || '').trim().toLowerCase();
           
-          const stockIn = receives
-            .filter(r => String(r.ItemID || '').trim().toLowerCase() === normItemId)
+          const stockIn = parseNumberValue(item.BaseStockIn) + receives
+            .filter(r => !r.IsHistoricalImport && String(r.ItemID || '').trim().toLowerCase() === normItemId)
             .reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
             
-          const stockOut = issued
-            .filter(i => String(i.ItemID || '').trim().toLowerCase() === normItemId)
+          const stockOut = parseNumberValue(item.BaseStockOut) + issued
+            .filter(i => !i.IsHistoricalImport && String(i.ItemID || '').trim().toLowerCase() === normItemId)
             .reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
             
           const lastStock = parseNumberValue(item.LastStock ?? item.CurrentStock ?? item.Stock ?? item.Qty);
@@ -1353,42 +1436,58 @@ export default function App() {
 
       setPrintDocHeader(initialHeader);
 
-      const docRows: RecordRow[] = [];
-      matched.forEach(r => {
+      const docRows: RecordRow[] = matched.map(r => {
         const itemCode = r.ItemID || targetId;
         const matchedItem = items.find(i => String(i.ItemID || '').trim().toLowerCase() === String(itemCode || '').trim().toLowerCase());
-        
-        let currentStock: number | string = '';
-        if (matchedItem) {
-          const normCode = String(itemCode || '').trim().toLowerCase();
-          const stockIn = receives.filter(rcv => String(rcv.ItemID || '').trim().toLowerCase() === normCode).reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
-          const stockOut = issued.filter(iss => String(iss.ItemID || '').trim().toLowerCase() === normCode).reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
-          const lastStock = parseNumberValue(matchedItem.LastStock ?? matchedItem.CurrentStock ?? matchedItem.Stock);
-          currentStock = lastStock + stockIn - stockOut;
-        } else if (r.CurrentStock !== undefined) {
-          currentStock = parseNumberValue(r.CurrentStock);
-        } else if (r.Stock !== undefined) {
-          currentStock = parseNumberValue(r.Stock);
-        }
-
         const uom = r.UoM || (matchedItem ? matchedItem.UoM : 'ea');
-        const qty = r.Qty || 1;
+        const qty = (r.Qty !== undefined && r.Qty !== '') ? r.Qty : 1;
         const unitPrice = r.UnitPriceIDR || (matchedItem ? matchedItem.UnitPriceIDR : 0);
         const totalPrice = r.TotalPriceIDR || (Number(qty) * Number(unitPrice)) || 0;
 
-        docRows.push({
+        return {
           Qty: qty,
           ItemID: itemCode,
           ItemName: r.ItemName || (matchedItem ? matchedItem.ItemName : r.Remark || 'Material Equipment'),
           UoM: uom,
           UnitPriceIDR: unitPrice,
           TotalPriceIDR: totalPrice,
-          Stock: currentStock,
+          Stock: r.Stock !== undefined ? parseNumberValue(r.Stock) : (r.CurrentStock !== undefined ? parseNumberValue(r.CurrentStock) : ''),
           Department: r.Department || main.Department || '',
+          Date: r.Date || initialHeader.Date || '',
           Attachment: r.Attachment,
-          AttachmentName: r.AttachmentName
-        });
+          AttachmentName: r.AttachmentName,
+          IsHistoricalImport: r.IsHistoricalImport
+        };
       });
+
+      docRows.forEach((row, idx) => {
+        const itemCode = row.ItemID;
+        const matchedItem = items.find(i => String(i.ItemID || '').trim().toLowerCase() === String(itemCode || '').trim().toLowerCase());
+        if (matchedItem) {
+          if (activeTab === 'MaterialIssued') {
+            if (!(row.IsHistoricalImport && row.Stock !== '' && row.Stock !== undefined)) {
+              row.Stock = calculateIssuedStockOnHand({
+                itemCode,
+                targetDate: row.Date || initialHeader.Date,
+                targetDocId: targetId,
+                currentRowQty: row.Qty,
+                rowIndexInDoc: idx,
+                docItems: docRows,
+                items,
+                receives,
+                issued,
+              });
+            }
+          } else {
+            const normCode = String(itemCode || '').trim().toLowerCase();
+            const stockIn = parseNumberValue(matchedItem.BaseStockIn) + receives.filter(rcv => !rcv.IsHistoricalImport && String(rcv.ItemID || '').trim().toLowerCase() === normCode).reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
+            const stockOut = parseNumberValue(matchedItem.BaseStockOut) + issued.filter(iss => !iss.IsHistoricalImport && String(iss.ItemID || '').trim().toLowerCase() === normCode).reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
+            const lastStock = parseNumberValue(matchedItem.LastStock ?? matchedItem.CurrentStock ?? matchedItem.Stock);
+            row.Stock = lastStock + stockIn - stockOut;
+          }
+        }
+      });
+
       for (let i = matched.length; i < 8; i++) {
         docRows.push({ Qty: '', ItemID: '', ItemName: '', UoM: '', UnitPriceIDR: '', TotalPriceIDR: '', Stock: '' });
       }
@@ -1437,8 +1536,9 @@ export default function App() {
     const validDocItems = printDocItems.filter(i => i.ItemID || i.ItemName || (i.Qty !== undefined && i.Qty !== ''));
 
     if (validDocItems.length > 0 && primaryKey) {
+      const existingIdx = currentData.findIndex(r => String(r[primaryKey]) === String(printDocId));
       const otherRecords = currentData.filter(r => String(r[primaryKey]) !== String(printDocId));
-      const firstMatched = currentData.find(r => String(r[primaryKey]) === String(printDocId));
+      const firstMatched = existingIdx >= 0 ? currentData[existingIdx] : undefined;
 
       const updatedDocRecords = validDocItems.map(item => ({
         ...(firstMatched || {}),
@@ -1452,7 +1552,17 @@ export default function App() {
         Remark: item.Remark || printDocHeader.Remark || firstMatched?.Remark || ''
       }));
 
-      updateDataForTab(activeTab, [...updatedDocRecords, ...otherRecords]);
+      if (existingIdx >= 0) {
+        const insertAt = Math.min(existingIdx, otherRecords.length);
+        const nextData = [
+          ...otherRecords.slice(0, insertAt),
+          ...updatedDocRecords,
+          ...otherRecords.slice(insertAt)
+        ];
+        updateDataForTab(activeTab, nextData);
+      } else {
+        updateDataForTab(activeTab, [...updatedDocRecords, ...otherRecords]);
+      }
     } else {
       const updatedData = currentData.map(r => {
         if (String(r[primaryKey]) === String(printDocId)) {
@@ -1549,23 +1659,22 @@ export default function App() {
               return rowObj;
             });
             if (parsedRecords.length > 0) {
-              setItems(prev => {
-                const itemMap = new Map<string, RecordRow>();
-                prev.forEach(p => {
-                  if (p.ItemID) itemMap.set(String(p.ItemID).toLowerCase(), p);
-                });
-                parsedRecords.forEach(rec => {
-                  const key = rec.ItemID ? String(rec.ItemID).toLowerCase() : null;
-                  if (key) {
-                    itemMap.set(key, { ...(itemMap.get(key) || {}), ...rec });
-                  } else {
-                    itemMap.set(`_custom_${Math.random()}`, rec);
-                  }
-                });
-                const updated = Array.from(itemMap.values());
-                return updated;
+              const itemMap = new Map<string, RecordRow>();
+              latestStoreRef.current.items.forEach(p => {
+                if (p.ItemID) itemMap.set(String(p.ItemID).toLowerCase(), p);
               });
-              await pushSyncToServer();
+              parsedRecords.forEach(rec => {
+                const key = rec.ItemID ? String(rec.ItemID).toLowerCase() : null;
+                if (key) {
+                  itemMap.set(key, { ...(itemMap.get(key) || {}), ...rec });
+                } else {
+                  itemMap.set(`_custom_${Math.random()}`, rec);
+                }
+              });
+              const updatedItems = Array.from(itemMap.values());
+              setItems(updatedItems);
+              latestStoreRef.current.items = updatedItems;
+              await pushSyncToServer({ items: updatedItems });
               showToast(`Google Sheets CSV synchronized (${parsedRecords.length} records updated)!`);
               return;
             }

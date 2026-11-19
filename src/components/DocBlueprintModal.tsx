@@ -1,5 +1,6 @@
 import React from 'react';
 import { CompanyHeader, DocHeader, RecordRow, TabName } from '../types';
+import { calculateIssuedStockOnHand } from '../utils/stock';
 
 interface DocBlueprintModalProps {
   activeTab?: TabName;
@@ -30,9 +31,9 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
   setPrintDocItems,
   isHeaderEditMode,
   setIsHeaderEditMode,
-  items,
-  receives,
-  issued,
+  items = [],
+  receives = [],
+  issued = [],
   onClose,
   onSaveDocForm
 }) => {
@@ -172,14 +173,51 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
     });
   };
 
+  const recalcIssuedStockOnRows = (
+    rows: RecordRow[],
+    targetDate?: string,
+    docId?: string
+  ): RecordRow[] => {
+    if (!isMaterialIssued) return rows;
+    return rows.map((row, idx) => {
+      if (row.IsHistoricalImport && row.Stock !== '' && row.Stock !== undefined) {
+        return row;
+      }
+      const normCode = String(row.ItemID || '').trim().toLowerCase();
+      if (!normCode) return row;
+      const matched = items.find(
+        (i) => String(i.ItemID || '').trim().toLowerCase() === normCode
+      );
+      if (!matched) return row;
+      const computedStock = calculateIssuedStockOnHand({
+        itemCode: row.ItemID,
+        targetDate: targetDate || row.Date,
+        targetDocId: docId,
+        currentRowQty: row.Qty,
+        rowIndexInDoc: idx,
+        docItems: rows,
+        items,
+        receives,
+        issued,
+      });
+      return {
+        ...row,
+        Stock: computedStock,
+      };
+    });
+  };
+
   const updateDepartmentItemCell = (item: RecordRow | undefined, deptName: string, field: string, val: string) => {
     const deptClean = deptName.replace(/^Dept\.\s*/i, '').trim();
+    const activeDocId = printDocId || printDocHeader.RequestID;
     setPrintDocItems(prev => {
       const copy = [...prev];
+      let targetIdx = -1;
       if (item) {
-        const idx = copy.findIndex(i => i === item);
-        if (idx >= 0) {
-          copy[idx] = { ...copy[idx], [field]: val, Department: deptClean };
+        targetIdx = copy.findIndex(i => i === item);
+        if (targetIdx >= 0) {
+          const clearHist = (field === 'ItemID' || field === 'Qty') ? { IsHistoricalImport: false } : {};
+          copy[targetIdx] = { ...copy[targetIdx], [field]: val, Department: deptClean, ...clearHist };
         }
       } else {
         copy.push({
@@ -192,6 +230,31 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
           Remark: field === 'Remark' ? val : '',
           Department: deptClean
         });
+        targetIdx = copy.length - 1;
+      }
+
+      if (field === 'ItemID' && targetIdx >= 0) {
+        const normCode = String(val || '').trim().toLowerCase();
+        if (!normCode) {
+          if (isMaterialIssued) {
+            copy[targetIdx] = { ...copy[targetIdx], Stock: '' };
+          }
+        } else {
+          const matchedItem = items.find(
+            (i) => String(i.ItemID || '').trim().toLowerCase() === normCode
+          );
+          if (matchedItem) {
+            copy[targetIdx] = {
+              ...copy[targetIdx],
+              ItemName: copy[targetIdx].ItemName || matchedItem.ItemName || '',
+              UoM: copy[targetIdx].UoM || matchedItem.UoM || 'ea',
+            };
+          }
+        }
+      }
+
+      if (isMaterialIssued && (field === 'ItemID' || field === 'Qty')) {
+        return recalcIssuedStockOnRows(copy, printDocHeader.Date, activeDocId);
       }
       return copy;
     });
@@ -819,7 +882,18 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                         <input
                           type="date"
                           value={printDocHeader.Date || ''}
-                          onChange={(e) => setPrintDocHeader(prev => ({ ...prev, Date: e.target.value }))}
+                          onChange={(e) => {
+                            const newDate = e.target.value;
+                            setPrintDocHeader(prev => ({ ...prev, Date: newDate }));
+                            const activeDocId = printDocId || printDocHeader.RequestID;
+                            setPrintDocItems(prev =>
+                              recalcIssuedStockOnRows(
+                                prev.map(r => ({ ...r, Date: newDate })),
+                                newDate,
+                                activeDocId
+                              )
+                            );
+                          }}
                           className="flex-1 px-1.5 py-0.5 border border-slate-400 rounded text-xs font-semibold bg-yellow-50 outline-none"
                         />
                       ) : (
