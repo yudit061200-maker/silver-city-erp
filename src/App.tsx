@@ -21,6 +21,7 @@ import {
 import { LoginModal } from './components/LoginModal';
 import { processFileUpload } from './utils/fileUpload';
 import { processPriceUpdates, parseNumberValue, DEFAULT_EXCHANGE_RATE } from './utils/currency';
+import { matchesSearchQuery } from './utils/search';
 import { Header } from './components/Header';
 import { DashboardView } from './components/DashboardView';
 import { SingleRecordModal } from './components/SingleRecordModal';
@@ -307,6 +308,7 @@ export default function App() {
 
   const [filterColumn, setFilterColumn] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortCol, setSortCol] = useState('');
@@ -571,13 +573,9 @@ export default function App() {
   
   const filteredData = rawData.filter(row => {
     if (!searchTerm.trim()) return true;
-    const q = searchTerm.toLowerCase();
-    const cols = getDisplayColumns();
-    if (filterColumn === 'all') {
-      return cols.some(c => String(row[c] || '').toLowerCase().includes(q));
-    } else {
-      return String(row[filterColumn] || '').toLowerCase().includes(q);
-    }
+    const allSchemaCols = TAB_SCHEMAS[activeTab] || getDisplayColumns();
+    const colsToSearch = filterColumn === 'all' ? allSchemaCols : [filterColumn];
+    return matchesSearchQuery(row, searchTerm, colsToSearch);
   });
 
   if (sortCol) {
@@ -1788,10 +1786,80 @@ export default function App() {
                         <input
                           type="text"
                           value={searchTerm}
-                          onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-                          placeholder="Search data..."
-                          className="pl-10 pr-4 py-2 sm:py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs w-full sm:w-48 md:w-60 focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-900 text-slate-800 dark:text-slate-100 outline-none bg-slate-50 dark:bg-slate-800 shadow-xs"
+                          onFocus={() => setIsSearchDropdownOpen(true)}
+                          onBlur={() => setIsSearchDropdownOpen(false)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Escape') setIsSearchDropdownOpen(false);
+                          }}
+                          onChange={(e) => {
+                            setSearchTerm(e.target.value);
+                            setCurrentPage(1);
+                            setIsSearchDropdownOpen(true);
+                          }}
+                          placeholder="Ketik beberapa karakter..."
+                          className={`pl-10 ${searchTerm ? 'pr-20' : 'pr-4'} py-2 sm:py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs w-full sm:w-56 md:w-68 focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-900 text-slate-800 dark:text-slate-100 outline-none bg-slate-50 dark:bg-slate-800 shadow-xs`}
                         />
+                        {searchTerm && (
+                          <div className="absolute right-2.5 top-1/2 transform -translate-y-1/2 flex items-center gap-1.5">
+                            <span className="px-1.5 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 text-[10px] font-black">
+                              {filteredData.length}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSearchTerm('');
+                                setCurrentPage(1);
+                                setIsSearchDropdownOpen(false);
+                              }}
+                              title="Hapus pencarian"
+                              className="w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
+                            >
+                              &times;
+                            </button>
+                          </div>
+                        )}
+                        {isSearchDropdownOpen && searchTerm.trim().length >= 2 && (
+                          <div className="absolute left-0 right-0 top-full mt-1.5 z-40 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden max-h-64 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
+                            <div className="px-3.5 py-1.5 bg-slate-50 dark:bg-slate-800/80 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                              <span>Hasil Cepat ({filteredData.length})</span>
+                              <span>Klik untuk fokus</span>
+                            </div>
+                            {filteredData.length === 0 ? (
+                              <div className="px-3.5 py-3 text-xs text-slate-400 font-medium">
+                                Tidak ada data yang cocok dengan &quot;{searchTerm}&quot;
+                              </div>
+                            ) : (
+                              filteredData.slice(0, 6).map((item, sIdx) => {
+                                const pk = (TAB_SCHEMAS[activeTab] || [])[0] || 'ItemID';
+                                const pkVal = item[pk] || item.ItemID || `#${sIdx + 1}`;
+                                const labelVal = item.ItemName || item.Fullname || item.Username || item.Category || '';
+                                return (
+                                  <button
+                                    key={`quick-search-${sIdx}`}
+                                    type="button"
+                                    onMouseDown={(e) => {
+                                      e.preventDefault();
+                                      setSearchTerm(String(pkVal));
+                                      setCurrentPage(1);
+                                      setIsSearchDropdownOpen(false);
+                                    }}
+                                    className="w-full text-left px-3.5 py-2 text-xs hover:bg-yellow-50 dark:hover:bg-slate-800 transition flex items-center justify-between gap-2 cursor-pointer"
+                                  >
+                                    <div className="min-w-0 truncate">
+                                      <span className="font-black text-indigo-600 dark:text-indigo-400 mr-2">{String(pkVal)}</span>
+                                      <span className="font-semibold text-slate-700 dark:text-slate-200">{String(labelVal)}</span>
+                                    </div>
+                                    {item.Status && (
+                                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">
+                                        {item.Status}
+                                      </span>
+                                    )}
+                                  </button>
+                                );
+                              })
+                            )}
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex items-center justify-between sm:justify-start space-x-2 text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 px-3 sm:px-3.5 py-2 sm:py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xs w-full sm:w-auto">
@@ -2759,6 +2827,7 @@ export default function App() {
           activeTab={activeTab}
           editingRecord={editingRecord}
           editingRowIndex={editingRowIndex}
+          items={items}
           onClose={() => setIsSingleModalOpen(false)}
           onSave={handleSaveSingleRecord}
           handleSingleFieldChange={handleSingleFieldChange}
@@ -2774,6 +2843,7 @@ export default function App() {
           activeTab={activeTab}
           multiRows={multiRows}
           setMultiRows={setMultiRows}
+          items={items}
           onClose={() => setIsMultiModalOpen(false)}
           onSave={saveMultiRecords}
           handleMultiRowChange={handleMultiRowChange}

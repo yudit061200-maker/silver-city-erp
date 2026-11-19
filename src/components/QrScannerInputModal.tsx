@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
 import { RecordRow, TabName } from '../types';
 import { processFileUpload } from '../utils/fileUpload';
+import { findMatchingItems } from '../utils/search';
 
 interface QrScannerInputModalProps {
   activeTab: TabName;
@@ -189,15 +190,22 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
     setScannedMessage(`QR Code Selected: ${item.ItemID} - ${item.ItemName}`);
   };
 
+  const matchingManualItems = manualCode.trim().length >= 2 ? findMatchingItems(items, manualCode, 8) : [];
+
   const handleManualSearch = (code: string) => {
     setManualCode(code);
-    const match = items.find(i => 
-      String(i.ItemID).toLowerCase() === code.toLowerCase() ||
-      String(i.ItemName).toLowerCase().includes(code.toLowerCase())
+    const exactMatch = items.find(i =>
+      String(i.ItemID).toLowerCase() === code.trim().toLowerCase()
     );
-    if (match) {
-      setSelectedItemId(match.ItemID);
-      setScannedMessage(`Pencarian Ditemukan: ${match.ItemID} - ${match.ItemName}`);
+    if (exactMatch) {
+      setSelectedItemId(exactMatch.ItemID);
+      setScannedMessage(`Pencarian Ditemukan: ${exactMatch.ItemID} - ${exactMatch.ItemName}`);
+    } else if (code.trim().length >= 2) {
+      const matches = findMatchingItems(items, code, 1);
+      if (matches.length > 0) {
+        setSelectedItemId(matches[0].ItemID);
+        setScannedMessage(`Pencarian Ditemukan: ${matches[0].ItemID} - ${matches[0].ItemName}`);
+      }
     }
   };
 
@@ -393,20 +401,61 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
           </div>
 
           {/* Manual Search & Item Selection */}
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 relative">
             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-              Atau Cari Kode Item ID / Nama Item:
+              Atau Cari Kode Item ID / Nama Item (ketik min. 2 karakter):
             </label>
             <div className="relative">
               <input
                 type="text"
                 value={manualCode}
                 onChange={(e) => handleManualSearch(e.target.value)}
-                placeholder="Ketik Item ID (contoh: 32.0044)..."
-                className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 font-medium"
+                placeholder="Ketik beberapa huruf/angka (misal: fil, 32.00, pump)..."
+                className="w-full pl-9 pr-8 py-2.5 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 font-medium"
               />
               <i className="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+              {manualCode && (
+                <button
+                  type="button"
+                  onClick={() => setManualCode('')}
+                  className="absolute right-2.5 top-2 text-slate-400 hover:text-slate-700 px-1 text-sm cursor-pointer"
+                  title="Clear search"
+                >
+                  &times;
+                </button>
+              )}
             </div>
+            {manualCode.trim().length >= 2 && (
+              <div className="border border-slate-200 rounded-xl bg-white shadow-md max-h-44 overflow-y-auto divide-y divide-slate-100">
+                {matchingManualItems.length === 0 ? (
+                  <div className="px-3 py-2.5 text-[11px] text-slate-400 font-medium">
+                    Tidak ada item yang cocok dengan &quot;{manualCode}&quot;
+                  </div>
+                ) : (
+                  matchingManualItems.map((item, idx) => (
+                    <button
+                      key={`qr-match-${item.ItemID}-${idx}`}
+                      type="button"
+                      onClick={() => {
+                        handleItemSelect(item);
+                        setManualCode(`${item.ItemID} - ${item.ItemName}`);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-xs hover:bg-yellow-50 transition flex items-center justify-between gap-2 cursor-pointer ${
+                        selectedItemId === item.ItemID ? 'bg-yellow-50/80' : ''
+                      }`}
+                    >
+                      <div className="min-w-0">
+                        <span className="font-black text-blue-700 mr-2">{item.ItemID}</span>
+                        <span className="font-semibold text-slate-800 truncate">{item.ItemName}</span>
+                      </div>
+                      <span className="text-[10px] font-bold text-slate-500 shrink-0">
+                        Stok: {item.LastStock || 0} {item.UoM || 'Pcs'}
+                      </span>
+                    </button>
+                  ))
+                )}
+              </div>
+            )}
           </div>
 
           {/* Selected Item Details Card */}

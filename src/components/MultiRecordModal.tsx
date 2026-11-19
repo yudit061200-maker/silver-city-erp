@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RecordRow, TabName, TAB_SCHEMAS } from '../types';
 import { processFileUpload } from '../utils/fileUpload';
+import { findMatchingItems } from '../utils/search';
 
 interface MultiRecordModalProps {
   activeTab: TabName;
   multiRows: RecordRow[];
   setMultiRows: React.Dispatch<React.SetStateAction<RecordRow[]>>;
+  items?: RecordRow[];
   onClose: () => void;
   onSave: () => void;
   handleMultiRowChange: (index: number, field: string | Record<string, any>, val?: any) => void;
@@ -17,12 +19,15 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
   activeTab,
   multiRows,
   setMultiRows,
+  items = [],
   onClose,
   onSave,
   handleMultiRowChange,
   addMultiRow,
   onOpenQrScanner
 }) => {
+  const [focusedCell, setFocusedCell] = useState<{ idx: number; field: 'ItemID' | 'ItemName' } | null>(null);
+  const isTransactionTab = ['MaterialRequest', 'PurchaseOrder', 'MaterialReceive', 'MaterialIssued'].includes(activeTab);
   return (
     <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50 animate-fadeIn">
       <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-6xl w-full overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col max-h-[92vh] text-slate-800 dark:text-slate-100">
@@ -74,15 +79,21 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                       const val = r[col] !== undefined ? r[col] : '';
 
                       if (col === 'ItemID') {
+                        const isCellFocused = focusedCell?.idx === idx && focusedCell?.field === 'ItemID';
+                        const idSuggestions = isTransactionTab && isCellFocused && String(val).trim().length >= 2
+                          ? findMatchingItems(items, String(val), 6)
+                          : [];
                         return (
-                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2">
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 relative">
                             <div className="flex items-center gap-1.5">
                               <input
                                 type="text"
                                 list="items-id-datalist"
                                 value={val}
+                                onFocus={() => setFocusedCell({ idx, field: 'ItemID' })}
+                                onBlur={() => setFocusedCell(null)}
                                 onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
-                                placeholder="Item ID"
+                                placeholder="Min. 2 karakter..."
                                 className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2 text-xs bg-slate-50 dark:bg-slate-800 font-bold text-blue-600 dark:text-blue-400 outline-none focus:ring-1 focus:ring-yellow-400"
                               />
                               {onOpenQrScanner && (
@@ -96,20 +107,70 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                                 </button>
                               )}
                             </div>
+                            {idSuggestions.length > 0 && (
+                              <div className="absolute left-2 top-full mt-0.5 z-30 min-w-[270px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl max-h-40 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-700">
+                                {idSuggestions.map((item, sIdx) => (
+                                  <button
+                                    key={`multi-sugg-id-${idx}-${item.ItemID}-${sIdx}`}
+                                    type="button"
+                                    onMouseDown={(e) => {
+                                      e.preventDefault();
+                                      handleMultiRowChange(idx, 'ItemID', item.ItemID);
+                                      setFocusedCell(null);
+                                    }}
+                                    className="w-full text-left px-3 py-1.5 text-[11px] hover:bg-yellow-50 dark:hover:bg-slate-700 transition flex items-center justify-between gap-2 cursor-pointer"
+                                  >
+                                    <div className="min-w-0 truncate">
+                                      <span className="font-black text-blue-600 dark:text-blue-400 mr-1.5">{item.ItemID}</span>
+                                      <span className="font-medium text-slate-800 dark:text-slate-100">{item.ItemName}</span>
+                                    </div>
+                                    <span className="text-[10px] font-bold text-slate-400 shrink-0">{item.UoM || 'Pcs'}</span>
+                                  </button>
+                                ))}
+                              </div>
+                            )}
                           </td>
                         );
                       }
 
                       if (col === 'ItemName') {
+                        const isCellFocused = focusedCell?.idx === idx && focusedCell?.field === 'ItemName';
+                        const nameSuggestions = isTransactionTab && isCellFocused && String(val).trim().length >= 2
+                          ? findMatchingItems(items, String(val), 6)
+                          : [];
                         return (
-                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[220px]">
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[220px] relative">
                             <textarea
                               rows={2}
                               value={val}
+                              onFocus={() => setFocusedCell({ idx, field: 'ItemName' })}
+                              onBlur={() => setFocusedCell(null)}
                               onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
-                              placeholder="Item Name"
+                              placeholder={isTransactionTab ? 'Ketik min. 2 karakter...' : 'Item Name'}
                               className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400 whitespace-pre-wrap break-words resize-y min-h-[44px]"
                             />
+                            {nameSuggestions.length > 0 && (
+                              <div className="absolute left-2 right-2 top-full mt-0.5 z-30 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl max-h-40 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-700">
+                                {nameSuggestions.map((item, sIdx) => (
+                                  <button
+                                    key={`multi-sugg-name-${idx}-${item.ItemID}-${sIdx}`}
+                                    type="button"
+                                    onMouseDown={(e) => {
+                                      e.preventDefault();
+                                      handleMultiRowChange(idx, 'ItemID', item.ItemID);
+                                      setFocusedCell(null);
+                                    }}
+                                    className="w-full text-left px-3 py-1.5 text-[11px] hover:bg-yellow-50 dark:hover:bg-slate-700 transition flex items-center justify-between gap-2 cursor-pointer"
+                                  >
+                                    <div className="min-w-0 truncate">
+                                      <span className="font-black text-blue-600 dark:text-blue-400 mr-1.5">{item.ItemID}</span>
+                                      <span className="font-medium text-slate-800 dark:text-slate-100">{item.ItemName}</span>
+                                    </div>
+                                    <span className="text-[10px] font-bold text-slate-400 shrink-0">{item.UoM || 'Pcs'}</span>
+                                  </button>
+                                ))}
+                              </div>
+                            )}
                           </td>
                         );
                       }

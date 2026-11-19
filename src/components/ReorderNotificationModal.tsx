@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RecordRow } from '../types';
+import { matchesSearchQuery } from '../utils/search';
 
 interface ReorderNotificationModalProps {
   itemsNeedingOrder: RecordRow[];
@@ -18,15 +19,9 @@ export const ReorderNotificationModal: React.FC<ReorderNotificationModalProps> =
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filtered = itemsNeedingOrder.filter(item => {
-    const term = searchTerm.toLowerCase();
-    return (
-      String(item.ItemID || '').toLowerCase().includes(term) ||
-      String(item.ItemName || '').toLowerCase().includes(term) ||
-      String(item.Category || '').toLowerCase().includes(term) ||
-      String(item.Location || '').toLowerCase().includes(term)
-    );
-  });
+  const filtered = itemsNeedingOrder.filter(item =>
+    matchesSearchQuery(item, searchTerm, ['ItemID', 'ItemName', 'Category', 'Location'])
+  );
 
   return (
     <div

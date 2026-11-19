@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RecordRow, TabName, TAB_SCHEMAS } from '../types';
 import { processFileUpload } from '../utils/fileUpload';
+import { findMatchingItems } from '../utils/search';
 
 interface SingleRecordModalProps {
   activeTab: TabName;
   editingRecord: RecordRow | null;
   editingRowIndex: number | null;
+  items?: RecordRow[];
   onClose: () => void;
   onSave: (e: React.FormEvent) => void;
   handleSingleFieldChange: (field: string | Record<string, any>, val?: any) => void;
@@ -16,15 +18,18 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
   activeTab,
   editingRecord,
   editingRowIndex,
+  items = [],
   onClose,
   onSave,
   handleSingleFieldChange,
   onOpenQrScanner
 }) => {
+  const [focusedField, setFocusedField] = useState<'ItemID' | 'ItemName' | null>(null);
   if (!editingRecord) return null;
 
   const isEdit = editingRowIndex !== null;
   const primaryKeyCol = (TAB_SCHEMAS[activeTab] || [])[0] || 'ID';
+  const isTransactionTab = ['MaterialRequest', 'PurchaseOrder', 'MaterialReceive', 'MaterialIssued'].includes(activeTab);
 
   return (
     <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex justify-end animate-fadeIn">
@@ -156,8 +161,11 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               }
 
               if (col === 'ItemID') {
+                const suggestions = isTransactionTab && focusedField === 'ItemID' && String(val).trim().length >= 2
+                  ? findMatchingItems(items, String(val), 8)
+                  : [];
                 return (
-                  <div key={col} className="space-y-1.5">
+                  <div key={col} className="space-y-1.5 relative">
                     <div className="flex justify-between items-center">
                       <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
                       {onOpenQrScanner && (
@@ -174,11 +182,35 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       type="text"
                       list="items-id-datalist"
                       value={val}
+                      onFocus={() => setFocusedField('ItemID')}
+                      onBlur={() => setFocusedField(null)}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       required
-                      placeholder="Select or enter Item ID..."
+                      placeholder="Ketik min. 2 karakter Item ID / Nama..."
                       className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-blue-600 dark:text-blue-400 transition"
                     />
+                    {suggestions.length > 0 && (
+                      <div className="absolute left-0 right-0 top-full mt-1 z-30 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl max-h-48 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-700">
+                        {suggestions.map((item, sIdx) => (
+                          <button
+                            key={`sugg-id-${item.ItemID}-${sIdx}`}
+                            type="button"
+                            onMouseDown={(e) => {
+                              e.preventDefault();
+                              handleSingleFieldChange('ItemID', item.ItemID);
+                              setFocusedField(null);
+                            }}
+                            className="w-full text-left px-3.5 py-2 text-xs hover:bg-yellow-50 dark:hover:bg-slate-700 transition flex items-center justify-between gap-2 cursor-pointer"
+                          >
+                            <div className="min-w-0">
+                              <span className="font-black text-blue-600 dark:text-blue-400 mr-2">{item.ItemID}</span>
+                              <span className="font-semibold text-slate-800 dark:text-slate-100 truncate">{item.ItemName}</span>
+                            </div>
+                            <span className="text-[10px] font-bold text-slate-400 shrink-0">{item.UoM || 'Pcs'}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 );
               }
@@ -267,8 +299,11 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               }
 
               if (col === 'ItemName') {
+                const nameSuggestions = isTransactionTab && focusedField === 'ItemName' && String(val).trim().length >= 2
+                  ? findMatchingItems(items, String(val), 8)
+                  : [];
                 return (
-                  <div key={col} className="space-y-1.5">
+                  <div key={col} className="space-y-1.5 relative">
                     <div className="flex justify-between items-center">
                       <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
                       <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-md border border-amber-200 dark:border-amber-800 flex items-center gap-1">
@@ -278,11 +313,35 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                     <textarea
                       rows={2}
                       value={val}
+                      onFocus={() => setFocusedField('ItemName')}
+                      onBlur={() => setFocusedField(null)}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       required
-                      placeholder="Enter or select Item Name..."
+                      placeholder={isTransactionTab ? 'Ketik min. 2 karakter untuk mencari nama item...' : 'Enter or select Item Name...'}
                       className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition whitespace-pre-wrap break-words resize-y min-h-[60px]"
                     />
+                    {nameSuggestions.length > 0 && (
+                      <div className="absolute left-0 right-0 top-full mt-1 z-30 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl max-h-48 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-700">
+                        {nameSuggestions.map((item, sIdx) => (
+                          <button
+                            key={`sugg-name-${item.ItemID}-${sIdx}`}
+                            type="button"
+                            onMouseDown={(e) => {
+                              e.preventDefault();
+                              handleSingleFieldChange('ItemID', item.ItemID);
+                              setFocusedField(null);
+                            }}
+                            className="w-full text-left px-3.5 py-2 text-xs hover:bg-yellow-50 dark:hover:bg-slate-700 transition flex items-center justify-between gap-2 cursor-pointer"
+                          >
+                            <div className="min-w-0">
+                              <span className="font-black text-blue-600 dark:text-blue-400 mr-2">{item.ItemID}</span>
+                              <span className="font-semibold text-slate-800 dark:text-slate-100 truncate">{item.ItemName}</span>
+                            </div>
+                            <span className="text-[10px] font-bold text-slate-400 shrink-0">{item.UoM || 'Pcs'}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 );
               }
