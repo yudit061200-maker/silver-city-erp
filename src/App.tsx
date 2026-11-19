@@ -14,8 +14,7 @@ import {
   importedPOs,
   importedReceives,
   importedIssued,
-  importedUsers,
-  SPREADSHEET_DATA_VERSION
+  importedUsers
 } from './data/spreadsheetImport';
 
 import { LoginModal } from './components/LoginModal';
@@ -37,12 +36,16 @@ import { ReorderNotificationModal } from './components/ReorderNotificationModal'
 import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { SpreadsheetSyncModal } from './components/SpreadsheetSyncModal';
+import { migrateStoreData, LATEST_DATA_VERSION } from './utils/migrateStore';
 import { db, doc, getDocFromServer, onSnapshot } from './lib/firebase';
 import {
   saveChunkedFirestore,
   loadChunkedFirestore,
   fetchFullStoreFromFirestore,
-  purgeLocalStorageDataset
+  purgeLocalStorageDataset,
+  isQuotaExceededError,
+  isFirestoreQuotaExceeded,
+  FIRESTORE_DATABASE_UPGRADE_URL
 } from './lib/chunkedFirestore';
 
 const initialItems: RecordRow[] = importedItems as any[];
@@ -153,8 +156,12 @@ export default function App() {
   const [customColHeaders, setCustomColHeaders] = useState<Record<string, string>>({});
   const [isFirebaseConnected, setIsFirebaseConnected] = useState<boolean>(false);
   const [isSavingToFirestore, setIsSavingToFirestore] = useState<boolean>(false);
+  const [isFirestoreQuotaBlocked, setIsFirestoreQuotaBlocked] = useState<boolean>(false);
+  const [isQuotaBannerDismissed, setIsQuotaBannerDismissed] = useState<boolean>(false);
 
   const isFirestoreHydratedRef = React.useRef<boolean>(false);
+  const latestAppliedUpdatedRef = React.useRef<number>(0);
+  const hasShownQuotaToastRef = React.useRef<boolean>(false);
 
   const latestStoreRef = React.useRef({
     items,
@@ -187,8 +194,25 @@ export default function App() {
     purgeLocalStorageDataset();
   }, []);
 
-  const applyHydratedStore = (store: any) => {
-    if (!store) return;
+  const notifyFirestoreQuotaExceeded = () => {
+    setIsFirestoreQuotaBlocked(true);
+    if (!hasShownQuotaToastRef.current) {
+      hasShownQuotaToastRef.current = true;
+      showToast(
+        'Kuota penulisan harian gratis Firestore habis (resource-exhausted). Data tetap tersimpan di server lokal hingga kuota reset besok atau paket database di-upgrade.',
+        'error'
+      );
+    }
+  };
+
+  const applyHydratedStore = (rawStore: any) => {
+    if (!rawStore) return;
+    const store = migrateStoreData(rawStore);
+    const storeTs = Number(store.lastUpdated) || 0;
+    if (storeTs > latestAppliedUpdatedRef.current) {
+      latestAppliedUpdatedRef.current = storeTs;
+    }
+
     if (Array.isArray(store.items)) {
       setItems(store.items);
       latestStoreRef.current.items = store.items;
@@ -231,8 +255,7 @@ export default function App() {
   const pushSyncToServer = async (overrideStore?: any) => {
     setIsSavingToFirestore(true);
 
-    // Guard: if Firestore hasn't finished initial hydration yet, fetch server store first
-    // so we never accidentally overwrite existing cloud data with default initial arrays.
+    // Guard: if hydration hasn't finished yet, fetch server store first
     let baseStore: any = {
       items: latestStoreRef.current.items,
       requests: latestStoreRef.current.requests,
@@ -249,16 +272,17 @@ export default function App() {
       try {
         const existingServerStore = await fetchFullStoreFromFirestore();
         if (existingServerStore) {
+          const migrated = migrateStoreData(existingServerStore);
           baseStore = {
-            items: Array.isArray(existingServerStore.items) ? existingServerStore.items : baseStore.items,
-            requests: Array.isArray(existingServerStore.requests) ? existingServerStore.requests : baseStore.requests,
-            pos: Array.isArray(existingServerStore.pos) ? existingServerStore.pos : baseStore.pos,
-            receives: Array.isArray(existingServerStore.receives) ? existingServerStore.receives : baseStore.receives,
-            issued: Array.isArray(existingServerStore.issued) ? existingServerStore.issued : baseStore.issued,
-            users: Array.isArray(existingServerStore.users) ? existingServerStore.users : baseStore.users,
-            companyHeader: existingServerStore.companyHeader || baseStore.companyHeader,
-            savedDocHeaders: existingServerStore.savedDocHeaders || baseStore.savedDocHeaders,
-            customColHeaders: existingServerStore.customColHeaders || baseStore.customColHeaders,
+            items: Array.isArray(migrated.items) ? migrated.items : baseStore.items,
+            requests: Array.isArray(migrated.requests) ? migrated.requests : baseStore.requests,
+            pos: Array.isArray(migrated.pos) ? migrated.pos : baseStore.pos,
+            receives: Array.isArray(migrated.receives) ? migrated.receives : baseStore.receives,
+            issued: Array.isArray(migrated.issued) ? migrated.issued : baseStore.issued,
+            users: Array.isArray(migrated.users) ? migrated.users : baseStore.users,
+            companyHeader: migrated.companyHeader || baseStore.companyHeader,
+            savedDocHeaders: migrated.savedDocHeaders || baseStore.savedDocHeaders,
+            customColHeaders: migrated.customColHeaders || baseStore.customColHeaders,
           };
           isFirestoreHydratedRef.current = true;
         }
@@ -268,6 +292,7 @@ export default function App() {
     }
 
     const newTs = Date.now();
+    latestAppliedUpdatedRef.current = newTs;
     const storeObj = {
       items: overrideStore?.items !== undefined ? overrideStore.items : baseStore.items,
       requests: overrideStore?.requests !== undefined ? overrideStore.requests : baseStore.requests,
@@ -278,21 +303,11 @@ export default function App() {
       companyHeader: overrideStore?.companyHeader || baseStore.companyHeader,
       savedDocHeaders: overrideStore?.savedDocHeaders || baseStore.savedDocHeaders,
       customColHeaders: overrideStore?.customColHeaders || baseStore.customColHeaders,
-      dataVersion: SPREADSHEET_DATA_VERSION,
+      dataVersion: LATEST_DATA_VERSION,
       lastUpdated: newTs
     };
 
-    // Save directly to Firebase Firestore
-    try {
-      await saveChunkedFirestore(storeObj);
-      isFirestoreHydratedRef.current = true;
-      setIsFirebaseConnected(true);
-    } catch (e) {
-      console.error("Direct Firestore write error:", e);
-    } finally {
-      setIsSavingToFirestore(false);
-    }
-
+    // 1. Always persist immediately to local Express server (/api/sync -> data_store.json)
     try {
       await fetch('/api/sync', {
         method: 'POST',
@@ -301,27 +316,75 @@ export default function App() {
       });
       if (typeof BroadcastChannel !== 'undefined') {
         const bc = new BroadcastChannel('silvercity_erp_sync');
-        bc.postMessage({ type: 'SYNC_UPDATE', timestamp: Date.now() });
+        bc.postMessage({ type: 'SYNC_UPDATE', timestamp: newTs });
         bc.close();
       }
     } catch {
       // Offline fallback
     }
+
+    // 2. Persist to Firebase Firestore unless daily write quota is already exhausted
+    if (isFirestoreQuotaExceeded()) {
+      notifyFirestoreQuotaExceeded();
+      setIsSavingToFirestore(false);
+      return;
+    }
+
+    try {
+      await saveChunkedFirestore(storeObj);
+      isFirestoreHydratedRef.current = true;
+      setIsFirebaseConnected(true);
+    } catch (e) {
+      if (isQuotaExceededError(e)) {
+        notifyFirestoreQuotaExceeded();
+      } else {
+        console.error("Direct Firestore write error:", e);
+      }
+    } finally {
+      setIsSavingToFirestore(false);
+    }
   };
 
-  // Real-time Firebase Firestore synchronization
+  // Real-time Firebase Firestore + local server synchronization
   useEffect(() => {
     let isMounted = true;
 
-    // 1. Initial direct load from Firebase Firestore
-    fetchFullStoreFromFirestore().then((store) => {
-      if (isMounted && store) {
-        applyHydratedStore(store);
-        setIsFirebaseConnected(true);
+    const loadInitialData = async () => {
+      let localServerStore: any = null;
+      try {
+        const res = await fetch('/api/sync');
+        if (res.ok) {
+          const json = await res.json();
+          if (json?.store && Array.isArray(json.store.items)) {
+            localServerStore = json.store;
+          }
+        }
+      } catch {
+        // Ignore local server fetch errors
       }
-    }).catch(err => {
-      console.warn("Initial Firestore fetch notice:", err);
-    });
+
+      let firestoreStore: any = null;
+      try {
+        firestoreStore = await fetchFullStoreFromFirestore();
+      } catch (err) {
+        console.warn("Initial Firestore fetch notice:", err);
+      }
+
+      if (!isMounted) return;
+
+      const fsTs = Number(firestoreStore?.lastUpdated) || 0;
+      const localTs = Number(localServerStore?.lastUpdated) || 0;
+
+      if (firestoreStore && (!localServerStore || fsTs >= localTs)) {
+        applyHydratedStore(firestoreStore);
+        setIsFirebaseConnected(true);
+      } else if (localServerStore) {
+        applyHydratedStore(localServerStore);
+        if (firestoreStore) setIsFirebaseConnected(true);
+      }
+    };
+
+    loadInitialData();
 
     // 2. Real-time Firestore snapshot listener
     const unsubscribeFirestore = onSnapshot(doc(db, 'erp', 'main_store'), async (snapshot) => {
@@ -331,13 +394,17 @@ export default function App() {
       const isFromCache = snapshot.metadata.fromCache;
 
       if (!snapshot.exists()) {
-        // Never seed from a cached-only miss; confirm directly against the Firestore server first
-        if (isFromCache) return;
+        if (isFromCache || isFirestoreQuotaExceeded()) return;
         try {
           const serverCheck = await getDocFromServer(doc(db, 'erp', 'main_store'));
           if (serverCheck.exists()) {
             const s = await loadChunkedFirestore(serverCheck.data());
-            if (isMounted && s) applyHydratedStore(s);
+            if (isMounted && s) {
+              const sTs = Number(s.lastUpdated) || 0;
+              if (sTs >= latestAppliedUpdatedRef.current) {
+                applyHydratedStore(s);
+              }
+            }
             return;
           }
         } catch (checkErr) {
@@ -345,7 +412,8 @@ export default function App() {
           return;
         }
 
-        // Confirmed missing on Firestore server: seed initial store once
+        // Confirmed missing on Firestore server: seed initial store once (unless quota exceeded)
+        if (isFirestoreQuotaExceeded()) return;
         const initialStoreObj = {
           items: latestStoreRef.current.items,
           requests: latestStoreRef.current.requests,
@@ -356,14 +424,18 @@ export default function App() {
           companyHeader: latestStoreRef.current.companyHeader,
           savedDocHeaders: latestStoreRef.current.savedDocHeaders,
           customColHeaders: latestStoreRef.current.customColHeaders,
-          dataVersion: SPREADSHEET_DATA_VERSION,
+          dataVersion: LATEST_DATA_VERSION,
           lastUpdated: Date.now()
         };
         try {
           await saveChunkedFirestore(initialStoreObj);
           isFirestoreHydratedRef.current = true;
         } catch (err) {
-          console.warn("Error seeding initial Firestore store:", err);
+          if (isQuotaExceededError(err)) {
+            notifyFirestoreQuotaExceeded();
+          } else {
+            console.warn("Error seeding initial Firestore store:", err);
+          }
         }
         return;
       }
@@ -376,11 +448,18 @@ export default function App() {
       if (rawData) {
         const s = await loadChunkedFirestore(rawData);
         if (isMounted && s) {
-          applyHydratedStore(s);
+          const sTs = Number(s.lastUpdated) || 0;
+          if (sTs >= latestAppliedUpdatedRef.current) {
+            applyHydratedStore(s);
+          }
         }
       }
     }, (error) => {
-      console.warn("Firestore snapshot listener notice:", error);
+      if (isQuotaExceededError(error)) {
+        notifyFirestoreQuotaExceeded();
+      } else {
+        console.warn("Firestore snapshot listener notice:", error);
+      }
     });
 
     return () => {
@@ -521,11 +600,11 @@ export default function App() {
           const normItemId = String(rawId || '').trim().toLowerCase();
           
           const stockIn = parseNumberValue(item.BaseStockIn) + receives
-            .filter(r => !r.IsHistoricalImport && String(r.ItemID || '').trim().toLowerCase() === normItemId)
+            .filter(r => String(r.ItemID || '').trim().toLowerCase() === normItemId)
             .reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
             
           const stockOut = parseNumberValue(item.BaseStockOut) + issued
-            .filter(i => !i.IsHistoricalImport && String(i.ItemID || '').trim().toLowerCase() === normItemId)
+            .filter(i => String(i.ItemID || '').trim().toLowerCase() === normItemId)
             .reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
             
           const lastStock = parseNumberValue(item.LastStock ?? item.CurrentStock ?? item.Stock ?? item.Qty);
@@ -725,6 +804,26 @@ export default function App() {
     }
   };
 
+  const getNextSimpleDocId = (tab: TabName, list: RecordRow[]): string => {
+    const prefix =
+      tab === 'MaterialRequest' ? 'MRQ' :
+      tab === 'PurchaseOrder' ? 'PO' :
+      tab === 'MaterialReceive' ? 'MRR' :
+      tab === 'MaterialIssued' ? 'MIS' : '';
+    if (!prefix) return '';
+    const primaryKey = (TAB_SCHEMAS[tab] || [])[0] || 'ID';
+    let maxNum = 0;
+    list.forEach(row => {
+      const val = String(row[primaryKey] || '').trim();
+      const m = val.match(/(?:^|-)(\d+)[A-Za-z]*$/);
+      if (m) {
+        const n = parseInt(m[1], 10);
+        if (Number.isFinite(n) && n > maxNum) maxNum = n;
+      }
+    });
+    return `${prefix}-${String(maxNum + 1).padStart(4, '0')}`;
+  };
+
   const openSingleModal = (editRecord?: RecordRow, index?: number) => {
     if (activeTab === 'Users' && !isYudit) {
       showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
@@ -741,10 +840,11 @@ export default function App() {
       setEditingOriginalPrimaryKey('');
       const schema = TAB_SCHEMAS[activeTab] || [];
       const primaryKey = schema[0] || 'ID';
+      const nextId = getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
 
       const newObj: RecordRow = {};
       schema.forEach(col => {
-        if (col === primaryKey) newObj[col] = '';
+        if (col === primaryKey) newObj[col] = nextId;
         else if (col === 'Date') newObj[col] = new Date().toISOString().split('T')[0];
         else if (col === 'Status' && activeTab === 'MaterialRequest') newObj[col] = 'Pending';
         else if (col === 'Priority' && activeTab === 'MaterialRequest') newObj[col] = 'Normal';
@@ -1124,9 +1224,12 @@ export default function App() {
       return;
     }
     const schema = TAB_SCHEMAS[activeTab] || [];
+    const primaryKey = schema[0] || 'ID';
+    const nextId = getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
     const newRow: RecordRow = {};
     schema.forEach(col => {
-      if (col === 'Date') newRow[col] = new Date().toISOString().split('T')[0];
+      if (col === primaryKey && nextId) newRow[col] = nextId;
+      else if (col === 'Date') newRow[col] = new Date().toISOString().split('T')[0];
       else if (col === 'Priority') newRow[col] = 'Normal';
       else if (col === 'UpdatedBy') newRow[col] = currentUser ? currentUser.username : 'System';
       else newRow[col] = '';
@@ -1137,9 +1240,14 @@ export default function App() {
 
   const addMultiRow = () => {
     const schema = TAB_SCHEMAS[activeTab] || [];
+    const primaryKey = schema[0] || 'ID';
+    const currentId = multiRows.length > 0 && multiRows[0][primaryKey]
+      ? String(multiRows[0][primaryKey])
+      : getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
     const newRow: RecordRow = {};
     schema.forEach(col => {
-      if (col === 'Date') newRow[col] = new Date().toISOString().split('T')[0];
+      if (col === primaryKey && currentId) newRow[col] = currentId;
+      else if (col === 'Date') newRow[col] = new Date().toISOString().split('T')[0];
       else if (col === 'Priority') newRow[col] = 'Normal';
       else if (col === 'UpdatedBy') newRow[col] = currentUser ? currentUser.username : 'System';
       else newRow[col] = '';
@@ -1323,12 +1431,9 @@ export default function App() {
 
     // Direct input from main tab view
     const dateStr = new Date().toISOString().split('T')[0];
-    let newDocId = '';
-    if (activeTab === 'MaterialReceive') {
-      newDocId = `RCV-${Math.floor(100 + Math.random() * 900)}`;
-    } else {
-      newDocId = `ISS-${Math.floor(100 + Math.random() * 900)}`;
-    }
+    const currentData = [...getRawDataForTab(activeTab)];
+    const newDocId = getNextSimpleDocId(activeTab, currentData) ||
+      (activeTab === 'MaterialReceive' ? 'MRR-0001' : 'MIS-0001');
 
     const newRecord: RecordRow = {
       Date: dateStr,
@@ -1353,7 +1458,6 @@ export default function App() {
       newRecord.Department = deptOrSupplier || 'Drilling Operations';
     }
 
-    const currentData = [...getRawDataForTab(activeTab)];
     const syncedData = syncAttachmentsForTab(activeTab, [newRecord, ...currentData]);
     updateDataForTab(activeTab, syncedData);
     showToast(`${activeTab === 'MaterialReceive' ? 'Receive' : 'Issued'} entry (${newDocId}) saved successfully!`);
@@ -1385,14 +1489,14 @@ export default function App() {
       const initialHeader = existingHeader ? {
         ...existingHeader,
         DocTitle: activeTab === 'MaterialReceive' ? 'MATERIAL RECEIVE REPORT' : existingHeader.DocTitle,
-        DocNoLabel: activeTab === 'MaterialReceive' && (!existingHeader.DocNoLabel || existingHeader.DocNoLabel === 'Doc No.') ? 'RCV No.' : existingHeader.DocNoLabel,
+        DocNoLabel: activeTab === 'MaterialReceive' && (!existingHeader.DocNoLabel || existingHeader.DocNoLabel === 'Doc No.') ? 'MRR No.' : existingHeader.DocNoLabel,
         ApprovedBy: (activeTab === 'MaterialRequest' && (existingHeader.ApprovedBy === 'Ashley Moggy' || !existingHeader.ApprovedBy))
           ? 'General Manager'
           : (existingHeader.ApprovedBy || (activeTab === 'MaterialReceive' ? 'Ashley Moggy' : 'General Manager'))
       } : {
         DocTitle: docTypeTitle,
         RequestID: targetId,
-        DocNoLabel: activeTab === 'PurchaseOrder' ? 'PO No.' : activeTab === 'MaterialReceive' ? 'RCV No.' : activeTab === 'MaterialIssued' ? 'ISS No.' : activeTab === 'ItemList' ? 'Item Code' : 'MRQ No.',
+        DocNoLabel: activeTab === 'PurchaseOrder' ? 'PO No.' : activeTab === 'MaterialReceive' ? 'MRR No.' : activeTab === 'MaterialIssued' ? 'MIS No.' : activeTab === 'ItemList' ? 'Item Code' : 'MRQ No.',
         Date: main.Date ? String(main.Date).split('T')[0] : new Date().toISOString().split('T')[0],
         WellLoc: main.WellLoc || main.Location || 'YARD - PAMANUKAN',
         RigName: main.RigName || 'RIG SCD#20',
@@ -1455,8 +1559,7 @@ export default function App() {
           Department: r.Department || main.Department || '',
           Date: r.Date || initialHeader.Date || '',
           Attachment: r.Attachment,
-          AttachmentName: r.AttachmentName,
-          IsHistoricalImport: r.IsHistoricalImport
+          AttachmentName: r.AttachmentName
         };
       });
 
@@ -1465,23 +1568,21 @@ export default function App() {
         const matchedItem = items.find(i => String(i.ItemID || '').trim().toLowerCase() === String(itemCode || '').trim().toLowerCase());
         if (matchedItem) {
           if (activeTab === 'MaterialIssued') {
-            if (!(row.IsHistoricalImport && row.Stock !== '' && row.Stock !== undefined)) {
-              row.Stock = calculateIssuedStockOnHand({
-                itemCode,
-                targetDate: row.Date || initialHeader.Date,
-                targetDocId: targetId,
-                currentRowQty: row.Qty,
-                rowIndexInDoc: idx,
-                docItems: docRows,
-                items,
-                receives,
-                issued,
-              });
-            }
+            row.Stock = calculateIssuedStockOnHand({
+              itemCode,
+              targetDate: row.Date || initialHeader.Date,
+              targetDocId: targetId,
+              currentRowQty: row.Qty,
+              rowIndexInDoc: idx,
+              docItems: docRows,
+              items,
+              receives,
+              issued,
+            });
           } else {
             const normCode = String(itemCode || '').trim().toLowerCase();
-            const stockIn = parseNumberValue(matchedItem.BaseStockIn) + receives.filter(rcv => !rcv.IsHistoricalImport && String(rcv.ItemID || '').trim().toLowerCase() === normCode).reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
-            const stockOut = parseNumberValue(matchedItem.BaseStockOut) + issued.filter(iss => !iss.IsHistoricalImport && String(iss.ItemID || '').trim().toLowerCase() === normCode).reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
+            const stockIn = parseNumberValue(matchedItem.BaseStockIn) + receives.filter(rcv => String(rcv.ItemID || '').trim().toLowerCase() === normCode).reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
+            const stockOut = parseNumberValue(matchedItem.BaseStockOut) + issued.filter(iss => String(iss.ItemID || '').trim().toLowerCase() === normCode).reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
             const lastStock = parseNumberValue(matchedItem.LastStock ?? matchedItem.CurrentStock ?? matchedItem.Stock);
             row.Stock = lastStock + stockIn - stockOut;
           }
@@ -1685,15 +1786,7 @@ export default function App() {
       // 1. Direct fetch from Firebase Firestore
       const firestoreStore = await fetchFullStoreFromFirestore();
       if (firestoreStore) {
-        if (Array.isArray(firestoreStore.items)) setItems(firestoreStore.items);
-        if (Array.isArray(firestoreStore.requests)) setRequests(firestoreStore.requests);
-        if (Array.isArray(firestoreStore.pos)) setPurchaseOrders(firestoreStore.pos);
-        if (Array.isArray(firestoreStore.receives)) setReceives(firestoreStore.receives);
-        if (Array.isArray(firestoreStore.issued)) setIssued(firestoreStore.issued);
-        if (Array.isArray(firestoreStore.users)) setUsers(firestoreStore.users);
-        if (firestoreStore.companyHeader) setCompanyHeader(firestoreStore.companyHeader);
-        if (firestoreStore.savedDocHeaders) setSavedDocHeaders(firestoreStore.savedDocHeaders);
-        if (firestoreStore.customColHeaders) setCustomColHeaders(firestoreStore.customColHeaders);
+        applyHydratedStore(firestoreStore);
         setIsFirebaseConnected(true);
         showToast('Data refreshed directly from Firebase Firestore!');
         return;
@@ -1707,7 +1800,11 @@ export default function App() {
   const handlePushSync = async () => {
     try {
       await pushSyncToServer();
-      showToast('ERP data synchronized across all devices successfully!');
+      if (isFirestoreQuotaExceeded()) {
+        showToast('Tersimpan di server lokal. Kuota tulis harian Firestore sedang habis.', 'error');
+      } else {
+        showToast('ERP data synchronized across all devices successfully!');
+      }
     } catch {
       showToast('Offline sync using local cache', 'error');
     }
@@ -1731,10 +1828,12 @@ export default function App() {
     const min = parseNumberValue(item.MinStock);
     const deficit = Math.max(1, min - cur);
 
+    const nextReqId = getNextSimpleDocId('MaterialRequest', requests);
     const schema = TAB_SCHEMAS['MaterialRequest'] || [];
     const newObj: RecordRow = {};
     schema.forEach(col => {
-      if (col === 'Date') newObj[col] = new Date().toISOString().split('T')[0];
+      if (col === 'RequestID') newObj[col] = nextReqId;
+      else if (col === 'Date') newObj[col] = new Date().toISOString().split('T')[0];
       else if (col === 'Status') newObj[col] = 'Pending';
       else if (col === 'Priority') newObj[col] = 'Urgent';
       else if (col === 'ItemID') newObj[col] = item.ItemID || '';
@@ -1756,6 +1855,7 @@ export default function App() {
     setIsReorderModalOpen(false);
     setActiveTab('MaterialRequest');
     const today = new Date().toISOString().split('T')[0];
+    const nextReqId = getNextSimpleDocId('MaterialRequest', requests);
 
     const rows = orderItems.map(item => {
       const cur = Number(item.CurrentStock) || 0;
@@ -1763,6 +1863,7 @@ export default function App() {
       const deficit = Math.max(1, min - cur);
 
       return {
+        RequestID: nextReqId,
         Date: today,
         Department: 'Purchasing',
         Priority: 'Urgent',
@@ -1775,7 +1876,7 @@ export default function App() {
       };
     });
 
-    setMultiRows(rows.length > 0 ? rows : [{ Date: today, Department: 'Purchasing', Priority: 'Normal' }]);
+    setMultiRows(rows.length > 0 ? rows : [{ RequestID: nextReqId, Date: today, Department: 'Purchasing', Priority: 'Normal' }]);
     setIsMultiModalOpen(true);
     showToast(`${orderItems.length} items prepared in Multi-Record Material Request!`);
   };
@@ -1834,7 +1935,36 @@ export default function App() {
 
           <div className="flex-grow flex flex-col min-w-0">
             <main className="container mx-auto px-3 sm:px-6 py-4 sm:py-8 flex-grow max-w-7xl">
-              
+              {isFirestoreQuotaBlocked && !isQuotaBannerDismissed && (
+                <div className="mb-4 rounded-2xl border border-amber-300 dark:border-amber-700/60 bg-amber-50 dark:bg-amber-950/40 px-4 py-3 text-xs text-amber-950 dark:text-amber-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <p className="font-bold">
+                      Kuota penulisan harian gratis Firestore habis (resource-exhausted)
+                    </p>
+                    <p className="text-[11px] opacity-90">
+                      Perubahan data tetap disimpan aman ke server lokal. Kuota Firestore gratis akan reset keesokan hari, atau upgrade database Firestore agar dapat menyimpan kembali ke cloud secara real-time.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <a
+                      href={FIRESTORE_DATABASE_UPGRADE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-[11px] transition"
+                    >
+                      Upgrade Firestore
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setIsQuotaBannerDismissed(true)}
+                      className="px-2.5 py-1.5 rounded-xl bg-amber-200/70 dark:bg-amber-900/60 hover:bg-amber-200 text-amber-950 dark:text-amber-100 font-bold text-[11px] cursor-pointer"
+                    >
+                      Tutup
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {activeTab === 'Dashboard' && (
                 <DashboardView
                   items={items}

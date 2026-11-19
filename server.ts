@@ -100,6 +100,7 @@ async function startServer() {
       companyHeader: store.companyHeader || current.companyHeader,
       savedDocHeaders: store.savedDocHeaders || current.savedDocHeaders,
       customColHeaders: store.customColHeaders || current.customColHeaders,
+      dataVersion: store.dataVersion || current.dataVersion,
       lastUpdated: store.lastUpdated || Date.now()
     };
     saveStore(updatedStore);

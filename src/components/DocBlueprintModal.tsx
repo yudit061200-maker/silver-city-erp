@@ -180,9 +180,6 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
   ): RecordRow[] => {
     if (!isMaterialIssued) return rows;
     return rows.map((row, idx) => {
-      if (row.IsHistoricalImport && row.Stock !== '' && row.Stock !== undefined) {
-        return row;
-      }
       const normCode = String(row.ItemID || '').trim().toLowerCase();
       if (!normCode) return row;
       const matched = items.find(
@@ -216,8 +213,7 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
       if (item) {
         targetIdx = copy.findIndex(i => i === item);
         if (targetIdx >= 0) {
-          const clearHist = (field === 'ItemID' || field === 'Qty') ? { IsHistoricalImport: false } : {};
-          copy[targetIdx] = { ...copy[targetIdx], [field]: val, Department: deptClean, ...clearHist };
+          copy[targetIdx] = { ...copy[targetIdx], [field]: val, Department: deptClean };
         }
       } else {
         copy.push({

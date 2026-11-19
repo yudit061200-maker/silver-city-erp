@@ -1,4 +1,4 @@
-export const SPREADSHEET_DATA_VERSION = 'v2026_11_19_all_docs_import';
+export const SPREADSHEET_DATA_VERSION = 'v2026_11_20_simple_ids_dynamic_stock';
 
 export interface ImportedItem {
   _rowIndex: number;
@@ -203,7 +203,7 @@ export const importedItems: ImportedItem[] = [
     "Location": "1/H",
     "Photo": "",
     "MinStock": 6,
-    "LastStock": 6,
+    "LastStock": 12,
     "UnitPriceIDR": 0,
     "ItemName": "Piston Assembly Size 6.3/4\" P/N PIST675NBRC F/Ceramic Liner Banded NBR",
     "UoM": "ea",
@@ -217,7 +217,7 @@ export const importedItems: ImportedItem[] = [
   {
     "BaseStockIn": 0,
     "UnitPriceIDR": 0,
-    "LastStock": 12,
+    "LastStock": 0,
     "Category": "",
     "ItemName": "Piston Assembly Size 6.1/2\" P/N PIST600NBRC F/Ceramic Liner Banded NBR",
     "_rowIndex": 9,
@@ -251,7 +251,7 @@ export const importedItems: ImportedItem[] = [
     "UnitPriceIDR": 0,
     "UoM": "ea",
     "_rowIndex": 11,
-    "LastStock": 12,
+    "LastStock": 0,
     "UnitPriceUSD": 0,
     "ItemName": "Piston Assembly Size 5\" P/N PIST500NBRC F/Ceramic Liner Banded NBR",
     "BaseStockOut": 0,
@@ -309,7 +309,7 @@ export const importedItems: ImportedItem[] = [
     "ItemID": "01.01.0012",
     "Photo": "",
     "ItemName": "Steel Chrome Liner Size 5\" P/N MK-0148-50",
-    "LastStock": 16,
+    "LastStock": -2,
     "MinStock": 0,
     "Location": "1",
     "BaseStockIn": 0,
@@ -377,7 +377,7 @@ export const importedItems: ImportedItem[] = [
     "MinStock": 1,
     "UoM": "ea",
     "UnitPriceUSD": 0,
-    "LastStock": 0
+    "LastStock": -9
   },
   {
     "UoM": "ea",
@@ -398,20 +398,20 @@ export const importedItems: ImportedItem[] = [
     "ItemName": "Full Open Valve Assy MK-6FO-V1",
     "UnitPriceUSD": 0,
     "Location": "1I",
-    "BaseStockIn": 12,
+    "BaseStockIn": 0,
     "MinStock": 0,
     "BaseStockOut": 0,
     "_rowIndex": 21,
     "UoM": "ea",
     "ItemID": "01.01.0018",
     "Photo": "",
-    "LastStock": 1,
+    "LastStock": 13,
     "Category": "",
     "UnitPriceIDR": 0
   },
   {
-    "LastStock": 4,
-    "BaseStockIn": 12,
+    "LastStock": 16,
+    "BaseStockIn": 0,
     "UoM": "ea",
     "BaseStockOut": 0,
     "Category": "",
@@ -500,7 +500,7 @@ export const importedItems: ImportedItem[] = [
     "Category": ""
   },
   {
-    "LastStock": 3,
+    "LastStock": 9,
     "UnitPriceUSD": 0,
     "BaseStockIn": 0,
     "UoM": "ea",
@@ -659,7 +659,7 @@ export const importedItems: ImportedItem[] = [
     "BaseStockIn": 0,
     "BaseStockOut": 0,
     "ItemName": "Protector Rubber Deck Bulkhead (Double",
-    "LastStock": 11,
+    "LastStock": 18,
     "Location": "1E",
     "UoM": "ea",
     "MinStock": 0,
@@ -781,7 +781,7 @@ export const importedItems: ImportedItem[] = [
     "UnitPriceIDR": 0,
     "MinStock": 0,
     "Photo": "",
-    "LastStock": 12,
+    "LastStock": 8,
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A100",
     "BaseStockIn": 0,
     "UoM": "Sht",
@@ -790,7 +790,7 @@ export const importedItems: ImportedItem[] = [
   {
     "UnitPriceUSD": 0,
     "BaseStockIn": 0,
-    "LastStock": 12,
+    "LastStock": -8,
     "BaseStockOut": 0,
     "ItemID": "02.01.0010",
     "Category": "",
@@ -815,7 +815,7 @@ export const importedItems: ImportedItem[] = [
     "UnitPriceIDR": 0,
     "ItemID": "02.01.0011",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A140",
-    "LastStock": 17
+    "LastStock": 8
   },
   {
     "UnitPriceUSD": 0,
@@ -823,7 +823,7 @@ export const importedItems: ImportedItem[] = [
     "LastStock": 18,
     "Location": "WHS Pason",
     "MinStock": 0,
-    "BaseStockOut": 4,
+    "BaseStockOut": 0,
     "UoM": "Sht",
     "BaseStockIn": 0,
     "ItemID": "02.01.0012",
@@ -836,11 +836,11 @@ export const importedItems: ImportedItem[] = [
     "ItemID": "02.01.0013",
     "UnitPriceIDR": 0,
     "Category": "",
-    "LastStock": 12,
+    "LastStock": 7,
     "Photo": "",
     "UoM": "Sht",
     "_rowIndex": 50,
-    "BaseStockOut": 6,
+    "BaseStockOut": 0,
     "BaseStockIn": 0,
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A200",
     "MinStock": 6,
@@ -856,7 +856,7 @@ export const importedItems: ImportedItem[] = [
     "BaseStockOut": 0,
     "_rowIndex": 51,
     "BaseStockIn": 0,
-    "LastStock": 7,
+    "LastStock": 1,
     "Category": "",
     "UoM": "Sht",
     "Photo": "",
@@ -894,7 +894,7 @@ export const importedItems: ImportedItem[] = [
   },
   {
     "Photo": "",
-    "LastStock": 13,
+    "LastStock": 15,
     "UoM": "ea",
     "Category": "",
     "UnitPriceIDR": 0,
@@ -1197,7 +1197,7 @@ export const importedItems: ImportedItem[] = [
     "UoM": "ea",
     "ItemID": "05.01.0003",
     "Category": "",
-    "LastStock": 11,
+    "LastStock": 3,
     "BaseStockIn": 0,
     "UnitPriceUSD": 0,
     "UnitPriceIDR": 0,
@@ -1218,7 +1218,7 @@ export const importedItems: ImportedItem[] = [
     "BaseStockOut": 0,
     "ItemID": "05.01.0004",
     "Category": "",
-    "LastStock": 5,
+    "LastStock": -3,
     "Photo": "",
     "UnitPriceIDR": 0
   },
@@ -1241,11 +1241,11 @@ export const importedItems: ImportedItem[] = [
     "UnitPriceIDR": 0,
     "MinStock": 1,
     "Location": "?",
-    "LastStock": 1,
+    "LastStock": 0,
     "BaseStockIn": 0,
     "ItemName": "Air Conditioner Split Indoor & outdoor",
     "Photo": "",
-    "BaseStockOut": 1,
+    "BaseStockOut": 0,
     "_rowIndex": 77,
     "Category": "",
     "UoM": "Unit",
@@ -1273,7 +1273,7 @@ export const importedItems: ImportedItem[] = [
     "Category": "",
     "_rowIndex": 79,
     "BaseStockOut": 0,
-    "LastStock": 6,
+    "LastStock": -4,
     "ItemName": "Contact Cleaner 220ml",
     "ItemID": "07.01.0002",
     "BaseStockIn": 0,
@@ -1287,7 +1287,7 @@ export const importedItems: ImportedItem[] = [
     "Photo": "",
     "ItemID": "07.01.0003",
     "Category": "",
-    "LastStock": 10,
+    "LastStock": 0,
     "UnitPriceUSD": 0,
     "UnitPriceIDR": 0,
     "ItemName": "Plastic Steel 5 Mnt",
@@ -1310,7 +1310,7 @@ export const importedItems: ImportedItem[] = [
     "Location": "3/A2",
     "UnitPriceIDR": 0,
     "ItemName": "Red Silicone",
-    "LastStock": 10
+    "LastStock": 0
   },
   {
     "_rowIndex": 82,
@@ -1324,7 +1324,7 @@ export const importedItems: ImportedItem[] = [
     "BaseStockOut": 0,
     "ItemID": "07.01.0005",
     "UnitPriceUSD": 0,
-    "LastStock": 2,
+    "LastStock": 0,
     "Category": ""
   },
   {
@@ -1380,7 +1380,7 @@ export const importedItems: ImportedItem[] = [
     "BaseStockIn": 0,
     "BaseStockOut": 0,
     "UoM": "ea",
-    "LastStock": 5,
+    "LastStock": 7,
     "_rowIndex": 86,
     "ItemID": "08.01.0002",
     "Photo": "",
@@ -1500,7 +1500,7 @@ export const importedItems: ImportedItem[] = [
     "BaseStockOut": 0,
     "_rowIndex": 94,
     "Photo": "",
-    "LastStock": 11,
+    "LastStock": 12,
     "UoM": "ea",
     "MinStock": 0,
     "Location": "1/O3",
@@ -1571,7 +1571,7 @@ export const importedItems: ImportedItem[] = [
     "Photo": "",
     "UnitPriceIDR": 0,
     "BaseStockIn": 0,
-    "LastStock": 5,
+    "LastStock": 6,
     "Category": "",
     "Location": "1/O2",
     "MinStock": 0,
@@ -1718,8 +1718,8 @@ export const importedItems: ImportedItem[] = [
     "BaseStockOut": 0
   },
   {
-    "LastStock": 11,
-    "BaseStockOut": 1,
+    "LastStock": 1,
+    "BaseStockOut": 0,
     "ItemID": "08.01.0025",
     "Category": "",
     "UnitPriceUSD": 0,
@@ -1735,9 +1735,9 @@ export const importedItems: ImportedItem[] = [
   {
     "Photo": "",
     "UnitPriceUSD": 0,
-    "LastStock": 6,
+    "LastStock": -4,
     "Category": "",
-    "BaseStockOut": 1,
+    "BaseStockOut": 0,
     "UoM": "ea",
     "_rowIndex": 110,
     "Location": "1/O1",
@@ -1810,7 +1810,7 @@ export const importedItems: ImportedItem[] = [
   {
     "LastStock": 17,
     "UoM": "ea",
-    "BaseStockOut": 1,
+    "BaseStockOut": 0,
     "Photo": "",
     "Location": "1/O1",
     "MinStock": 0,
@@ -1913,7 +1913,7 @@ export const importedItems: ImportedItem[] = [
     "ItemID": "09.01.0003"
   },
   {
-    "LastStock": 7,
+    "LastStock": 8,
     "ItemName": "Butterfly Valve Size 8\"",
     "Location": "1S",
     "MinStock": 0,
@@ -1929,7 +1929,7 @@ export const importedItems: ImportedItem[] = [
   },
   {
     "UnitPriceIDR": 0,
-    "LastStock": 5,
+    "LastStock": 0,
     "ItemID": "09.01.0005",
     "Category": "",
     "Location": "1S",
@@ -1955,7 +1955,7 @@ export const importedItems: ImportedItem[] = [
     "ItemName": "Butterfly Valve Size 6\"",
     "Location": "1S",
     "MinStock": 1,
-    "LastStock": 1
+    "LastStock": 2
   },
   {
     "BaseStockIn": 0,
@@ -1966,7 +1966,7 @@ export const importedItems: ImportedItem[] = [
     "UnitPriceUSD": 0,
     "_rowIndex": 125,
     "UnitPriceIDR": 0,
-    "LastStock": 2,
+    "LastStock": 4,
     "ItemName": "Butterfly Valve Size 4\"",
     "UoM": "ea",
     "MinStock": 2,
@@ -2041,7 +2041,7 @@ export const importedItems: ImportedItem[] = [
     "ItemID": "09.01.0012",
     "BaseStockOut": 0,
     "_rowIndex": 130,
-    "LastStock": 2,
+    "LastStock": 3,
     "UnitPriceIDR": 0,
     "BaseStockIn": 0,
     "Photo": "",
@@ -2058,7 +2058,7 @@ export const importedItems: ImportedItem[] = [
     "BaseStockIn": 0,
     "_rowIndex": 131,
     "BaseStockOut": 0,
-    "LastStock": 3,
+    "LastStock": 4,
     "UnitPriceUSD": 0,
     "Category": ""
   },
@@ -2102,7 +2102,7 @@ export const importedItems: ImportedItem[] = [
     "Location": "1R",
     "MinStock": 0,
     "BaseStockOut": 0,
-    "LastStock": 2,
+    "LastStock": 3,
     "ItemName": "Tee Galvanized 2\"",
     "BaseStockIn": 0,
     "UnitPriceUSD": 0
@@ -2134,7 +2134,7 @@ export const importedItems: ImportedItem[] = [
     "Category": "",
     "UnitPriceIDR": 0,
     "BaseStockIn": 0,
-    "LastStock": 1,
+    "LastStock": 2,
     "UoM": "ea"
   },
   {
@@ -2142,7 +2142,7 @@ export const importedItems: ImportedItem[] = [
     "BaseStockIn": 0,
     "BaseStockOut": 0,
     "Photo": "",
-    "LastStock": 1,
+    "LastStock": 2,
     "Location": "1R",
     "MinStock": 1,
     "UnitPriceUSD": 0,
@@ -2244,7 +2244,7 @@ export const importedItems: ImportedItem[] = [
   },
   {
     "Category": "",
-    "LastStock": 10,
+    "LastStock": 1,
     "UnitPriceIDR": 0,
     "BaseStockOut": 0,
     "UoM": "ea",
@@ -2262,7 +2262,7 @@ export const importedItems: ImportedItem[] = [
     "Location": "",
     "MinStock": 0,
     "ItemName": "Weldneck Flange Sch 40 Size 6\"",
-    "LastStock": 3,
+    "LastStock": -10,
     "ItemID": "09.01.0027",
     "UnitPriceIDR": 0,
     "UoM": "ea",
@@ -2275,7 +2275,7 @@ export const importedItems: ImportedItem[] = [
   {
     "ItemName": "Weldneck Flange Sch 40 Size 5\"",
     "UnitPriceIDR": 0,
-    "LastStock": 3,
+    "LastStock": 4,
     "Photo": "",
     "UoM": "ea",
     "ItemID": "09.01.0028",
@@ -2291,7 +2291,7 @@ export const importedItems: ImportedItem[] = [
     "UnitPriceIDR": 0,
     "BaseStockIn": 0,
     "ItemID": "09.01.0029",
-    "LastStock": 8,
+    "LastStock": 1,
     "Photo": "",
     "Category": "",
     "MinStock": 0,
@@ -2314,7 +2314,7 @@ export const importedItems: ImportedItem[] = [
     "MinStock": 0,
     "BaseStockOut": 0,
     "ItemName": "Welded Elbow Sch 40 Size 8\"",
-    "LastStock": 4,
+    "LastStock": 0,
     "UnitPriceUSD": 0
   },
   {
@@ -2339,7 +2339,7 @@ export const importedItems: ImportedItem[] = [
     "UnitPriceUSD": 0,
     "Location": "",
     "UoM": "ea",
-    "LastStock": 6,
+    "LastStock": 0,
     "BaseStockOut": 0,
     "BaseStockIn": 0,
     "_rowIndex": 150,
@@ -2371,7 +2371,7 @@ export const importedItems: ImportedItem[] = [
     "ItemID": "09.01.0034",
     "UnitPriceUSD": 0,
     "Location": "",
-    "LastStock": 2,
+    "LastStock": 0,
     "ItemName": "Welded Reducer Size 8\" x 6\"",
     "BaseStockOut": 0,
     "UoM": "ea",
@@ -2379,7 +2379,7 @@ export const importedItems: ImportedItem[] = [
   },
   {
     "BaseStockOut": 0,
-    "LastStock": 6,
+    "LastStock": 0,
     "UoM": "ea",
     "Location": "",
     "MinStock": 0,
@@ -2405,12 +2405,12 @@ export const importedItems: ImportedItem[] = [
     "Category": "",
     "Photo": "",
     "UnitPriceIDR": 0,
-    "LastStock": 2
+    "LastStock": -3
   },
   {
     "UoM": "Box",
     "Category": "",
-    "LastStock": 18,
+    "LastStock": 48,
     "ItemID": "11.01.0001",
     "UnitPriceIDR": 0,
     "BaseStockIn": 0,
@@ -2425,7 +2425,7 @@ export const importedItems: ImportedItem[] = [
   {
     "BaseStockOut": 0,
     "Category": "",
-    "LastStock": 3,
+    "LastStock": -1,
     "UoM": "Box",
     "UnitPriceUSD": 0,
     "UnitPriceIDR": 0,
@@ -2468,12 +2468,12 @@ export const importedItems: ImportedItem[] = [
     "UnitPriceIDR": 0
   },
   {
-    "BaseStockOut": 6,
+    "BaseStockOut": 0,
     "UoM": "ea",
     "ItemName": "Dies 3/8 x 1/4 x 4.1/2 P/N PDT381412",
     "UnitPriceUSD": 0,
     "MinStock": 0,
-    "LastStock": 90,
+    "LastStock": 96,
     "Location": "??",
     "Photo": "",
     "Category": "",
@@ -2484,7 +2484,7 @@ export const importedItems: ImportedItem[] = [
   },
   {
     "LastStock": 22,
-    "BaseStockOut": 2,
+    "BaseStockOut": 0,
     "Category": "",
     "BaseStockIn": 0,
     "Photo": "",
@@ -2802,7 +2802,7 @@ export const importedItems: ImportedItem[] = [
 export const importedRequests: ImportedRequest[] = [
   {
     "_rowIndex": 2,
-    "RequestID": "091/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0091",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Centrifugal Sand Pump 37Kw MDL: 6x5x14 Impeller Size: 11\" | C/W. Housing 6x5x14",
@@ -2822,7 +2822,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 3,
-    "RequestID": "091/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0091",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Electric Motor 37Kw, 50Hp, 50Hz, 380/660V, RPM 1490 r/min | Type: Y3 225S-4 S/N. HJ20250313-157",
@@ -2842,7 +2842,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 4,
-    "RequestID": "091/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0091",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Electric Motor 55Kw, 75Hp, 50Hz, 380/660V, RPM 1490 r/min | Type: Y3 250M-4 S/N. HJ20250519-288",
@@ -2862,7 +2862,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 5,
-    "RequestID": "091/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0091",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Impeler 11\"",
@@ -2882,7 +2882,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 6,
-    "RequestID": "091/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0091",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Gland Packing 12mm",
@@ -2902,7 +2902,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 7,
-    "RequestID": "091/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0091",
     "Date": "2026-06-25",
     "ItemID": "17.01.0001",
     "ItemName": "Mechanical Seal F/Centrifuga Pump",
@@ -2922,7 +2922,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 8,
-    "RequestID": "091/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0091",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Rubber Coupling Fenner Fenaflex Type F90",
@@ -2942,7 +2942,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 9,
-    "RequestID": "091/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0091",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Water Hose 2\" x 150 Psi",
@@ -2962,7 +2962,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 10,
-    "RequestID": "092/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0092",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Fire Extinguisher, 150 lbs Dry Chemical On Wheel | c/w. Hose & Nozzle",
@@ -2982,7 +2982,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 11,
-    "RequestID": "092/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0092",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Firefighting Foam And Water Applicator",
@@ -3002,7 +3002,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 12,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Socket Lamp Trailer 7 Pin Male N-Type 24V",
@@ -3022,7 +3022,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 13,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Stop Lamp Trailer 24V (Red-White-Yellow)",
@@ -3042,7 +3042,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 14,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Manual Switch On/Off 8 Pin(4 Pin)5A 250VAC FORT S/N. SS2511/3",
@@ -3062,7 +3062,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 15,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Elmot Bug Blower 4Kw,11440 RPm 220/380V FANGLI YBX3-112M-4",
@@ -3082,7 +3082,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 16,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Starter Motor Lighting Tower 8 Teeth 12V 1,2Kw HW12,KM198 HR25-06-14",
@@ -3102,7 +3102,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 17,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Cable Connector S/N. WAGO 221",
@@ -3122,7 +3122,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 18,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Hyd. Pump Motor Electric for. Jack Mud Pump MOCEN 416A-2P-M | 12V, 1,6Kw, 2650Rpm IP 54",
@@ -3142,7 +3142,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 19,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Bulb Lamp TLD Cool Daylight 18W PHILIPS",
@@ -3162,7 +3162,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 20,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Water Accu Refill",
@@ -3182,7 +3182,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 21,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "SPM Sensor BilO-M30-YIX H1141/S56 KEMA: 02ATEX1090X",
@@ -3202,7 +3202,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 22,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Disconnect Battery Switch On/Off 100-200A",
@@ -3222,7 +3222,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 23,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Plug Male 5 Pin Australia Std Easy plug 32A 500V CLIPSAL EY56P532",
@@ -3242,7 +3242,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 24,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Plug Female 3 Pin Flat Australia Std 13A 250V CLIPSAL 56CSC310EO",
@@ -3262,7 +3262,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 25,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Magnetic Contactor 3Kw 3 Phase Coil 220V CHINT NXC-86",
@@ -3282,7 +3282,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 26,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Thermal Overload Relay 3 Phase 100A CHINT NXR-100",
@@ -3302,7 +3302,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 27,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Fuel Sensor (Pressure Sensor) MTU Engine S/N. 0025358931",
@@ -3322,7 +3322,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 28,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Manual Contact Breaker 3 Phase/Manual Starter Circuit Breaker | SPRECHERTSCHUH KTA-C2A/ABB 140-MN-0160",
@@ -3342,7 +3342,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 29,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "AC Split 1/2 PK 220V R32 for Lunch Room & Office HSE",
@@ -3362,7 +3362,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 30,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Refrigeran R32",
@@ -3382,7 +3382,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 31,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Welding Cable 1 x 50Mm",
@@ -3402,7 +3402,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 32,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Welding Holder 500A",
@@ -3422,7 +3422,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 33,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Ground Clamp 500A",
@@ -3442,7 +3442,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 34,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Screw Driver for Electric",
@@ -3462,7 +3462,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 35,
-    "RequestID": "093A/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093A",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Adjustable Wrench 8\"",
@@ -3482,7 +3482,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 36,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Cable NYYHY (Serabut) 3 x 2.5Mm JEMBO",
@@ -3502,7 +3502,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 37,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Cable NYYHY (Serabut) 5 x 4Mm JEMBO",
@@ -3522,7 +3522,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 38,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Alternator 46Kva Volt: 14V Power: 500W MDL: JF11 ON. KF 22123885",
@@ -3542,7 +3542,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 39,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "AVR Generator 46Kva 400V 12A MDL: SPD184",
@@ -3562,7 +3562,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 40,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Switch On/Off Battery OEM Part. WG9100760100",
@@ -3582,7 +3582,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 41,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Motor Starter 12V 5.8Kw 11 Teeth | MDL: QDJ-1409 No. KF 2022122029 P/N. BC 031096",
@@ -3602,7 +3602,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 42,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Deep Seal Monitor S/N. DSE 7320 MKll",
@@ -3622,7 +3622,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 43,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Relay 12V 4 Pin",
@@ -3642,7 +3642,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 44,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "AVR Lighting Tower S/N. MCU 241102-HJ-815C-GY",
@@ -3662,7 +3662,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 45,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Rotor & Stator Lighting Tower 7Kw/220V 50Hz | S/N. SC2506009781 20046-10750-00",
@@ -3682,7 +3682,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 46,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Selenoid Relay 12V",
@@ -3702,7 +3702,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 47,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Motor Starter Engine 250Kw 24V, CW \"DELCO REMY\" 820072 38M",
@@ -3722,7 +3722,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 48,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Red & Black Welding Cable Socket DKJ35-50 315A",
@@ -3742,7 +3742,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 49,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Carbon Block Catridge Filter Water S/N. CBCA-10",
@@ -3762,7 +3762,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 50,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Ballast Bulb Lamp Gasproof 220V-240V, 0.370A WAROM YZ20Z",
@@ -3782,7 +3782,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 51,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Capacitor Bank 20UF/450V",
@@ -3802,7 +3802,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 52,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Capacitor Bank 45UF/450V",
@@ -3822,7 +3822,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 53,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Capacitor Bank 1.5UF/450V",
@@ -3842,7 +3842,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 54,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Overload AC Compressor 1/2 PK S/N. MRA 98688",
@@ -3862,7 +3862,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 55,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Overload AC Compressor 1 PK S/N. MRA 98776",
@@ -3882,7 +3882,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 56,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Overload AC Compressor 1/2 PK S/N. MRA 99120",
@@ -3902,7 +3902,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 57,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Scun Cable SC 6-8",
@@ -3922,7 +3922,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 58,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Scun Cable SC 6-12",
@@ -3942,7 +3942,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 59,
-    "RequestID": "093B/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093B",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Scun Cable SC 4-8",
@@ -3962,7 +3962,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 60,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Scun Cable SC 16-12",
@@ -3982,7 +3982,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 61,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Scun Cable SC 16-10",
@@ -4002,7 +4002,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 62,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Scun Cable SC 2.5-8",
@@ -4022,7 +4022,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 63,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Ferrules Scun Cable Size: 10Mm",
@@ -4042,7 +4042,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 64,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Ferrules Scun Cable Size: 16Mm",
@@ -4062,7 +4062,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 65,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Ferrules Scun Cable Size: 35Mm",
@@ -4082,7 +4082,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 66,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Ferrules Scun Cable Size: 25Mm",
@@ -4102,7 +4102,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 67,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Ferrules Scun Cable Size: 6Mm",
@@ -4122,7 +4122,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 68,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Ferrules Scun Cable Size: 4Mm",
@@ -4142,7 +4142,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 69,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Terminal Block Size: 6Mm",
@@ -4162,7 +4162,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 70,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Lightening Pad + Cable, Size: 25-50Mm Cable for. Lightening Pad",
@@ -4182,7 +4182,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 71,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Carbon Brush BOSH A86 for. Grinding Machine",
@@ -4202,7 +4202,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 72,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "07.01.0002",
     "ItemName": "Contact Cleaner 220ml",
@@ -4222,7 +4222,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 73,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "07.01.0001",
     "ItemName": "WD-40 220ml",
@@ -4242,7 +4242,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 74,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Terminal Battery Accu /Head Clamp Battery Connector",
@@ -4262,7 +4262,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 75,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Isolation Tape 3M/NATIONAL",
@@ -4282,7 +4282,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 76,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Rubber Splicing Tape 3M",
@@ -4302,7 +4302,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 77,
-    "RequestID": "093C/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0093C",
     "Date": "2026-06-25",
     "ItemID": "",
     "ItemName": "Insulating Varnis Spray (Sirlak Spray)",
@@ -4322,7 +4322,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 78,
-    "RequestID": "094/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0094",
     "Date": "2026-06-28",
     "ItemID": "",
     "ItemName": "Air Starting - Gear 11 Teeth Max. Inlet Pressure 120 Psi ( 8 Bar ) | \"TDI\" MDL: T30I S/N. 1708-0295",
@@ -4342,7 +4342,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 79,
-    "RequestID": "095/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0095",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 7/8\" x 1 Mtr",
@@ -4362,7 +4362,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 80,
-    "RequestID": "095/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0095",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Nut 7/8\"",
@@ -4382,7 +4382,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 81,
-    "RequestID": "095/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0095",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Washer Plate 7/8\"",
@@ -4402,7 +4402,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 82,
-    "RequestID": "095/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0095",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 3/4\" x 1 Mtr",
@@ -4422,7 +4422,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 83,
-    "RequestID": "095/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0095",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Nut 3/4\"",
@@ -4442,7 +4442,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 84,
-    "RequestID": "095/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0095",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Washer Plate 3/4\"",
@@ -4462,7 +4462,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 85,
-    "RequestID": "096/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0096",
     "Date": "2026-06-29",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -4482,7 +4482,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 86,
-    "RequestID": "096/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0096",
     "Date": "2026-06-29",
     "ItemID": "09.01.0005",
     "ItemName": "Butterfly Valve Size 10\"",
@@ -4502,7 +4502,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 87,
-    "RequestID": "096/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0096",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Elbow 10\" - 90 Degree SCH 40 | Note: Additional",
@@ -4522,7 +4522,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 88,
-    "RequestID": "097/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0097",
     "Date": "2026-06-30",
     "ItemID": "02.01.0006",
     "ItemName": "Rubber Mounting",
@@ -4542,7 +4542,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 89,
-    "RequestID": "097/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0097",
     "Date": "2026-06-30",
     "ItemID": "02.01.0005",
     "ItemName": "Protector Rubebr Deck Bulkhead (Single)",
@@ -4562,7 +4562,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 90,
-    "RequestID": "097/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0097",
     "Date": "2026-06-30",
     "ItemID": "02.01.0001",
     "ItemName": "Protector Rubber Deck Bulkhead (Double",
@@ -4582,7 +4582,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 91,
-    "RequestID": "097/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0097",
     "Date": "2026-06-30",
     "ItemID": "02.01.0003",
     "ItemName": "Protector Rubber Rear Cross Support",
@@ -4602,7 +4602,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 92,
-    "RequestID": "097/MRQ/SCD#20/VI/26",
+    "RequestID": "MRQ-0097",
     "Date": "2026-06-30",
     "ItemID": "02.01.0002",
     "ItemName": "Protector Rubber Side Cross Support",
@@ -4622,7 +4622,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 93,
-    "RequestID": "098/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0098",
     "Date": "2026-07-06",
     "ItemID": "",
     "ItemName": "Greating Fiber - Thickness 37Mm for. Change Buttom Rotary Table",
@@ -4642,7 +4642,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 94,
-    "RequestID": "098/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0098",
     "Date": "2026-07-06",
     "ItemID": "",
     "ItemName": "Steel Pipe 10\" - SCH40 for. Vent Line,Flow Line, Extend Suction Line",
@@ -4662,7 +4662,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 95,
-    "RequestID": "098/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0098",
     "Date": "2026-07-06",
     "ItemID": "09.01.0027",
     "ItemName": "Weldneck Flange Sch 40 Size 6\"",
@@ -4682,7 +4682,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 96,
-    "RequestID": "098/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0098",
     "Date": "2026-07-06",
     "ItemID": "09.01.0006",
     "ItemName": "Butterfly Valve Size 6\"",
@@ -4702,7 +4702,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 97,
-    "RequestID": "098/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0098",
     "Date": "2026-07-06",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 3/4\" x 1 Mtr",
@@ -4722,7 +4722,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 98,
-    "RequestID": "098/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0098",
     "Date": "2026-07-06",
     "ItemID": "",
     "ItemName": "Nut 3/4\" C/W. Washer Plate | NOTE: Additional",
@@ -4742,7 +4742,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 99,
-    "RequestID": "099/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0099",
     "Date": "2026-07-12",
     "ItemID": "",
     "ItemName": "Stell Grating Plate 6 Mtr For. Additional New Mud Tank",
@@ -4762,7 +4762,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 100,
-    "RequestID": "099/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0099",
     "Date": "2026-07-12",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -4782,7 +4782,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 101,
-    "RequestID": "099/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0099",
     "Date": "2026-07-12",
     "ItemID": "09.01.0036",
     "ItemName": "Welded Elbow Sch 40 Size 6\"",
@@ -4802,7 +4802,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 102,
-    "RequestID": "099/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0099",
     "Date": "2026-07-12",
     "ItemID": "",
     "ItemName": "MCCB Breaker - 250A STR 22 SE for. Panel MCC Day Tank",
@@ -4822,7 +4822,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 103,
-    "RequestID": "099/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0099",
     "Date": "2026-07-12",
     "ItemID": "",
     "ItemName": "Junction Box H:70Cm x L:60Cm x W:30Cm For. Soft Starter",
@@ -4842,7 +4842,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 104,
-    "RequestID": "099/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0099",
     "Date": "2026-07-12",
     "ItemID": "",
     "ItemName": "Flexible Conduit PVC 1/2\"",
@@ -4862,7 +4862,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 105,
-    "RequestID": "099/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0099",
     "Date": "2026-07-12",
     "ItemID": "",
     "ItemName": "Flexible Conduit PVC 3/4\"",
@@ -4882,7 +4882,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 106,
-    "RequestID": "101/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0101",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Hose 2DN - 2\" - 150 Psi For. Suction Line Pit to Water Tank",
@@ -4902,7 +4902,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 107,
-    "RequestID": "101/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0101",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Hose 2DN - 3\" - 150 Psi For. Suction Line Fire Pump & Water Pump",
@@ -4922,7 +4922,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 108,
-    "RequestID": "101/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0101",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Hose 2DN - 4\" - 150 Psi For. Water Line Mud Tank",
@@ -4942,7 +4942,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 109,
-    "RequestID": "101/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0101",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Air Hose 1\" x 300 Psi For. Air Hose Accumulator",
@@ -4962,7 +4962,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 110,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0026",
     "ItemName": "Camlock Size 1\" Type E100 (IRON)",
@@ -4982,7 +4982,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 111,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0022",
     "ItemName": "Camlock Size 1.1/4\" Type A125 (IRON)",
@@ -5002,7 +5002,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 112,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "Camlock Plastic - Conn Female Coupler X Hose Shank Size: 1-1/4 Inch SN. C125",
@@ -5022,7 +5022,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 113,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0029",
     "ItemName": "Camlock Size 1\" Type F100(Plastic)",
@@ -5042,7 +5042,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 114,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0015",
     "ItemName": "Camlock Size 2\" Type D200 (IRON)",
@@ -5062,7 +5062,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 115,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "Camlock Conn Female Coupler X Male Thread Size: 2 Inch SN. B200",
@@ -5082,7 +5082,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 116,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0017",
     "ItemName": "Camlock Size 2\" Type F200 (Plastic)",
@@ -5102,7 +5102,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 117,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0014",
     "ItemName": "Camlock Size 2\" Type A200 (IRON)",
@@ -5122,7 +5122,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 118,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0016",
     "ItemName": "Camlock Size 2\" Type B200 (Plastic)",
@@ -5142,7 +5142,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 119,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0008",
     "ItemName": "Camlock Size 3\" Type C300 (IRON)",
@@ -5162,7 +5162,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 120,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0002",
     "ItemName": "Camlock Size 4\" Type B400 (IRON)",
@@ -5182,7 +5182,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 121,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "Camlock Conn Male Adapter X Male Thread Size: 4 Inch SN. F400",
@@ -5202,7 +5202,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 122,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0004",
     "ItemName": "Camlock Size 4\" Type D400 (IRON)",
@@ -5222,7 +5222,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 123,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "Camlock Conn Male Adapter X Hose Shank Size: 4 Inch SN. E400",
@@ -5242,7 +5242,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 124,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0003",
     "ItemName": "Camlock Size 4\" Type C400 (IRON)",
@@ -5262,7 +5262,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 125,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0018",
     "ItemName": "Camlock Size 4\" Type DA4020 (IRON)",
@@ -5282,7 +5282,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 126,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0013",
     "ItemName": "Camlock Size 2\" Type E200 (IRON)",
@@ -5302,7 +5302,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 127,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0003",
     "ItemName": "Camlock Size 4\" Type C400 (IRON)",
@@ -5322,7 +5322,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 128,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "Camlock Conn. Male Adapter x Hose Shank Size : 4 Inch SN. E400",
@@ -5342,7 +5342,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 129,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0002",
     "ItemName": "Camlock Size 4\" Type B400 (IRON)",
@@ -5362,7 +5362,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 130,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0011",
     "ItemName": "Camlock Size 3\" Type E300 (IRON)",
@@ -5382,7 +5382,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 131,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0008",
     "ItemName": "Camlock Size 3\" Type C300 (IRON)",
@@ -5402,7 +5402,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 132,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0007",
     "ItemName": "Camlock Size 3\" Type B300 (IRON)",
@@ -5422,7 +5422,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 133,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0032",
     "ItemName": "Camlock Size 6\" Type C600 (IRON)",
@@ -5442,7 +5442,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 134,
-    "RequestID": "102/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0102",
     "Date": "2026-07-15",
     "ItemID": "08.01.0034",
     "ItemName": "Camlock Size 6\" Type F600 (IRON)",
@@ -5462,7 +5462,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 135,
-    "RequestID": "103/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0103",
     "Date": "2026-07-16",
     "ItemID": "",
     "ItemName": "Tyre Size: 11R 22.5 For. Spare",
@@ -5482,7 +5482,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 136,
-    "RequestID": "103/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0103",
     "Date": "2026-07-16",
     "ItemID": "",
     "ItemName": "Tyre Size: 265/70 R19.5 For. Spare Loadsafe",
@@ -5502,7 +5502,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 137,
-    "RequestID": "103/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0103",
     "Date": "2026-07-16",
     "ItemID": "",
     "ItemName": "Tyre Size: 385/65R 22.5 For. Spare White Trailer",
@@ -5522,7 +5522,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 138,
-    "RequestID": "104/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0104",
     "Date": "2026-07-19",
     "ItemID": "",
     "ItemName": "Rotary Drilling Hose Assembly 3\" x 7.5K Psi x 10.2 Mtr | Integral Crimp Fitting FIG 1502 Male - Female",
@@ -5542,7 +5542,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 139,
-    "RequestID": "104/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0104",
     "Date": "2026-07-19",
     "ItemID": "",
     "ItemName": "Rotary Drilling Hose Assembly 3\" x 7.5K Psi x 6 Mtr | Integral Crimp Fitting FIG 1502 Male - Female",
@@ -5562,7 +5562,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 140,
-    "RequestID": "104/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0104",
     "Date": "2026-07-19",
     "ItemID": "",
     "ItemName": "Integral 90 Degree Long Sweep Elbow, 3\" FIG 1502",
@@ -5582,7 +5582,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 141,
-    "RequestID": "104/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0104",
     "Date": "2026-07-19",
     "ItemID": "",
     "ItemName": "3\" Hose Sleeve Protective Cover x 10.2 Mtr",
@@ -5602,7 +5602,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 142,
-    "RequestID": "104/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0104",
     "Date": "2026-07-19",
     "ItemID": "",
     "ItemName": "3\" Hose Sleeve Protective Cover x 6 Mtr",
@@ -5622,7 +5622,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 143,
-    "RequestID": "105/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0105",
     "Date": "2026-07-19",
     "ItemID": "",
     "ItemName": "Minor Repair Kit For SANYI 3\" x 5K Psi FIG 1502 DEMCO Type Gate Valve | P/N. #RK3IN15025KMI | #Consist : - 1 Ea Bonnet Seal M5526-433 | 1 Ea Gate M1886-002 | 1 Ea Seat Assembly M1876-0011",
@@ -5642,7 +5642,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 144,
-    "RequestID": "105/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0105",
     "Date": "2026-07-19",
     "ItemID": "",
     "ItemName": "Major Repair Kit For 3\" x 5K Psi FIG 1502 DEMCO Type Gate Valve | P/N. #RK3IN15025KMA | #Consist : - 1 Ea Stem Screw M1914-003 | 1 Ea Stem Screw Seal M5526-226 | 1 Ea Stem M1932-002 | 1 Ea Secondary Seal M5526-212 | 1 Ea Stem Seal Assembly M1950-001 (Include Bronze Bushing) | 1 Ea Bonnet Seal M5526-433 | 1 Ea Gate M1886-002 | 1 Ea Seat Assembly M1876-0011",
@@ -5662,7 +5662,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 145,
-    "RequestID": "105/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0105",
     "Date": "2026-07-19",
     "ItemID": "",
     "ItemName": "Pressure Relief Valve Shear Pin Type 3\" x 5000 Psi OTECO P/N.#133050",
@@ -5682,7 +5682,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 146,
-    "RequestID": "106/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0106",
     "Date": "2026-07-21",
     "ItemID": "07.01.0006",
     "ItemName": "Casing Thread Compound \"BESTOLIFE\" P/N 613357",
@@ -5702,7 +5702,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 147,
-    "RequestID": "106/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0106",
     "Date": "2026-07-25",
     "ItemID": "09.01.0035",
     "ItemName": "Hummer Union Coupling 3\" Fig 1502",
@@ -5722,7 +5722,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 148,
-    "RequestID": "108/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0108",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Refill, Inspeksi & Recertificate Fire Extinguisher Bottle 9 Kg",
@@ -5742,7 +5742,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 149,
-    "RequestID": "108/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0108",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Refill, Inspeksi & Recertificate Fire Extinguisher Bottle 4.5 Kg",
@@ -5762,7 +5762,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 150,
-    "RequestID": "109/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0109",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Fuel Hose Size 3/4\" x 50 Mtr On Reel",
@@ -5782,7 +5782,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 151,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Heavy Duty High Impact Glove (Kong) Size L",
@@ -5802,7 +5802,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 152,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Heavy Duty High Impact Glove (Kong) Size XL",
@@ -5822,7 +5822,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 153,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Cut Resitance Glove",
@@ -5842,7 +5842,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 154,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Dark Safety Glass King's",
@@ -5862,7 +5862,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 155,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Clear Safety Glass King's",
@@ -5882,7 +5882,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 156,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Suspension Helmet Fastrack",
@@ -5902,7 +5902,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 157,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Safety Shoes Size 7 aetos litium",
@@ -5922,7 +5922,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 158,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Safety Shoes Size 8 aetos litium",
@@ -5942,7 +5942,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 159,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Safety Shoes Size 9 aetos litium",
@@ -5962,7 +5962,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 160,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Safety Shoes Size 10 aetos litium",
@@ -5982,7 +5982,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 161,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Safety Shoes Size 11 aetos litium",
@@ -6002,7 +6002,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 162,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Safety Helmet Fullbream MSA C/W Suspension Helmet",
@@ -6022,7 +6022,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 163,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Chain Strap",
@@ -6042,7 +6042,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 164,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Radio HT Icom",
@@ -6062,7 +6062,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 165,
-    "RequestID": "110/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0110",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Eyewash | Ceviar Collar (Medic) | P3k C/W Medicine",
@@ -6082,7 +6082,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 166,
-    "RequestID": "111/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0111",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "H-Beam Size 8\" X 12 Meters",
@@ -6102,7 +6102,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 167,
-    "RequestID": "111/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0111",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Mild Steel Plate Size 16 mm",
@@ -6122,7 +6122,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 168,
-    "RequestID": "112/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0112",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Expantion Display Module Provide Remote Control DSE 7320MKII",
@@ -6142,7 +6142,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 169,
-    "RequestID": "113/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0113",
     "Date": "2026-08-01",
     "ItemID": "",
     "ItemName": "Hammer Union 6\" Fig 200 Weld Type",
@@ -6162,7 +6162,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 170,
-    "RequestID": "113/MRQ/SCD#20/VII/26",
+    "RequestID": "MRQ-0113",
     "Date": "2026-08-01",
     "ItemID": "09.01.0027",
     "ItemName": "Weldneck Flange Sch 40 Size 6\"",
@@ -6182,7 +6182,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 171,
-    "RequestID": "114/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0114",
     "Date": "2026-08-07",
     "ItemID": "",
     "ItemName": "Plastic Banding Kit",
@@ -6202,7 +6202,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 172,
-    "RequestID": "114/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0114",
     "Date": "2026-08-07",
     "ItemID": "",
     "ItemName": "Metal Strapping Kit",
@@ -6222,7 +6222,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 173,
-    "RequestID": "115/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0115",
     "Date": "2026-08-07",
     "ItemID": "",
     "ItemName": "Fabricate Flange For X/O From Ball Valve To Diverter Line 10\"",
@@ -6242,7 +6242,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 174,
-    "RequestID": "116/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0116",
     "Date": "2026-08-09",
     "ItemID": "",
     "ItemName": "Repair Kit Swivel Joint 3\" P/N P505433",
@@ -6262,7 +6262,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 175,
-    "RequestID": "117/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0117",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Primary & Secondary Air Filter AF890/891",
@@ -6282,7 +6282,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 176,
-    "RequestID": "118/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0118",
     "Date": "2026-08-13",
     "ItemID": "",
     "ItemName": "Hyd Filter \"DONALDSON\" P163903",
@@ -6302,7 +6302,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 177,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 3/8\" Elbow 90° C/W. Ferroul FNP-06 JIC",
@@ -6322,7 +6322,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 178,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 3/8\" Straight C/W. Ferroul FNP-06 JIC",
@@ -6342,7 +6342,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 179,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Reducer Double Nipple 3/8\" x 1/4\" NPT",
@@ -6362,7 +6362,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 180,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Reducer Double Nipple 1/2\" x 1/4\" NPT",
@@ -6382,7 +6382,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 181,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Tee 1\" High Pressure",
@@ -6402,7 +6402,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 182,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Tee 3/8\" High Pressure",
@@ -6422,7 +6422,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 183,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Double Nipple 3/8\" NPT x 3/8\" JIC",
@@ -6442,7 +6442,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 184,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Double Nipple 1\" NPT x 3/8\" JIC",
@@ -6462,7 +6462,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 185,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Hydraulic Quick Coupling NPT 3/8\" X 3000 Psi",
@@ -6482,7 +6482,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 186,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Needle Valve 1/2\" x 6000 Psi",
@@ -6502,7 +6502,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 187,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Check Valve 1/2\" x 6000 Psi",
@@ -6522,7 +6522,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 188,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 1/4\" Elbow 90° C/W. Ferroul FNP-06 JIC",
@@ -6542,7 +6542,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 189,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 1/4\" Straight C/W. Ferroul FNP-06 JIC",
@@ -6562,7 +6562,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 190,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Reducer Medium / H.P Size: 1\" Box X 3/8\" Box",
@@ -6582,7 +6582,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 191,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Reducer Double Nipple 3/8\" JIC x 1/4\" JIC",
@@ -6602,7 +6602,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 192,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Pressure Gauge 2.5 Face Conn. 1/4\" - 300 Psi",
@@ -6622,7 +6622,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 193,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Water Hose 1\" @50 Mtr",
@@ -6642,7 +6642,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 194,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "MD TOTCO Fluid W-15 (Ea/5 Ltr)",
@@ -6662,7 +6662,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 195,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "WD-40 333 Ml",
@@ -6682,7 +6682,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 196,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Pipe Wrench 10\" RIDGID",
@@ -6702,7 +6702,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 197,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "05.01.0003",
     "ItemName": "Fitting Hose Elbow Size 1/2\" JIC",
@@ -6722,7 +6722,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 198,
-    "RequestID": "119/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0119",
     "Date": "2026-09-06",
     "ItemID": "05.01.0004",
     "ItemName": "Fitting Hose Straight Size 1/2\" JIC",
@@ -6742,7 +6742,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 199,
-    "RequestID": "120/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0120",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Plug 8 Pin 10A/250V (STD Australia) SCHNEIDER P/N. EY56P310",
@@ -6762,7 +6762,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 200,
-    "RequestID": "120/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0120",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Receptacle 3 Pin 10A/250V (STD Australia) CLIPSAL P/N. 56CSC810",
@@ -6782,7 +6782,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 201,
-    "RequestID": "120/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0120",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Cable NYYHY 3 x 2.5Mm @50 Mtr",
@@ -6802,7 +6802,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 202,
-    "RequestID": "120/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0120",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Cable Grounding (Green Strip Yellow) 6 x 25Mm @50 Mtr",
@@ -6822,7 +6822,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 203,
-    "RequestID": "120/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0120",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Explotion Proof Gas Proof Light 500W/220V For. New Mud Tank",
@@ -6842,7 +6842,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 204,
-    "RequestID": "120/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0120",
     "Date": "2026-09-06",
     "ItemID": "07.01.0002",
     "ItemName": "Contact Cleaner 220ml",
@@ -6862,7 +6862,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 205,
-    "RequestID": "120/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0120",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Stick Cooper Grounding Rod 3/4\" x 2 Mtr",
@@ -6882,7 +6882,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 206,
-    "RequestID": "120/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0120",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Relay MERLIN GERIN Vigirex S/N. RM12T for. MCC",
@@ -6902,7 +6902,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 207,
-    "RequestID": "121/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0121",
     "Date": "2026-08-19",
     "ItemID": "",
     "ItemName": "Steel Plate 10Mm",
@@ -6922,7 +6922,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 208,
-    "RequestID": "121/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0121",
     "Date": "2026-08-19",
     "ItemID": "",
     "ItemName": "Steel UNC 150Mm",
@@ -6942,7 +6942,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 209,
-    "RequestID": "122/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0122",
     "Date": "2026-09-06",
     "ItemID": "11.01.0002",
     "ItemName": "Welding Rod LB52-18 (5Kg/Box)",
@@ -6962,7 +6962,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 210,
-    "RequestID": "122/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0122",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Dryer/Oven Welding Rod TRB-5A",
@@ -6982,7 +6982,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 211,
-    "RequestID": "122/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0122",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Grinding Disc 4\"",
@@ -7002,7 +7002,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 212,
-    "RequestID": "122/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0122",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" WD",
@@ -7022,7 +7022,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 213,
-    "RequestID": "122/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0122",
     "Date": "2026-09-06",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -7042,7 +7042,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 214,
-    "RequestID": "123/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0123",
     "Date": "2026-08-25",
     "ItemID": "",
     "ItemName": "Square Steel Tube 4 X 4",
@@ -7062,7 +7062,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 215,
-    "RequestID": "123/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0123",
     "Date": "2026-08-25",
     "ItemID": "",
     "ItemName": "Square Steel Tube 5 X 5",
@@ -7082,7 +7082,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 216,
-    "RequestID": "123/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0123",
     "Date": "2026-08-25",
     "ItemID": "",
     "ItemName": "Iron Elbow 5 X 5",
@@ -7102,7 +7102,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 217,
-    "RequestID": "124/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0124",
     "Date": "2026-08-26",
     "ItemID": "",
     "ItemName": "Flange for Stump Test Annular 21-1/4\" C/W. Tool Joint Drill Pipe",
@@ -7122,7 +7122,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 218,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Welding Gloves ENDURA 505BUWS",
@@ -7142,7 +7142,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 219,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Apron for Welding",
@@ -7162,7 +7162,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 220,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Faceshield for Mixing Chemical",
@@ -7182,7 +7182,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 221,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Handgloves for Electric",
@@ -7202,7 +7202,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 222,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Life Jacket",
@@ -7222,7 +7222,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 223,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Police Line / Safety Line ( Yellow Black 3 Roll & White Red 2 Roll )",
@@ -7242,7 +7242,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 224,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "LOTO Lock",
@@ -7262,7 +7262,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 225,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Emergency Shower",
@@ -7282,7 +7282,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 226,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Fire Extinguisher 9 Kg Type CO2",
@@ -7302,7 +7302,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 227,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Fire Extinguisher 9 Kg Type B ( Foam )",
@@ -7322,7 +7322,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 228,
-    "RequestID": "125/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0125",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Fire Axe",
@@ -7342,7 +7342,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 229,
-    "RequestID": "126/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0126",
     "Date": "2026-08-29",
     "ItemID": "",
     "ItemName": "Hydro Test Fire Extinguisher Bottle 4.5",
@@ -7362,7 +7362,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 230,
-    "RequestID": "126/MRQ/SCD#20/VIII/26",
+    "RequestID": "MRQ-0126",
     "Date": "2026-08-29",
     "ItemID": "",
     "ItemName": "Hydro Test Fire Extinguisher Bottle 9 Kg",
@@ -7382,7 +7382,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 231,
-    "RequestID": "127/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0127",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Stud Bolt And Nut 1.5/8\" x 12.3/4\" ( for. 21.1/4\" x 2M )",
@@ -7402,7 +7402,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 232,
-    "RequestID": "127/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0127",
     "Date": "2026-09-06",
     "ItemID": "03.01.0007",
     "ItemName": "Ring Joint RX-53",
@@ -7422,7 +7422,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 233,
-    "RequestID": "127/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0127",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Hammer Wrench / Slogging Wrench Ring 1.3/8\" Hexagonal Style",
@@ -7442,7 +7442,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 234,
-    "RequestID": "127/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0127",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Hammer Wrench / Slogging Wrench Ring 1.2/8\" Hexagonal Style",
@@ -7462,7 +7462,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 235,
-    "RequestID": "127/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0127",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Hammer Wrench / Slogging Wrench Ring 1.2/8\" 12 Point Socket Style",
@@ -7482,7 +7482,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 236,
-    "RequestID": "127/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0127",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Hammer Wrench / Slogging Wrench Ring 1.5/8\" Hexagonal Style",
@@ -7502,7 +7502,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 237,
-    "RequestID": "128/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0128",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "DSAF 11\" x 5M - 11\" x 2M",
@@ -7522,7 +7522,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 238,
-    "RequestID": "128/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0128",
     "Date": "2026-09-06",
     "ItemID": "",
     "ItemName": "Adapter Flange 1-7/16\" x 2M - 2\" 1502",
@@ -7542,7 +7542,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 239,
-    "RequestID": "129/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0129",
     "Date": "2026-09-07",
     "ItemID": "",
     "ItemName": "Triplex High Pressure Water Pump S/N. MPW 3600 DE",
@@ -7562,7 +7562,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 240,
-    "RequestID": "130/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0130",
     "Date": "2026-09-08",
     "ItemID": "",
     "ItemName": "Webbing Lashing System 2 Technotec, 50Mm - 5T x 10Mtr (SWL 2.5T)",
@@ -7582,7 +7582,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 241,
-    "RequestID": "130/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0130",
     "Date": "2026-09-08",
     "ItemID": "",
     "ItemName": "Chain Block 2 T",
@@ -7602,7 +7602,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 242,
-    "RequestID": "131/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0131",
     "Date": "2026-09-19",
     "ItemID": "03.01.0014",
     "ItemName": "Ring Joint RX-73",
@@ -7622,7 +7622,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 243,
-    "RequestID": "131/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0131",
     "Date": "2026-09-19",
     "ItemID": "03.01.0018",
     "ItemName": "Ring Joint R-73",
@@ -7642,7 +7642,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 244,
-    "RequestID": "131/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0131",
     "Date": "2026-09-19",
     "ItemID": "03.01.0010",
     "ItemName": "Ring Joint R-35",
@@ -7662,7 +7662,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 245,
-    "RequestID": "131/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0131",
     "Date": "2026-09-19",
     "ItemID": "03.01.0011",
     "ItemName": "Ring Joint R-39",
@@ -7682,7 +7682,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 246,
-    "RequestID": "131/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0131",
     "Date": "2026-09-19",
     "ItemID": "03.01.0017",
     "ItemName": "Ring Joint BX-160",
@@ -7702,7 +7702,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 247,
-    "RequestID": "132/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0132",
     "Date": "2026-09-24",
     "ItemID": "20.01.0001",
     "ItemName": "Tap End Stud Bolt 1.1/4\" x 6.1/2\" F/11\" 2K DSAF",
@@ -7722,7 +7722,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 248,
-    "RequestID": "132/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0132",
     "Date": "2026-09-24",
     "ItemID": "20.01.0002",
     "ItemName": "Stud Bolt 1\" x 7.1/2\" F/ Reducer 7.1/16\" 2K x 2\" Fig 1502",
@@ -7742,7 +7742,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 249,
-    "RequestID": "133/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0133",
     "Date": "2026-10-03",
     "ItemID": "21.01.0001",
     "ItemName": "Round Sling 2T x 2 Mtr",
@@ -7762,7 +7762,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 250,
-    "RequestID": "133/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0133",
     "Date": "2026-10-03",
     "ItemID": "21.01.0002",
     "ItemName": "Round Sling 4T x 2 Mtr",
@@ -7782,7 +7782,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 251,
-    "RequestID": "133/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0133",
     "Date": "2026-10-03",
     "ItemID": "",
     "ItemName": "Round Sling 6T X 2 Mtr",
@@ -7802,7 +7802,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 252,
-    "RequestID": "134/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0134",
     "Date": "2026-11-15",
     "ItemID": "01.01.0018",
     "ItemName": "Full Open Valve Assy MK-6FO-V1",
@@ -7822,7 +7822,7 @@ export const importedRequests: ImportedRequest[] = [
   },
   {
     "_rowIndex": 253,
-    "RequestID": "134/MRQ/SCD#20/IX/26",
+    "RequestID": "MRQ-0134",
     "Date": "2026-11-15",
     "ItemID": "01.01.0019",
     "ItemName": "Valve Seat P/N MK-6FO-56",
@@ -7847,7 +7847,7 @@ export const importedPOs: ImportedPO[] = [];
 export const importedReceives: ImportedReceive[] = [
   {
     "_rowIndex": 2,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Dust Masker 3M Particular Respirator N95 @20 Ea",
@@ -7862,15 +7862,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 3,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Safety Goggles \"KING\" Dark @12 Ea",
@@ -7885,15 +7884,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 4,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Safety Goggles \"KING\" Clear @12 Ea",
@@ -7908,15 +7906,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 5,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Absorbent",
@@ -7931,15 +7928,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 6,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hand Gloves Polkadot",
@@ -7954,15 +7950,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 7,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Breath Alcohol Tester",
@@ -7977,15 +7972,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 8,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Accessories Rope Glasses",
@@ -8000,15 +7994,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 9,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Windshock",
@@ -8023,15 +8016,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 10,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Rubber Handgloves",
@@ -8046,15 +8038,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 11,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Safety Shoes Leather \"KRUSHER\" size 6 / 40",
@@ -8069,15 +8060,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 12,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Safety Shoes Leather \"KRUSHER\" size 7 / 41",
@@ -8092,15 +8082,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 13,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Safety Shoes Leather \"KRUSHER\" size 8 / 42",
@@ -8115,15 +8104,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 14,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Safety Shoes Leather \"KRUSHER\" size 9 / 43",
@@ -8138,15 +8126,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 15,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Safety Shoes Leather \"KRUSHER\" size 10 / 45",
@@ -8161,15 +8148,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 16,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Safety Shoes Leather \"KRUSHER\" size 11 / 46",
@@ -8184,15 +8170,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 17,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Rain Coat Size : XL",
@@ -8207,15 +8192,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 18,
-    "ReceiveID": "001/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Rain Coat Size : 2XL",
@@ -8230,15 +8214,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 19,
-    "ReceiveID": "002/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0002",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Steel Pipe 1\" SCH 40 x 6 Meter With Thread End To End Conn",
@@ -8253,15 +8236,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0088/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0088",
     "PoNo": "46",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 20,
-    "ReceiveID": "002/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0002",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Steel Pipe 10 inch X 6 Mtr - SCH40",
@@ -8276,15 +8258,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0088/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0088",
     "PoNo": "46",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 21,
-    "ReceiveID": "002/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0002",
     "Date": "2026-06-27",
     "ItemID": "09.01.0032",
     "ItemName": "Welded Elbow Sch 40 Size 3\"",
@@ -8299,15 +8280,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0088/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0088",
     "PoNo": "46",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 22,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "09.01.0029",
     "ItemName": "Weldneck Flange Sch 40 Size 8\"",
@@ -8322,15 +8302,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 23,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "09.01.0027",
     "ItemName": "Weldneck Flange Sch 40 Size 6\"",
@@ -8345,15 +8324,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 24,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -8368,15 +8346,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 25,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "STEEL PLATE SIZE 8MM",
@@ -8391,15 +8368,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 26,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "STEEL GRATING PLATE 6 METER",
@@ -8414,15 +8390,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 27,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "HOLLOW 4X4X3MM",
@@ -8437,15 +8412,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 28,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "STEEL PIPE 8 INCH SCH 40",
@@ -8460,15 +8434,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 29,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "STEEL PIPE 6 INCH SCH 40",
@@ -8483,15 +8456,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 30,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "STEEL PIPE 4 INCH SCH 40",
@@ -8506,15 +8478,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 31,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "09.01.0030",
     "ItemName": "Welded Elbow Sch 40 Size 8\"",
@@ -8529,15 +8500,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 32,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "09.01.0036",
     "ItemName": "Welded Elbow Sch 40 Size 6\"",
@@ -8552,15 +8522,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 33,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "09.01.0031",
     "ItemName": "Welded Elbow Sch 40 Size 4\"",
@@ -8575,15 +8544,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 34,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "ELBOW 10 INCH 45 DEGREE SCH 40",
@@ -8598,15 +8566,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 35,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "09.01.0034",
     "ItemName": "Welded Reducer Size 8\" x 6\"",
@@ -8621,15 +8588,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 36,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "ANGLE IRON 8 CM X 8 CM",
@@ -8644,15 +8610,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 37,
-    "ReceiveID": "003/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0003",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "ANGLE IRON 4CM X 4CM",
@@ -8667,15 +8632,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0089/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0089",
     "PoNo": "56",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 38,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hyd Hose 3/8\" x 4800 Psi",
@@ -8690,15 +8654,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 39,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 3/8\" Straight C/W. Ferroul FNP-06 JIC",
@@ -8713,15 +8676,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 40,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 3/8\" Elbow 90° C/W. Ferroul FNP-06 JIC",
@@ -8736,15 +8698,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 41,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 1\" Straight C/W. Ferroul 16 GS JIC",
@@ -8759,15 +8720,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 42,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 1\" Elbow 90° C/W. Ferroul 16 HTC-OFSR",
@@ -8782,15 +8742,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 43,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Flange Elbow 90° Crimp Fitting Hose Hyd. 1\"",
@@ -8805,15 +8764,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 44,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Flange Straight Crimp Fitting Hose Hyd. 1\"",
@@ -8828,15 +8786,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 45,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Flange Elbow 90° Crimp Fitting Hose Hyd. 1.1/4\"",
@@ -8851,15 +8808,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 46,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Flange Straight Crimp Fitting Hose Hyd. 1.1/4\"",
@@ -8874,15 +8830,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 47,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Fitting Hyd. Hose 1/4\" NPT x 3/8\" JIC Straight",
@@ -8897,15 +8852,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 48,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Fitting Hyd. Hose 1/4\" NPT x 3/8\" JIC Elbow 90°",
@@ -8920,15 +8874,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 49,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Fitting Hyd. Hose 3/8\" Elbow 90° 6C50X-SBP",
@@ -8943,15 +8896,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 50,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hydraulic Quick Coupling NPT 1/2\" X 3000 Psi",
@@ -8966,15 +8918,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 51,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hydraulic Quick Coupling NPT 3/4\" X 3000 Psi",
@@ -8989,15 +8940,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 52,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hydraulic Quick Coupling NPT 1\" X 3000 Psi",
@@ -9012,15 +8962,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 53,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hydraulic Quick Coupling NPT 3/8\" X 3000 Psi",
@@ -9035,15 +8984,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 54,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hydraulic Quick Coupling NPT 1/4\" X 3000 Psi",
@@ -9058,15 +9006,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 55,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Adapter Nipple 1/4\" NPT x 1/4\" JIC Straigh(Medium)",
@@ -9081,15 +9028,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 56,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hyd Hose 3/4\" x 4000 Psi",
@@ -9104,15 +9050,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 57,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hyd. Hard Line 1\" x 524 Cm",
@@ -9127,15 +9072,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 58,
-    "ReceiveID": "004/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0004",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Spiral Guard Hose 3\" HDPE",
@@ -9150,15 +9094,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "45",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 59,
-    "ReceiveID": "005/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0005",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Cable Power NYYHY 3 x 2.5 mm @50 Mtr \"JUMBO\"",
@@ -9173,15 +9116,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 60,
-    "ReceiveID": "005/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0005",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Gas Proof Lamp WAROM 220 - 250 VAC 40 Watt WARROM HRY 52",
@@ -9196,15 +9138,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 61,
-    "ReceiveID": "005/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0005",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "AC Window 3/4 PK CW-0901RA",
@@ -9219,15 +9160,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 62,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Regulator oxygen VICTOR",
@@ -9242,15 +9182,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 63,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Requlator Acetylene VICTOR",
@@ -9265,15 +9204,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 64,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Cutting Torch VICTOR + Welding Handle",
@@ -9288,15 +9226,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 65,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Flashback Arrestor Oxygen VICTOR",
@@ -9311,15 +9248,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 66,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Flashback Arrestor Acetylene VICTOR",
@@ -9334,15 +9270,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 67,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Grinding Disc 4\" - 100 x 6 x 16 mm Nippon Resibon",
@@ -9357,15 +9292,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 68,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16 mm WD",
@@ -9380,15 +9314,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 69,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Stone Pencil 125mm x 12mm x 5mm \"FERARI\"",
@@ -9403,15 +9336,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 70,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Electrode Holder 800Amp \"LENCO\"",
@@ -9426,15 +9358,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 71,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Welding Gloves",
@@ -9449,15 +9380,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 72,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hand Held Welding Face Shield Mask",
@@ -9472,15 +9402,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 73,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -9495,15 +9424,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 74,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Welding Rod RB - 26 2.6mm",
@@ -9518,15 +9446,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 75,
-    "ReceiveID": "006/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0006",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Hose Oxygen & Acetylene",
@@ -9541,15 +9468,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "43",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 76,
-    "ReceiveID": "007/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0007",
     "Date": "2026-06-30",
     "ItemID": "02.01.0009",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A100",
@@ -9564,15 +9490,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "54",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 77,
-    "ReceiveID": "007/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0007",
     "Date": "2026-06-30",
     "ItemID": "02.01.0010",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A120",
@@ -9587,15 +9512,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "54",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 78,
-    "ReceiveID": "007/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0007",
     "Date": "2026-06-30",
     "ItemID": "02.01.0011",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A140",
@@ -9610,15 +9534,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "54",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 79,
-    "ReceiveID": "007/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0007",
     "Date": "2026-06-30",
     "ItemID": "02.01.0012",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A170",
@@ -9633,15 +9556,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "54",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 80,
-    "ReceiveID": "007/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0007",
     "Date": "2026-06-30",
     "ItemID": "02.01.0013",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A200",
@@ -9656,15 +9578,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "54",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 81,
-    "ReceiveID": "007/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0007",
     "Date": "2026-06-30",
     "ItemID": "02.01.0014",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A230",
@@ -9679,15 +9600,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "54",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 82,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Derrick Hyperpool 4-Panel \"G\" High Shaker S/N.G0017496",
@@ -9702,15 +9622,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 83,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Mud Sensor PASON-MDL:RPM-084-P-N-EX1-011-0-2 APG P/N.126460",
@@ -9725,15 +9644,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 84,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Centraflex coupling kit",
@@ -9748,15 +9666,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 85,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Steel Construction long tape, 50 ft Blade length 3/8\" blade width steel. ST50-07",
@@ -9771,15 +9688,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 86,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "01.01.0012",
     "ItemName": "Steel Chrome Liner Size 5\" P/N MK-0148-50",
@@ -9794,15 +9710,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 87,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Holder/Power Brake Assy 3-9.75\" DIA (5\"CYL) P/N.3578-0069",
@@ -9817,15 +9732,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 88,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "PASON Sensor Cable CBL170 @300Mtr",
@@ -9840,15 +9754,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 89,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Cable, RS-422 Comm. Cable, CBLASS214 - 25Ft.",
@@ -9863,15 +9776,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 90,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Cable, RS-422 Comm. Cable, CBLASS215 - 60Ft.",
@@ -9886,15 +9798,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 91,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Cable, RS-422 Comm. Cable, CBLASS446 - 40Ft.",
@@ -9909,15 +9820,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 92,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Cable RS - 422 Comm. CBLASS478 - 010Ft",
@@ -9932,15 +9842,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 93,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Cable, Standpipe Press. Transducer, 3ft, Bayonet CBLASS970",
@@ -9955,15 +9864,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 94,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Small Depth Box Sensor with Connectors DEPTH008",
@@ -9978,15 +9886,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 95,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Dog House Com. Assembly Indoor G2 PASON P/N. DHC027",
@@ -10001,15 +9908,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 96,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Red, Slimline Float for Mud Probe FLOAT003",
@@ -10024,15 +9930,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 97,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Zone 1 - HGAS LEL Sensor PASON - GSDT 024 # 1329220",
@@ -10047,15 +9952,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 98,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Mud Probe/ Sensor, Holder/ Bracket MANU878",
@@ -10070,15 +9974,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 99,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Gas Analyzer Filter S/N. PLUM060",
@@ -10093,15 +9996,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 100,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Standpipe Press. Transducer,10kpsi,APG,Bayonet SEN295",
@@ -10116,15 +10018,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 101,
-    "ReceiveID": "008/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0008",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Universal Junction Box UJB001 PASON S/N. UJB003233",
@@ -10139,15 +10040,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0085/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0085",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 102,
-    "ReceiveID": "009/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0009",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Diesel Hydrant Fire Pump EBARA MDL: 80 x 65 FSJA",
@@ -10162,15 +10062,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0000/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0000",
     "PoNo": "58",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 103,
-    "ReceiveID": "009/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0009",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Diesel Fire Pump C/W. Accessories",
@@ -10185,15 +10084,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0000/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0000",
     "PoNo": "58",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 104,
-    "ReceiveID": "009/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0009",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Spiral Hose 4\" x 6 Mtr",
@@ -10208,15 +10106,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0000/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0000",
     "PoNo": "58",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 105,
-    "ReceiveID": "009/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0009",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Fire Valve 2-1/2\" + Fitting",
@@ -10231,15 +10128,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0000/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0000",
     "PoNo": "58",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 106,
-    "ReceiveID": "009/MRR/SCD#20/VI/26",
+    "ReceiveID": "MRR-0009",
     "Date": "2026-07-01",
     "ItemID": "",
     "ItemName": "Hose Fire Pump 2-1/2\" x 30 Mtr",
@@ -10254,15 +10150,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0000/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0000",
     "PoNo": "58",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 107,
-    "ReceiveID": "010/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0010",
     "Date": "2026-07-03",
     "ItemID": "",
     "ItemName": "FOSV - NC50 (4-1/2 IF) 5000 Psi Type: XS190-T82.6",
@@ -10277,15 +10172,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0000/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0000",
     "PoNo": "33",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 108,
-    "ReceiveID": "010/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0010",
     "Date": "2026-07-03",
     "ItemID": "",
     "ItemName": "Insert BOP - NC50 (4-1/2 IF) 5000 Psi Type: ZFPF168",
@@ -10300,15 +10194,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0000/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0000",
     "PoNo": "33",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 109,
-    "ReceiveID": "011/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0011",
     "Date": "2026-07-07",
     "ItemID": "",
     "ItemName": "Oil DELO Gold Ultra 15W-40 CALTEX (Engine Oil)@200Ltr",
@@ -10323,15 +10216,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0078/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0078",
     "PoNo": "64",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 110,
-    "ReceiveID": "011/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0011",
     "Date": "2026-07-07",
     "ItemID": "",
     "ItemName": "Oil DELO GL-5 SAE 85W-140 CALTEX (Gear Oil)@200Ltr",
@@ -10346,15 +10238,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0078/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0078",
     "PoNo": "64",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 111,
-    "ReceiveID": "011/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0011",
     "Date": "2026-07-07",
     "ItemID": "",
     "ItemName": "Oil Tellus - S2 MX 68. SHELL 550045080 @209Ltr",
@@ -10369,15 +10260,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0078/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0078",
     "PoNo": "64",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 112,
-    "ReceiveID": "012/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0012",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Worm Gear Agitator Type: WPX, Size: 155, Ratio 1:30 M.F.No. 202406 C/W. Elmot 15Kw, 380/660V, 50Hz Type: YBX3-160L-4 S/N. 26051059 MOT Include : 3 Set Shaft Include Bushing & Fan 3 Set Shaft Holder",
@@ -10392,15 +10282,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0071/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0071",
     "PoNo": "60",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 113,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Element Separator 2020-TM-OR (20 Micron)\"DONALDSON\"",
@@ -10415,15 +10304,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 114,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Oil Filter \"FLEETGUARD\" LF3883",
@@ -10438,15 +10326,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 115,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Fuel Water Separator \"DONALDSON\" P551354",
@@ -10461,15 +10348,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 116,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Oil Filter \"MAN\" WD13145",
@@ -10484,15 +10370,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 117,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Oil Filter \"FLEETGUARD\" LF16012",
@@ -10507,15 +10392,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 118,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Fuel Filter \"FLEETGUARD\" FF5036",
@@ -10530,15 +10414,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 119,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Fuel Filter \"FLEETGUARD\" FF5037",
@@ -10553,15 +10436,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 120,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Cooland Filter \"FLEETGUARD\" WF2075",
@@ -10576,15 +10458,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 121,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Air Filter \"FLEETGUARD\" AF1605",
@@ -10599,15 +10480,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 122,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Hyd Filter \"DONALDSON\" P551551",
@@ -10622,15 +10502,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 123,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Air Filter \"BALDWIN\" RS3544",
@@ -10645,15 +10524,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 124,
-    "ReceiveID": "013/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0013",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Fuel Filter \"FLEETGUARD\" FS19587",
@@ -10668,15 +10546,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0062/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0062",
     "PoNo": "62",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 125,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Particle Filtering Half Mask \"3M\" Model: N95 @20 Ea",
@@ -10691,15 +10568,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 126,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Ear Plugs 3M Ultrafit 340 4002 @50Ea",
@@ -10714,15 +10590,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 127,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Safety Helmed Full Fast Track C/W. Chain Strip ( White )",
@@ -10737,15 +10612,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 128,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Hand Gloves Cut Resistance",
@@ -10760,15 +10634,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 129,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Hanger Gloves Clip",
@@ -10783,15 +10656,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 130,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Lamp Mercury HPIT 1000W",
@@ -10806,15 +10678,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 131,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Lamp Holder - E220492 600V/1500W, X-A39-2 LEVITON",
@@ -10829,15 +10700,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 132,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Receptacle Legrand 3P 63A 240V 555529",
@@ -10852,15 +10722,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 133,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Plug & Receptacle 3 Pin 63A / 240V, IP44 LEGRAND P/N. 555529",
@@ -10875,15 +10744,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 134,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Ballast TLD PHILIPS 36W",
@@ -10898,15 +10766,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 135,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Starter Lamp PHILIPS 4 - 65W S10-P",
@@ -10921,15 +10788,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 136,
-    "ReceiveID": "014/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Fitting Lamp TLD PHILIPS",
@@ -10944,15 +10810,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "83-84/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-83-84",
     "PoNo": "49 & 53",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 137,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "TeSys D contactor - 3P(3NO)-AC-3-440V 115A - 220V AC 50/60 Hz coil #PN LC1D115",
@@ -10967,15 +10832,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 138,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "TeSys LRD thermal overload relays - 80...104 A - class 10A P/N. LRD4365",
@@ -10990,15 +10854,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 139,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Circuit breaker ComPacT NSX100F, 36kA at 415VAC, TMD trip unit 100A, 3 poles 3d P/N. NSX100F",
@@ -11013,15 +10876,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 140,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Fuse Kubur FS-103 3 POLE 10 Ampere FORT #PN FS-103",
@@ -11036,15 +10898,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 141,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "TIMER OMRON 220VOLT #PN H3CR-68EL",
@@ -11059,15 +10920,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 142,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "MCB SCHNEIDER 4 AMPERE SINGLE PHASE #C4",
@@ -11082,15 +10942,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 143,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "MCB SCHNEIDER 20 AMPERE SINGLE PHASE #C20",
@@ -11105,15 +10964,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 144,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "MCB SCHNEIDER 6 AMPERE SINGLE PHASE #C6",
@@ -11128,15 +10986,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 145,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Push Button \"ON' Merk FORT #LA115-A5-10T",
@@ -11151,15 +11008,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 146,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Push Button \"OFF' Merk FORT #LA115-A5-10T",
@@ -11174,15 +11030,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 147,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Pilot Lamp LED 22mm FORT AD22-22DS 220V AC #RED",
@@ -11197,15 +11052,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 148,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Pilot Lamp LED 22mm FORT AD22-22DS 220V AC #GREEN",
@@ -11220,15 +11074,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 149,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Pilot Lamp LED 22mm FORT AD22-22DS 220V AC #YELLOW",
@@ -11243,15 +11096,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 150,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "PUSH BUTTON EMERGENCY STOP 22MM #LAY5-BS542",
@@ -11266,15 +11118,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 151,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "BRASS CABLE GLAND #BPG-36",
@@ -11289,15 +11140,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 152,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "STEEL DIN RAIL FOR MCB",
@@ -11312,15 +11162,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 153,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "CABLE NYYHY SUPREME #1X1.5 MM",
@@ -11335,15 +11184,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 154,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "SKUN FERRULES 1.5 MM ( PER PACK ISI 100PCS )",
@@ -11358,15 +11206,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 155,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "SKUN FERRULES 25 MM",
@@ -11381,15 +11228,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 156,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "SKUN CABLE SC-25",
@@ -11404,15 +11250,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 157,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "CABLE NYYHY SUPREME #5X25MM",
@@ -11427,15 +11272,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 158,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "CABLE NYYHY SUPREME #4X6MM",
@@ -11450,15 +11294,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 159,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "CABLE NYYHY SUPREME #3X2.5MM",
@@ -11473,15 +11316,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 160,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "PLUG APPLETON 100 AMPERE #ACP 1034",
@@ -11496,15 +11338,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 161,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "RECEPTACKLE APPLETON 100 AMPERE #ADR 1034",
@@ -11519,15 +11360,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 162,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "PLUG APPLETON 30 AMPERE #ACP 3023",
@@ -11542,15 +11382,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 163,
-    "ReceiveID": "015/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0015",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "RECEPTACKLE APPLETON 30 AMPERE #ADR 3023",
@@ -11565,15 +11404,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0090/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0090",
     "PoNo": "63",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 164,
-    "ReceiveID": "016/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0016",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Appleton Plug 100Amp 4 Pole 4 Wire ACP1044CD",
@@ -11588,15 +11426,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0083/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0083",
     "PoNo": "-",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 165,
-    "ReceiveID": "016/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0016",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Appleton Receptacle 100Amp 4 Pole 4 Wire ADR1044",
@@ -11611,15 +11448,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0083/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0083",
     "PoNo": "-",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 166,
-    "ReceiveID": "016/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0016",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Soft Starter 152 Amp 380V 50Hz HASXS4T0750G HIMEL",
@@ -11634,15 +11470,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0083/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-0083",
     "PoNo": "-",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 167,
-    "ReceiveID": "017/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0017",
     "Date": "2026-07-11",
     "ItemID": "",
     "ItemName": "Biosolar B50",
@@ -11657,15 +11492,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "____/MRQ/SCD#20/VI/26",
+    "MrqRef": "MRQ-____",
     "PoNo": "69",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 168,
-    "ReceiveID": "018/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0018",
     "Date": "2026-07-14",
     "ItemID": "",
     "ItemName": "Steel Pipe 20 inch X 6 Mtr - SCH40",
@@ -11680,15 +11514,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "____/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-____",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 169,
-    "ReceiveID": "019/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0019",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Steel Pipe 10 inch X 6 Mtr - SCH40",
@@ -11703,15 +11536,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0098/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0098",
     "PoNo": "73",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 170,
-    "ReceiveID": "019/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0019",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Greating Fiber - Thickness 37Mm for. Change Rig Floor",
@@ -11726,15 +11558,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0098/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0098",
     "PoNo": "73",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 171,
-    "ReceiveID": "019/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0019",
     "Date": "2026-07-17",
     "ItemID": "09.01.0027",
     "ItemName": "Weldneck Flange Sch 40 Size 6\"",
@@ -11749,15 +11580,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0098/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0098",
     "PoNo": "73",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 172,
-    "ReceiveID": "019/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0019",
     "Date": "2026-07-17",
     "ItemID": "09.01.0006",
     "ItemName": "Butterfly Valve Size 6\"",
@@ -11772,15 +11602,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0098/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0098",
     "PoNo": "73",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 173,
-    "ReceiveID": "019/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0019",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 3/4\" x 1 Mtr",
@@ -11795,15 +11624,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0098/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0098",
     "PoNo": "73",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 174,
-    "ReceiveID": "019/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0019",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Nut 3/4\" C/W. Washer Plate",
@@ -11818,15 +11646,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0098/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0098",
     "PoNo": "73",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 175,
-    "ReceiveID": "020/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0020",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Coverall NOMEX Size : L (Add Logo Silver City)",
@@ -11841,15 +11668,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 176,
-    "ReceiveID": "020/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0020",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Coverall NOMEX Size : XL (Add Logo Silver City)",
@@ -11864,15 +11690,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 177,
-    "ReceiveID": "020/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0020",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Coverall NOMEX Size : 2XL (Add Logo Silver City)",
@@ -11887,15 +11712,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 178,
-    "ReceiveID": "020/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0020",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Coverall NOMEX Size : 3XL (Add Logo Silver City)",
@@ -11910,15 +11734,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 179,
-    "ReceiveID": "020/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0020",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Coverall NOMEX Size : 4XL (Add Logo Silver City)",
@@ -11933,15 +11756,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 180,
-    "ReceiveID": "020/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0020",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Coverall NOMEX Size : 5XL (Add Logo Silver City)",
@@ -11956,15 +11778,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "0084/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0084",
     "PoNo": "49",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 181,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Dresser Sleve 10\" x 60Cm",
@@ -11979,15 +11800,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 182,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 7/8\" x 1 Mtr",
@@ -12002,15 +11822,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 183,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Nut 7/8\"",
@@ -12025,15 +11844,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 184,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Washer Plate 7/8\"",
@@ -12048,15 +11866,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 185,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 3/4\" x 1 Mtr",
@@ -12071,15 +11888,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 186,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Nut 3/4\"",
@@ -12094,15 +11910,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 187,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Washer Plate 3/4\"",
@@ -12117,15 +11932,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 188,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -12140,15 +11954,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 189,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "09.01.0005",
     "ItemName": "Butterfly Valve Size 10\"",
@@ -12163,15 +11976,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 190,
-    "ReceiveID": "021/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0021",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Hose 2DN - 3\" - 150 Psi For. Suction Line Fire Pump & Water Pump",
@@ -12186,15 +11998,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "087,095,101/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-087,095,101",
     "PoNo": "68,70,75",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 191,
-    "ReceiveID": "022/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0022",
     "Date": "2026-07-21",
     "ItemID": "",
     "ItemName": "Stell Grating Plate 6 Mtr For. Additional New Mud Tank",
@@ -12209,15 +12020,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "099,100/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-099,100",
     "PoNo": "78",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 192,
-    "ReceiveID": "022/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0022",
     "Date": "2026-07-21",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -12232,15 +12042,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "099,100/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-099,100",
     "PoNo": "78",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 193,
-    "ReceiveID": "022/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0022",
     "Date": "2026-07-21",
     "ItemID": "09.01.0036",
     "ItemName": "Welded Elbow Sch 40 Size 6\"",
@@ -12255,15 +12064,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "099,100/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-099,100",
     "PoNo": "78",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 194,
-    "ReceiveID": "022/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0022",
     "Date": "2026-07-21",
     "ItemID": "",
     "ItemName": "MCCB Breaker - 250A STR 22 SE for. Panel MCC Day Tank",
@@ -12278,15 +12086,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "099,100/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-099,100",
     "PoNo": "78",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 195,
-    "ReceiveID": "022/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0022",
     "Date": "2026-07-21",
     "ItemID": "",
     "ItemName": "Junction Box H:70Cm x L:60Cm x W:30Cm For. Soft Starter",
@@ -12301,15 +12108,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "099,100/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-099,100",
     "PoNo": "78",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 196,
-    "ReceiveID": "022/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0022",
     "Date": "2026-07-21",
     "ItemID": "",
     "ItemName": "Flexible Conduit PVC 1/2\" 50 Mtr",
@@ -12324,15 +12130,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "099,100/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-099,100",
     "PoNo": "78",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 197,
-    "ReceiveID": "022/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0022",
     "Date": "2026-07-21",
     "ItemID": "",
     "ItemName": "Flexible Conduit PVC 3/4\" 50 Mtr",
@@ -12347,15 +12152,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "099,100/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-099,100",
     "PoNo": "78",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 198,
-    "ReceiveID": "023/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0023",
     "Date": "2026-07-25",
     "ItemID": "",
     "ItemName": "SDML Rotary Pipe Slip 5\"",
@@ -12373,12 +12177,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 199,
-    "ReceiveID": "023/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0023",
     "Date": "2026-07-25",
     "ItemID": "",
     "ItemName": "SDS Rotary Pipe Slip 3.1/2\" X 2.3/8\"",
@@ -12396,12 +12199,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 200,
-    "ReceiveID": "023/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0023",
     "Date": "2026-07-25",
     "ItemID": "",
     "ItemName": "Reducing Dies 3.1/2\"x 2.3/8\"P/N 2160",
@@ -12419,12 +12221,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 201,
-    "ReceiveID": "023/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0023",
     "Date": "2026-07-25",
     "ItemID": "",
     "ItemName": "Dies 3.1/2\"x 3./2\"P/N 2162",
@@ -12442,12 +12243,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 202,
-    "ReceiveID": "023/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0023",
     "Date": "2026-07-25",
     "ItemID": "",
     "ItemName": "Reducing Dies 3.1/2\"x 2.7/8\"P/N 2161",
@@ -12465,12 +12265,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 203,
-    "ReceiveID": "024/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0024",
     "Date": "2026-07-26",
     "ItemID": "02.01.0006",
     "ItemName": "Rubber Mounting",
@@ -12485,15 +12284,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "097/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0097",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 204,
-    "ReceiveID": "024/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0024",
     "Date": "2026-07-26",
     "ItemID": "02.01.0005",
     "ItemName": "Protector Rubebr Deck Bulkhead (Single)",
@@ -12508,15 +12306,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "097/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0097",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 205,
-    "ReceiveID": "024/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0024",
     "Date": "2026-07-26",
     "ItemID": "02.01.0001",
     "ItemName": "Protector Rubber Deck Bulkhead (Double",
@@ -12531,15 +12328,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "097/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0097",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 206,
-    "ReceiveID": "024/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0024",
     "Date": "2026-07-26",
     "ItemID": "02.01.0003",
     "ItemName": "Protector Rubber Rear Cross Support",
@@ -12554,15 +12350,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "097/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0097",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 207,
-    "ReceiveID": "024/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0024",
     "Date": "2026-07-26",
     "ItemID": "02.01.0002",
     "ItemName": "Protector Rubber Side Cross Support",
@@ -12577,15 +12372,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "097/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0097",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 208,
-    "ReceiveID": "025/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0025",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Fire Extinguisher 50 Kg C/W Wheel",
@@ -12603,12 +12397,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 209,
-    "ReceiveID": "026/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0026",
     "Date": "2026-07-31",
     "ItemID": "",
     "ItemName": "Hose 6 Inch x 10 Mtr",
@@ -12626,12 +12419,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 210,
-    "ReceiveID": "026/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0026",
     "Date": "2026-07-31",
     "ItemID": "",
     "ItemName": "Hose 4 Inch x 61 Mtr",
@@ -12649,12 +12441,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 211,
-    "ReceiveID": "026/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0026",
     "Date": "2026-07-31",
     "ItemID": "",
     "ItemName": "Hose 2 Inch x 61 Mtr",
@@ -12672,12 +12463,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 212,
-    "ReceiveID": "026/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0026",
     "Date": "2026-07-31",
     "ItemID": "",
     "ItemName": "Hose Fuel Reel 1 Inch X 20 Mtr",
@@ -12695,12 +12485,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 213,
-    "ReceiveID": "026/MRR/SCD#20/VII/26",
+    "ReceiveID": "MRR-0026",
     "Date": "2026-07-31",
     "ItemID": "",
     "ItemName": "Union Hammer Coupling 3 Inch x 6000 PSI",
@@ -12718,12 +12507,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 214,
-    "ReceiveID": "027/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0027",
     "Date": "2026-08-03",
     "ItemID": "",
     "ItemName": "Steel Pipe 10 inch X 6 Mtr - SCH40",
@@ -12738,15 +12526,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "98/MRQ/SCD#20/VIII/26",
+    "MrqRef": "MRQ-0098",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 215,
-    "ReceiveID": "027/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0027",
     "Date": "2026-08-03",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -12761,15 +12548,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "98/MRQ/SCD#20/VIII/26",
+    "MrqRef": "MRQ-0098",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 216,
-    "ReceiveID": "028/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0028",
     "Date": "2026-08-05",
     "ItemID": "",
     "ItemName": "Remote Control Super Choke",
@@ -12787,12 +12573,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 217,
-    "ReceiveID": "029/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0029",
     "Date": "2026-08-11",
     "ItemID": "09.01.0031",
     "ItemName": "Welded Elbow Sch 40 Size 4\"",
@@ -12810,12 +12595,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 218,
-    "ReceiveID": "029/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0029",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Ball Valve 1\"",
@@ -12833,12 +12617,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 219,
-    "ReceiveID": "029/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0029",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Double Nipple Size 1\"",
@@ -12856,12 +12639,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 220,
-    "ReceiveID": "029/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0029",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Fitting Hose 1/4 Inch Elbow Conn. JIC P/N. -",
@@ -12879,12 +12661,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 221,
-    "ReceiveID": "029/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0029",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Fitting Hose 1/4 Inch Stright Conn. JIC P/N. -",
@@ -12902,12 +12683,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 222,
-    "ReceiveID": "029/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0029",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Crimping",
@@ -12925,12 +12705,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 223,
-    "ReceiveID": "029/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0029",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Flange Size 6\"",
@@ -12948,12 +12727,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 224,
-    "ReceiveID": "029/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0029",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Flange Size 4\"",
@@ -12971,12 +12749,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 225,
-    "ReceiveID": "030/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0030",
     "Date": "2026-08-13",
     "ItemID": "",
     "ItemName": "Inner Sleeve / Liner Wash Pipe 5001-2492",
@@ -12994,12 +12771,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "88",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 226,
-    "ReceiveID": "030/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0030",
     "Date": "2026-08-13",
     "ItemID": "",
     "ItemName": "Seal Wash Pipe P/N. 2822-0057 @5 Ea",
@@ -13017,12 +12793,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "88",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 227,
-    "ReceiveID": "030/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0030",
     "Date": "2026-08-13",
     "ItemID": "",
     "ItemName": "O-Ring 2764-0221 for. Wash Pipe",
@@ -13040,12 +12815,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "88",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 228,
-    "ReceiveID": "030/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0030",
     "Date": "2026-08-13",
     "ItemID": "",
     "ItemName": "O-Ring 2764-0223 for. Wash Pipe",
@@ -13063,12 +12837,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "88",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 229,
-    "ReceiveID": "030/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0030",
     "Date": "2026-08-13",
     "ItemID": "",
     "ItemName": "Hammer Union Seal KEMPER 10\"",
@@ -13086,12 +12859,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "88",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 230,
-    "ReceiveID": "031/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0031",
     "Date": "2026-08-13",
     "ItemID": "",
     "ItemName": "Flange 23 Inch for. X/O Diverter Line 10\" to Ball Valve",
@@ -13106,15 +12878,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "115/MRQ/SCD#20/VIII/26",
+    "MrqRef": "MRQ-0115",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 231,
-    "ReceiveID": "032/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0032",
     "Date": "2026-08-14",
     "ItemID": "",
     "ItemName": "H-Beam Size 200x200 8\" 12 M LS",
@@ -13129,15 +12900,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "111/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0111",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 232,
-    "ReceiveID": "032/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0032",
     "Date": "2026-08-14",
     "ItemID": "",
     "ItemName": "Black Steel Plate 1200 x 24000 x 16mm",
@@ -13152,15 +12922,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "111/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0111",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 233,
-    "ReceiveID": "033/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0033",
     "Date": "2026-08-14",
     "ItemID": "",
     "ItemName": "Ball Valve 1\" - 400 KITZ, Lever Hdl ( Brass )",
@@ -13178,12 +12947,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 234,
-    "ReceiveID": "033/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0033",
     "Date": "2026-08-14",
     "ItemID": "",
     "ItemName": "Double Nipple Galvanize 1\"",
@@ -13201,12 +12969,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 235,
-    "ReceiveID": "033/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0033",
     "Date": "2026-08-14",
     "ItemID": "",
     "ItemName": "Paint WHITE \"NIPPON PAINT\" @2.5 Kg for. Painting Pipe Rack",
@@ -13224,12 +12991,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 236,
-    "ReceiveID": "033/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0033",
     "Date": "2026-08-14",
     "ItemID": "",
     "ItemName": "Paint GREEN \"AVIAN\" @1 Kg for. Manual Handling / Pad Eye",
@@ -13247,12 +13013,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 237,
-    "ReceiveID": "034/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0034",
     "Date": "2026-08-22",
     "ItemID": "01.01.0037",
     "ItemName": "Liner Ceramic 6.1/2\"",
@@ -13270,12 +13035,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "77",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 238,
-    "ReceiveID": "034/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0034",
     "Date": "2026-08-22",
     "ItemID": "01.01.0008",
     "ItemName": "Piston Assembly Size 6.1/2\" P/N PIST600NBRC F/Ceramic Liner Banded NBR",
@@ -13293,12 +13057,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "77",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 239,
-    "ReceiveID": "034/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0034",
     "Date": "2026-08-22",
     "ItemID": "01.01.0016",
     "ItemName": "Piston Assembly Size 5\" P/N PIST500NBRC F/Ceramic Liner Banded NBR",
@@ -13316,12 +13079,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "77",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 240,
-    "ReceiveID": "034/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0034",
     "Date": "2026-08-22",
     "ItemID": "",
     "ItemName": "Liner Packing for. EMSCO F-800 P/N. MKG-0282",
@@ -13339,12 +13101,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "77",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 241,
-    "ReceiveID": "035/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0035",
     "Date": "2026-08-22",
     "ItemID": "",
     "ItemName": "Jumper Hose, 3\" x 7.500 Psi x 10.2 Mtr P/N. #H31021502 75K C/W. Integral 3\"FIG 1502 Male x Female Union Ends, Hose Sleeve Protective Cover (Nylon Material)",
@@ -13359,15 +13120,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "104/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0104",
     "PoNo": "97",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 242,
-    "ReceiveID": "035/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0035",
     "Date": "2026-08-22",
     "ItemID": "",
     "ItemName": "Jumper Hose, 3\" x 7.500 Psi x 6 Mtr P/N. #H36150275K C/W. Integral 3\"FIG 1502 Male x Female Union Ends, Hose Sleeve Protective Cover (Nylon Material)",
@@ -13382,15 +13142,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "104/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0104",
     "PoNo": "97",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 243,
-    "ReceiveID": "035/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0035",
     "Date": "2026-08-22",
     "ItemID": "",
     "ItemName": "3\"1502 Integral Union Elbow,90 Degree,Long Sweep P/N. #EB31502FM02",
@@ -13405,15 +13164,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "104/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0104",
     "PoNo": "97",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 244,
-    "ReceiveID": "036/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0036",
     "Date": "2026-08-25",
     "ItemID": "",
     "ItemName": "Tyre Size: 11R 22.5",
@@ -13428,15 +13186,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "103/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0103",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 245,
-    "ReceiveID": "036/MRR/SCD#20/VIII/26",
+    "ReceiveID": "MRR-0036",
     "Date": "2026-08-25",
     "ItemID": "",
     "ItemName": "Tyre Size: 385/65R 22.5",
@@ -13451,15 +13208,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "103/MRQ/SCD#20/VII/26",
+    "MrqRef": "MRQ-0103",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 246,
-    "ReceiveID": "037/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0037",
     "Date": "2026-09-14",
     "ItemID": "",
     "ItemName": "Swivel Capsule Assembly / Wash Pipe MDL: 3113-0052",
@@ -13474,15 +13230,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "80/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0080",
     "PoNo": "87",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 247,
-    "ReceiveID": "038/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0038",
     "Date": "2026-09-21",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -13497,15 +13252,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "80/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0080",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 248,
-    "ReceiveID": "038/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0038",
     "Date": "2026-09-21",
     "ItemID": "",
     "ItemName": "White Paint 2.5 Kg",
@@ -13520,15 +13274,14 @@ export const importedReceives: ImportedReceive[] = [
     "WellLoc": "YARD - PAMANUKAN",
     "Project": "MAINTENANCE",
     "RecvdPostedBy": "WAREHOUSE RIG SCD #20",
-    "MrqRef": "80/MRQ/SCD#20/V/26",
+    "MrqRef": "MRQ-0080",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 249,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Bestolife 2000",
@@ -13546,12 +13299,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #106",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 250,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "09.01.0035",
     "ItemName": "Hummer Union Coupling 3\" Fig 1502",
@@ -13569,12 +13321,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #107",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 251,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Stud Bolt 1.5/8\" X 12.3/4\"",
@@ -13592,12 +13343,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #127",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 252,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Collar Size 1\" F/ String Cement Job",
@@ -13615,12 +13365,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 253,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "08.01.0026",
     "ItemName": "Camlock Size 1\" Type E100 (IRON)",
@@ -13638,12 +13387,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #102",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 254,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "08.01.0025",
     "ItemName": "Camlock Size 1\" Type F100 (IRON)",
@@ -13661,12 +13409,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #102",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 255,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Repair Kit Swivel Joint 3\" P/N P505433",
@@ -13684,12 +13431,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #106",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 256,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "03.01.0018",
     "ItemName": "Ring Joint R-73",
@@ -13707,12 +13453,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #131",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 257,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Checker Plate Matting Rubber",
@@ -13730,12 +13475,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 258,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Collar Size 2\"",
@@ -13753,12 +13497,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 259,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Oven Welding Rod Size 5Kg",
@@ -13776,12 +13519,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #122",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 260,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "DSAF Size 11\" 5K X 11\" 2K",
@@ -13799,12 +13541,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #128",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 261,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Fuel Line",
@@ -13822,12 +13563,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 262,
-    "ReceiveID": "039/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0039",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Lighting Tower",
@@ -13845,12 +13585,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 263,
-    "ReceiveID": "040/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0040",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Thread Seal Tape Size 3/4\"",
@@ -13868,12 +13607,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 264,
-    "ReceiveID": "040/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0040",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Needle Valve 1/2\" x 6000 Psi",
@@ -13891,12 +13629,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #119",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 265,
-    "ReceiveID": "040/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0040",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Check Valve 1/2\" x 6000 Psi",
@@ -13914,12 +13651,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #119",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 266,
-    "ReceiveID": "040/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0040",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Pad Lock 40mm",
@@ -13937,12 +13673,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 267,
-    "ReceiveID": "040/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0040",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Primary Paint Grey",
@@ -13960,12 +13695,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 268,
-    "ReceiveID": "040/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0040",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -13983,12 +13717,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #122",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 269,
-    "ReceiveID": "040/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0040",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Grinding Disc 4\" 100 x 6 x 16Mm",
@@ -14006,12 +13739,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #122",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 270,
-    "ReceiveID": "040/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0040",
     "Date": "2026-09-25",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -14029,12 +13761,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #122",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 271,
-    "ReceiveID": "041/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0041",
     "Date": "2026-09-26",
     "ItemID": "",
     "ItemName": "Hex Adapter Bushing 1\" Male x 3/8\" Female",
@@ -14052,12 +13783,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 272,
-    "ReceiveID": "041/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0041",
     "Date": "2026-09-26",
     "ItemID": "",
     "ItemName": "Double Nipple NPT 3/8\"",
@@ -14075,12 +13805,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 273,
-    "ReceiveID": "041/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0041",
     "Date": "2026-09-26",
     "ItemID": "",
     "ItemName": "Silicone Adh Sealent",
@@ -14098,12 +13827,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 274,
-    "ReceiveID": "041/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0041",
     "Date": "2026-09-26",
     "ItemID": "",
     "ItemName": "O-Ring Seal Size 270mm ID x Thick 10 mm F/Piston Pneumatic Ball Valve 10\"",
@@ -14121,12 +13849,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 275,
-    "ReceiveID": "042/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0042",
     "Date": "2026-09-27",
     "ItemID": "",
     "ItemName": "Double Nipple 3/8\" Npt X 3/8\" JIC",
@@ -14144,12 +13871,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 276,
-    "ReceiveID": "042/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0042",
     "Date": "2026-09-27",
     "ItemID": "",
     "ItemName": "Timber F/Landing Base Jack Mud Pump",
@@ -14167,12 +13893,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 277,
-    "ReceiveID": "043/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0043",
     "Date": "2026-09-28",
     "ItemID": "",
     "ItemName": "O-Ring Seal Size 270mm ID x Thick 10 mm F/Piston Pneumatic Ball Valve 10\"",
@@ -14190,12 +13915,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 278,
-    "ReceiveID": "043/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0043",
     "Date": "2026-09-28",
     "ItemID": "",
     "ItemName": "O-Ring Seal Size 250mm ID X Thick 5mm F/ Cover Piston Pneumatic Balve Valve 10\"",
@@ -14213,12 +13937,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 279,
-    "ReceiveID": "044/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0044",
     "Date": "2026-09-30",
     "ItemID": "",
     "ItemName": "Union Humemr 6\" Fig 206",
@@ -14236,12 +13959,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #113",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 280,
-    "ReceiveID": "044/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0044",
     "Date": "2026-09-30",
     "ItemID": "",
     "ItemName": "Triplex Water Pump 3600DE",
@@ -14259,12 +13981,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #129",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 281,
-    "ReceiveID": "044/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0044",
     "Date": "2026-09-30",
     "ItemID": "",
     "ItemName": "Strapping Band Kit C/W Dispenser",
@@ -14282,12 +14003,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #114",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 282,
-    "ReceiveID": "044/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0044",
     "Date": "2026-09-30",
     "ItemID": "",
     "ItemName": "Stud Bolt 1.1/4\" x 7.1/2\"",
@@ -14305,12 +14025,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 283,
-    "ReceiveID": "044/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0044",
     "Date": "2026-09-30",
     "ItemID": "",
     "ItemName": "Stud Bolt 1\" x 6.1/2\"",
@@ -14328,12 +14047,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 284,
-    "ReceiveID": "044/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0044",
     "Date": "2026-09-30",
     "ItemID": "",
     "ItemName": "Rubber Packing Size 10MM",
@@ -14351,12 +14069,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 285,
-    "ReceiveID": "044/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0044",
     "Date": "2026-09-30",
     "ItemID": "",
     "ItemName": "Spring F/Double Flange Ball Valve",
@@ -14374,12 +14091,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 286,
-    "ReceiveID": "045/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0045",
     "Date": "2026-10-02",
     "ItemID": "",
     "ItemName": "Webbing Ratchet Tie Down 5T X 10 Mtr",
@@ -14397,12 +14113,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 287,
-    "ReceiveID": "045/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0045",
     "Date": "2026-10-02",
     "ItemID": "",
     "ItemName": "O-Ring Seal Size 250mm ID X Thick 5mm F/ Cover Piston Pneumatic Balve Valve 10\"",
@@ -14420,12 +14135,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 288,
-    "ReceiveID": "045/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0045",
     "Date": "2026-10-02",
     "ItemID": "",
     "ItemName": "Hydraulic O-Ring Seal Size 3mm x 78mm",
@@ -14443,12 +14157,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 289,
-    "ReceiveID": "045/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0045",
     "Date": "2026-10-02",
     "ItemID": "",
     "ItemName": "Hydraulic O-Ring Seal Size 4mm x 238mm",
@@ -14466,12 +14179,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 290,
-    "ReceiveID": "046/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0046",
     "Date": "2026-10-05",
     "ItemID": "",
     "ItemName": "Welding Rod LB-52U 2.6mm",
@@ -14489,12 +14201,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 291,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Cotton Wiping Rags",
@@ -14512,12 +14223,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 292,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "07.01.0003",
     "ItemName": "Plastic Steel 5 Mnt",
@@ -14535,12 +14245,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 293,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "07.01.0004",
     "ItemName": "Red Silicone",
@@ -14558,12 +14267,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 294,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "11.01.0002",
     "ItemName": "Welding Rod LB52-18 (5Kg/Box)",
@@ -14581,12 +14289,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 295,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "07.01.0005",
     "ItemName": "W-15 Fluid 0.945 Ltr",
@@ -14604,12 +14311,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 296,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Round Sling 2T x 2Mtr",
@@ -14627,12 +14333,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 297,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Round Sling 4T x 2Mtr",
@@ -14650,12 +14355,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 298,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Round Sling 6T x 3Mtr",
@@ -14673,12 +14377,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 299,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Webbing Ratchet Tie Down 5T x 10 Mtr",
@@ -14696,12 +14399,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 300,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Fuel Flow Meter 0-9999 Super RFAY",
@@ -14719,12 +14421,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 301,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "07.01.0002",
     "ItemName": "Contact Cleaner 220ml",
@@ -14742,12 +14443,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 302,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Lubrricant Anti Rust",
@@ -14765,12 +14465,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 303,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Hand Glove Cotton",
@@ -14788,12 +14487,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 304,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Bolt & Nut 10mm x 1\"",
@@ -14811,12 +14509,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 305,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Bolt & Nut 10mm x 2\"",
@@ -14834,12 +14531,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 306,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Bolt & Nut 10mm x 3\"",
@@ -14857,12 +14553,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 307,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Bolt & Nut 14mm x 1\"",
@@ -14880,12 +14575,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 308,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Bolt & Nut 14mm x 2\"",
@@ -14903,12 +14597,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 309,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Bolt & Nut 14mm x 3\"",
@@ -14926,12 +14619,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 310,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Bolt & Nut 16mm x 1\"",
@@ -14949,12 +14641,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 311,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Bolt & Nut 16mm x 2\"",
@@ -14972,12 +14663,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 312,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "",
     "ItemName": "Bolt & Nut 16mm x 3\"",
@@ -14995,12 +14685,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 313,
-    "ReceiveID": "047/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0047",
     "Date": "2026-10-06",
     "ItemID": "09.01.0027",
     "ItemName": "Weldneck Flange Sch 40 Size 6\"",
@@ -15018,12 +14707,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 314,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Safety Helmet Fullbrim C/W Fastrack",
@@ -15041,12 +14729,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 315,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "High Impact Glove Size L",
@@ -15064,12 +14751,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 316,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "High Impact Glove Size XL",
@@ -15087,12 +14773,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 317,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Safety Glass Smoke",
@@ -15110,12 +14795,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 318,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Safety Glass Clear",
@@ -15133,12 +14817,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 319,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Safety Shoes Krusher Size 7",
@@ -15156,12 +14839,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 320,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Safety Shoes Krusher Size 8",
@@ -15179,12 +14861,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 321,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Safety Shoes Krusher Size 9",
@@ -15202,12 +14883,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 322,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Safety Shoes Dragon Hawk Size 10",
@@ -15225,12 +14905,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 323,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Safety Shoes Dragon Hawk Size 11",
@@ -15248,12 +14927,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 324,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Chinstrap MSA",
@@ -15271,12 +14949,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 325,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Emergency Eyewash 8 Gallon",
@@ -15294,12 +14971,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 326,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Vertical Collor GEA",
@@ -15317,12 +14993,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 327,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "First Aid Kit C/W Box",
@@ -15340,12 +15015,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 328,
-    "ReceiveID": "048/MRR/SCD#20/IX/26",
+    "ReceiveID": "MRR-0048",
     "Date": "2026-10-07",
     "ItemID": "",
     "ItemName": "Safety Cut Resistant Hand Glove",
@@ -15363,12 +15037,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "102",
     "Remark": "MAINTENANCE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 329,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Handgloves for Welding",
@@ -15386,12 +15059,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 330,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Coverall for driver Size L",
@@ -15409,12 +15081,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 331,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Coverall for driver Size XL",
@@ -15432,12 +15103,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 332,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Coverall for driver Size XL",
@@ -15455,12 +15125,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 333,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Quick Coupling 1 inch",
@@ -15478,12 +15147,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 334,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Quick Coupling 3/8 inch",
@@ -15501,12 +15169,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 335,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Tee High Press. 3M A105 Size 1 inch",
@@ -15524,12 +15191,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 336,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Elbow 1 inch JIC",
@@ -15547,12 +15213,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 337,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Adapter Elbow 3/8 inch JIC X 1/4 inch JIC",
@@ -15570,12 +15235,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 338,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Adapter Nipple 3/8 inch JIC X 1/4 inch JIC",
@@ -15593,12 +15257,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 339,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Reducer 1/2 inch NPT X 1/4 inch NPT",
@@ -15616,12 +15279,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 340,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "05.01.0004",
     "ItemName": "Fitting Hose Straight Size 1/2\" JIC",
@@ -15639,12 +15301,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 341,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "05.01.0003",
     "ItemName": "Fitting Hose Elbow Size 1/2\" JIC",
@@ -15662,12 +15323,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 342,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Fitting Hose Straigh 3/8 inch JIC C/W. Ferroul",
@@ -15685,12 +15345,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 343,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Fitting Hose Elbow 3/8 inch JIC C/W. Ferroul",
@@ -15708,12 +15367,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 344,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "09.01.0036",
     "ItemName": "Welded Elbow Sch 40 Size 6\"",
@@ -15731,12 +15389,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 345,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Selenoid XHQ-PT-NC REXIIT 12V",
@@ -15754,12 +15411,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 346,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "AVR 1Phase 5kw - 8kw MISTER HOCKI for LT",
@@ -15777,12 +15433,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 347,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Relay 12V 30A",
@@ -15800,12 +15455,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 348,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Relay 24V 20A",
@@ -15823,12 +15477,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 349,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Glass Tube Fuses 10A",
@@ -15846,12 +15499,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 350,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Bearing SKF 6201- 2RSH/C3",
@@ -15869,12 +15521,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 351,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Bearing BRI22012",
@@ -15892,12 +15543,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 352,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Regulator PN16 for Water RO",
@@ -15915,12 +15565,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 353,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Air Press. Gauge 1inch Face X 220 Psi Conn. 1/4 inch",
@@ -15938,12 +15587,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 354,
-    "ReceiveID": "049/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0049",
     "Date": "2026-11-15",
     "ItemID": "",
     "ItemName": "Tee 3/8 inch",
@@ -15961,12 +15609,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 355,
-    "ReceiveID": "050/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0050",
     "Date": "2026-11-16",
     "ItemID": "",
     "ItemName": "Padlock",
@@ -15984,12 +15631,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "",
     "PoNo": "",
     "Remark": "Drilling Operation",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 356,
-    "ReceiveID": "051/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0051",
     "Date": "2026-11-17",
     "ItemID": "01.01.0018",
     "ItemName": "Full Open Valve Assy MK-6FO-V1",
@@ -16007,12 +15653,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "DRILLING",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 357,
-    "ReceiveID": "051/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0051",
     "Date": "2026-11-17",
     "ItemID": "01.01.0019",
     "ItemName": "Valve Seat P/N MK-6FO-56",
@@ -16030,12 +15675,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "DRILLING",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 358,
-    "ReceiveID": "052/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0052",
     "Date": "2026-11-17",
     "ItemID": "06.01.0002",
     "ItemName": "Air Conditioner Split Indoor & outdoor",
@@ -16053,12 +15697,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "DRILLING",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 359,
-    "ReceiveID": "052/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0052",
     "Date": "2026-11-17",
     "ItemID": "",
     "ItemName": "Hummer Size 1.5KG",
@@ -16076,12 +15719,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "DRILLING",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 360,
-    "ReceiveID": "052/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0052",
     "Date": "2026-11-17",
     "ItemID": "",
     "ItemName": "Paint Brush Size 2\"",
@@ -16099,12 +15741,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "DRILLING",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 361,
-    "ReceiveID": "052/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0052",
     "Date": "2026-11-17",
     "ItemID": "",
     "ItemName": "Thinner Super A 3.785L",
@@ -16122,12 +15763,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "DRILLING",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 362,
-    "ReceiveID": "053/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0053",
     "Date": "2026-11-18",
     "ItemID": "",
     "ItemName": "Shade Net",
@@ -16145,12 +15785,11 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "DRILLING",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 363,
-    "ReceiveID": "053/MRR/SCD#20/XI/26",
+    "ReceiveID": "MRR-0053",
     "Date": "2026-11-18",
     "ItemID": "",
     "ItemName": "Plastic Chair",
@@ -16168,15 +15807,14 @@ export const importedReceives: ImportedReceive[] = [
     "MrqRef": "MRQ #-",
     "PoNo": "",
     "Remark": "DRILLING",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   }
 ];
 
 export const importedIssued: ImportedIssued[] = [
   {
     "_rowIndex": 2,
-    "IssueID": "001/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Paint Primer Grey \"BELMAS\" 5Kg",
@@ -16191,12 +15829,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Paint Primer Equipment Rig",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 3,
-    "IssueID": "001/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Paint Yellow Canary 116 \"NIPPON PAINT\" 2.5Kg",
@@ -16211,12 +15848,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Painting Handrail Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 4,
-    "IssueID": "001/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Steel Pipe SCH 40 Size OD : 2-7/8\"",
@@ -16231,12 +15867,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Fabrication Stopper Pipe Rack",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 5,
-    "IssueID": "001/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0001",
     "Date": "2026-06-27",
     "ItemID": "",
     "ItemName": "Welding Rod LB 52 3.2 @10 Kg",
@@ -16251,12 +15886,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 100,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 6,
-    "IssueID": "002/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0002",
     "Date": "2026-06-28",
     "ItemID": "",
     "ItemName": "Spiral Guard Hose 3\" HDPE",
@@ -16271,12 +15905,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Safety Guard Kelly Hose 3\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 7,
-    "IssueID": "002/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0002",
     "Date": "2026-06-28",
     "ItemID": "",
     "ItemName": "Hyd. Quick Coupling 3/4\"",
@@ -16291,12 +15924,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 7,
     "Remark": "Repair Connection Hyd. Cellar Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 8,
-    "IssueID": "002/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0002",
     "Date": "2026-06-28",
     "ItemID": "",
     "ItemName": "Hyd. Quick Coupling 1/2\"",
@@ -16311,12 +15943,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 7,
     "Remark": "Repair Connection Hyd. Cellar Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 9,
-    "IssueID": "002/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0002",
     "Date": "2026-06-28",
     "ItemID": "",
     "ItemName": "Explotion Proof Light Flourescent Lamp WAROM HRY52",
@@ -16331,12 +15962,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Installing Lamp Buttom Rig Floor",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 10,
-    "IssueID": "002/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0002",
     "Date": "2026-06-28",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -16351,12 +15981,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 90,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 11,
-    "IssueID": "003/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0003",
     "Date": "2026-06-22",
     "ItemID": "",
     "ItemName": "3” Fig 1502 5K Sanyi minor rebuild Kit. P/N #RK3IN15025KMI",
@@ -16371,12 +16000,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Repairing Gate Valve 3\" x 5K Psi",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 12,
-    "IssueID": "004/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0004",
     "Date": "2026-06-23",
     "ItemID": "01.01.0007",
     "ItemName": "Piston Assembly Size 6.3/4\" P/N PIST675NBRC F/Ceramic Liner Banded NBR",
@@ -16391,12 +16019,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 6,
     "Remark": "Mud Pump No. 1",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 13,
-    "IssueID": "004/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0004",
     "Date": "2026-06-23",
     "ItemID": "01.01.0026",
     "ItemName": "Liner Ceramic Size 6.3/4\"",
@@ -16411,12 +16038,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "Mud Pump No. 1",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 14,
-    "IssueID": "005/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0005",
     "Date": "2026-06-29",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -16431,12 +16057,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 28,
     "Remark": "Fabrication Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 15,
-    "IssueID": "005/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0005",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 7/8\" x 1 Mtr",
@@ -16451,12 +16076,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 16,
-    "IssueID": "005/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0005",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Nut 7/8\"",
@@ -16471,12 +16095,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 17,
-    "IssueID": "005/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0005",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Washer Plate 7/8\"",
@@ -16491,12 +16114,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 18,
-    "IssueID": "005/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0005",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Paint Primer Grey BELMAS @5 Kg",
@@ -16511,12 +16133,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Painting Pipe Booster",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 19,
-    "IssueID": "005/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0005",
     "Date": "2026-06-29",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -16531,12 +16152,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 80,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 20,
-    "IssueID": "005/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0005",
     "Date": "2026-06-29",
     "ItemID": "",
     "ItemName": "Steel Pipe 10\" SCD 40",
@@ -16551,12 +16171,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 15,
     "Remark": "Fabrication Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 21,
-    "IssueID": "006/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0006",
     "Date": "2026-06-30",
     "ItemID": "",
     "ItemName": "Cup Brush 3\"",
@@ -16571,12 +16190,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Brushing Equipment RIG",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 22,
-    "IssueID": "006/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0006",
     "Date": "2026-06-30",
     "ItemID": "",
     "ItemName": "Paint Marine White NIPPELUX @5 Kg",
@@ -16591,12 +16209,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Painting Pipe Booster",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 23,
-    "IssueID": "006/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0006",
     "Date": "2026-06-30",
     "ItemID": "",
     "ItemName": "Minor & Major Repair Kit for 3\" x 5000 Psi DEMCO Type Gate Valve SANYI S/N. G2604006 P/N. RK3IN5K15025KMI",
@@ -16611,12 +16228,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Repair Gate Valve 3\" Manifold Mud Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 24,
-    "IssueID": "006/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0006",
     "Date": "2026-06-30",
     "ItemID": "",
     "ItemName": "Double Nipple 3/4\" H.P",
@@ -16631,12 +16247,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Repair Hyd. Connection Jet Cellar Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 25,
-    "IssueID": "006/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0006",
     "Date": "2026-06-30",
     "ItemID": "",
     "ItemName": "Double Nipple 1/2\" Galvanize",
@@ -16651,12 +16266,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Repair Hyd. Connection Jet Cellar Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 26,
-    "IssueID": "006/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0006",
     "Date": "2026-06-30",
     "ItemID": "",
     "ItemName": "Shocket Collar 1/2\" Galvanize",
@@ -16671,12 +16285,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Repair Hyd. Connection Jet Cellar Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 27,
-    "IssueID": "006/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0006",
     "Date": "2026-06-30",
     "ItemID": "",
     "ItemName": "Shocket Collar 3/4\" Galvanize",
@@ -16691,12 +16304,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Repair Hyd. Connection Jet Cellar Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 28,
-    "IssueID": "006/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0006",
     "Date": "2026-06-30",
     "ItemID": "",
     "ItemName": "Elbow 10\" - 90 Degree SCH 40",
@@ -16711,12 +16323,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 5,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 29,
-    "IssueID": "006/MIS/SCD#20/VI/2026",
+    "IssueID": "MIS-0006",
     "Date": "2026-06-30",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -16731,12 +16342,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 75,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 30,
-    "IssueID": "007/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0007",
     "Date": "2026-07-02",
     "ItemID": "09.01.0005",
     "ItemName": "Butterfly Valve Size 10\"",
@@ -16751,12 +16361,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Valve Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 31,
-    "IssueID": "007/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0007",
     "Date": "2026-07-02",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -16771,12 +16380,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 24,
     "Remark": "Installing Valve Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 32,
-    "IssueID": "007/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0007",
     "Date": "2026-07-02",
     "ItemID": "02.01.0005",
     "ItemName": "Protector Rubebr Deck Bulkhead (Single)",
@@ -16791,12 +16399,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Shale Shaker No. 2",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 33,
-    "IssueID": "007/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0007",
     "Date": "2026-07-02",
     "ItemID": "02.01.0001",
     "ItemName": "Protector Rubber Deck Bulkhead (Double",
@@ -16811,12 +16418,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Shale Shaker No. 2",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 34,
-    "IssueID": "007/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0007",
     "Date": "2026-07-02",
     "ItemID": "02.01.0002",
     "ItemName": "Protector Rubber Side Cross Support",
@@ -16831,12 +16437,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Shale Shaker No. 2",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 35,
-    "IssueID": "007/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0007",
     "Date": "2026-07-02",
     "ItemID": "",
     "ItemName": "Hinge Pin",
@@ -16851,12 +16456,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Prepare Installing AC Window HSE Office",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 36,
-    "IssueID": "007/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0007",
     "Date": "2026-07-02",
     "ItemID": "",
     "ItemName": "Electric Socket 4 Hole",
@@ -16871,12 +16475,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Extention Cable Roll",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 37,
-    "IssueID": "007/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0007",
     "Date": "2026-07-02",
     "ItemID": "",
     "ItemName": "Steel Pipe 10\" SCD 40",
@@ -16891,12 +16494,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 14,
     "Remark": "Fabrication Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 38,
-    "IssueID": "007/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0007",
     "Date": "2026-07-02",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -16911,12 +16513,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 60,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 39,
-    "IssueID": "008/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0008",
     "Date": "2026-07-03",
     "ItemID": "09.01.0027",
     "ItemName": "Weldneck Flange Sch 40 Size 6\"",
@@ -16931,12 +16532,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 40,
-    "IssueID": "008/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0008",
     "Date": "2026-07-03",
     "ItemID": "09.01.0028",
     "ItemName": "Weldneck Flange Sch 40 Size 5\"",
@@ -16951,12 +16551,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 41,
-    "IssueID": "008/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0008",
     "Date": "2026-07-03",
     "ItemID": "",
     "ItemName": "Reducer 6 Inch x 5 Inch",
@@ -16971,12 +16570,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 42,
-    "IssueID": "008/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0008",
     "Date": "2026-07-03",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Thread 3/4\" x 1 Mtr",
@@ -16991,12 +16589,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 43,
-    "IssueID": "008/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0008",
     "Date": "2026-07-03",
     "ItemID": "",
     "ItemName": "Nut 3/4\"",
@@ -17011,12 +16608,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 44,
-    "IssueID": "008/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0008",
     "Date": "2026-07-03",
     "ItemID": "",
     "ItemName": "Flexible HP. FLG. EPDM / Rubber Joint 6\" - DN.150",
@@ -17031,12 +16627,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 45,
-    "IssueID": "008/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0008",
     "Date": "2026-07-03",
     "ItemID": "",
     "ItemName": "Para Flex Tyre Coupling DODGE PN. PX80",
@@ -17051,12 +16646,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Centrifugal Pump New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 46,
-    "IssueID": "008/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0008",
     "Date": "2026-07-03",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -17071,12 +16665,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 55,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 47,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -17091,12 +16684,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 18,
     "Remark": "Installing Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 48,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "",
     "ItemName": "Steel Pipe 6\" - SCH 40",
@@ -17111,12 +16703,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Installing Transfer Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 49,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "",
     "ItemName": "Cup Brush 3\"",
@@ -17131,12 +16722,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Brushing Ram Door Sub Base RIG Carrier",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 50,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "",
     "ItemName": "Twice Cup Brush 3\"",
@@ -17151,12 +16741,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Brushing Ram Door Sub Base RIG Carrier",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 51,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "",
     "ItemName": "Front Packer 13-5/8\" x 10K Psi D.P 5\" Rhongsheng (Half)",
@@ -17171,12 +16760,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Change Front Packer Blind Ram  5\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 52,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 3/4\" x 1 Mtr",
@@ -17191,12 +16779,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Water Line Transfer New M.T",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 53,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "",
     "ItemName": "Nut 3/4\"",
@@ -17211,12 +16798,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Water Line Transfer New M.T",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 54,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "",
     "ItemName": "Washer Plate 3/4\"",
@@ -17231,12 +16817,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Water Line Transfer New M.T",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 55,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "",
     "ItemName": "Double Nipple 2\" Galvanize",
@@ -17251,12 +16836,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "Installing Water Line Fire Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 56,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "09.01.0016",
     "ItemName": "Tee Galvanized 2\"",
@@ -17271,12 +16855,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Water Line Fire Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 57,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "",
     "ItemName": "Water Hose 1/2\"",
@@ -17291,12 +16874,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Safety Clamp Dampener Accumulator",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 58,
-    "IssueID": "009/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0009",
     "Date": "2026-07-04",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -17311,12 +16893,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 50,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 59,
-    "IssueID": "010/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0010",
     "Date": "2026-07-06",
     "ItemID": "",
     "ItemName": "Steel Pipe 6\" - SCH 40",
@@ -17331,12 +16912,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Transfer Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 60,
-    "IssueID": "010/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0010",
     "Date": "2026-07-06",
     "ItemID": "",
     "ItemName": "Steel Pipe 4\" - SCH 40",
@@ -17351,12 +16931,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Water Line Supply New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 61,
-    "IssueID": "010/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0010",
     "Date": "2026-07-06",
     "ItemID": "",
     "ItemName": "Double Nipple 4 Inch 304 SS 4-150",
@@ -17371,12 +16950,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Water Line Supply New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 62,
-    "IssueID": "010/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0010",
     "Date": "2026-07-06",
     "ItemID": "",
     "ItemName": "Paint Primer Gray @1Kg",
@@ -17391,12 +16969,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Painting Ram Door Sub Base RIG Carrier",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 63,
-    "IssueID": "010/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0010",
     "Date": "2026-07-06",
     "ItemID": "09.01.0027",
     "ItemName": "Weldneck Flange Sch 40 Size 6\"",
@@ -17411,12 +16988,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Discharge Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 64,
-    "IssueID": "010/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0010",
     "Date": "2026-07-06",
     "ItemID": "09.01.0006",
     "ItemName": "Butterfly Valve Size 6\"",
@@ -17431,12 +17007,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Discharge Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 65,
-    "IssueID": "010/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0010",
     "Date": "2026-07-06",
     "ItemID": "09.01.0031",
     "ItemName": "Welded Elbow Sch 40 Size 4\"",
@@ -17451,12 +17026,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Water Line Supply New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 66,
-    "IssueID": "010/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0010",
     "Date": "2026-07-06",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -17471,12 +17045,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 45,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 67,
-    "IssueID": "011/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0011",
     "Date": "2026-07-07",
     "ItemID": "08.01.0002",
     "ItemName": "Camlock Size 4\" Type B400 (IRON)",
@@ -17491,12 +17064,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Water Line Supply New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 68,
-    "IssueID": "011/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0011",
     "Date": "2026-07-07",
     "ItemID": "09.01.0012",
     "ItemName": "Ball Valve 4\"",
@@ -17511,12 +17083,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "Water Line Supply New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 69,
-    "IssueID": "011/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0011",
     "Date": "2026-07-07",
     "ItemID": "09.01.0013",
     "ItemName": "Elbow Galvanized 4\"",
@@ -17531,12 +17102,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Water Line Supply New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 70,
-    "IssueID": "011/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0011",
     "Date": "2026-07-07",
     "ItemID": "",
     "ItemName": "Paint Primer Gray @1Kg",
@@ -17551,12 +17121,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Painting Ram Door Sub Base RIG Carrier",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 71,
-    "IssueID": "011/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0011",
     "Date": "2026-07-07",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -17571,12 +17140,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 40,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 72,
-    "IssueID": "012/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0012",
     "Date": "2026-07-08",
     "ItemID": "09.01.0029",
     "ItemName": "Weldneck Flange Sch 40 Size 8\"",
@@ -17591,12 +17159,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 7,
     "Remark": "Water Line Supply New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 73,
-    "IssueID": "012/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0012",
     "Date": "2026-07-08",
     "ItemID": "09.01.0007",
     "ItemName": "Butterfly Valve Size 4\"",
@@ -17611,12 +17178,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Water Line Supply New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 74,
-    "IssueID": "012/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0012",
     "Date": "2026-07-08",
     "ItemID": "",
     "ItemName": "Elbow 10\" - 90 Degree SCH 40",
@@ -17631,12 +17197,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 75,
-    "IssueID": "012/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0012",
     "Date": "2026-07-08",
     "ItemID": "09.01.0036",
     "ItemName": "Welded Elbow Sch 40 Size 6\"",
@@ -17651,12 +17216,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Tranfer Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 76,
-    "IssueID": "012/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0012",
     "Date": "2026-07-08",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -17671,12 +17235,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 40,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 77,
-    "IssueID": "013/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0013",
     "Date": "2026-07-09",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -17691,12 +17254,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 9,
     "Remark": "Install Flange Diverter Line 10\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 78,
-    "IssueID": "013/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0013",
     "Date": "2026-07-09",
     "ItemID": "",
     "ItemName": "Steel Pipe 10\" - SCH40",
@@ -17711,12 +17273,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 5,
     "Remark": "Install Diverter Line 10\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 79,
-    "IssueID": "013/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0013",
     "Date": "2026-07-09",
     "ItemID": "",
     "ItemName": "Double Nipple 2 Inch Galvanize",
@@ -17731,12 +17292,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Shale Shaker",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 80,
-    "IssueID": "013/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0013",
     "Date": "2026-07-09",
     "ItemID": "09.01.0031",
     "ItemName": "Welded Elbow Sch 40 Size 4\"",
@@ -17751,12 +17311,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Water Line 4\" New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 81,
-    "IssueID": "013/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0013",
     "Date": "2026-07-09",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -17771,12 +17330,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 35,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 82,
-    "IssueID": "014/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0014",
     "Date": "2026-07-10",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -17791,12 +17349,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Install Flange Diverter Line 10\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 83,
-    "IssueID": "014/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Piston Kit - PRV 3\" 500 - 5000 Psi SP4710 NBR ( NITRILE STANDART ) \"OTECO\" PN. 141025",
@@ -17811,12 +17368,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Repair PRV 3\" Mud Pump No. 2",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 84,
-    "IssueID": "014/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 3/8\" Straight C/W. Ferroul FNP-06 JIC",
@@ -17831,12 +17387,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 10,
     "Remark": "Repair Hyd. Hose Load Safe",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 85,
-    "IssueID": "014/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 3/8\" Elbow 90° C/W. Ferroul FNP-06 JIC",
@@ -17851,12 +17406,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 18,
     "Remark": "Repair Hyd. Hose Load Safe",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 86,
-    "IssueID": "014/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0014",
     "Date": "2026-07-10",
     "ItemID": "",
     "ItemName": "Inductive / Proximity Sensor \"TURCK\" PN. Bi10-M30-Y1X-H1141",
@@ -17871,12 +17425,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Replace Proxy Sensor Mud Pump No. 2",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 87,
-    "IssueID": "014/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0014",
     "Date": "2026-07-10",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -17891,12 +17444,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 30,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 88,
-    "IssueID": "015/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0015",
     "Date": "2026-07-12",
     "ItemID": "08.01.0010",
     "ItemName": "Camlock Size 3\" Type F300 (IRON)",
@@ -17911,12 +17463,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Fire Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 89,
-    "IssueID": "015/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0015",
     "Date": "2026-07-12",
     "ItemID": "08.01.0015",
     "ItemName": "Camlock Size 2\" Type D200 (IRON)",
@@ -17931,12 +17482,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 5,
     "Remark": "Fire Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 90,
-    "IssueID": "015/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0015",
     "Date": "2026-07-12",
     "ItemID": "",
     "ItemName": "Double Nipple 2 Inch Galvanize",
@@ -17951,12 +17501,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Fire Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 91,
-    "IssueID": "015/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0015",
     "Date": "2026-07-12",
     "ItemID": "",
     "ItemName": "Elbow 2\" Galvanize",
@@ -17971,12 +17520,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Fire Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 92,
-    "IssueID": "015/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0015",
     "Date": "2026-07-12",
     "ItemID": "09.01.0018",
     "ItemName": "Collar Galvanized 3\"",
@@ -17991,12 +17539,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Water Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 93,
-    "IssueID": "015/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0015",
     "Date": "2026-07-12",
     "ItemID": "",
     "ItemName": "Welding Gloves ENDURA 505BUWS",
@@ -18011,12 +17558,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 94,
-    "IssueID": "015/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0015",
     "Date": "2026-07-12",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -18031,12 +17577,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 20,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 95,
-    "IssueID": "016/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0016",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "Lube/Oil Filter - FLEETGUARD LF16012 for. Genset INFINITE",
@@ -18051,12 +17596,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 8,
     "Remark": "Service Genset RED INFINITE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 96,
-    "IssueID": "016/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0016",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "Fuel / Water Separator - FLEETGUARD FS19587 for. Genset INFINITE",
@@ -18071,12 +17615,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 10,
     "Remark": "Service Genset RED INFINITE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 97,
-    "IssueID": "016/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0016",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "AC In Door Window REIWA 3/4 PK",
@@ -18091,12 +17634,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing AC Smoko Room HSE & Lunch Room",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 98,
-    "IssueID": "016/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0016",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -18111,12 +17653,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 50,
     "Remark": "Fabrication Hand Rail New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 99,
-    "IssueID": "016/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0016",
     "Date": "2026-07-15",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -18131,12 +17672,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 15,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 100,
-    "IssueID": "016/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0016",
     "Date": "2026-07-15",
     "ItemID": "",
     "ItemName": "Face Shield Hand Held Welding Mask",
@@ -18151,12 +17691,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 101,
-    "IssueID": "017/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0017",
     "Date": "2026-07-16",
     "ItemID": "",
     "ItemName": "Ball Valve 3/4\" x 6000 Psi",
@@ -18171,12 +17710,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Ball Valve Return Oil Loadsafe",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 102,
-    "IssueID": "017/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0017",
     "Date": "2026-07-16",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -18191,12 +17729,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 45,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 103,
-    "IssueID": "017/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0017",
     "Date": "2026-07-16",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -18211,12 +17748,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 40,
     "Remark": "Fabrication Frame AC Smoko HSE & Lunch Room",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 104,
-    "IssueID": "017/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0017",
     "Date": "2026-07-16",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -18231,12 +17767,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 37,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 105,
-    "IssueID": "018/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0018",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -18251,12 +17786,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 35,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 106,
-    "IssueID": "018/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0018",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -18271,12 +17805,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 30,
     "Remark": "Fabrication Frame AC Smoko HSE & Lunch Room",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 107,
-    "IssueID": "018/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0018",
     "Date": "2026-07-17",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -18291,12 +17824,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 10,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 108,
-    "IssueID": "018/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0018",
     "Date": "2026-07-17",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -18311,12 +17843,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 25,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 109,
-    "IssueID": "019/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0019",
     "Date": "2026-07-18",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -18331,12 +17862,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 32,
     "Remark": "Fabrication Frame AC Smoko HSE & Lunch Room",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 110,
-    "IssueID": "019/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0019",
     "Date": "2026-07-18",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -18351,12 +17881,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Welding Jobs On New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 111,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 7/8\" x 1 Mtr",
@@ -18371,12 +17900,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 34,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 112,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Nut 7/8\"",
@@ -18391,12 +17919,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 390,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 113,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Washer Plate 7/8\"",
@@ -18411,12 +17938,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 390,
     "Remark": "Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 114,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 3/4\" x 1 Mtr",
@@ -18431,12 +17957,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 5,
     "Remark": "Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 115,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Nut 3/4\" + Washer Plate 3/4\"",
@@ -18451,12 +17976,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 90,
     "Remark": "Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 116,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "+ Washer Plate 3/4\"",
@@ -18471,12 +17995,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 90,
     "Remark": "Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 117,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -18491,12 +18014,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 30,
     "Remark": "Fabrication Frame AC Smoko HSE & Lunch Room",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 118,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Grinding Disc 4\" 100 x 6 x 16Mm",
@@ -18511,12 +18033,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 47,
     "Remark": "Fabrication Frame AC Smoko HSE & Lunch Roo",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 119,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -18531,12 +18052,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Fabrication Diverter Line",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 120,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -18551,12 +18071,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 10,
     "Remark": "Fabrication Diverter Line",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 121,
-    "IssueID": "020/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0020",
     "Date": "2026-07-20",
     "ItemID": "",
     "ItemName": "Welding Rod LB 52 2.6",
@@ -18571,12 +18090,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 122,
-    "IssueID": "021/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0021",
     "Date": "2026-07-21",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 7/8\" x 1 Mtr",
@@ -18591,12 +18109,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 24,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 123,
-    "IssueID": "021/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0021",
     "Date": "2026-07-21",
     "ItemID": "",
     "ItemName": "Nut 7/8\"",
@@ -18611,12 +18128,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 290,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 124,
-    "IssueID": "021/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0021",
     "Date": "2026-07-21",
     "ItemID": "",
     "ItemName": "Washer Plate 7/8\"",
@@ -18631,12 +18147,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 290,
     "Remark": "Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 125,
-    "IssueID": "021/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0021",
     "Date": "2026-07-21",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -18651,12 +18166,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 126,
-    "IssueID": "022/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0022",
     "Date": "2026-07-22",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 7/8\" x 1 Mtr",
@@ -18671,12 +18185,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 14,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 127,
-    "IssueID": "022/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0022",
     "Date": "2026-07-22",
     "ItemID": "",
     "ItemName": "Nut 7/8\"",
@@ -18691,12 +18204,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 190,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 128,
-    "IssueID": "022/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0022",
     "Date": "2026-07-22",
     "ItemID": "",
     "ItemName": "Washer Plate 7/8\"",
@@ -18711,12 +18223,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 190,
     "Remark": "Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 129,
-    "IssueID": "022/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0022",
     "Date": "2026-07-22",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -18731,12 +18242,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 130,
-    "IssueID": "022/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0022",
     "Date": "2026-07-22",
     "ItemID": "",
     "ItemName": "Union Hammer Coupling 3\" x 6000 psi FIG 602 \"FMC WECO\"",
@@ -18751,12 +18261,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 7,
     "Remark": "Flare Line",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 131,
-    "IssueID": "023/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0023",
     "Date": "2026-07-23",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 7/8\" x 1 Mtr",
@@ -18771,12 +18280,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 132,
-    "IssueID": "023/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0023",
     "Date": "2026-07-23",
     "ItemID": "",
     "ItemName": "Nut 7/8\"",
@@ -18791,12 +18299,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 90,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 133,
-    "IssueID": "023/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0023",
     "Date": "2026-07-23",
     "ItemID": "",
     "ItemName": "Washer Plate 7/8\"",
@@ -18811,12 +18318,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 90,
     "Remark": "Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 134,
-    "IssueID": "023/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0023",
     "Date": "2026-07-23",
     "ItemID": "02.01.0006",
     "ItemName": "Rubber Mounting",
@@ -18831,12 +18337,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 135,
-    "IssueID": "023/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0023",
     "Date": "2026-07-23",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\"",
@@ -18851,12 +18356,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 38,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 136,
-    "IssueID": "024/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0024",
     "Date": "2026-07-24",
     "ItemID": "",
     "ItemName": "Stud Bolt Full Drat 7/8\" x 1 Mtr",
@@ -18871,12 +18375,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 137,
-    "IssueID": "024/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0024",
     "Date": "2026-07-24",
     "ItemID": "",
     "ItemName": "Nut 7/8\"",
@@ -18891,12 +18394,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Suction Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 138,
-    "IssueID": "024/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0024",
     "Date": "2026-07-24",
     "ItemID": "",
     "ItemName": "Washer Plate 7/8\"",
@@ -18911,12 +18413,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 139,
-    "IssueID": "024/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0024",
     "Date": "2026-07-24",
     "ItemID": "02.01.0001",
     "ItemName": "Protector Rubber Deck Bulkhead (Double",
@@ -18931,12 +18432,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Shale Shaker",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 140,
-    "IssueID": "024/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0024",
     "Date": "2026-07-24",
     "ItemID": "02.01.0003",
     "ItemName": "Protector Rubber Rear Cross Support",
@@ -18951,12 +18451,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Shale Shaker",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 141,
-    "IssueID": "024/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0024",
     "Date": "2026-07-24",
     "ItemID": "02.01.0002",
     "ItemName": "Protector Rubber Side Cross Support",
@@ -18971,12 +18470,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Shale Shaker",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 142,
-    "IssueID": "025/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0025",
     "Date": "2026-07-25",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -18991,12 +18489,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 160,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 143,
-    "IssueID": "025/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0025",
     "Date": "2026-07-25",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -19011,12 +18508,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 28,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 144,
-    "IssueID": "025/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0025",
     "Date": "2026-07-25",
     "ItemID": "",
     "ItemName": "Repair Kit Check Valve SANYI SN. SYD5235-K for. 2-1/16 Inch - 5K Psi",
@@ -19031,12 +18527,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 145,
-    "IssueID": "025/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0025",
     "Date": "2026-07-25",
     "ItemID": "09.01.0036",
     "ItemName": "Welded Elbow Sch 40 Size 6\"",
@@ -19051,12 +18546,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 146,
-    "IssueID": "025/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0025",
     "Date": "2026-07-25",
     "ItemID": "",
     "ItemName": "Fuel / Water Separator - FLEETGUARD FS19587 for. Genset INFINITE",
@@ -19071,12 +18565,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 5,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 147,
-    "IssueID": "025/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0025",
     "Date": "2026-07-25",
     "ItemID": "",
     "ItemName": "Hydraulic Quick Coupling NPT 1/2\" X 3000 Psi",
@@ -19091,12 +18584,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 8,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 148,
-    "IssueID": "025/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0025",
     "Date": "2026-07-25",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -19111,12 +18603,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 170,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 149,
-    "IssueID": "026/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0026",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -19131,12 +18622,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 18,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 150,
-    "IssueID": "026/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0026",
     "Date": "2026-07-26",
     "ItemID": "",
     "ItemName": "Fitting Hose Crimping 3/8\" Straight C/W. Ferroul FNP-06 JIC",
@@ -19151,12 +18641,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 16,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 151,
-    "IssueID": "027/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0027",
     "Date": "2026-07-27",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -19171,12 +18660,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 10,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 152,
-    "IssueID": "028/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0028",
     "Date": "2026-07-28",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -19191,12 +18679,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 153,
-    "IssueID": "028/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0028",
     "Date": "2026-07-28",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -19211,12 +18698,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 160,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 154,
-    "IssueID": "029/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0029",
     "Date": "2026-07-30",
     "ItemID": "",
     "ItemName": "Union Hammer Coupling 3\" x 6000 psi FIG 602 \"FMC WECO\"",
@@ -19231,12 +18717,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 155,
-    "IssueID": "030/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0030",
     "Date": "2026-07-31",
     "ItemID": "",
     "ItemName": "Union Hammer Coupling 3\" x 6000 psi FIG 602 \"FMC WECO\"",
@@ -19251,12 +18736,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 156,
-    "IssueID": "030/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0030",
     "Date": "2026-07-31",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -19271,12 +18755,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 157,
-    "IssueID": "031/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0031",
     "Date": "2026-08-03",
     "ItemID": "09.01.0026",
     "ItemName": "Weldneck Flange Sch 40 Size 10\"",
@@ -19291,12 +18774,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 10,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 158,
-    "IssueID": "031/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0031",
     "Date": "2026-08-03",
     "ItemID": "",
     "ItemName": "Steel Pipe 10\" - SCH40",
@@ -19311,12 +18793,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 159,
-    "IssueID": "031/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0031",
     "Date": "2026-08-03",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -19331,12 +18812,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 160,
-    "IssueID": "032/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0032",
     "Date": "2026-08-06",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -19351,12 +18831,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 140,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 161,
-    "IssueID": "032/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0032",
     "Date": "2026-08-06",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -19371,12 +18850,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 162,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "09.01.0031",
     "ItemName": "Welded Elbow Sch 40 Size 4\"",
@@ -19391,12 +18869,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "For Mixing Hopper",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 163,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "09.01.0006",
     "ItemName": "Butterfly Valve Size 6\"",
@@ -19411,12 +18888,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "For Mixing Hopper",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 164,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "09.01.0007",
     "ItemName": "Butterfly Valve Size 4\"",
@@ -19431,12 +18907,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "For Mixing Hopper",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 165,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "19.0106",
     "ItemName": "Ball Valve Size 1\"",
@@ -19451,12 +18926,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "For Mixing Hopper",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 166,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "27.004",
     "ItemName": "Double Nipple Size 1\"",
@@ -19471,12 +18945,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "For Mixing Hopper",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 167,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Flange Size 6\"",
@@ -19491,12 +18964,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "For Mixing Hopper",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 168,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "",
     "ItemName": "Flange Size 4\"",
@@ -19511,12 +18983,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "For Mixing Hopper",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 169,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "25.0093",
     "ItemName": "Primary & Secondary Air Filter FLEETGUARD AF890 / 891",
@@ -19531,12 +19002,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "For Engine Mud Pump 1 & 2",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 170,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "40.0079",
     "ItemName": "Line Fuel P/N. 6360707931",
@@ -19551,12 +19021,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "For Engine Mud Pump 1 & 2",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 171,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "29.0014",
     "ItemName": "Press. Gauge 2.5 Inch 0 - 150 Psi Back Conn: 1/4\" S/N. -",
@@ -19571,12 +19040,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 172,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "11.0098",
     "ItemName": "Cable NYYHY 3 x 2.5Mm",
@@ -19591,12 +19059,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 45,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 173,
-    "IssueID": "033/MIS/SCD#20/VII/2026",
+    "IssueID": "MIS-0033",
     "Date": "2026-08-11",
     "ItemID": "40.0126",
     "ItemName": "Receptacle Wall Mounted 3 Pin 16A-6H / 200-250V",
@@ -19611,12 +19078,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 174,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "41.0152",
     "ItemName": "Hammer Union Seal KEMPER 8\"",
@@ -19631,12 +19097,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Installing Outlite Line MGS/Poor Boy",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 175,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "19.0106",
     "ItemName": "Ball Valve 1\" - 400 KITZ, Lever Hdl ( Brass )",
@@ -19651,12 +19116,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Installing Wash Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 176,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "27.004",
     "ItemName": "Double Nipple Size 1\"",
@@ -19671,12 +19135,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Installing Wash Water Line New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 177,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "19.0106",
     "ItemName": "Ball Valve 1\" - 400 KITZ, Lever Hdl ( Brass )",
@@ -19691,12 +19154,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Installing Water Line Hopper Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 178,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "27.004",
     "ItemName": "Double Nipple Size 1\"",
@@ -19711,12 +19173,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Installing Water Line Hopper Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 179,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "19.0095",
     "ItemName": "Hydraulic Quick Coupling NPT 1/2\" X 3000 Psi",
@@ -19731,12 +19192,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 6,
     "Remark": "Replace Connection Hyd. Remote Super Choke",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 180,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "19.0107",
     "ItemName": "Inner Sleeve / Liner Wash Pipe 5001-2492",
@@ -19751,12 +19211,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Repair Spare Wash Pipe",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 181,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "19.011",
     "ItemName": "Check Valve 1/2\" x 6000 Psi CCVHP1015NFS T/C. 30686 COLSON UK Ltd.",
@@ -19771,12 +19230,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Repair Hydro Test Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 182,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "",
     "ItemName": "H- Beam Size 200x200 8\" 12 M LS",
@@ -19791,12 +19249,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Additional Fabrication Pipe Booster",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 183,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "",
     "ItemName": "Black Steel Plate 1200 x 24000 x 16mm",
@@ -19811,12 +19268,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Fabrication Man Hole",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 184,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -19831,12 +19287,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 130,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 185,
-    "IssueID": "035/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0035",
     "Date": "2026-08-14",
     "ItemID": "38.001",
     "ItemName": "Welding Gloves ENDURA 505BUWS",
@@ -19851,12 +19306,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 186,
-    "IssueID": "036/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0036",
     "Date": "2026-08-15",
     "ItemID": "",
     "ItemName": "Paint White NIPPON PAINT @2.5 Kg",
@@ -19871,12 +19325,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Painting Pipe Rack",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 187,
-    "IssueID": "036/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0036",
     "Date": "2026-08-15",
     "ItemID": "",
     "ItemName": "Paint Primer BELMAS Grey @5Kg",
@@ -19891,12 +19344,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Painting Primer Floor New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 188,
-    "IssueID": "036/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0036",
     "Date": "2026-08-15",
     "ItemID": "05.01.0003",
     "ItemName": "Fitting Hose Elbow Size 1/2\" JIC",
@@ -19911,12 +19363,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 9,
     "Remark": "Replace Hyd. Hose MGS / Poor Boy",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 189,
-    "IssueID": "036/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0036",
     "Date": "2026-08-15",
     "ItemID": "05.01.0004",
     "ItemName": "Fitting Hose Straight Size 1/2\" JIC",
@@ -19931,12 +19382,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 17,
     "Remark": "Replace Hyd. Hose MGS / Poor Boy",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 190,
-    "IssueID": "036/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0036",
     "Date": "2026-08-15",
     "ItemID": "19.0071",
     "ItemName": "Ferroul 1/2 Inch P/N. -",
@@ -19951,12 +19401,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 30,
     "Remark": "Replace Hyd. Hose MGS / Poor Boy",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 191,
-    "IssueID": "036/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0036",
     "Date": "2026-08-15",
     "ItemID": "4.0019",
     "ItemName": "Bolt & Nut M12 x 35Mm SS 304",
@@ -19971,12 +19420,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 20,
     "Remark": "Fabrication Panel Box New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 192,
-    "IssueID": "036/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0036",
     "Date": "2026-08-15",
     "ItemID": "4.002",
     "ItemName": "Bolt & Nut M14 x 50Mm SS 304",
@@ -19991,12 +19439,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 20,
     "Remark": "Fabrication Panel Box New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 193,
-    "IssueID": "036/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0036",
     "Date": "2026-08-15",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20011,12 +19458,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 120,
     "Remark": "Welding Jobs Booster Pipe Rack",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 194,
-    "IssueID": "036/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0036",
     "Date": "2026-08-15",
     "ItemID": "38.0013",
     "ItemName": "Stone Pencil FERRARI 125Mm x 12Mm x 5Mm",
@@ -20031,12 +19477,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 21,
     "Remark": "Welding Jobs Booster Pipe Rack",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 195,
-    "IssueID": "037/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0037",
     "Date": "2026-08-16",
     "ItemID": "4.0019",
     "ItemName": "Bolt & Nut M12 x 35Mm SS 304",
@@ -20051,12 +19496,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Fabrication Panel Box New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 196,
-    "IssueID": "037/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0037",
     "Date": "2026-08-16",
     "ItemID": "4.002",
     "ItemName": "Bolt & Nut M14 x 50Mm SS 304",
@@ -20071,12 +19515,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Fabrication Panel Box New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 197,
-    "IssueID": "037/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0037",
     "Date": "2026-08-16",
     "ItemID": "11.0098",
     "ItemName": "Cable NYYHY 3 x 2.5Mm @50 Mtr",
@@ -20091,12 +19534,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Installing Lighting New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 198,
-    "IssueID": "037/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0037",
     "Date": "2026-08-16",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20111,12 +19553,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 115,
     "Remark": "Welding Jobs Booster Pipe Rack",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 199,
-    "IssueID": "037/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0037",
     "Date": "2026-08-16",
     "ItemID": "38.0013",
     "ItemName": "Stone Pencil FERRARI 125Mm x 12Mm x 5Mm",
@@ -20131,12 +19572,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 21,
     "Remark": "Welding Jobs Booster Pipe Rack",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 200,
-    "IssueID": "038/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0038",
     "Date": "2026-08-19",
     "ItemID": "11.0104",
     "ItemName": "TeSys D contactor - 3P(3NO)-AC-3-440V 115A - 220V AC 50/60 Hz coil #PN LC1D115",
@@ -20151,12 +19591,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Fabrication Panel Control New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 201,
-    "IssueID": "038/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0038",
     "Date": "2026-08-19",
     "ItemID": "11.0105",
     "ItemName": "TeSys LRD thermal overload relays - 80...104 A - class 10A P/N. LRD4365",
@@ -20171,12 +19610,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Fabrication Panel Control New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 202,
-    "IssueID": "038/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0038",
     "Date": "2026-08-19",
     "ItemID": "11.0106",
     "ItemName": "Circuit breaker ComPacT NSX100F, 36kA at 415VAC, TMD trip unit 100A, 3 poles 3d P/N. NSX100F",
@@ -20191,12 +19629,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Fabrication Panel Control New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 203,
-    "IssueID": "038/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0038",
     "Date": "2026-08-19",
     "ItemID": "11.0108",
     "ItemName": "TImer OMRON 220V #PN H3CR-68EL",
@@ -20211,12 +19648,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Fabrication Panel Control New Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 204,
-    "IssueID": "038/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0038",
     "Date": "2026-08-19",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20231,12 +19667,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 105,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 205,
-    "IssueID": "038/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0038",
     "Date": "2026-08-19",
     "ItemID": "38.0012",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -20251,12 +19686,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 12,
     "Remark": "Fabrication Sign Board HSE",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 206,
-    "IssueID": "039/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0039",
     "Date": "2026-08-23",
     "ItemID": "16.0002",
     "ItemName": "Major Repair Kit Gate Valve 2\" - 5000 Psi \"DEMCO\" PN. OBS000452 (DGV-25-KRK)",
@@ -20271,12 +19705,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Repair Gate Valve 2\" Kill Line",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 207,
-    "IssueID": "039/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0039",
     "Date": "2026-08-23",
     "ItemID": "09.01.0005",
     "ItemName": "Butterfly Valve Size 10\"",
@@ -20291,12 +19724,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 9,
     "Remark": "Replace Valve 8\" Mud Tank",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 208,
-    "IssueID": "039/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0039",
     "Date": "2026-08-23",
     "ItemID": "09.01.0004",
     "ItemName": "Butterfly Valve Size 8\"",
@@ -20311,12 +19743,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 7,
     "Remark": "Installing Valve Suction Line",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 209,
-    "IssueID": "039/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0039",
     "Date": "2026-08-23",
     "ItemID": "19.0095",
     "ItemName": "Hydraulic Quick Coupling NPT 1/2\" X 3000 Psi",
@@ -20331,12 +19762,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Replace Connection",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 210,
-    "IssueID": "039/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0039",
     "Date": "2026-08-23",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20351,12 +19781,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 95,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 211,
-    "IssueID": "039/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0039",
     "Date": "2026-08-23",
     "ItemID": "38.0012",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -20371,12 +19800,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 8,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 212,
-    "IssueID": "040/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0040",
     "Date": "2026-08-27",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20391,12 +19819,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 85,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 213,
-    "IssueID": "041/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0041",
     "Date": "2026-08-28",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20411,12 +19838,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 80,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 214,
-    "IssueID": "042/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0042",
     "Date": "2026-08-29",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20431,12 +19857,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 75,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 215,
-    "IssueID": "043/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0043",
     "Date": "2026-08-30",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20451,12 +19876,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 70,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 216,
-    "IssueID": "044/MIS/SCD#20/VIII/2026",
+    "IssueID": "MIS-0044",
     "Date": "2026-08-31",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20471,12 +19895,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 65,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 217,
-    "IssueID": "045/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0045",
     "Date": "2026-09-03",
     "ItemID": "",
     "ItemName": "Paint Marine NIPPON PAINT Nippelux Traffic Red",
@@ -20491,12 +19914,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "Painting Suction Mud Pump",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 218,
-    "IssueID": "045/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0045",
     "Date": "2026-09-03",
     "ItemID": "",
     "ItemName": "Paint Marine NIPPON PAINT Nippelux Signal Red",
@@ -20511,12 +19933,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Painting Loadsafe",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 219,
-    "IssueID": "045/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0045",
     "Date": "2026-09-03",
     "ItemID": "",
     "ItemName": "O-Ring 2-275 Size: 3.53 x 253.59 FKM75 GRIND BLACK",
@@ -20531,12 +19952,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Replace O-Ring Hyd. Ball Valve 10\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 220,
-    "IssueID": "045/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0045",
     "Date": "2026-09-03",
     "ItemID": "",
     "ItemName": "O-Ring Cord Size: 3.53 NBR",
@@ -20551,12 +19971,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Replace O-Ring Hyd. Ball Valve 10\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 221,
-    "IssueID": "045/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0045",
     "Date": "2026-09-03",
     "ItemID": "",
     "ItemName": "O-Ring P265 Size: 8.4 x 264.5 NBR70",
@@ -20571,12 +19990,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Replace O-Ring Hyd. Ball Valve 10\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 222,
-    "IssueID": "045/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0045",
     "Date": "2026-09-03",
     "ItemID": "",
     "ItemName": "O-Ring P70 N70",
@@ -20591,12 +20009,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Replace O-Ring Hyd. Ball Valve 10\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 223,
-    "IssueID": "045/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0045",
     "Date": "2026-09-03",
     "ItemID": "",
     "ItemName": "Snap Ring S110",
@@ -20611,12 +20028,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Replace O-Ring Hyd. Ball Valve 10\"",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 224,
-    "IssueID": "045/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0045",
     "Date": "2026-09-03",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20631,12 +20047,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 60,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 225,
-    "IssueID": "045/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0045",
     "Date": "2026-09-03",
     "ItemID": "",
     "ItemName": "Welding Rod RD260 2.0 Mm",
@@ -20651,12 +20066,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Welding Jobs Rack WHS Red",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 226,
-    "IssueID": "046/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0046",
     "Date": "2026-09-06",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20671,12 +20085,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 55,
     "Remark": "Welding Jobs",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 227,
-    "IssueID": "047/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0047",
     "Date": "2026-09-07",
     "ItemID": "",
     "ItemName": "Jumper Hose, 3\" x 7.500 Psi x 10.2 Mtr P/N. #H31021502 75K",
@@ -20691,12 +20104,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "Replace Kelly Hose",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 228,
-    "IssueID": "047/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0047",
     "Date": "2026-09-07",
     "ItemID": "",
     "ItemName": "Hard Line 1\"",
@@ -20711,12 +20123,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "Replace Hard Line Hyd. Rig Mast",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 229,
-    "IssueID": "048/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0048",
     "Date": "2026-09-12",
     "ItemID": "19.0084",
     "ItemName": "Fitting Hose Crimping 3/8\" Elbow 90° C/W. Ferroul FNP-06 JIC",
@@ -20731,12 +20142,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 8,
     "Remark": "Choke Manifold",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 230,
-    "IssueID": "048/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0048",
     "Date": "2026-09-12",
     "ItemID": "19.0097",
     "ItemName": "Hydraulic Quick Coupling NPT 1\" X 3000 Psi",
@@ -20751,12 +20161,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "Accumulator",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 231,
-    "IssueID": "048/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0048",
     "Date": "2026-09-12",
     "ItemID": "19.0067",
     "ItemName": "Fitting Hose 1/4 Inch Stright Conn. JIC P/N. -",
@@ -20771,12 +20180,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 5,
     "Remark": "Choke Manifold",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 232,
-    "IssueID": "048/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0048",
     "Date": "2026-09-12",
     "ItemID": "19.0068",
     "ItemName": "Ferroul 1/4 Inch P/N. -",
@@ -20791,12 +20199,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 9,
     "Remark": "Choke Manifold",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 233,
-    "IssueID": "048/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0048",
     "Date": "2026-09-12",
     "ItemID": "19.0099",
     "ItemName": "Hydraulic Quick Coupling NPT 1/4\" X 3000 Psi",
@@ -20811,12 +20218,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "Choke Manifold",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 234,
-    "IssueID": "049/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0049",
     "Date": "2026-09-14",
     "ItemID": "13.0037",
     "ItemName": "Lube/Oil Filter - FLEETGUARD LF16012 for. Genset INFINITE",
@@ -20831,12 +20237,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 7,
     "Remark": "Service Generatoe Infinite RED",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 235,
-    "IssueID": "049/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0049",
     "Date": "2026-09-14",
     "ItemID": "13.0039",
     "ItemName": "Fuel / Water Separator - FLEETGUARD FS19587 for. Genset INFINITE",
@@ -20851,12 +20256,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 8,
     "Remark": "Service Generatoe Infinite RED",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 236,
-    "IssueID": "050/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0050",
     "Date": "2026-09-17",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20871,12 +20275,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 40,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 237,
-    "IssueID": "050/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0050",
     "Date": "2026-09-17",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -20891,12 +20294,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 238,
-    "IssueID": "051/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0051",
     "Date": "2026-09-21",
     "ItemID": "",
     "ItemName": "White Paint 2.5Kg",
@@ -20911,12 +20313,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 239,
-    "IssueID": "051/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0051",
     "Date": "2026-09-21",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -20931,12 +20332,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 35,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 240,
-    "IssueID": "051/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0051",
     "Date": "2026-09-21",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -20951,12 +20351,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 95,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 241,
-    "IssueID": "052/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0052",
     "Date": "2026-09-24",
     "ItemID": "03.01.0018",
     "ItemName": "Ring Joint R-73",
@@ -20971,12 +20370,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 242,
-    "IssueID": "052/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0052",
     "Date": "2026-09-24",
     "ItemID": "09.01.0019",
     "ItemName": "Collar 3M A105 2\"",
@@ -20991,12 +20389,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 243,
-    "IssueID": "052/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0052",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Checker Plate Matting Rubber",
@@ -21011,12 +20408,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 244,
-    "IssueID": "052/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0052",
     "Date": "2026-09-24",
     "ItemID": "11.01.0001",
     "ItemName": "Welding Rod LB-52 3.2mm (5Kg/Box)",
@@ -21031,12 +20427,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 25,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 245,
-    "IssueID": "052/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0052",
     "Date": "2026-09-24",
     "ItemID": "",
     "ItemName": "Cutting Wheel 4\" 105 x 1.2 x 16Mm",
@@ -21051,12 +20446,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 85,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 246,
-    "IssueID": "053/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0053",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Primary Paint Grey",
@@ -21071,12 +20465,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 247,
-    "IssueID": "053/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0053",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Pad Lock 40mm",
@@ -21091,12 +20484,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 248,
-    "IssueID": "053/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0053",
     "Date": "2026-09-25",
     "ItemID": "",
     "ItemName": "Hydraulic Motor HYDRONIT S/N. M46C1ST21 for. Day Tank",
@@ -21111,12 +20503,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 249,
-    "IssueID": "054/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0054",
     "Date": "2026-09-27",
     "ItemID": "",
     "ItemName": "Silicone Adh Sealent",
@@ -21131,12 +20522,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 250,
-    "IssueID": "054/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0054",
     "Date": "2026-09-27",
     "ItemID": "",
     "ItemName": "Hex Adapter Bushing 1\" Male x 3/8\" Female",
@@ -21151,12 +20541,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 251,
-    "IssueID": "054/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0054",
     "Date": "2026-09-27",
     "ItemID": "",
     "ItemName": "Double Nipple NPT 3/8\"",
@@ -21171,12 +20560,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 252,
-    "IssueID": "054/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0054",
     "Date": "2026-09-27",
     "ItemID": "",
     "ItemName": "O-Ring Seal Size 270mm ID x Thick 10 mm F/Piston Pneumatic Ball Valve 10\"",
@@ -21191,12 +20579,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 253,
-    "IssueID": "054/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0054",
     "Date": "2026-09-27",
     "ItemID": "",
     "ItemName": "Double Nipple 3/8\" Npt X 3/8\" JIC",
@@ -21211,12 +20598,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 254,
-    "IssueID": "055/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0055",
     "Date": "2026-09-28",
     "ItemID": "",
     "ItemName": "O-Ring Seal Size 250mm ID X Thick 5mm F/ Cover Piston Pneumatic Balve Valve 10\"",
@@ -21231,12 +20617,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 255,
-    "IssueID": "055/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0055",
     "Date": "2026-09-28",
     "ItemID": "",
     "ItemName": "Hydraulic Quick Coupling NPT 1\" X 3000 Psi",
@@ -21251,12 +20636,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 256,
-    "IssueID": "055/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0055",
     "Date": "2026-09-28",
     "ItemID": "",
     "ItemName": "Shocket Collar 1\" SS SUS304",
@@ -21271,12 +20655,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 257,
-    "IssueID": "055/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0055",
     "Date": "2026-09-28",
     "ItemID": "",
     "ItemName": "Elbow Adapter 1\" NPT x 1\" NPT",
@@ -21291,12 +20674,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 258,
-    "IssueID": "056/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0056",
     "Date": "2026-09-29",
     "ItemID": "",
     "ItemName": "O-Ring Seal Size 250mm ID X Thick 5mm F/ Cover Piston Pneumatic Balve Valve 10\"",
@@ -21311,12 +20693,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 259,
-    "IssueID": "057/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0057",
     "Date": "2026-10-03",
     "ItemID": "",
     "ItemName": "O-Ring Seal Size 250mm ID X Thick 5mm F/ Cover Piston Pneumatic Balve Valve 10\"",
@@ -21331,12 +20712,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 3,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 260,
-    "IssueID": "058/MIS/SCD#20/IX/2026",
+    "IssueID": "MIS-0058",
     "Date": "2026-10-05",
     "ItemID": "",
     "ItemName": "Welding Rod Lb-52U 2.6mm",
@@ -21351,12 +20731,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 261,
-    "IssueID": "059/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0059",
     "Date": "2026-11-01",
     "ItemID": "",
     "ItemName": "Welding Rod Lb-52U 2.6mm",
@@ -21371,12 +20750,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 262,
-    "IssueID": "060/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0060",
     "Date": "2026-01-16",
     "ItemID": "01.01.0018",
     "ItemName": "Full Open Valve Assy MK-6FO-V1",
@@ -21391,12 +20769,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 12,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 263,
-    "IssueID": "061/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0061",
     "Date": "2026-11-16",
     "ItemID": "01.01.0018",
     "ItemName": "Full Open Valve Assy MK-6FO-V1",
@@ -21411,12 +20788,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 1,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 264,
-    "IssueID": "061/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0061",
     "Date": "2026-11-16",
     "ItemID": "01.01.0019",
     "ItemName": "Valve Seat P/N MK-6FO-56",
@@ -21431,12 +20807,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 4,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 265,
-    "IssueID": "061/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0061",
     "Date": "2026-11-16",
     "ItemID": "03.01.0002",
     "ItemName": "Ring Joint RX-39",
@@ -21451,12 +20826,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 13,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 266,
-    "IssueID": "061/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0061",
     "Date": "2026-11-16",
     "ItemID": "02.01.0012",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A170",
@@ -21471,12 +20845,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 18,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 267,
-    "IssueID": "061/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0061",
     "Date": "2026-11-16",
     "ItemID": "13.01.0001",
     "ItemName": "Dies 3/8 x 1/4 x 4.1/2 P/N PDT381412",
@@ -21491,12 +20864,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 90,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 268,
-    "IssueID": "061/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0061",
     "Date": "2026-11-16",
     "ItemID": "",
     "ItemName": "Pad Lock",
@@ -21511,12 +20883,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 269,
-    "IssueID": "061/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0061",
     "Date": "2026-11-16",
     "ItemID": "",
     "ItemName": "Plug 3 Pin",
@@ -21531,12 +20902,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 270,
-    "IssueID": "062/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0062",
     "Date": "2026-11-17",
     "ItemID": "02.01.0012",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A170",
@@ -21551,12 +20921,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 14,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 271,
-    "IssueID": "062/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0062",
     "Date": "2026-11-17",
     "ItemID": "13.01.0001",
     "ItemName": "Dies 3/8 x 1/4 x 4.1/2 P/N PDT381412",
@@ -21571,12 +20940,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 84,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 272,
-    "IssueID": "062/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0062",
     "Date": "2026-11-17",
     "ItemID": "02.01.0013",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A200",
@@ -21591,12 +20959,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 6,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 273,
-    "IssueID": "062/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0062",
     "Date": "2026-11-17",
     "ItemID": "14.01.0001",
     "ItemName": "Fuel Water Separator Racor P/N P552020TM",
@@ -21611,12 +20978,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 20,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 274,
-    "IssueID": "062/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0062",
     "Date": "2026-11-17",
     "ItemID": "08.01.0026",
     "ItemName": "Camlock Size 1\" Type E100 (IRON)",
@@ -21631,12 +20997,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 5,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 275,
-    "IssueID": "062/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0062",
     "Date": "2026-11-17",
     "ItemID": "08.01.0025",
     "ItemName": "Camlock Size 1\" Type F100 (IRON)",
@@ -21651,12 +21016,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 10,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 276,
-    "IssueID": "062/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0062",
     "Date": "2026-11-17",
     "ItemID": "08.01.0031",
     "ItemName": "Camlock Size 3/4\" Type C75 (IRON)",
@@ -21671,12 +21035,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 15,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 277,
-    "IssueID": "062/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0062",
     "Date": "2026-11-17",
     "ItemID": "06.01.0002",
     "ItemName": "Air Conditioner Split Indoor & outdoor",
@@ -21691,12 +21054,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 278,
-    "IssueID": "062/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0062",
     "Date": "2026-11-17",
     "ItemID": "",
     "ItemName": "Sani Split plumbing Supply",
@@ -21711,12 +21073,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 279,
-    "IssueID": "063/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0063",
     "Date": "2026-11-18",
     "ItemID": "02.01.0013",
     "ItemName": "Screen Shaker Pyramid PMD HYP DX-A200",
@@ -21731,12 +21092,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 5,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 280,
-    "IssueID": "063/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0063",
     "Date": "2026-11-18",
     "ItemID": "",
     "ItemName": "Shade Net",
@@ -21751,12 +21111,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 281,
-    "IssueID": "063/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0063",
     "Date": "2026-11-18",
     "ItemID": "",
     "ItemName": "Plastic Chair",
@@ -21771,12 +21130,11 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 2,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   },
   {
     "_rowIndex": 282,
-    "IssueID": "063/MIS/SCD#20/XI/2026",
+    "IssueID": "MIS-0063",
     "Date": "2026-11-18",
     "ItemID": "",
     "ItemName": "Cooling Sensor",
@@ -21791,8 +21149,7 @@ export const importedIssued: ImportedIssued[] = [
     "RigName": "SILVER CITY DRILLING",
     "Stock": 0,
     "Remark": "",
-    "UpdatedBy": "CSV Import",
-    "IsHistoricalImport": true
+    "UpdatedBy": "CSV Import"
   }
 ];
 

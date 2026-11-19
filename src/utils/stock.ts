@@ -45,9 +45,16 @@ interface IssuedStockCalcParams {
   issued: RecordRow[];
 }
 
+const extractDocSeq = (docId: string): number | null => {
+  const m = docId.match(/(\d+)/);
+  if (!m) return null;
+  const n = parseInt(m[1], 10);
+  return Number.isFinite(n) ? n : null;
+};
+
 /**
  * Calculates Stock On Hand as of a specific Material Issued document/date:
- * LastStock + Receives (<= targetDate) - Prior Issued (< targetDate, or same date & earlier created) - This Document Issued (up to current row).
+ * LastStock + Receives (<= targetDate) - Prior Issued (< targetDate, or same date & earlier seq/created) - This Document Issued (up to current row).
  */
 export const calculateIssuedStockOnHand = ({
   itemCode,
@@ -70,6 +77,7 @@ export const calculateIssuedStockOnHand = ({
 
   const txDate = normalizeDateStr(targetDate);
   const normDocId = String(targetDocId || '').trim().toLowerCase();
+  const targetSeq = normDocId ? extractDocSeq(normDocId) : null;
 
   const lastStock = parseNumberValue(
     matchedItem.LastStock ?? matchedItem.CurrentStock ?? matchedItem.Stock
@@ -77,12 +85,11 @@ export const calculateIssuedStockOnHand = ({
   const baseStockIn = parseNumberValue(matchedItem.BaseStockIn);
   const baseStockOut = parseNumberValue(matchedItem.BaseStockOut);
 
-  // Stock In: include base stockIn + non-historical receives on or before txDate (or undated receives)
+  // Stock In: include base stockIn + receives on or before txDate (or undated receives)
   const stockIn =
     baseStockIn +
     receives
       .filter((rcv) => {
-        if (rcv.IsHistoricalImport) return false;
         if (String(rcv.ItemID || '').trim().toLowerCase() !== normCode) return false;
         const rcvDate = normalizeDateStr(rcv.Date);
         if (!txDate || !rcvDate) return true;
@@ -90,20 +97,19 @@ export const calculateIssuedStockOnHand = ({
       })
       .reduce((acc, curr) => acc + parseNumberValue(curr.Qty), 0);
 
-  // Determine index bounds of the target document inside `issued` (new records are prepended, so older records have larger indices)
+  // Determine index bounds of the target document inside `issued`
   let targetDocFirstIdx = -1;
   if (normDocId) {
     targetDocFirstIdx = issued.findIndex(
-      (iss) => !iss.IsHistoricalImport && String(iss.IssueID || '').trim().toLowerCase() === normDocId
+      (iss) => String(iss.IssueID || '').trim().toLowerCase() === normDocId
     );
   }
 
-  // Prior Stock Out: base stockOut + OTHER non-historical IssueID documents
+  // Prior Stock Out: base stockOut + OTHER IssueID documents up to targetDate
   const priorStockOut =
     baseStockOut +
     issued
       .filter((iss, issIdx) => {
-        if (iss.IsHistoricalImport) return false;
         if (String(iss.ItemID || '').trim().toLowerCase() !== normCode) return false;
 
         const issDocId = String(iss.IssueID || '').trim().toLowerCase();
@@ -116,11 +122,13 @@ export const calculateIssuedStockOnHand = ({
           if (issDate < txDate) return true;
           if (issDate > txDate) return false;
 
-          // Same date, different document:
-          // If current document does not exist in `issued` yet, all existing same-date records occurred before it.
-          if (targetDocFirstIdx === -1) return true;
+          // Same date, different document: compare doc sequence number if available
+          const issSeq = extractDocSeq(issDocId);
+          if (targetSeq !== null && issSeq !== null && issSeq !== targetSeq) {
+            return issSeq < targetSeq;
+          }
 
-          // Records created earlier sit at larger indices (further down) because new entries are prepended.
+          if (targetDocFirstIdx === -1) return true;
           return issIdx > targetDocFirstIdx;
         }
 

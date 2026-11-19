@@ -1,15 +1,101 @@
-import { db, doc, getDoc, getDocFromServer, setDoc, deleteDoc, onSnapshot } from './firebase';
+import { db, doc, getDoc, getDocFromServer, setDoc, deleteDoc } from './firebase';
 
 const CHUNK_SIZE = 1000;
 
+export const FIRESTORE_DATABASE_UPGRADE_URL =
+  'https://console.firebase.google.com/project/fit-figure-r9v0l/firestore/databases/ai-studio-silvercityerp-57d30aeb-3d0d-4926-a14c-c6ef54533a4a/data?openUpgradeDialog=true';
+
+export enum OperationType {
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
+  LIST = 'list',
+  GET = 'get',
+  WRITE = 'write',
+}
+
+interface FirestoreErrorInfo {
+  error: string;
+  operationType: OperationType;
+  path: string | null;
+  authInfo: {
+    userId: string | null;
+    email: string | null;
+    emailVerified: boolean | null;
+    isAnonymous: boolean | null;
+    tenantId: string | null;
+    providerInfo: Array<{ providerId?: string | null; email?: string | null }>;
+  };
+}
+
+export class FirestoreQuotaError extends Error {
+  code = 'resource-exhausted';
+  constructor(message = 'Firestore daily write quota exceeded') {
+    super(message);
+    this.name = 'FirestoreQuotaError';
+  }
+}
+
+let firestoreQuotaExceeded = false;
+let lastKnownItemsJson: string | null = null;
+let lastKnownChunkCount: number | null = null;
+
+export function isFirestoreQuotaExceeded(): boolean {
+  return firestoreQuotaExceeded;
+}
+
+export function isQuotaExceededError(err: unknown): boolean {
+  if (!err) return false;
+  if (err instanceof FirestoreQuotaError) return true;
+  const code = String((err as any)?.code || '').toLowerCase();
+  const msg = String((err as any)?.message || err || '').toLowerCase();
+  return (
+    code === 'resource-exhausted' ||
+    msg.includes('resource-exhausted') ||
+    msg.includes('quota limit exceeded') ||
+    msg.includes('daily write units')
+  );
+}
+
+function handleFirestoreError(
+  error: unknown,
+  operationType: OperationType,
+  path: string | null
+): never {
+  if (isQuotaExceededError(error)) {
+    firestoreQuotaExceeded = true;
+    throw new FirestoreQuotaError(
+      error instanceof Error ? error.message : String(error)
+    );
+  }
+
+  const errInfo: FirestoreErrorInfo = {
+    error: error instanceof Error ? error.message : String(error),
+    authInfo: {
+      userId: null,
+      email: null,
+      emailVerified: null,
+      isAnonymous: null,
+      tenantId: null,
+      providerInfo: [],
+    },
+    operationType,
+    path,
+  };
+  console.error('Firestore Error: ', JSON.stringify(errInfo));
+  throw new Error(JSON.stringify(errInfo));
+}
+
 function sanitize(obj: any): any {
   if (!obj) return obj;
-  return JSON.parse(JSON.stringify(obj, (_key, val) => (val === undefined ? null : val)));
+  return JSON.parse(
+    JSON.stringify(obj, (_key, val) => (val === undefined ? null : val))
+  );
 }
 
 /**
  * Purges all stale legacy dataset keys from localStorage and IndexedDB
- * ensuring the application relies strictly and directly on Firebase Firestore.
+ * ensuring the application relies strictly on server/Firestore sync.
  */
 export function purgeLocalStorageDataset(): void {
   try {
@@ -24,9 +110,9 @@ export function purgeLocalStorageDataset(): void {
       'sc_company_header',
       'sc_doc_headers',
       'sc_custom_col_headers',
-      'sc_data_version'
+      'sc_data_version',
     ];
-    keysToRemove.forEach(k => {
+    keysToRemove.forEach((k) => {
       try {
         localStorage.removeItem(k);
       } catch {
@@ -48,67 +134,77 @@ export function purgeLocalStorageDataset(): void {
 
 /**
  * Direct write to Firebase Firestore.
- * Breaks large items array into chunk documents and updates main_store manifest.
+ * Only writes chunk documents if the items array actually changed to minimize Firestore write units.
  */
 export async function saveChunkedFirestore(storeObj: any): Promise<void> {
-  try {
-    const items = Array.isArray(storeObj.items) ? storeObj.items : [];
-    
-    // 1. Chunk items into smaller documents (max 1000 items per doc)
-    const chunks: any[][] = [];
-    for (let i = 0; i < items.length; i += CHUNK_SIZE) {
-      chunks.push(items.slice(i, i + CHUNK_SIZE));
-    }
+  if (firestoreQuotaExceeded) {
+    throw new FirestoreQuotaError();
+  }
 
-    // 2. Write each chunk to 'erp_chunks/chunk_X' in Firestore
-    const chunkPromises = chunks.map((chunk, idx) => {
-      return setDoc(doc(db, 'erp_chunks', `chunk_${idx}`), {
-        chunkIndex: idx,
-        items: sanitize(chunk),
-        updatedAt: new Date().toISOString()
-      });
-    });
+  const items = sanitize(Array.isArray(storeObj.items) ? storeObj.items : []);
+  const itemsJson = JSON.stringify(items);
 
-    await Promise.all(chunkPromises);
+  // 1. Chunk items into smaller documents (max 1000 items per doc)
+  const chunks: any[][] = [];
+  for (let i = 0; i < items.length; i += CHUNK_SIZE) {
+    chunks.push(items.slice(i, i + CHUNK_SIZE));
+  }
 
-    // 3. Remove leftover old chunks if chunk count decreased
+  // 2. Write item chunks ONLY when items actually changed since last load/save
+  const itemsChanged = lastKnownItemsJson !== itemsJson;
+  if (itemsChanged) {
     try {
-      const prevMetaSnap = await getDoc(doc(db, 'erp', 'main_store'));
-      if (prevMetaSnap.exists()) {
-        const prevMeta = prevMetaSnap.data();
-        const prevCount = Number(prevMeta.chunkCount) || 0;
-        if (prevCount > chunks.length) {
-          const deletePromises = [];
-          for (let i = chunks.length; i < prevCount; i++) {
-            deletePromises.push(deleteDoc(doc(db, 'erp_chunks', `chunk_${i}`)));
-          }
-          await Promise.all(deletePromises);
-        }
-      }
-    } catch (cleanErr) {
-      console.warn("Firestore chunk cleanup info:", cleanErr);
+      const chunkPromises = chunks.map((chunk, idx) =>
+        setDoc(doc(db, 'erp_chunks', `chunk_${idx}`), {
+          chunkIndex: idx,
+          items: chunk,
+          updatedAt: new Date().toISOString(),
+        })
+      );
+      await Promise.all(chunkPromises);
+    } catch (err) {
+      handleFirestoreError(err, OperationType.WRITE, 'erp_chunks');
     }
 
-    // 4. Save main store metadata directly to Firestore
-    const mainManifest = {
-      chunkCount: chunks.length,
-      itemCount: items.length,
-      requests: sanitize(storeObj.requests || []),
-      pos: sanitize(storeObj.pos || []),
-      receives: sanitize(storeObj.receives || []),
-      issued: sanitize(storeObj.issued || []),
-      users: sanitize(storeObj.users || []),
-      companyHeader: sanitize(storeObj.companyHeader || {}),
-      savedDocHeaders: sanitize(storeObj.savedDocHeaders || {}),
-      customColHeaders: sanitize(storeObj.customColHeaders || {}),
-      dataVersion: storeObj.dataVersion,
-      lastUpdated: storeObj.lastUpdated || Date.now()
-    };
+    // 3. Remove leftover old chunks only if chunk count decreased
+    if (lastKnownChunkCount !== null && lastKnownChunkCount > chunks.length) {
+      try {
+        const deletePromises = [];
+        for (let i = chunks.length; i < lastKnownChunkCount; i++) {
+          deletePromises.push(deleteDoc(doc(db, 'erp_chunks', `chunk_${i}`)));
+        }
+        await Promise.all(deletePromises);
+      } catch (cleanErr) {
+        if (isQuotaExceededError(cleanErr)) {
+          handleFirestoreError(cleanErr, OperationType.DELETE, 'erp_chunks');
+        }
+        console.warn('Firestore chunk cleanup info:', cleanErr);
+      }
+    }
+  }
 
+  // 4. Save main store manifest directly to Firestore
+  const mainManifest = {
+    chunkCount: chunks.length,
+    itemCount: items.length,
+    requests: sanitize(storeObj.requests || []),
+    pos: sanitize(storeObj.pos || []),
+    receives: sanitize(storeObj.receives || []),
+    issued: sanitize(storeObj.issued || []),
+    users: sanitize(storeObj.users || []),
+    companyHeader: sanitize(storeObj.companyHeader || {}),
+    savedDocHeaders: sanitize(storeObj.savedDocHeaders || {}),
+    customColHeaders: sanitize(storeObj.customColHeaders || {}),
+    dataVersion: storeObj.dataVersion,
+    lastUpdated: storeObj.lastUpdated || Date.now(),
+  };
+
+  try {
     await setDoc(doc(db, 'erp', 'main_store'), mainManifest);
-  } catch (err: any) {
-    console.error("Direct Firestore save error:", err);
-    throw err;
+    lastKnownItemsJson = itemsJson;
+    lastKnownChunkCount = chunks.length;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.WRITE, 'erp/main_store');
   }
 }
 
@@ -128,7 +224,7 @@ export async function loadChunkedFirestore(mainData: any): Promise<any> {
       }
       const snaps = await Promise.all(chunkPromises);
       const combinedItems: any[] = [];
-      snaps.forEach(snap => {
+      snaps.forEach((snap) => {
         if (snap.exists()) {
           const data = snap.data();
           if (Array.isArray(data.items)) {
@@ -137,33 +233,45 @@ export async function loadChunkedFirestore(mainData: any): Promise<any> {
         }
       });
       resultStore.items = combinedItems;
+      lastKnownItemsJson = JSON.stringify(sanitize(combinedItems));
+      lastKnownChunkCount = mainData.chunkCount;
     } else if (!Array.isArray(mainData.items)) {
       resultStore.items = [];
+    } else {
+      lastKnownItemsJson = JSON.stringify(sanitize(mainData.items));
+      lastKnownChunkCount = 0;
     }
 
     return resultStore;
   } catch (err: any) {
-    console.error("Error loading chunked Firestore data:", err);
+    console.error('Error loading chunked Firestore data:', err);
     return mainData;
   }
 }
 
 /**
- * Direct fetch of the entire store from Firebase Firestore
+ * Direct fetch of the entire store from Firebase Firestore.
+ * Uses getDocFromServer on initial boot to validate live connectivity.
  */
 export async function fetchFullStoreFromFirestore(): Promise<any | null> {
   try {
     let mainSnap;
     try {
       mainSnap = await getDocFromServer(doc(db, 'erp', 'main_store'));
-    } catch {
+    } catch (serverErr: any) {
+      if (
+        serverErr instanceof Error &&
+        serverErr.message.includes('the client is offline')
+      ) {
+        console.error('Please check your Firebase configuration.');
+      }
       mainSnap = await getDoc(doc(db, 'erp', 'main_store'));
     }
     if (!mainSnap.exists()) return null;
     const rawData = mainSnap.data();
     return await loadChunkedFirestore(rawData);
   } catch (err) {
-    console.error("Failed to fetch full store from Firestore:", err);
+    console.warn('Failed to fetch full store from Firestore:', err);
     return null;
   }
 }
