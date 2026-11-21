@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CompanyHeader, DocHeader, RecordRow, TabName } from '../types';
 import { calculateIssuedStockOnHand } from '../utils/stock';
 
@@ -124,6 +124,8 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
     window.print();
   };
 
+  const [extraRowsByDept, setExtraRowsByDept] = useState<Record<string, number>>({});
+
   // Normalize department names for strict grouping
   const normalizeDept = (deptStr: string) => {
     const s = String(deptStr || '').trim().toLowerCase().replace(/^dept\.\s*/i, '');
@@ -134,40 +136,63 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
     return s;
   };
 
+  const hasCellValue = (val: unknown) =>
+    val !== undefined && val !== null && String(val).trim() !== '';
+
+  const isNonEmptyIssuedRow = (item: RecordRow) =>
+    hasCellValue(item.ItemID) ||
+    hasCellValue(item.ItemName) ||
+    hasCellValue(item.Qty) ||
+    hasCellValue(item.UoM) ||
+    hasCellValue(item.Stock) ||
+    hasCellValue(item.Remark) ||
+    hasCellValue(item.Out);
+
+  const getEffectiveItemDept = (item: RecordRow) => {
+    if (hasCellValue(item.Department)) return String(item.Department).trim();
+    if (hasCellValue(printDocHeader.Department)) return String(printDocHeader.Department).trim();
+    return '';
+  };
+
   // Standard department lists
   const defaultDepartments = ['Dept. Drilling', 'Dept. Mechanic', 'Dept. Electric', 'Dept. Welder'];
+  const defaultDeptNorms = new Set(['drilling', 'mechanic', 'electric', 'welder']);
 
-  // Dynamically collect custom departments if present in printDocItems
-  const extraDepartments = Array.from<string>(
-    new Set<string>(
-      printDocItems
-        .map(item => item.Department ? String(item.Department).trim() : '')
-        .filter(d => {
-          if (!d) return false;
-          const norm = normalizeDept(d);
-          return !['drilling', 'mechanic', 'electric', 'welder'].includes(norm);
-        })
-    )
-  ).map((d: string) => d.toLowerCase().startsWith('dept') ? d : `Dept. ${d}`);
+  // Dynamically collect custom departments (deduplicated by normalized name) so no inputted row is ever hidden
+  const extraDepartmentsMap = new Map<string, string>();
+  let hasGeneralDeptItem = false;
+  printDocItems.forEach(item => {
+    if (!isNonEmptyIssuedRow(item)) return;
+    const rawDept = getEffectiveItemDept(item);
+    const norm = normalizeDept(rawDept);
+    if (!norm) {
+      hasGeneralDeptItem = true;
+      return;
+    }
+    if (!defaultDeptNorms.has(norm) && !extraDepartmentsMap.has(norm)) {
+      const label = rawDept.toLowerCase().startsWith('dept') ? rawDept : `Dept. ${rawDept}`;
+      extraDepartmentsMap.set(norm, label);
+    }
+  });
 
-  const departments: string[] = [...defaultDepartments, ...extraDepartments];
+  const extraDepartments = Array.from(extraDepartmentsMap.values());
+  const departments: string[] = [
+    ...defaultDepartments,
+    ...extraDepartments,
+    ...(hasGeneralDeptItem && !extraDepartmentsMap.has('general') ? ['Dept. General'] : []),
+  ];
 
   // Map items strictly to their respective department
   const getDepartmentItems = (deptName: string) => {
     const targetNorm = normalizeDept(deptName);
 
     return printDocItems.filter(item => {
-      // Check item-level department first, fallback to header department
-      const rawDept = item.Department
-        ? String(item.Department)
-        : (printDocHeader.Department ? String(printDocHeader.Department) : '');
-
-      const itemNorm = normalizeDept(rawDept);
-
-      // If item is empty (no ItemID, ItemName, Qty), ignore it
-      if (!item.ItemID && !item.ItemName && item.Qty === undefined) {
+      if (!isNonEmptyIssuedRow(item)) {
         return false;
       }
+
+      const rawDept = getEffectiveItemDept(item);
+      const itemNorm = normalizeDept(rawDept) || 'general';
 
       return itemNorm === targetNorm;
     });
@@ -227,6 +252,11 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
           Department: deptClean
         });
         targetIdx = copy.length - 1;
+        setExtraRowsByDept(prevExtra => {
+          const current = prevExtra[deptName] || 0;
+          if (current <= 0) return prevExtra;
+          return { ...prevExtra, [deptName]: current - 1 };
+        });
       }
 
       if (field === 'ItemID' && targetIdx >= 0) {
@@ -954,22 +984,47 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                   <tbody>
                     {departments.map((dept) => {
                       const deptItems = getDepartmentItems(dept);
-                      const rowIndices = Array.from({ length: 8 }, (_, i) => i);
+                      const minPrintRows = Math.max(deptItems.length, 1);
+                      const extraBlank = isHeaderEditMode ? (extraRowsByDept[dept] || 0) : 0;
+                      const visibleRowCount = isHeaderEditMode
+                        ? Math.max(deptItems.length + 1, 2) + extraBlank
+                        : minPrintRows;
+                      const rowIndices = Array.from({ length: visibleRowCount }, (_, i) => i);
 
                       return (
                         <React.Fragment key={dept}>
                           {/* Department Bar */}
                           <tr className="bg-[#e0e0e0] text-black font-extrabold text-[11px] border-y border-black">
                             <td colSpan={7} className="px-2 py-0.5 text-left border-black">
-                              {dept}
+                              <div className="flex items-center justify-between gap-2">
+                                <span>{dept}</span>
+                                {isHeaderEditMode && (
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setExtraRowsByDept(prev => ({
+                                        ...prev,
+                                        [dept]: (prev[dept] || 0) + 1
+                                      }))
+                                    }
+                                    className="print:hidden px-1.5 py-0.5 text-[10px] font-bold bg-white hover:bg-slate-100 text-slate-800 border border-slate-500 rounded cursor-pointer"
+                                  >
+                                    + Baris
+                                  </button>
+                                )}
+                              </div>
                             </td>
                           </tr>
 
-                          {/* 8 Rows per Department */}
+                          {/* Dynamic Adjustable Rows per Department */}
                           {rowIndices.map((rowIdx) => {
                             const item = deptItems[rowIdx];
+                            const isTrailingEditBlankRow = !item && rowIdx >= minPrintRows;
                             return (
-                              <tr key={rowIdx} className="border-b border-black h-6 text-[10px]">
+                              <tr
+                                key={rowIdx}
+                                className={`border-b border-black h-6 text-[10px]${isTrailingEditBlankRow ? ' print:hidden' : ''}`}
+                              >
                                 {/* No. */}
                                 <td className="p-0.5 border-r border-black text-center font-bold">
                                   {rowIdx + 1}

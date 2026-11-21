@@ -163,6 +163,9 @@ export default function App() {
 
   const isFirestoreHydratedRef = React.useRef<boolean>(false);
   const latestAppliedUpdatedRef = React.useRef<number>(0);
+  const lastModifiedLocalTsRef = React.useRef<number>(0);
+  const hasUnsavedChangesRef = React.useRef<boolean>(false);
+  const pendingSyncCountRef = React.useRef<number>(0);
   const hasShownQuotaToastRef = React.useRef<boolean>(false);
   const syncQueueRef = React.useRef<Promise<boolean>>(Promise.resolve(true));
   const syncDebounceTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -174,6 +177,7 @@ export default function App() {
   const writeSeqRef = React.useRef<number>(0);
   const lastOwnWriteIdRef = React.useRef<string>('');
   const lastRemoteWriteIdRef = React.useRef<string>('');
+  const lastLocalServerWriteIdRef = React.useRef<string>('');
   const isRefreshingFirestoreRef = React.useRef<boolean>(false);
   const LOCAL_BACKUP_KEY = 'sc_offline_sync_backup';
 
@@ -285,7 +289,13 @@ export default function App() {
     }
   };
 
+  const hasPendingLocalSync = () =>
+    Boolean(syncDebounceTimerRef.current) ||
+    pendingSyncCountRef.current > 0 ||
+    hasUnsavedChangesRef.current;
+
   const executeSyncNow = async (overrideStore?: any) => {
+    pendingSyncCountRef.current += 1;
     setIsSavingToFirestore(true);
 
     // Build from latestStoreRef.current so rapid sequential edits never overwrite newer state
@@ -358,7 +368,10 @@ export default function App() {
         setIsFirebaseConnected(true);
         setIsFirestoreQuotaBlocked(false);
         hasShownQuotaToastRef.current = false;
-        clearOfflineBackup();
+        if (lastModifiedLocalTsRef.current <= newTs && !syncDebounceTimerRef.current) {
+          hasUnsavedChangesRef.current = false;
+          clearOfflineBackup();
+        }
       } catch (e) {
         if (isQuotaExceededError(e)) {
           notifyFirestoreQuotaExceeded();
@@ -375,7 +388,8 @@ export default function App() {
       }
       return firestoreOk;
     } finally {
-      if (!syncDebounceTimerRef.current) {
+      pendingSyncCountRef.current = Math.max(0, pendingSyncCountRef.current - 1);
+      if (!syncDebounceTimerRef.current && pendingSyncCountRef.current === 0) {
         setIsSavingToFirestore(false);
       }
     }
@@ -466,16 +480,32 @@ export default function App() {
       if (localServerStore) candidates.push({ source: 'local', store: localServerStore, ts: Number(localServerStore.lastUpdated) || 0 });
       if (backupStore) candidates.push({ source: 'backup', store: backupStore, ts: Number(backupStore.lastUpdated) || 0 });
 
+      if (firestoreStore?.clientWriteId) {
+        lastRemoteWriteIdRef.current = String(firestoreStore.clientWriteId);
+      }
+      if (localServerStore?.clientWriteId) {
+        lastLocalServerWriteIdRef.current = String(localServerStore.clientWriteId);
+      }
+
       candidates.sort((a, b) => b.ts - a.ts);
       const newest = candidates[0];
+      const firestoreTs = Number(firestoreStore?.lastUpdated) || 0;
 
       if (newest) {
         const hydratedNewest = migrateStoreData(newest.store);
         applyHydratedStore(hydratedNewest);
         if (firestoreStore) setIsFirebaseConnected(true);
+
         if (newest.source === 'firestore') {
+          hasUnsavedChangesRef.current = false;
           clearOfflineBackup();
+        } else if (newest.ts > firestoreTs) {
+          // Local backup or local server has edits newer than Firestore: push them up right away
+          hasUnsavedChangesRef.current = true;
+          lastModifiedLocalTsRef.current = newest.ts;
+          pushSyncToServer(hydratedNewest);
         }
+
         const localTs = Number(localServerStore?.lastUpdated) || 0;
         if (newest.source !== 'local' && newest.ts > localTs) {
           fetch('/api/sync', {
@@ -507,7 +537,7 @@ export default function App() {
           const serverCheck = await getDocFromServer(doc(db, 'erp', 'main_store'));
           if (serverCheck.exists()) {
             const s = await loadChunkedFirestore(serverCheck.data());
-            if (isMounted && s) {
+            if (isMounted && s && !hasPendingLocalSync()) {
               const sTs = Number(s.lastUpdated) || 0;
               if (sTs > latestAppliedUpdatedRef.current) {
                 applyHydratedStore(s);
@@ -561,11 +591,16 @@ export default function App() {
         if (remoteWriteId && remoteWriteId === lastOwnWriteIdRef.current) {
           return;
         }
+        const rawTs = Number(rawData.lastUpdated) || 0;
+        // Fast reject older snapshots before touching bucket docs
+        if (hasPendingLocalSync() || rawTs < latestAppliedUpdatedRef.current) {
+          return;
+        }
         const s = await loadChunkedFirestore(rawData);
-        if (isMounted && s) {
+        if (isMounted && s && !hasPendingLocalSync()) {
           const sTs = Number(s.lastUpdated) || 0;
           const isNewRemoteWrite = Boolean(remoteWriteId && remoteWriteId !== lastRemoteWriteIdRef.current);
-          if ((sTs > latestAppliedUpdatedRef.current || isNewRemoteWrite) && !syncDebounceTimerRef.current) {
+          if (sTs > latestAppliedUpdatedRef.current || (isNewRemoteWrite && sTs >= latestAppliedUpdatedRef.current)) {
             if (remoteWriteId) lastRemoteWriteIdRef.current = remoteWriteId;
             applyHydratedStore(s);
           }
@@ -580,17 +615,17 @@ export default function App() {
     });
 
     const refreshFromFirestore = async () => {
-      if (!isMounted || isRefreshingFirestoreRef.current || syncDebounceTimerRef.current) return;
+      if (!isMounted || isRefreshingFirestoreRef.current || hasPendingLocalSync()) return;
       isRefreshingFirestoreRef.current = true;
       try {
         const s = await fetchFullStoreFromFirestore();
-        if (!isMounted || !s || syncDebounceTimerRef.current) return;
+        if (!isMounted || !s || hasPendingLocalSync()) return;
         setIsFirebaseConnected(true);
         const remoteWriteId = typeof s.clientWriteId === 'string' ? s.clientWriteId : '';
         if (remoteWriteId && remoteWriteId === lastOwnWriteIdRef.current) return;
         const sTs = Number(s.lastUpdated) || 0;
         const isNewRemoteWrite = Boolean(remoteWriteId && remoteWriteId !== lastRemoteWriteIdRef.current);
-        if (sTs > latestAppliedUpdatedRef.current || isNewRemoteWrite) {
+        if (sTs > latestAppliedUpdatedRef.current || (isNewRemoteWrite && sTs >= latestAppliedUpdatedRef.current)) {
           if (remoteWriteId) lastRemoteWriteIdRef.current = remoteWriteId;
           applyHydratedStore(s);
         }
@@ -602,7 +637,7 @@ export default function App() {
     };
 
     const refreshFromLocalServer = async () => {
-      if (!isMounted || syncDebounceTimerRef.current) return;
+      if (!isMounted || hasPendingLocalSync()) return;
       try {
         const verRes = await fetch('/api/sync/version', { cache: 'no-store' });
         if (!verRes.ok) return;
@@ -610,13 +645,13 @@ export default function App() {
         const srvTs = Number(ver?.lastUpdated) || 0;
         const remoteWriteId = typeof ver?.clientWriteId === 'string' ? ver.clientWriteId : '';
         if (remoteWriteId && remoteWriteId === lastOwnWriteIdRef.current) return;
-        const isNewRemoteWrite = Boolean(remoteWriteId && remoteWriteId !== lastRemoteWriteIdRef.current);
+        const isNewRemoteWrite = Boolean(remoteWriteId && remoteWriteId !== lastLocalServerWriteIdRef.current);
         if (srvTs > latestAppliedUpdatedRef.current || (isNewRemoteWrite && srvTs >= latestAppliedUpdatedRef.current)) {
           const fullRes = await fetch('/api/sync', { cache: 'no-store' });
-          if (!fullRes.ok || !isMounted || syncDebounceTimerRef.current) return;
+          if (!fullRes.ok || !isMounted || hasPendingLocalSync()) return;
           const json = await fullRes.json();
           if (json?.store && Array.isArray(json.store.items)) {
-            if (remoteWriteId) lastRemoteWriteIdRef.current = remoteWriteId;
+            if (remoteWriteId) lastLocalServerWriteIdRef.current = remoteWriteId;
             applyHydratedStore(json.store);
           }
         }
@@ -656,7 +691,8 @@ export default function App() {
           if (!isMounted || !ev?.data || ev.data.type !== 'SYNC_UPDATE') return;
           const remoteWriteId = typeof ev.data.clientWriteId === 'string' ? ev.data.clientWriteId : '';
           if (remoteWriteId && remoteWriteId === lastOwnWriteIdRef.current) return;
-          if (ev.data.store && !syncDebounceTimerRef.current) {
+          const msgTs = Number(ev.data.timestamp ?? ev.data.store?.lastUpdated) || 0;
+          if (ev.data.store && !hasPendingLocalSync() && msgTs >= latestAppliedUpdatedRef.current) {
             if (remoteWriteId) lastRemoteWriteIdRef.current = remoteWriteId;
             applyHydratedStore(ev.data.store);
           }
@@ -667,12 +703,16 @@ export default function App() {
     }
 
     const flushOnUnload = () => {
+      const hadTimer = Boolean(syncDebounceTimerRef.current);
       if (syncDebounceTimerRef.current) {
         clearTimeout(syncDebounceTimerRef.current);
         syncDebounceTimerRef.current = null;
         pendingOverrideStoreRef.current = undefined;
+      }
+      if (hadTimer || hasUnsavedChangesRef.current || pendingSyncCountRef.current > 0) {
         const newTs = Math.max(Date.now(), latestAppliedUpdatedRef.current + 1);
         latestAppliedUpdatedRef.current = newTs;
+        lastModifiedLocalTsRef.current = newTs;
         writeSeqRef.current += 1;
         const writeId = `${clientSessionIdRef.current}:${writeSeqRef.current}`;
         lastOwnWriteIdRef.current = writeId;
@@ -692,19 +732,19 @@ export default function App() {
         };
         saveOfflineBackup(payload);
         try {
+          saveChunkedFirestore(payload, { keepalive: true }).catch(() => {});
+        } catch {
+          // Ignore unload Firestore errors
+        }
+        try {
+          // Full store JSON exceeds 64KB keepalive limit, so omit keepalive here to avoid silent browser rejection
           fetch('/api/sync', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ store: payload }),
-            keepalive: true
+            body: JSON.stringify({ store: payload })
           }).catch(() => {});
         } catch {
           // Ignore unload network errors
-        }
-        try {
-          saveChunkedFirestore(payload).catch(() => {});
-        } catch {
-          // Ignore unload Firestore errors
         }
       }
     };
@@ -914,6 +954,26 @@ export default function App() {
     }
   };
 
+  const getLatestArrayForTab = (tab: TabName): RecordRow[] => {
+    switch (tab) {
+      case 'ItemList':
+      case 'Inventory':
+        return latestStoreRef.current.items;
+      case 'MaterialRequest':
+        return latestStoreRef.current.requests;
+      case 'PurchaseOrder':
+        return latestStoreRef.current.purchaseOrders;
+      case 'MaterialReceive':
+        return latestStoreRef.current.receives;
+      case 'MaterialIssued':
+        return latestStoreRef.current.issued;
+      case 'Users':
+        return latestStoreRef.current.users;
+      default:
+        return [];
+    }
+  };
+
   const updateDataForTab = (
     tab: TabName,
     updated: RecordRow[],
@@ -968,6 +1028,8 @@ export default function App() {
 
     const immediateTs = Math.max(Date.now(), latestAppliedUpdatedRef.current + 1);
     latestAppliedUpdatedRef.current = immediateTs;
+    lastModifiedLocalTsRef.current = immediateTs;
+    hasUnsavedChangesRef.current = true;
     saveOfflineBackup({
       items: newItems,
       requests: newRequests,
@@ -1166,7 +1228,7 @@ export default function App() {
       showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
       return;
     }
-    const currentData = [...getRawDataForTab(activeTab)];
+    const currentData = [...getLatestArrayForTab(activeTab)];
     let targetIdx = -1;
 
     if (typeof rowObjOrIndex === 'object' && rowObjOrIndex !== null) {
@@ -1188,7 +1250,7 @@ export default function App() {
 
     if ('ItemID' in updates) {
       const itemVal = updates['ItemID'];
-      const match = items.find(i => String(i.ItemID).toLowerCase() === String(itemVal).toLowerCase());
+      const match = latestStoreRef.current.items.find(i => String(i.ItemID).toLowerCase() === String(itemVal).toLowerCase());
       if (match) {
         row.ItemName = match.ItemName || row.ItemName || '';
         if (row.UnitPriceUSD !== undefined) row.UnitPriceUSD = match.UnitPriceUSD || 0;
@@ -1197,7 +1259,7 @@ export default function App() {
       }
     } else if ('ItemName' in updates) {
       const nameVal = updates['ItemName'];
-      const match = items.find(i => String(i.ItemName).toLowerCase() === String(nameVal).toLowerCase());
+      const match = latestStoreRef.current.items.find(i => String(i.ItemName).toLowerCase() === String(nameVal).toLowerCase());
       if (match) {
         if (activeTab !== 'ItemList' && activeTab !== 'Inventory') {
           row.ItemID = match.ItemID || row.ItemID || '';
@@ -1250,7 +1312,7 @@ export default function App() {
       'Attachment' in updates ||
       'Photo' in updates ||
       'Date' in updates;
-    updateDataForTab(activeTab, currentData, isDiscreteSelect ? undefined : { debounceMs: 1000 });
+    updateDataForTab(activeTab, currentData, isDiscreteSelect ? undefined : { debounceMs: 400 });
   };
 
   const promptDeleteRow = (globalRowIndex: number, rowObj?: RecordRow) => {
@@ -1458,9 +1520,17 @@ export default function App() {
       return;
     }
 
-    const currentData = [...getRawDataForTab(activeTab)];
+    const currentData = [...getLatestArrayForTab(activeTab)];
     const primaryKey = (TAB_SCHEMAS[activeTab] || [])[0] || 'ID';
     const recordToSave = { ...editingRecord };
+    if (activeTab === 'ItemList' || activeTab === 'Inventory') {
+      if (recordToSave.LastStock !== undefined && recordToSave.LastStock !== '') {
+        recordToSave.LastStock = parseNumberValue(recordToSave.LastStock);
+      }
+      if (recordToSave.MinStock !== undefined && recordToSave.MinStock !== '') {
+        recordToSave.MinStock = parseNumberValue(recordToSave.MinStock);
+      }
+    }
     const isCreatingNew = editingOriginalRecord === null && editingRowIndex === null;
 
     if (!recordToSave[primaryKey] || String(recordToSave[primaryKey]).trim() === '') {
@@ -1558,23 +1628,33 @@ export default function App() {
   const addMultiRow = () => {
     const schema = TAB_SCHEMAS[activeTab] || [];
     const primaryKey = schema[0] || 'ID';
-    const currentId = multiRows.length > 0 && multiRows[0][primaryKey]
-      ? String(multiRows[0][primaryKey])
-      : getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
-    const newRow: RecordRow = {};
-    schema.forEach(col => {
-      if (col === primaryKey && currentId) newRow[col] = currentId;
-      else if (col === 'Date') newRow[col] = new Date().toISOString().split('T')[0];
-      else if (col === 'Priority') newRow[col] = 'Normal';
-      else if (col === 'UpdatedBy') newRow[col] = currentUser ? currentUser.username : 'System';
-      else newRow[col] = '';
+    const fallbackId = getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
+    const today = new Date().toISOString().split('T')[0];
+
+    setMultiRows(prev => {
+      const currentId = prev.length > 0 && prev[0][primaryKey]
+        ? String(prev[0][primaryKey])
+        : fallbackId;
+      const firstRowDate = prev.length > 0 && prev[0].Date !== undefined && String(prev[0].Date).trim() !== ''
+        ? String(prev[0].Date)
+        : today;
+
+      const newRow: RecordRow = {};
+      schema.forEach(col => {
+        if (col === primaryKey && currentId) newRow[col] = currentId;
+        else if (col === 'Date') newRow[col] = firstRowDate;
+        else if (col === 'Priority') newRow[col] = 'Normal';
+        else if (col === 'UpdatedBy') newRow[col] = currentUser ? currentUser.username : 'System';
+        else newRow[col] = '';
+      });
+      return [...prev, newRow];
     });
-    setMultiRows(prev => [...prev, newRow]);
   };
 
   const handleMultiRowChange = (index: number, fieldOrObj: string | Record<string, any>, val?: any) => {
     setMultiRows(prev => {
       const copy = [...prev];
+      const prevFirstDate = prev[0]?.Date ?? '';
       const updates = typeof fieldOrObj === 'object' && fieldOrObj !== null ? fieldOrObj : { [String(fieldOrObj)]: val };
       let row = { ...copy[index], ...updates };
 
@@ -1592,6 +1672,17 @@ export default function App() {
       row = processPriceUpdates(updates, row);
 
       copy[index] = row;
+
+      // When changing Date on the first row, sync subsequent rows to follow the first row's date
+      if (index === 0 && 'Date' in updates) {
+        const nextFirstDate = updates.Date ?? '';
+        for (let idx = 1; idx < copy.length; idx++) {
+          const existingDate = copy[idx]?.Date ?? '';
+          if (existingDate === '' || existingDate === prevFirstDate) {
+            copy[idx] = { ...copy[idx], Date: nextFirstDate };
+          }
+        }
+      }
 
       const primaryKey = (TAB_SCHEMAS[activeTab] || [])[0];
       const primaryVal = primaryKey && row[primaryKey] ? String(row[primaryKey]).trim() : '';
@@ -1719,28 +1810,43 @@ export default function App() {
         showToast(`Item ${scannedItem.ItemID} inserted into row #${qrScanTargetRowIndex + 1}!`);
       } else {
         const schema = TAB_SCHEMAS[activeTab] || [];
-        const newRow: RecordRow = {};
-        schema.forEach(col => {
-          if (col === 'Date') newRow[col] = new Date().toISOString().split('T')[0];
-          else if (col === 'Priority') newRow[col] = 'Normal';
-          else newRow[col] = '';
+        const primaryKey = schema[0] || 'ID';
+        const fallbackId = getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
+        const today = new Date().toISOString().split('T')[0];
+
+        setMultiRows(prev => {
+          const currentId = prev.length > 0 && prev[0][primaryKey]
+            ? String(prev[0][primaryKey])
+            : fallbackId;
+          const firstRowDate = prev.length > 0 && prev[0].Date !== undefined && String(prev[0].Date).trim() !== ''
+            ? String(prev[0].Date)
+            : today;
+
+          const newRow: RecordRow = {};
+          schema.forEach(col => {
+            if (col === primaryKey && currentId) newRow[col] = currentId;
+            else if (col === 'Date') newRow[col] = firstRowDate;
+            else if (col === 'Priority') newRow[col] = 'Normal';
+            else if (col === 'UpdatedBy') newRow[col] = currentUser ? currentUser.username : 'System';
+            else newRow[col] = '';
+          });
+          newRow.ItemID = scannedItem.ItemID;
+          newRow.ItemName = scannedItem.ItemName;
+          newRow.Qty = qty;
+          newRow.UoM = scannedItem.UoM || 'Pcs';
+          newRow.UnitPriceUSD = priceInfo.UnitPriceUSD;
+          newRow.UnitPriceIDR = priceInfo.UnitPriceIDR;
+          newRow.TotalPriceUSD = priceInfo.TotalPriceUSD;
+          newRow.TotalPriceIDR = priceInfo.TotalPriceIDR;
+          if (activeTab === 'MaterialReceive') newRow.Supplier = deptOrSupplier;
+          if (activeTab === 'MaterialIssued') newRow.Department = deptOrSupplier;
+          if (remark) newRow.Remark = remark;
+          if (attachment) {
+            newRow.Attachment = attachment;
+            newRow.AttachmentName = attachmentName;
+          }
+          return [...prev, newRow];
         });
-        newRow.ItemID = scannedItem.ItemID;
-        newRow.ItemName = scannedItem.ItemName;
-        newRow.Qty = qty;
-        newRow.UoM = scannedItem.UoM || 'Pcs';
-        newRow.UnitPriceUSD = priceInfo.UnitPriceUSD;
-        newRow.UnitPriceIDR = priceInfo.UnitPriceIDR;
-        newRow.TotalPriceUSD = priceInfo.TotalPriceUSD;
-        newRow.TotalPriceIDR = priceInfo.TotalPriceIDR;
-        if (activeTab === 'MaterialReceive') newRow.Supplier = deptOrSupplier;
-        if (activeTab === 'MaterialIssued') newRow.Department = deptOrSupplier;
-        if (remark) newRow.Remark = remark;
-        if (attachment) {
-          newRow.Attachment = attachment;
-          newRow.AttachmentName = attachmentName;
-        }
-        setMultiRows(prev => [...prev, newRow]);
         showToast(`Item ${scannedItem.ItemID} added to multi-input table!`);
       }
       return;
@@ -1876,6 +1982,7 @@ export default function App() {
           Stock: r.Stock !== undefined ? parseNumberValue(r.Stock) : (r.CurrentStock !== undefined ? parseNumberValue(r.CurrentStock) : ''),
           Department: r.Department || main.Department || '',
           Date: r.Date || initialHeader.Date || '',
+          Remark: r.Remark || '',
           Attachment: r.Attachment,
           AttachmentName: r.AttachmentName
         };
@@ -1907,8 +2014,10 @@ export default function App() {
         }
       });
 
-      for (let i = matched.length; i < 8; i++) {
-        docRows.push({ Qty: '', ItemID: '', ItemName: '', UoM: '', UnitPriceIDR: '', TotalPriceIDR: '', Stock: '' });
+      if (activeTab !== 'MaterialIssued') {
+        for (let i = matched.length; i < 8; i++) {
+          docRows.push({ Qty: '', ItemID: '', ItemName: '', UoM: '', UnitPriceIDR: '', TotalPriceIDR: '', Stock: '' });
+        }
       }
       setPrintDocItems(docRows);
     } else {
@@ -2046,9 +2155,13 @@ export default function App() {
       return;
     }
     const { StockIn: _si, StockOut: _so, CurrentStock: _cs, TotalPriceUSD: _tu, TotalPriceIDR: _ti, Status: _st, ...cleanItem } = viewingItem;
+    cleanItem.LastStock = parseNumberValue(cleanItem.LastStock);
+    cleanItem.MinStock = parseNumberValue(cleanItem.MinStock);
+    cleanItem.UnitPriceUSD = parseNumberValue(cleanItem.UnitPriceUSD);
+    cleanItem.UnitPriceIDR = parseNumberValue(cleanItem.UnitPriceIDR);
     cleanItem.UpdatedBy = currentUser ? currentUser.username : 'System';
     const orig = editingOriginalItemId || cleanItem.ItemID;
-    const currentItems = [...items];
+    const currentItems = [...latestStoreRef.current.items];
     const existingIdx = currentItems.findIndex(i => String(i.ItemID).toLowerCase() === String(orig).toLowerCase());
 
     let updatedItems: RecordRow[];

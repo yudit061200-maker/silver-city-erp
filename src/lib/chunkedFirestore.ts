@@ -87,6 +87,7 @@ function persistQuotaCooldown(): void {
 
 // Client-side bucket caches so writes only touch changed buckets AND reads skip unchanged buckets
 const lastKnownBucketHashes = new Map<string, string>();
+const lastLoadedManifestHashes = new Map<string, string>();
 const lastKnownBucketData = new Map<string, any[]>();
 let lastKnownBucketCounts: Partial<Record<BucketCollectionKey, number>> = {};
 
@@ -263,6 +264,54 @@ async function deleteFirestoreDoc(
   );
 }
 
+async function commitFirestoreBatch(
+  writes: Array<{ collection: 'erp' | 'erp_buckets' | 'erp_chunks'; docId: string; data: Record<string, any> }>,
+  deletes: Array<{ collection: 'erp' | 'erp_buckets' | 'erp_chunks'; docId: string }>,
+  keepalive = false
+): Promise<boolean> {
+  if (typeof fetch === 'undefined') return false;
+  const payloadStr = JSON.stringify({ writes, deletes });
+  // Browsers reject fetch with keepalive: true when body > 64KB
+  const useKeepalive = keepalive && payloadStr.length <= 60_000;
+  try {
+    const res = await fetch('/api/firestore/commit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: payloadStr,
+      ...(useKeepalive ? { keepalive: true } : {}),
+    });
+    if (!res.ok) {
+      if (res.status === 429) {
+        lastWritableVerifiedAt = 0;
+        persistQuotaCooldown();
+        throw new FirestoreQuotaError();
+      }
+      return false;
+    }
+    const ct = res.headers.get('content-type') || '';
+    if (!ct.includes('application/json')) return false;
+    const json = await res.json();
+    if (json?.ok) {
+      lastWritableVerifiedAt = Date.now();
+      return true;
+    }
+    if (json?.quotaExceeded) {
+      lastWritableVerifiedAt = 0;
+      persistQuotaCooldown();
+      throw new FirestoreQuotaError();
+    }
+    if (json?.fallbackToSdk) {
+      return false;
+    }
+    throw new Error(json?.error || 'Firestore atomic commit failed');
+  } catch (err) {
+    if (err instanceof FirestoreQuotaError || isQuotaExceededError(err)) {
+      throw err;
+    }
+    return false;
+  }
+}
+
 function handleFirestoreError(
   error: unknown,
   operationType: OperationType,
@@ -358,11 +407,13 @@ export function purgeLocalStorageDataset(): void {
 
 /**
  * Direct write to Firebase Firestore using small diffed buckets (bucketed_v1).
- * Only changed ~10-18 KB buckets + a ~1.5 KB manifest are written, cutting write units by ~25x-40x.
+ * Atomically commits all changed ~10-20 KB buckets + deletes + ~1.8 KB manifest in a single HTTP commit.
  */
-export async function saveChunkedFirestore(storeObj: any): Promise<void> {
-  const canWrite = await checkFirestoreWritable();
-  if (!canWrite) {
+export async function saveChunkedFirestore(
+  storeObj: any,
+  options?: { keepalive?: boolean }
+): Promise<void> {
+  if (isFirestoreQuotaExceeded()) {
     throw new FirestoreQuotaError();
   }
 
@@ -401,53 +452,11 @@ export async function saveChunkedFirestore(storeObj: any): Promise<void> {
     }
   }
 
-  // Write changed buckets gently in small pairs using compact rowsJson to avoid burst rate limits and minimize index writes
-  if (pendingWrites.length > 0) {
-    try {
-      const writeOneBucket = (b: typeof pendingWrites[number]) =>
-        writeFirestoreDoc('erp_buckets', b.key, {
-          collection: b.col,
-          bucketIndex: b.idx,
-          hash: b.hash,
-          rowsJson: JSON.stringify(b.rows),
-          updatedAt: storeObj.lastUpdated || Date.now(),
-        });
-
-      for (let i = 0; i < pendingWrites.length; i += 2) {
-        const pair = pendingWrites.slice(i, i + 2);
-        await Promise.all(pair.map(writeOneBucket));
-      }
-
-      pendingWrites.forEach((b) => {
-        lastKnownBucketHashes.set(b.key, b.hash);
-        lastKnownBucketData.set(b.key, b.rows);
-      });
-    } catch (err) {
-      handleFirestoreError(err, OperationType.WRITE, 'erp_buckets');
-    }
-  }
-
-  if (pendingDeletes.length > 0) {
-    try {
-      await Promise.all(
-        pendingDeletes.map((key) => deleteFirestoreDoc('erp_buckets', key))
-      );
-      pendingDeletes.forEach((key) => {
-        lastKnownBucketHashes.delete(key);
-        lastKnownBucketData.delete(key);
-      });
-    } catch (cleanErr) {
-      if (isQuotaExceededError(cleanErr)) {
-        handleFirestoreError(cleanErr, OperationType.DELETE, 'erp_buckets');
-      }
-      console.warn('Firestore bucket cleanup info:', cleanErr);
-    }
-  }
-
   const itemCount = Array.isArray(storeObj.items) ? storeObj.items.length : 0;
+  const ts = storeObj.lastUpdated || Date.now();
 
-  // Compact ~1.5 KB manifest in erp/main_store
-  const mainManifest = {
+  // Compact ~1.8 KB manifest in erp/main_store
+  const mainManifest = sanitize({
     storageMode: 'bucketed_v1',
     bucketCounts: nextBucketCounts,
     bucketHashes: nextBucketHashes,
@@ -458,31 +467,114 @@ export async function saveChunkedFirestore(storeObj: any): Promise<void> {
     customColHeaders: sanitize(storeObj.customColHeaders || {}),
     dataVersion: storeObj.dataVersion,
     clientWriteId: storeObj.clientWriteId || null,
-    lastUpdated: storeObj.lastUpdated || Date.now(),
-  };
+    lastUpdated: ts,
+  });
+
+  const commitWrites: Array<{ collection: 'erp' | 'erp_buckets'; docId: string; data: Record<string, any> }> =
+    pendingWrites.map((b) => ({
+      collection: 'erp_buckets',
+      docId: b.key,
+      data: {
+        collection: b.col,
+        bucketIndex: b.idx,
+        hash: b.hash,
+        rowsJson: JSON.stringify(b.rows),
+        updatedAt: ts,
+      },
+    }));
+  commitWrites.push({
+    collection: 'erp',
+    docId: 'main_store',
+    data: mainManifest,
+  });
+
+  const commitDeletes: Array<{ collection: 'erp_buckets'; docId: string }> =
+    pendingDeletes.map((key) => ({
+      collection: 'erp_buckets',
+      docId: key,
+    }));
+
+  // 1. Preferred path: atomic single-request Firestore REST :commit (all buckets + manifest succeed or fail together)
+  try {
+    const committed = await commitFirestoreBatch(
+      commitWrites,
+      commitDeletes,
+      Boolean(options?.keepalive)
+    );
+    if (committed) {
+      pendingWrites.forEach((b) => {
+        lastKnownBucketHashes.set(b.key, b.hash);
+        lastLoadedManifestHashes.set(b.key, b.hash);
+        lastKnownBucketData.set(b.key, b.rows);
+      });
+      pendingDeletes.forEach((key) => {
+        lastKnownBucketHashes.delete(key);
+        lastLoadedManifestHashes.delete(key);
+        lastKnownBucketData.delete(key);
+      });
+      lastKnownBucketCounts = { ...nextBucketCounts };
+      resetFirestoreQuotaFlag();
+      return;
+    }
+  } catch (err) {
+    handleFirestoreError(err, OperationType.WRITE, 'erp/main_store');
+  }
+
+  // 2. Fallback path if /api/firestore/commit is unavailable (e.g. client-only host without backend)
+  const canWrite = await checkFirestoreWritable();
+  if (!canWrite) {
+    throw new FirestoreQuotaError();
+  }
+
+  if (pendingWrites.length > 0) {
+    try {
+      const writeOneBucket = (b: typeof pendingWrites[number]) =>
+        writeFirestoreDoc('erp_buckets', b.key, {
+          collection: b.col,
+          bucketIndex: b.idx,
+          hash: b.hash,
+          rowsJson: JSON.stringify(b.rows),
+          updatedAt: ts,
+        });
+
+      for (let i = 0; i < pendingWrites.length; i += 2) {
+        const pair = pendingWrites.slice(i, i + 2);
+        await Promise.all(pair.map(writeOneBucket));
+      }
+    } catch (err) {
+      handleFirestoreError(err, OperationType.WRITE, 'erp_buckets');
+    }
+  }
+
+  if (pendingDeletes.length > 0) {
+    try {
+      await Promise.all(
+        pendingDeletes.map((key) => deleteFirestoreDoc('erp_buckets', key))
+      );
+    } catch (cleanErr) {
+      if (isQuotaExceededError(cleanErr)) {
+        handleFirestoreError(cleanErr, OperationType.DELETE, 'erp_buckets');
+      }
+      console.warn('Firestore bucket cleanup info:', cleanErr);
+    }
+  }
 
   try {
-    await writeFirestoreDoc('erp', 'main_store', sanitize(mainManifest));
+    await writeFirestoreDoc('erp', 'main_store', mainManifest);
+    pendingWrites.forEach((b) => {
+      lastKnownBucketHashes.set(b.key, b.hash);
+      lastLoadedManifestHashes.set(b.key, b.hash);
+      lastKnownBucketData.set(b.key, b.rows);
+    });
+    pendingDeletes.forEach((key) => {
+      lastKnownBucketHashes.delete(key);
+      lastLoadedManifestHashes.delete(key);
+      lastKnownBucketData.delete(key);
+    });
     lastKnownBucketCounts = { ...nextBucketCounts };
     resetFirestoreQuotaFlag();
   } catch (err) {
     handleFirestoreError(err, OperationType.WRITE, 'erp/main_store');
-  }
-}
-
-function seedBucketCacheFromArrays(storeData: any): void {
-  for (const col of BUCKET_COLLECTIONS) {
-    const rows = sanitize(Array.isArray(storeData[col]) ? storeData[col] : []) || [];
-    const size = BUCKET_SIZES[col];
-    const count = Math.ceil(rows.length / size);
-    lastKnownBucketCounts[col] = count;
-    for (let idx = 0; idx < count; idx++) {
-      const slice = rows.slice(idx * size, (idx + 1) * size);
-      const key = `${col}_${idx}`;
-      const hash = hashString(JSON.stringify(slice));
-      lastKnownBucketHashes.set(key, hash);
-      lastKnownBucketData.set(key, slice);
-    }
   }
 }
 
@@ -511,7 +603,7 @@ export async function loadChunkedFirestore(mainData: any): Promise<any> {
 
             if (
               expectedHash &&
-              lastKnownBucketHashes.get(key) === expectedHash &&
+              lastLoadedManifestHashes.get(key) === expectedHash &&
               lastKnownBucketData.has(key)
             ) {
               bucketPromises.push(Promise.resolve(lastKnownBucketData.get(key)!));
@@ -534,8 +626,9 @@ export async function loadChunkedFirestore(mainData: any): Promise<any> {
                     } else if (Array.isArray(data?.rows)) {
                       rows = data.rows;
                     }
-                    const actualHash = expectedHash || hashString(JSON.stringify(sanitize(rows)));
+                    const actualHash = hashString(JSON.stringify(sanitize(rows)));
                     lastKnownBucketHashes.set(key, actualHash);
+                    lastLoadedManifestHashes.set(key, expectedHash || actualHash);
                     lastKnownBucketData.set(key, rows);
                     return rows;
                   })
@@ -574,13 +667,6 @@ export async function loadChunkedFirestore(mainData: any): Promise<any> {
       resultStore.items = combinedItems;
     } else if (!Array.isArray(mainData.items)) {
       resultStore.items = [];
-    }
-
-    // Important: do NOT seed bucket cache hashes for legacy mode as existing in Firestore
-    // unless we want diffed future saves; keeping lastKnownBucketHashes empty ensures
-    // first bucketed_v1 save writes all buckets cleanly once.
-    if (mainData.storageMode === 'bucketed_v1') {
-      seedBucketCacheFromArrays(resultStore);
     }
 
     return resultStore;

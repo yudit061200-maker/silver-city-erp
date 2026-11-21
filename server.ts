@@ -161,9 +161,94 @@ async function startServer() {
     const dbId = cfg.firestoreDatabaseId || '(default)';
     return {
       apiKey: cfg.apiKey,
+      projectId: cfg.projectId,
+      dbId,
+      docRoot: `projects/${cfg.projectId}/databases/${dbId}/documents`,
       base: `https://firestore.googleapis.com/v1/projects/${cfg.projectId}/databases/${dbId}/documents`,
     };
   };
+
+  app.post('/api/firestore/commit', async (req, res) => {
+    const { writes, deletes } = req.body || {};
+    const writeList = Array.isArray(writes) ? writes : [];
+    const deleteList = Array.isArray(deletes) ? deletes : [];
+    if (writeList.length === 0 && deleteList.length === 0) {
+      res.status(400).json({ status: 'error', message: 'Empty Firestore commit payload' });
+      return;
+    }
+
+    const validCols = new Set(['erp', 'erp_buckets', 'erp_chunks']);
+    for (const w of writeList) {
+      if (!w || !validCols.has(String(w.collection)) || !w.docId || typeof w.docId !== 'string' || !w.data || typeof w.data !== 'object') {
+        res.status(400).json({ status: 'error', message: 'Invalid Firestore commit write item' });
+        return;
+      }
+    }
+    for (const d of deleteList) {
+      if (!d || !validCols.has(String(d.collection)) || !d.docId || typeof d.docId !== 'string') {
+        res.status(400).json({ status: 'error', message: 'Invalid Firestore commit delete item' });
+        return;
+      }
+    }
+
+    const now = Date.now();
+    try {
+      const cfg = getFirestoreRestBase();
+      if (!cfg) {
+        res.json({ status: 'ok', ok: false, fallbackToSdk: true });
+        return;
+      }
+
+      const firestoreWrites: any[] = [];
+      for (const w of writeList) {
+        const fields: Record<string, any> = {};
+        Object.entries(w.data).forEach(([k, v]) => {
+          if (v !== undefined) fields[k] = toFirestoreValue(v);
+        });
+        firestoreWrites.push({
+          update: {
+            name: `${cfg.docRoot}/${encodeURIComponent(w.collection)}/${encodeURIComponent(w.docId)}`,
+            fields,
+          },
+        });
+      }
+      for (const d of deleteList) {
+        firestoreWrites.push({
+          delete: `${cfg.docRoot}/${encodeURIComponent(d.collection)}/${encodeURIComponent(d.docId)}`,
+        });
+      }
+
+      const url = `${cfg.base}:commit?key=${cfg.apiKey}`;
+      const fsRes = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ writes: firestoreWrites }),
+      });
+
+      if (fsRes.ok) {
+        cachedFirestoreWriteStatus = { writable: true, checkedAt: now };
+        res.json({ status: 'ok', ok: true });
+        return;
+      }
+
+      const errText = await fsRes.text().catch(() => '');
+      const isQuota =
+        fsRes.status === 429 ||
+        errText.toLowerCase().includes('resource_exhausted') ||
+        errText.toLowerCase().includes('quota limit exceeded') ||
+        errText.toLowerCase().includes('daily write units');
+
+      if (isQuota) {
+        cachedFirestoreWriteStatus = { writable: false, checkedAt: now, reason: 'resource-exhausted' };
+        res.json({ status: 'ok', ok: false, quotaExceeded: true });
+        return;
+      }
+
+      res.json({ status: 'ok', ok: false, error: errText.slice(0, 300) });
+    } catch (err: any) {
+      res.json({ status: 'ok', ok: false, error: err?.message || 'Firestore REST commit failed' });
+    }
+  });
 
   app.post('/api/firestore/write', async (req, res) => {
     const { collection, docId, data } = req.body || {};
