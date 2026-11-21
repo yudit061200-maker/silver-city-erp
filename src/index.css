@@ -102,6 +102,87 @@
     overflow: visible !important;
   }
 
+  /* Prevent forced min-width wrappers from causing browser shrink-to-fit on print */
+  #printBlueprintDoc [class*="min-w-"] {
+    min-width: 0 !important;
+  }
+
+  /* Print typography scale: slightly larger, crisp, and neatly spaced for readability */
+  #printBlueprintDoc {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #printBlueprintDoc .text-\[9px\] {
+    font-size: 10.5px !important;
+    line-height: 1.35 !important;
+  }
+
+  #printBlueprintDoc .text-\[10px\] {
+    font-size: 11.5px !important;
+    line-height: 1.35 !important;
+  }
+
+  #printBlueprintDoc .text-\[11px\] {
+    font-size: 12.5px !important;
+    line-height: 1.35 !important;
+  }
+
+  #printBlueprintDoc .text-xs {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  #printBlueprintDoc .text-sm {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+  }
+
+  #printBlueprintDoc .text-base,
+  #printBlueprintDoc .sm\:text-lg {
+    font-size: 18px !important;
+    line-height: 1.3 !important;
+  }
+
+  #printBlueprintDoc .text-2xl {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Neat table layout, breathing room, and clean page breaks */
+  #printBlueprintDoc table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  #printBlueprintDoc thead {
+    display: table-header-group !important;
+  }
+
+  #printBlueprintDoc tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    height: auto !important;
+  }
+
+  #printBlueprintDoc table th {
+    padding: 5px 6px !important;
+    vertical-align: middle !important;
+    line-height: 1.3 !important;
+  }
+
+  #printBlueprintDoc table td {
+    padding: 4px 6px !important;
+    vertical-align: middle !important;
+    line-height: 1.35 !important;
+  }
+
+  #printBlueprintDoc .print-keep-together {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
   /* Prevent page cuts inside QR card labels */
   #printableQrArea > div > div {
     break-inside: avoid !important;
@@ -120,12 +201,20 @@
     -webkit-appearance: none !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
-    font-weight: bold !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    font-weight: inherit !important;
     color: #000000 !important;
+    resize: none !important;
+    overflow: visible !important;
+  }
+
+  #printBlueprintDoc input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none !important;
   }
 
   @page {
-    margin: 8mm;
+    margin: 10mm;
     size: auto;
   }
 }

@@ -121,6 +121,17 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
   };
 
   const handlePrintDocument = () => {
+    if (isHeaderEditMode) {
+      setIsHeaderEditMode(false);
+      const restoreEditMode = () => {
+        setIsHeaderEditMode(true);
+      };
+      window.addEventListener('afterprint', restoreEditMode, { once: true });
+      window.setTimeout(() => {
+        window.print();
+      }, 80);
+      return;
+    }
     window.print();
   };
 
@@ -972,13 +983,13 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                 <table className="w-full border-collapse text-xs border-b-2 border-black">
                   <thead>
                     <tr className="bg-white text-[10px] font-black uppercase text-center border-b border-black">
-                      <th className="p-1 border-r border-black w-8">No.</th>
-                      <th className="p-1 border-r border-black w-28">NUMBER CODE</th>
+                      <th className="p-1 border-r border-black w-8 print:w-9">No.</th>
+                      <th className="p-1 border-r border-black w-28 print:w-32">NUMBER CODE</th>
                       <th className="p-1 border-r border-black">DESCRIPTION</th>
-                      <th className="p-1 border-r border-black w-16">ISSUED QTY</th>
-                      <th className="p-1 border-r border-black w-12">Uom</th>
-                      <th className="p-1 border-r border-black w-20">STOCK ON HAND</th>
-                      <th className="p-1 w-36">REMARK USED</th>
+                      <th className="p-1 border-r border-black w-16 print:w-20">ISSUED QTY</th>
+                      <th className="p-1 border-r border-black w-12 print:w-14">Uom</th>
+                      <th className="p-1 border-r border-black w-20 print:w-24">STOCK ON HAND</th>
+                      <th className="p-1 w-36 print:w-40">REMARK USED</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1124,7 +1135,7 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                 </table>
 
                 {/* Signatures Table Grid */}
-                <div className="grid grid-cols-6 border-b-2 border-black text-[11px] font-medium text-black">
+                <div className="print-keep-together grid grid-cols-6 border-b-2 border-black text-[11px] font-medium text-black">
                   
                   {/* Top Titles */}
                   <div className="col-span-1 border-r border-black p-1 italic">
@@ -1664,7 +1675,7 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                 </div>
 
                 {/* 5. Bottom Signatures & Totals Section */}
-                <div className="grid grid-cols-12 border-b-2 border-black text-black">
+                <div className="print-keep-together grid grid-cols-12 border-b-2 border-black text-black">
                   
                   {/* Box 1: RECEIVED BY */}
                   <div className="col-span-3 border-r-2 border-black p-1.5 flex flex-col justify-between h-28">
@@ -1945,7 +1956,7 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                   </table>
                 </div>
 
-                <div className="grid grid-cols-4 border-b-2 border-blue-900 text-center text-[10px] font-bold">
+                <div className="print-keep-together grid grid-cols-4 border-b-2 border-blue-900 text-center text-[10px] font-bold">
                   <div className="border-r-2 border-blue-900 p-2 flex flex-col justify-between h-24">
                     <span className="text-slate-500">User by</span>
                     <div className="border-t border-slate-800 pt-1">
