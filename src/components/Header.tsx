@@ -14,6 +14,7 @@ interface HeaderProps {
   onToggleDarkMode?: () => void;
   isFirebaseConnected?: boolean;
   isSavingToFirestore?: boolean;
+  isFirestoreQuotaBlocked?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -28,7 +29,8 @@ export const Header: React.FC<HeaderProps> = ({
   isDarkMode = false,
   onToggleDarkMode,
   isFirebaseConnected = true,
-  isSavingToFirestore = false
+  isSavingToFirestore = false,
+  isFirestoreQuotaBlocked = false
 }) => {
   const isYudit = currentUser?.username?.trim().toLowerCase() === 'yudit061200';
   const navTabs: { name: TabName; label: string; icon: string }[] = [
@@ -63,9 +65,14 @@ export const Header: React.FC<HeaderProps> = ({
                 SILVER CITY
               </h1>
               {isSavingToFirestore ? (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 animate-pulse" title="Saving directly to Firebase Firestore">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 animate-pulse" title="Menyimpan perubahan...">
                   <i className="fa-solid fa-cloud-arrow-up text-[10px]"></i>
-                  <span>Saving to Firebase...</span>
+                  <span>Menyimpan...</span>
+                </span>
+              ) : isFirestoreQuotaBlocked ? (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700" title="Kuota tulis harian Firestore habis; tersinkronisasi melalui server aplikasi">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                  <span>Server Sync</span>
                 </span>
               ) : isFirebaseConnected ? (
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-black bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800" title="Connected directly to Firebase Firestore Database">

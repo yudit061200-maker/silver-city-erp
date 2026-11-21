@@ -88,7 +88,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
               </div>
             </div>
           ) : (
-            <form id="inlineEditForm" onSubmit={onSaveInline} className="space-y-3.5">
+            <form id="inlineEditForm" onSubmit={onSaveInline} noValidate className="space-y-3.5">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Item Photo</label>
                 <input
@@ -159,7 +159,6 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                     type="text"
                     value={viewingItem.Category || ''}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, Category: e.target.value } : null)}
-                    required
                     className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
@@ -182,7 +181,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                   </div>
                   <input
                     type="number"
-                    step="0.01"
+                    step="any"
                     value={viewingItem.UnitPriceUSD || 0}
                     onChange={(e) => {
                       const usd = parseFloat(e.target.value) || 0;
@@ -192,7 +191,6 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                         UnitPriceIDR: Math.round(usd * 16000)
                       } : null);
                     }}
-                    required
                     className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
@@ -203,6 +201,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                   </div>
                   <input
                     type="number"
+                    step="any"
                     value={viewingItem.UnitPriceIDR || 0}
                     onChange={(e) => {
                       const idr = parseFloat(e.target.value) || 0;
@@ -212,7 +211,6 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                         UnitPriceUSD: parseFloat((idr / 16000).toFixed(2))
                       } : null);
                     }}
-                    required
                     className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
@@ -220,6 +218,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                   <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Min Stock</label>
                   <input
                     type="number"
+                    step="any"
                     value={viewingItem.MinStock || 0}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, MinStock: parseFloat(e.target.value) || 0 } : null)}
                     className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
@@ -229,6 +228,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                   <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Last Stock</label>
                   <input
                     type="number"
+                    step="any"
                     value={viewingItem.LastStock || 0}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, LastStock: parseFloat(e.target.value) || 0 } : null)}
                     className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"

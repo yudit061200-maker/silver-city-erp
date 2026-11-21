@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { RecordRow, TabName, TAB_SCHEMAS } from '../types';
 import { processFileUpload } from '../utils/fileUpload';
 import { findMatchingItems } from '../utils/search';
+import { normalizeDateStr } from '../utils/stock';
 
 interface SingleRecordModalProps {
   activeTab: TabName;
@@ -62,7 +63,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
         </div>
 
         {/* Form Body */}
-        <form onSubmit={onSave} className="flex flex-col flex-grow overflow-hidden">
+        <form onSubmit={onSave} noValidate className="flex flex-col flex-grow overflow-hidden">
           <div className="p-4 sm:p-6 space-y-5 overflow-y-auto flex-grow custom-scrollbar">
             {(TAB_SCHEMAS[activeTab] || []).map(col => {
               const val = editingRecord[col] !== undefined ? editingRecord[col] : '';
@@ -146,14 +147,14 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               }
 
               if (col.includes('Date')) {
+                const dateVal = val ? normalizeDateStr(val) : '';
                 return (
                   <div key={col} className="space-y-1.5">
                     <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
                     <input
                       type="date"
-                      value={val}
+                      value={dateVal}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
-                      required
                       className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
                     />
                   </div>
@@ -185,7 +186,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       onFocus={() => setFocusedField('ItemID')}
                       onBlur={() => setFocusedField(null)}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
-                      required
+                      required={col === primaryKeyCol}
                       placeholder="Ketik min. 2 karakter Item ID / Nama..."
                       className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-blue-600 dark:text-blue-400 transition"
                     />
@@ -316,7 +317,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       onFocus={() => setFocusedField('ItemName')}
                       onBlur={() => setFocusedField(null)}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
-                      required
+                      required={activeTab === 'ItemList'}
                       placeholder={isTransactionTab ? 'Ketik min. 2 karakter untuk mencari nama item...' : 'Enter or select Item Name...'}
                       className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition whitespace-pre-wrap break-words resize-y min-h-[60px]"
                     />
@@ -379,7 +380,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                     </div>
                     <input
                       type="number"
-                      step="0.01"
+                      step="any"
                       value={val}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       placeholder="Enter price in USD ($)..."
@@ -487,10 +488,10 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                   <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
                   <input
                     type={col.includes('Price') || col.includes('Stock') || col === 'Qty' ? 'number' : 'text'}
-                    step={col.includes('USD') ? '0.01' : '1'}
+                    step={col.includes('Price') || col.includes('Stock') || col === 'Qty' ? 'any' : undefined}
                     value={val}
                     onChange={(e) => handleSingleFieldChange(col, e.target.value)}
-                    required={col !== 'Photo' && col !== 'Remark' && col !== 'Attachment' && col !== 'AttachmentName' && col !== 'UpdatedBy'}
+                    required={col === primaryKeyCol}
                     className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
                   />
                 </div>

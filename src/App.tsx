@@ -45,6 +45,8 @@ import {
   purgeLocalStorageDataset,
   isQuotaExceededError,
   isFirestoreQuotaExceeded,
+  resetFirestoreQuotaFlag,
+  checkFirestoreWritable,
   FIRESTORE_DATABASE_UPGRADE_URL
 } from './lib/chunkedFirestore';
 
@@ -156,12 +158,24 @@ export default function App() {
   const [customColHeaders, setCustomColHeaders] = useState<Record<string, string>>({});
   const [isFirebaseConnected, setIsFirebaseConnected] = useState<boolean>(false);
   const [isSavingToFirestore, setIsSavingToFirestore] = useState<boolean>(false);
-  const [isFirestoreQuotaBlocked, setIsFirestoreQuotaBlocked] = useState<boolean>(false);
+  const [isFirestoreQuotaBlocked, setIsFirestoreQuotaBlocked] = useState<boolean>(() => isFirestoreQuotaExceeded());
   const [isQuotaBannerDismissed, setIsQuotaBannerDismissed] = useState<boolean>(false);
 
   const isFirestoreHydratedRef = React.useRef<boolean>(false);
   const latestAppliedUpdatedRef = React.useRef<number>(0);
   const hasShownQuotaToastRef = React.useRef<boolean>(false);
+  const syncQueueRef = React.useRef<Promise<boolean>>(Promise.resolve(true));
+  const syncDebounceTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingOverrideStoreRef = React.useRef<any>(undefined);
+  const toastSeqRef = React.useRef<number>(0);
+  const clientSessionIdRef = React.useRef<string>(
+    `cli_${Math.random().toString(36).slice(2, 10)}_${Date.now().toString(36)}`
+  );
+  const writeSeqRef = React.useRef<number>(0);
+  const lastOwnWriteIdRef = React.useRef<string>('');
+  const lastRemoteWriteIdRef = React.useRef<string>('');
+  const isRefreshingFirestoreRef = React.useRef<boolean>(false);
+  const LOCAL_BACKUP_KEY = 'sc_offline_sync_backup';
 
   const latestStoreRef = React.useRef({
     items,
@@ -189,7 +203,7 @@ export default function App() {
     };
   }, [items, requests, purchaseOrders, receives, issued, users, companyHeader, savedDocHeaders, customColHeaders]);
 
-  // Purge any stale localStorage ERP data on mount to ensure clean Firebase-only operation
+  // Purge any stale legacy localStorage ERP data on mount
   useEffect(() => {
     purgeLocalStorageDataset();
   }, []);
@@ -252,11 +266,30 @@ export default function App() {
     isFirestoreHydratedRef.current = true;
   };
 
-  const pushSyncToServer = async (overrideStore?: any) => {
+  const saveOfflineBackup = (storeObj: any) => {
+    try {
+      localStorage.setItem(
+        LOCAL_BACKUP_KEY,
+        JSON.stringify({ lastUpdated: storeObj.lastUpdated || Date.now(), store: storeObj })
+      );
+    } catch {
+      // Ignore storage quota errors
+    }
+  };
+
+  const clearOfflineBackup = () => {
+    try {
+      localStorage.removeItem(LOCAL_BACKUP_KEY);
+    } catch {
+      // Ignore
+    }
+  };
+
+  const executeSyncNow = async (overrideStore?: any) => {
     setIsSavingToFirestore(true);
 
-    // Guard: if hydration hasn't finished yet, fetch server store first
-    let baseStore: any = {
+    // Build from latestStoreRef.current so rapid sequential edits never overwrite newer state
+    const baseStore: any = {
       items: latestStoreRef.current.items,
       requests: latestStoreRef.current.requests,
       pos: latestStoreRef.current.purchaseOrders,
@@ -268,31 +301,12 @@ export default function App() {
       customColHeaders: latestStoreRef.current.customColHeaders,
     };
 
-    if (!isFirestoreHydratedRef.current) {
-      try {
-        const existingServerStore = await fetchFullStoreFromFirestore();
-        if (existingServerStore) {
-          const migrated = migrateStoreData(existingServerStore);
-          baseStore = {
-            items: Array.isArray(migrated.items) ? migrated.items : baseStore.items,
-            requests: Array.isArray(migrated.requests) ? migrated.requests : baseStore.requests,
-            pos: Array.isArray(migrated.pos) ? migrated.pos : baseStore.pos,
-            receives: Array.isArray(migrated.receives) ? migrated.receives : baseStore.receives,
-            issued: Array.isArray(migrated.issued) ? migrated.issued : baseStore.issued,
-            users: Array.isArray(migrated.users) ? migrated.users : baseStore.users,
-            companyHeader: migrated.companyHeader || baseStore.companyHeader,
-            savedDocHeaders: migrated.savedDocHeaders || baseStore.savedDocHeaders,
-            customColHeaders: migrated.customColHeaders || baseStore.customColHeaders,
-          };
-          isFirestoreHydratedRef.current = true;
-        }
-      } catch (fetchErr) {
-        console.warn("Pre-write hydration check failed:", fetchErr);
-      }
-    }
-
-    const newTs = Date.now();
+    const newTs = Math.max(Date.now(), latestAppliedUpdatedRef.current + 1);
     latestAppliedUpdatedRef.current = newTs;
+    writeSeqRef.current += 1;
+    const writeId = `${clientSessionIdRef.current}:${writeSeqRef.current}`;
+    lastOwnWriteIdRef.current = writeId;
+
     const storeObj = {
       items: overrideStore?.items !== undefined ? overrideStore.items : baseStore.items,
       requests: overrideStore?.requests !== undefined ? overrideStore.requests : baseStore.requests,
@@ -304,45 +318,107 @@ export default function App() {
       savedDocHeaders: overrideStore?.savedDocHeaders || baseStore.savedDocHeaders,
       customColHeaders: overrideStore?.customColHeaders || baseStore.customColHeaders,
       dataVersion: LATEST_DATA_VERSION,
+      clientWriteId: writeId,
       lastUpdated: newTs
     };
 
-    // 1. Always persist immediately to local Express server (/api/sync -> data_store.json)
+    // Always keep local backup up-to-date until Firestore confirms persistence
+    saveOfflineBackup(storeObj);
+
+    // Notify other open tabs on the same browser immediately
     try {
-      await fetch('/api/sync', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ store: storeObj })
-      });
       if (typeof BroadcastChannel !== 'undefined') {
         const bc = new BroadcastChannel('silvercity_erp_sync');
-        bc.postMessage({ type: 'SYNC_UPDATE', timestamp: newTs });
+        bc.postMessage({ type: 'SYNC_UPDATE', timestamp: newTs, clientWriteId: writeId, store: storeObj });
         bc.close();
       }
     } catch {
-      // Offline fallback
+      // Ignore broadcast errors
     }
 
-    // 2. Persist to Firebase Firestore unless daily write quota is already exhausted
-    if (isFirestoreQuotaExceeded()) {
-      notifyFirestoreQuotaExceeded();
-      setIsSavingToFirestore(false);
-      return;
-    }
+    // Run local server (/api/sync) and Firestore writes IN PARALLEL so Firestore never waits on /api/sync
+    let localOk = false;
+    const localSyncPromise = fetch('/api/sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ store: storeObj })
+    })
+      .then((res) => {
+        localOk = res.ok;
+        return res.ok;
+      })
+      .catch(() => false);
+
+    let firestoreOk = false;
+    const firestoreSyncPromise = (async () => {
+      try {
+        await saveChunkedFirestore(storeObj);
+        firestoreOk = true;
+        isFirestoreHydratedRef.current = true;
+        setIsFirebaseConnected(true);
+        setIsFirestoreQuotaBlocked(false);
+        hasShownQuotaToastRef.current = false;
+        clearOfflineBackup();
+      } catch (e) {
+        if (isQuotaExceededError(e)) {
+          notifyFirestoreQuotaExceeded();
+        } else {
+          console.error('Direct Firestore write error:', e);
+        }
+      }
+    })();
 
     try {
-      await saveChunkedFirestore(storeObj);
-      isFirestoreHydratedRef.current = true;
-      setIsFirebaseConnected(true);
-    } catch (e) {
-      if (isQuotaExceededError(e)) {
-        notifyFirestoreQuotaExceeded();
-      } else {
-        console.error("Direct Firestore write error:", e);
+      await Promise.allSettled([localSyncPromise, firestoreSyncPromise]);
+      if (!firestoreOk && !localOk) {
+        showToast('Gagal menyimpan ke server dan Firebase. Data tersimpan di backup browser.', 'error');
       }
+      return firestoreOk;
     } finally {
-      setIsSavingToFirestore(false);
+      if (!syncDebounceTimerRef.current) {
+        setIsSavingToFirestore(false);
+      }
     }
+  };
+
+  const enqueueSyncExecution = (overrideStore?: any): Promise<boolean> => {
+    const run = syncQueueRef.current.then(() => executeSyncNow(overrideStore));
+    syncQueueRef.current = run.catch(() => false);
+    return run;
+  };
+
+  const flushPendingSync = (): Promise<boolean> => {
+    if (!syncDebounceTimerRef.current) {
+      return syncQueueRef.current;
+    }
+    clearTimeout(syncDebounceTimerRef.current);
+    syncDebounceTimerRef.current = null;
+    const override = pendingOverrideStoreRef.current;
+    pendingOverrideStoreRef.current = undefined;
+    return enqueueSyncExecution(override);
+  };
+
+  const pushSyncToServer = (overrideStore?: any, options?: { debounceMs?: number }): Promise<boolean> => {
+    if (syncDebounceTimerRef.current) {
+      clearTimeout(syncDebounceTimerRef.current);
+      syncDebounceTimerRef.current = null;
+    }
+
+    if (options?.debounceMs && options.debounceMs > 0) {
+      setIsSavingToFirestore(true);
+      pendingOverrideStoreRef.current = overrideStore;
+      return new Promise((resolve) => {
+        syncDebounceTimerRef.current = setTimeout(() => {
+          syncDebounceTimerRef.current = null;
+          const override = pendingOverrideStoreRef.current;
+          pendingOverrideStoreRef.current = undefined;
+          enqueueSyncExecution(override).then(resolve).catch(() => resolve(false));
+        }, options.debounceMs);
+      });
+    }
+
+    pendingOverrideStoreRef.current = undefined;
+    return enqueueSyncExecution(overrideStore);
   };
 
   // Real-time Firebase Firestore + local server synchronization
@@ -350,6 +426,19 @@ export default function App() {
     let isMounted = true;
 
     const loadInitialData = async () => {
+      let backupStore: any = null;
+      try {
+        const rawBackup = localStorage.getItem(LOCAL_BACKUP_KEY);
+        if (rawBackup) {
+          const parsed = JSON.parse(rawBackup);
+          if (parsed?.store && Array.isArray(parsed.store.items)) {
+            backupStore = parsed.store;
+          }
+        }
+      } catch {
+        // Ignore
+      }
+
       let localServerStore: any = null;
       try {
         const res = await fetch('/api/sync');
@@ -372,15 +461,34 @@ export default function App() {
 
       if (!isMounted) return;
 
-      const fsTs = Number(firestoreStore?.lastUpdated) || 0;
-      const localTs = Number(localServerStore?.lastUpdated) || 0;
+      const candidates: Array<{ source: 'firestore' | 'local' | 'backup'; store: any; ts: number }> = [];
+      if (firestoreStore) candidates.push({ source: 'firestore', store: firestoreStore, ts: Number(firestoreStore.lastUpdated) || 0 });
+      if (localServerStore) candidates.push({ source: 'local', store: localServerStore, ts: Number(localServerStore.lastUpdated) || 0 });
+      if (backupStore) candidates.push({ source: 'backup', store: backupStore, ts: Number(backupStore.lastUpdated) || 0 });
 
-      if (firestoreStore && (!localServerStore || fsTs >= localTs)) {
-        applyHydratedStore(firestoreStore);
-        setIsFirebaseConnected(true);
-      } else if (localServerStore) {
-        applyHydratedStore(localServerStore);
+      candidates.sort((a, b) => b.ts - a.ts);
+      const newest = candidates[0];
+
+      if (newest) {
+        const hydratedNewest = migrateStoreData(newest.store);
+        applyHydratedStore(hydratedNewest);
         if (firestoreStore) setIsFirebaseConnected(true);
+        if (newest.source === 'firestore') {
+          clearOfflineBackup();
+        }
+        const localTs = Number(localServerStore?.lastUpdated) || 0;
+        if (newest.source !== 'local' && newest.ts > localTs) {
+          fetch('/api/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ store: hydratedNewest })
+          }).catch(() => {});
+        }
+      }
+
+      const writable = await checkFirestoreWritable();
+      if (isMounted && !writable) {
+        setIsFirestoreQuotaBlocked(true);
       }
     };
 
@@ -401,7 +509,7 @@ export default function App() {
             const s = await loadChunkedFirestore(serverCheck.data());
             if (isMounted && s) {
               const sTs = Number(s.lastUpdated) || 0;
-              if (sTs >= latestAppliedUpdatedRef.current) {
+              if (sTs > latestAppliedUpdatedRef.current) {
                 applyHydratedStore(s);
               }
             }
@@ -443,13 +551,22 @@ export default function App() {
       if (snapshot.metadata.hasPendingWrites) {
         return;
       }
+      if (snapshot.metadata.fromCache && isFirestoreHydratedRef.current) {
+        return;
+      }
 
       const rawData = snapshot.data();
       if (rawData) {
+        const remoteWriteId = typeof rawData.clientWriteId === 'string' ? rawData.clientWriteId : '';
+        if (remoteWriteId && remoteWriteId === lastOwnWriteIdRef.current) {
+          return;
+        }
         const s = await loadChunkedFirestore(rawData);
         if (isMounted && s) {
           const sTs = Number(s.lastUpdated) || 0;
-          if (sTs >= latestAppliedUpdatedRef.current) {
+          const isNewRemoteWrite = Boolean(remoteWriteId && remoteWriteId !== lastRemoteWriteIdRef.current);
+          if ((sTs > latestAppliedUpdatedRef.current || isNewRemoteWrite) && !syncDebounceTimerRef.current) {
+            if (remoteWriteId) lastRemoteWriteIdRef.current = remoteWriteId;
             applyHydratedStore(s);
           }
         }
@@ -462,8 +579,155 @@ export default function App() {
       }
     });
 
+    const refreshFromFirestore = async () => {
+      if (!isMounted || isRefreshingFirestoreRef.current || syncDebounceTimerRef.current) return;
+      isRefreshingFirestoreRef.current = true;
+      try {
+        const s = await fetchFullStoreFromFirestore();
+        if (!isMounted || !s || syncDebounceTimerRef.current) return;
+        setIsFirebaseConnected(true);
+        const remoteWriteId = typeof s.clientWriteId === 'string' ? s.clientWriteId : '';
+        if (remoteWriteId && remoteWriteId === lastOwnWriteIdRef.current) return;
+        const sTs = Number(s.lastUpdated) || 0;
+        const isNewRemoteWrite = Boolean(remoteWriteId && remoteWriteId !== lastRemoteWriteIdRef.current);
+        if (sTs > latestAppliedUpdatedRef.current || isNewRemoteWrite) {
+          if (remoteWriteId) lastRemoteWriteIdRef.current = remoteWriteId;
+          applyHydratedStore(s);
+        }
+      } catch {
+        // Ignore transient foreground refresh errors
+      } finally {
+        isRefreshingFirestoreRef.current = false;
+      }
+    };
+
+    const refreshFromLocalServer = async () => {
+      if (!isMounted || syncDebounceTimerRef.current) return;
+      try {
+        const verRes = await fetch('/api/sync/version', { cache: 'no-store' });
+        if (!verRes.ok) return;
+        const ver = await verRes.json();
+        const srvTs = Number(ver?.lastUpdated) || 0;
+        const remoteWriteId = typeof ver?.clientWriteId === 'string' ? ver.clientWriteId : '';
+        if (remoteWriteId && remoteWriteId === lastOwnWriteIdRef.current) return;
+        const isNewRemoteWrite = Boolean(remoteWriteId && remoteWriteId !== lastRemoteWriteIdRef.current);
+        if (srvTs > latestAppliedUpdatedRef.current || (isNewRemoteWrite && srvTs >= latestAppliedUpdatedRef.current)) {
+          const fullRes = await fetch('/api/sync', { cache: 'no-store' });
+          if (!fullRes.ok || !isMounted || syncDebounceTimerRef.current) return;
+          const json = await fullRes.json();
+          if (json?.store && Array.isArray(json.store.items)) {
+            if (remoteWriteId) lastRemoteWriteIdRef.current = remoteWriteId;
+            applyHydratedStore(json.store);
+          }
+        }
+      } catch {
+        // Ignore transient local server polling errors
+      }
+    };
+
+    const refreshAllSources = () => {
+      refreshFromFirestore();
+      refreshFromLocalServer();
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        flushPendingSync();
+      } else if (document.visibilityState === 'visible') {
+        refreshAllSources();
+      }
+    };
+
+    const handleWindowFocus = () => {
+      refreshAllSources();
+    };
+
+    const localPollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        refreshFromLocalServer();
+      }
+    }, 4000);
+
+    let bcChannel: BroadcastChannel | null = null;
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        bcChannel = new BroadcastChannel('silvercity_erp_sync');
+        bcChannel.onmessage = (ev) => {
+          if (!isMounted || !ev?.data || ev.data.type !== 'SYNC_UPDATE') return;
+          const remoteWriteId = typeof ev.data.clientWriteId === 'string' ? ev.data.clientWriteId : '';
+          if (remoteWriteId && remoteWriteId === lastOwnWriteIdRef.current) return;
+          if (ev.data.store && !syncDebounceTimerRef.current) {
+            if (remoteWriteId) lastRemoteWriteIdRef.current = remoteWriteId;
+            applyHydratedStore(ev.data.store);
+          }
+        };
+      }
+    } catch {
+      // Ignore BroadcastChannel errors
+    }
+
+    const flushOnUnload = () => {
+      if (syncDebounceTimerRef.current) {
+        clearTimeout(syncDebounceTimerRef.current);
+        syncDebounceTimerRef.current = null;
+        pendingOverrideStoreRef.current = undefined;
+        const newTs = Math.max(Date.now(), latestAppliedUpdatedRef.current + 1);
+        latestAppliedUpdatedRef.current = newTs;
+        writeSeqRef.current += 1;
+        const writeId = `${clientSessionIdRef.current}:${writeSeqRef.current}`;
+        lastOwnWriteIdRef.current = writeId;
+        const payload = {
+          items: latestStoreRef.current.items,
+          requests: latestStoreRef.current.requests,
+          pos: latestStoreRef.current.purchaseOrders,
+          receives: latestStoreRef.current.receives,
+          issued: latestStoreRef.current.issued,
+          users: latestStoreRef.current.users,
+          companyHeader: latestStoreRef.current.companyHeader,
+          savedDocHeaders: latestStoreRef.current.savedDocHeaders,
+          customColHeaders: latestStoreRef.current.customColHeaders,
+          dataVersion: LATEST_DATA_VERSION,
+          clientWriteId: writeId,
+          lastUpdated: newTs
+        };
+        saveOfflineBackup(payload);
+        try {
+          fetch('/api/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ store: payload }),
+            keepalive: true
+          }).catch(() => {});
+        } catch {
+          // Ignore unload network errors
+        }
+        try {
+          saveChunkedFirestore(payload).catch(() => {});
+        } catch {
+          // Ignore unload Firestore errors
+        }
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleWindowFocus);
+    window.addEventListener('online', handleWindowFocus);
+    window.addEventListener('pagehide', flushOnUnload);
+    window.addEventListener('beforeunload', flushOnUnload);
+
     return () => {
       isMounted = false;
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleWindowFocus);
+      window.removeEventListener('online', handleWindowFocus);
+      window.removeEventListener('pagehide', flushOnUnload);
+      window.removeEventListener('beforeunload', flushOnUnload);
+      clearInterval(localPollInterval);
+      if (bcChannel) {
+        try { bcChannel.close(); } catch {}
+      }
+      if (syncDebounceTimerRef.current) {
+        clearTimeout(syncDebounceTimerRef.current);
+      }
       unsubscribeFirestore();
     };
   }, []);
@@ -474,7 +738,15 @@ export default function App() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortCol, setSortCol] = useState('');
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+
+  // Always start from largest to smallest whenever opening or switching a tab
+  useEffect(() => {
+    const pk = (TAB_SCHEMAS[activeTab] || [])[0] || '';
+    setSortCol(pk);
+    setSortDir('desc');
+    setCurrentPage(1);
+  }, [activeTab]);
 
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
@@ -537,7 +809,8 @@ export default function App() {
   useEffect(() => { setSelectedRowIndices([]); }, [activeTab, searchTerm, filterColumn, sortCol, sortDir]);
 
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
-    const id = Date.now();
+    toastSeqRef.current += 1;
+    const id = Date.now() * 1000 + (toastSeqRef.current % 1000);
     setToasts(prev => [...prev, { id, message, type }]);
     setTimeout(() => {
       setToasts(prev => prev.filter(t => t.id !== id));
@@ -580,6 +853,7 @@ export default function App() {
   };
 
   const handleLogout = () => {
+    flushPendingSync();
     setCurrentUser(null);
     sessionStorage.removeItem('silverCityERP_session');
     localStorage.removeItem('silverCityERP_session');
@@ -640,7 +914,11 @@ export default function App() {
     }
   };
 
-  const updateDataForTab = (tab: TabName, updated: RecordRow[]) => {
+  const updateDataForTab = (
+    tab: TabName,
+    updated: RecordRow[],
+    syncOptions?: { debounceMs?: number }
+  ) => {
     let newItems = latestStoreRef.current.items;
     let newRequests = latestStoreRef.current.requests;
     let newPOs = latestStoreRef.current.purchaseOrders;
@@ -688,14 +966,33 @@ export default function App() {
       users: newUsers
     };
 
-    pushSyncToServer({
+    const immediateTs = Math.max(Date.now(), latestAppliedUpdatedRef.current + 1);
+    latestAppliedUpdatedRef.current = immediateTs;
+    saveOfflineBackup({
       items: newItems,
       requests: newRequests,
       pos: newPOs,
       receives: newReceives,
       issued: newIssued,
-      users: newUsers
+      users: newUsers,
+      companyHeader: latestStoreRef.current.companyHeader,
+      savedDocHeaders: latestStoreRef.current.savedDocHeaders,
+      customColHeaders: latestStoreRef.current.customColHeaders,
+      dataVersion: LATEST_DATA_VERSION,
+      lastUpdated: immediateTs
     });
+
+    pushSyncToServer(
+      {
+        items: newItems,
+        requests: newRequests,
+        pos: newPOs,
+        receives: newReceives,
+        issued: newIssued,
+        users: newUsers
+      },
+      syncOptions
+    );
   };
 
   const getDisplayColumns = (): string[] => {
@@ -742,18 +1039,20 @@ export default function App() {
 
   if (sortCol) {
     filteredData.sort((a, b) => {
-      let valA = a[sortCol] !== undefined ? a[sortCol] : '';
-      let valB = b[sortCol] !== undefined ? b[sortCol] : '';
-      if (!isNaN(Number(valA)) && !isNaN(Number(valB)) && valA !== '' && valB !== '') {
-        valA = Number(valA);
-        valB = Number(valB);
+      const rawA = a[sortCol] !== undefined && a[sortCol] !== null ? a[sortCol] : '';
+      const rawB = b[sortCol] !== undefined && b[sortCol] !== null ? b[sortCol] : '';
+      const strA = String(rawA).trim();
+      const strB = String(rawB).trim();
+      const numA = Number(strA);
+      const numB = Number(strB);
+
+      let cmp = 0;
+      if (strA !== '' && strB !== '' && !isNaN(numA) && !isNaN(numB)) {
+        cmp = numA < numB ? -1 : numA > numB ? 1 : 0;
       } else {
-        valA = String(valA).toLowerCase();
-        valB = String(valB).toLowerCase();
+        cmp = strA.localeCompare(strB, undefined, { numeric: true, sensitivity: 'base' });
       }
-      if (valA < valB) return sortDir === 'asc' ? -1 : 1;
-      if (valA > valB) return sortDir === 'asc' ? 1 : -1;
-      return 0;
+      return sortDir === 'asc' ? cmp : -cmp;
     });
   }
 
@@ -825,6 +1124,7 @@ export default function App() {
   };
 
   const openSingleModal = (editRecord?: RecordRow, index?: number) => {
+    flushPendingSync();
     if (activeTab === 'Users' && !isYudit) {
       showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
       return;
@@ -872,10 +1172,7 @@ export default function App() {
     if (typeof rowObjOrIndex === 'object' && rowObjOrIndex !== null) {
       targetIdx = currentData.indexOf(rowObjOrIndex);
       if (targetIdx < 0) {
-        const primaryKey = (TAB_SCHEMAS[activeTab] || [])[0];
-        if (primaryKey && rowObjOrIndex[primaryKey]) {
-          targetIdx = currentData.findIndex(r => String(r[primaryKey]) === String(rowObjOrIndex[primaryKey]));
-        }
+        targetIdx = currentData.findIndex(r => matchRecord(r, rowObjOrIndex, activeTab));
       }
     } else if (typeof rowObjOrIndex === 'number') {
       targetIdx = rowObjOrIndex;
@@ -946,10 +1243,18 @@ export default function App() {
       }
     }
 
-    updateDataForTab(activeTab, currentData);
+    const isDiscreteSelect =
+      'Status' in updates ||
+      'Priority' in updates ||
+      'Role' in updates ||
+      'Attachment' in updates ||
+      'Photo' in updates ||
+      'Date' in updates;
+    updateDataForTab(activeTab, currentData, isDiscreteSelect ? undefined : { debounceMs: 1000 });
   };
 
   const promptDeleteRow = (globalRowIndex: number, rowObj?: RecordRow) => {
+    flushPendingSync();
     if (activeTab === 'Users' && !isYudit) {
       showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
       return;
@@ -981,6 +1286,7 @@ export default function App() {
         }
         return true;
       }
+      return false;
     }
 
     // Check ItemID specifically if present
@@ -1043,6 +1349,7 @@ export default function App() {
   };
 
   const promptBatchDelete = () => {
+    flushPendingSync();
     if (activeTab === 'Users' && !isYudit) {
       showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
       return;
@@ -1160,6 +1467,14 @@ export default function App() {
       showToast(`Mohon isi ${primaryKey} terlebih dahulu!`, 'error');
       return;
     }
+    if (activeTab === 'ItemList' && (!recordToSave.ItemName || String(recordToSave.ItemName).trim() === '')) {
+      showToast('Mohon isi ItemName terlebih dahulu!', 'error');
+      return;
+    }
+    if (activeTab === 'Users' && (!recordToSave.Password || String(recordToSave.Password).trim() === '')) {
+      showToast('Mohon isi Password terlebih dahulu!', 'error');
+      return;
+    }
 
     recordToSave['UpdatedBy'] = currentUser ? currentUser.username : 'System';
 
@@ -1167,22 +1482,23 @@ export default function App() {
     let targetIdx = -1;
 
     if (!isCreatingNew) {
-      // EDIT MODE: Update existing record
+      // EDIT MODE: Update the exact target record
       if (editingOriginalRecord) {
         targetIdx = currentData.indexOf(editingOriginalRecord);
+        if (targetIdx < 0) {
+          targetIdx = currentData.findIndex(r => matchRecord(r, editingOriginalRecord, activeTab));
+        }
       }
-      if (targetIdx < 0 && editingOriginalPrimaryKey) {
+      const isSingleRowTab = activeTab === 'ItemList' || activeTab === 'Inventory' || activeTab === 'Users';
+      if (targetIdx < 0 && isSingleRowTab && editingOriginalPrimaryKey) {
         targetIdx = currentData.findIndex(r =>
           r[primaryKey] && String(r[primaryKey]).trim().toLowerCase() === String(editingOriginalPrimaryKey).trim().toLowerCase()
         );
       }
-      if (targetIdx < 0 && primaryVal) {
+      if (targetIdx < 0 && isSingleRowTab && primaryVal) {
         targetIdx = currentData.findIndex(r =>
           r[primaryKey] && String(r[primaryKey]).trim().toLowerCase() === String(primaryVal).trim().toLowerCase()
         );
-      }
-      if (targetIdx < 0 && editingRowIndex !== null && editingRowIndex >= 0 && editingRowIndex < currentData.length) {
-        targetIdx = editingRowIndex;
       }
     }
 
@@ -1219,6 +1535,7 @@ export default function App() {
   };
 
   const openMultiModal = () => {
+    flushPendingSync();
     if (activeTab === 'Users' && !isYudit) {
       showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
       return;
@@ -1464,6 +1781,7 @@ export default function App() {
   };
 
   const openPrintModal = (id?: string) => {
+    flushPendingSync();
     const schema = TAB_SCHEMAS[activeTab] || [];
     const primaryKey = schema[0];
     const raw = getRawDataForTab(activeTab);
@@ -1625,12 +1943,14 @@ export default function App() {
   const handleSaveDocForm = () => {
     if (!printDocId) return;
 
+    const effectiveDocId = String(printDocHeader.RequestID || printDocId).trim() || printDocId;
     const updatedDocHeaders = {
       ...savedDocHeaders,
-      [printDocId]: printDocHeader
+      [effectiveDocId]: { ...printDocHeader, RequestID: effectiveDocId }
     };
     setSavedDocHeaders(updatedDocHeaders);
-    pushSyncToServer({ savedDocHeaders: updatedDocHeaders, companyHeader });
+    latestStoreRef.current.savedDocHeaders = updatedDocHeaders;
+    latestStoreRef.current.companyHeader = companyHeader;
 
     const primaryKey = (TAB_SCHEMAS[activeTab] || [])[0];
     const currentData = getRawDataForTab(activeTab);
@@ -1644,7 +1964,7 @@ export default function App() {
       const updatedDocRecords = validDocItems.map(item => ({
         ...(firstMatched || {}),
         ...item,
-        [primaryKey]: printDocId,
+        [primaryKey]: effectiveDocId,
         Date: printDocHeader.Date || firstMatched?.Date || new Date().toISOString().split('T')[0],
         Department: item.Department || printDocHeader.Department || firstMatched?.Department || 'Mechanic',
         WellLoc: printDocHeader.WellLoc || firstMatched?.WellLoc || '',
@@ -1669,6 +1989,7 @@ export default function App() {
         if (String(r[primaryKey]) === String(printDocId)) {
           return {
             ...r,
+            [primaryKey]: effectiveDocId,
             Date: printDocHeader.Date || r.Date,
             Department: printDocHeader.Department || r.Department,
             Priority: printDocHeader.Priority || r.Priority,
@@ -1680,6 +2001,9 @@ export default function App() {
       updateDataForTab(activeTab, updatedData);
     }
 
+    if (effectiveDocId !== printDocId) {
+      setPrintDocId(effectiveDocId);
+    }
     showToast('Form Header & Document saved successfully!');
   };
 
@@ -1690,12 +2014,14 @@ export default function App() {
       ...editingColHeaders
     };
     setCustomColHeaders(updated);
+    latestStoreRef.current.customColHeaders = updated;
     pushSyncToServer({ customColHeaders: updated });
     setIsColHeaderModalOpen(false);
     showToast('Column headers updated successfully!');
   };
 
   const openItemDetails = (itemId: string) => {
+    flushPendingSync();
     const invMatch = getRawDataForTab('Inventory').find(i => String(i.ItemID).toLowerCase() === String(itemId).toLowerCase());
     const match = invMatch || items.find(i => String(i.ItemID).toLowerCase() === String(itemId).toLowerCase());
     if (match) {
@@ -1711,6 +2037,14 @@ export default function App() {
   const handleSaveItemDetailsInline = (e: React.FormEvent) => {
     e.preventDefault();
     if (!viewingItem) return;
+    if (!viewingItem.ItemID || String(viewingItem.ItemID).trim() === '') {
+      showToast('Mohon isi ItemID terlebih dahulu!', 'error');
+      return;
+    }
+    if (!viewingItem.ItemName || String(viewingItem.ItemName).trim() === '') {
+      showToast('Mohon isi ItemName terlebih dahulu!', 'error');
+      return;
+    }
     const { StockIn: _si, StockOut: _so, CurrentStock: _cs, TotalPriceUSD: _tu, TotalPriceIDR: _ti, Status: _st, ...cleanItem } = viewingItem;
     cleanItem.UpdatedBy = currentUser ? currentUser.username : 'System';
     const orig = editingOriginalItemId || cleanItem.ItemID;
@@ -1916,6 +2250,7 @@ export default function App() {
           <Header
             activeTab={activeTab}
             setActiveTab={(tab) => {
+              flushPendingSync();
               setActiveTab(tab);
               setSearchTerm('');
               setFilterColumn('all');
@@ -1931,6 +2266,7 @@ export default function App() {
             onToggleDarkMode={toggleDarkMode}
             isFirebaseConnected={isFirebaseConnected}
             isSavingToFirestore={isSavingToFirestore}
+            isFirestoreQuotaBlocked={isFirestoreQuotaBlocked}
           />
 
           <div className="flex-grow flex flex-col min-w-0">
@@ -1942,10 +2278,40 @@ export default function App() {
                       Kuota penulisan harian gratis Firestore habis (resource-exhausted)
                     </p>
                     <p className="text-[11px] opacity-90">
-                      Perubahan data tetap disimpan aman ke server lokal. Kuota Firestore gratis akan reset keesokan hari, atau upgrade database Firestore agar dapat menyimpan kembali ke cloud secara real-time.
+                      Perubahan data tetap tersimpan dan tersinkronisasi melalui server aplikasi. Kuota Firestore gratis akan reset keesokan hari (info kuota Spark / Enterprise edition:{' '}
+                      <a
+                        href="https://firebase.google.com/pricing#cloud-firestore"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline font-bold"
+                      >
+                        firebase.google.com/pricing
+                      </a>
+                      ), atau upgrade database Firestore agar dapat menyimpan kembali ke cloud secara real-time.
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex flex-wrap items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        resetFirestoreQuotaFlag();
+                        const writable = await checkFirestoreWritable(true);
+                        if (!writable) {
+                          setIsFirestoreQuotaBlocked(true);
+                          showToast('Kuota tulis harian Firestore masih habis. Data tetap aman tersinkronisasi melalui server aplikasi.', 'error');
+                          return;
+                        }
+                        setIsFirestoreQuotaBlocked(false);
+                        hasShownQuotaToastRef.current = false;
+                        const synced = await pushSyncToServer();
+                        if (synced) {
+                          showToast('Firestore kembali terhubung!');
+                        }
+                      }}
+                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-slate-700 font-bold text-[11px] transition cursor-pointer"
+                    >
+                      Coba Hubungkan Ulang
+                    </button>
                     <a
                       href={FIRESTORE_DATABASE_UPGRADE_URL}
                       target="_blank"
@@ -2691,6 +3057,8 @@ export default function App() {
                                                 list="items-id-datalist"
                                                 value={val}
                                                 onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                                onBlur={() => flushPendingSync()}
+                                                onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
                                                 className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[90px] text-xs font-bold text-blue-600 dark:text-blue-400 outline-none transition"
                                               />
                                               {val && (
@@ -2715,6 +3083,8 @@ export default function App() {
                                                 type="text"
                                                 value={val}
                                                 onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                                onBlur={() => flushPendingSync()}
+                                                onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
                                                 className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[90px] text-xs font-bold text-indigo-600 dark:text-indigo-400 outline-none transition"
                                               />
                                               {val && (
@@ -2738,6 +3108,7 @@ export default function App() {
                                               rows={2}
                                               value={val}
                                               onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                              onBlur={() => flushPendingSync()}
                                               className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full text-xs font-semibold text-slate-800 dark:text-slate-100 outline-none transition whitespace-pre-wrap break-words resize-y min-h-[38px]"
                                             />
                                           </td>
@@ -2817,6 +3188,8 @@ export default function App() {
                                               type="email"
                                               value={val}
                                               onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                              onBlur={() => flushPendingSync()}
+                                              onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
                                               placeholder="email@example.com"
                                               className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[150px] text-xs font-medium text-slate-800 dark:text-slate-100 outline-none transition"
                                             />
@@ -2831,6 +3204,8 @@ export default function App() {
                                               type="password"
                                               value={val}
                                               onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                              onBlur={() => flushPendingSync()}
+                                              onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
                                               placeholder="••••••••"
                                               className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[100px] text-xs font-mono text-slate-800 dark:text-slate-100 outline-none transition"
                                             />
@@ -2846,6 +3221,8 @@ export default function App() {
                                               list="departments-datalist"
                                               value={val}
                                               onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                              onBlur={() => flushPendingSync()}
+                                              onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
                                               className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[110px] text-xs font-medium text-slate-800 dark:text-slate-100 outline-none transition"
                                             />
                                           </td>
@@ -2860,6 +3237,8 @@ export default function App() {
                                               list="suppliers-datalist"
                                               value={val}
                                               onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                              onBlur={() => flushPendingSync()}
+                                              onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
                                               className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[110px] text-xs font-medium text-slate-800 dark:text-slate-100 outline-none transition"
                                             />
                                           </td>
@@ -3010,9 +3389,11 @@ export default function App() {
                                         <td key={col} className="p-1.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[120px]">
                                           <input
                                             type={col.includes('Price') || col.includes('Stock') || col === 'Qty' ? 'number' : 'text'}
-                                            step={col.includes('USD') ? '0.01' : '1'}
+                                            step={col.includes('Price') || col.includes('Stock') || col === 'Qty' ? 'any' : undefined}
                                             value={val}
                                             onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                            onBlur={() => flushPendingSync()}
+                                            onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
                                             className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[90px] text-xs font-medium text-slate-800 dark:text-slate-100 outline-none transition"
                                           />
                                         </td>
@@ -3181,6 +3562,7 @@ export default function App() {
         <MobileBottomNav
           activeTab={activeTab}
           setActiveTab={(tab) => {
+            flushPendingSync();
             setActiveTab(tab);
             setSearchTerm('');
             setFilterColumn('all');
