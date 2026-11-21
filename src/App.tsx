@@ -36,6 +36,7 @@ import { ReorderNotificationModal } from './components/ReorderNotificationModal'
 import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { SpreadsheetSyncModal } from './components/SpreadsheetSyncModal';
+import { ExportInventoryExcelModal } from './components/ExportInventoryExcelModal';
 import { migrateStoreData, LATEST_DATA_VERSION } from './utils/migrateStore';
 import { db, doc, getDocFromServer, onSnapshot } from './lib/firebase';
 import {
@@ -160,6 +161,7 @@ export default function App() {
   const [isSavingToFirestore, setIsSavingToFirestore] = useState<boolean>(false);
   const [isFirestoreQuotaBlocked, setIsFirestoreQuotaBlocked] = useState<boolean>(() => isFirestoreQuotaExceeded());
   const [isQuotaBannerDismissed, setIsQuotaBannerDismissed] = useState<boolean>(false);
+  const [isExportExcelModalOpen, setIsExportExcelModalOpen] = useState<boolean>(false);
 
   const isFirestoreHydratedRef = React.useRef<boolean>(false);
   const latestAppliedUpdatedRef = React.useRef<number>(0);
@@ -2635,6 +2637,16 @@ export default function App() {
                         </button>
                       )}
 
+                      {activeTab === 'Inventory' && (
+                        <button
+                          onClick={() => setIsExportExcelModalOpen(true)}
+                          className="bg-green-700 hover:bg-green-800 text-white font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-xs shadow-md shadow-green-700/25 flex items-center justify-center gap-2 transition cursor-pointer w-full sm:w-auto"
+                          title="Export Inventory Sheet (.xlsx) dengan List IN & OUT per tanggal"
+                        >
+                          <i className="fa-solid fa-file-excel text-[11px]"></i> Export Excel
+                        </button>
+                      )}
+
                       <button
                         onClick={handleExportCSV}
                         className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-xs shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 transition cursor-pointer w-full sm:w-auto"
@@ -3655,6 +3667,20 @@ export default function App() {
           items={items}
           onClose={() => setIsQrScannerInputOpen(false)}
           onScanSuccess={handleQrScanSuccess}
+        />
+      )}
+
+      {isExportExcelModalOpen && (
+        <ExportInventoryExcelModal
+          allItems={inventoryItems}
+          filteredItems={activeTab === 'Inventory' ? filteredData : inventoryItems}
+          hasActiveFilter={activeTab === 'Inventory' && filteredData.length !== inventoryItems.length}
+          receives={receives}
+          issued={issued}
+          pos={purchaseOrders}
+          onClose={() => setIsExportExcelModalOpen(false)}
+          onSuccess={(fileName) => showToast(`Berhasil ekspor ${fileName}`)}
+          onError={(msg) => showToast(msg, 'error')}
         />
       )}
 
