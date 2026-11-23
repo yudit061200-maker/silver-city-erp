@@ -8,6 +8,7 @@ interface ReorderNotificationModalProps {
   onCreateSingleRequest: (item: RecordRow) => void;
   onCreateBatchRequest: (items: RecordRow[]) => void;
   onOpenItemDetails: (itemId: string) => void;
+  canCreateRequest?: boolean;
 }
 
 export const ReorderNotificationModal: React.FC<ReorderNotificationModalProps> = ({
@@ -15,7 +16,8 @@ export const ReorderNotificationModal: React.FC<ReorderNotificationModalProps> =
   onClose,
   onCreateSingleRequest,
   onCreateBatchRequest,
-  onOpenItemDetails
+  onOpenItemDetails,
+  canCreateRequest = true
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -76,7 +78,7 @@ export const ReorderNotificationModal: React.FC<ReorderNotificationModalProps> =
               </div>
             </div>
 
-            {itemsNeedingOrder.length > 0 && (
+            {itemsNeedingOrder.length > 0 && canCreateRequest && (
               <button
                 type="button"
                 onClick={() => onCreateBatchRequest(itemsNeedingOrder)}
@@ -170,14 +172,18 @@ export const ReorderNotificationModal: React.FC<ReorderNotificationModalProps> =
                           </span>
                         </td>
                         <td className="p-3 text-center">
-                          <button
-                            type="button"
-                            onClick={() => onCreateSingleRequest(item)}
-                            className="px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-xl text-[11px] font-bold transition shadow-xs flex items-center gap-1.5 cursor-pointer mx-auto"
-                            title="Create Material Request for this item"
-                          >
-                            <i className="fa-solid fa-plus"></i> Order (MR)
-                          </button>
+                          {canCreateRequest ? (
+                            <button
+                              type="button"
+                              onClick={() => onCreateSingleRequest(item)}
+                              className="px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-xl text-[11px] font-bold transition shadow-xs flex items-center gap-1.5 cursor-pointer mx-auto"
+                              title="Create Material Request for this item"
+                            >
+                              <i className="fa-solid fa-plus"></i> Order (MR)
+                            </button>
+                          ) : (
+                            <span className="text-[11px] font-semibold text-slate-400">Hanya Lihat</span>
+                          )}
                         </td>
                       </tr>
                     );

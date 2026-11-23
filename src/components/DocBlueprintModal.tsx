@@ -18,6 +18,7 @@ interface DocBlueprintModalProps {
   issued?: RecordRow[];
   onClose: () => void;
   onSaveDocForm: () => void;
+  canEdit?: boolean;
 }
 
 export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
@@ -35,8 +36,18 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
   receives = [],
   issued = [],
   onClose,
-  onSaveDocForm
+  onSaveDocForm,
+  canEdit = true
 }) => {
+  const effectiveEditMode = canEdit && isHeaderEditMode;
+  const docLastEditBy =
+    printDocHeader.UpdatedBy ||
+    printDocItems.find((r) => r && r.UpdatedBy)?.UpdatedBy ||
+    '';
+  const docLastEditAt =
+    printDocHeader.UpdatedAt ||
+    printDocItems.find((r) => r && r.UpdatedAt)?.UpdatedAt ||
+    '';
   const activeTabUpper = (activeTab || '').toUpperCase();
   const docTitleUpper = (printDocHeader.DocTitle || '').toUpperCase();
   const docNoUpper = (printDocHeader.DocNoLabel || '').toUpperCase();
@@ -368,23 +379,36 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                   ? 'Material Receiving Report Blueprint'
                   : 'Document Blueprint Header Form'}
               </h3>
-              <p className="text-xs text-yellow-400 font-semibold">
-                Editable & Printable Official Document Form
+              <p className="text-xs text-yellow-400 font-semibold flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                <span>{canEdit ? 'Editable & Printable Official Document Form' : 'Mode Hanya Lihat (Print Preview Only)'}</span>
+                {docLastEditBy && (
+                  <span className="text-slate-300 font-medium">
+                    • Last edit by: <strong className="text-white">{docLastEditBy}</strong>
+                    {docLastEditAt ? ` (${docLastEditAt})` : ''}
+                  </span>
+                )}
               </p>
             </div>
           </div>
           
           <div className="flex items-center justify-between w-full sm:w-auto space-x-2">
-            <button
-              type="button"
-              onClick={() => setIsHeaderEditMode(!isHeaderEditMode)}
-              className={`px-3.5 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 cursor-pointer ${
-                isHeaderEditMode ? 'bg-yellow-400 text-slate-900 shadow-xs' : 'bg-slate-800 text-slate-300 hover:text-white'
-              }`}
-            >
-              <i className={`fa-solid ${isHeaderEditMode ? 'fa-pen-to-square' : 'fa-eye'}`}></i>
-              <span>{isHeaderEditMode ? 'Form Edit Mode Active' : 'Print Preview Mode'}</span>
-            </button>
+            {canEdit ? (
+              <button
+                type="button"
+                onClick={() => setIsHeaderEditMode(!isHeaderEditMode)}
+                className={`px-3.5 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 cursor-pointer ${
+                  effectiveEditMode ? 'bg-yellow-400 text-slate-900 shadow-xs' : 'bg-slate-800 text-slate-300 hover:text-white'
+                }`}
+              >
+                <i className={`fa-solid ${effectiveEditMode ? 'fa-pen-to-square' : 'fa-eye'}`}></i>
+                <span>{effectiveEditMode ? 'Form Edit Mode Active' : 'Print Preview Mode'}</span>
+              </button>
+            ) : (
+              <span className="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-slate-800 text-slate-200 border border-slate-700 flex items-center gap-1.5">
+                <i className="fa-solid fa-eye text-amber-400"></i>
+                <span>Hanya Lihat</span>
+              </span>
+            )}
             <button onClick={onClose} className="text-slate-400 hover:text-white text-xl cursor-pointer px-2">&times;</button>
           </div>
         </div>
@@ -2020,18 +2044,35 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
               </div>
             )}
 
+            {/* Last Edit By Audit Footer on Every Document File */}
+            <div className="mt-2.5 pt-1.5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-500 font-semibold">
+              <span>
+                Last Edit By: <strong className="text-slate-800">{docLastEditBy || 'System'}</strong>
+              </span>
+              {docLastEditAt && (
+                <span>Last Modified: <strong className="text-slate-700">{docLastEditAt}</strong></span>
+              )}
+            </div>
+
           </div>
         </div>
 
         {/* Footer Actions */}
         <div className="px-4 sm:px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2.5 print:hidden">
-          <button
-            type="button"
-            onClick={onSaveDocForm}
-            className="px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 shadow-md shadow-emerald-600/20 transition flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
-          >
-            <i className="fa-solid fa-floppy-disk text-sm"></i> Save Form Header
-          </button>
+          {canEdit ? (
+            <button
+              type="button"
+              onClick={onSaveDocForm}
+              className="px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 shadow-md shadow-emerald-600/20 transition flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+            >
+              <i className="fa-solid fa-floppy-disk text-sm"></i> Save Form Header
+            </button>
+          ) : (
+            <div className="text-xs font-bold text-slate-500 flex items-center gap-2">
+              <i className="fa-solid fa-lock text-slate-400"></i>
+              <span>Akun Anda hanya memiliki izin lihat & cetak pada dokumen ini.</span>
+            </div>
+          )}
 
           <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
             <button

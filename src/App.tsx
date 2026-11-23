@@ -6,7 +6,10 @@ import {
   ToastItem,
   CompanyHeader,
   DocHeader,
-  TAB_SCHEMAS
+  TAB_SCHEMAS,
+  AccessMode,
+  EditableModule,
+  DEFAULT_COLUMN_LABELS
 } from './types';
 import {
   importedItems,
@@ -37,6 +40,18 @@ import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { SpreadsheetSyncModal } from './components/SpreadsheetSyncModal';
 import { ExportInventoryExcelModal } from './components/ExportInventoryExcelModal';
+import { UserPermissionsModal } from './components/UserPermissionsModal';
+import {
+  ALL_EDITABLE_MODULES,
+  buildPermissionFields,
+  canEditTab,
+  canManageUsers,
+  getLatestSheetEditInfo,
+  getPermissionSummary,
+  isSuperAdmin,
+  isViewOnlyAccount,
+  resolveUserPermissions
+} from './utils/permissions';
 import { migrateStoreData, LATEST_DATA_VERSION } from './utils/migrateStore';
 import { db, doc, getDocFromServer, onSnapshot } from './lib/firebase';
 import {
@@ -110,8 +125,6 @@ export default function App() {
     } catch { return null; }
   });
 
-  const isYudit = currentUser?.username?.trim().toLowerCase() === 'yudit061200';
-
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem('silverCityERP_theme');
@@ -162,6 +175,47 @@ export default function App() {
   const [isFirestoreQuotaBlocked, setIsFirestoreQuotaBlocked] = useState<boolean>(() => isFirestoreQuotaExceeded());
   const [isQuotaBannerDismissed, setIsQuotaBannerDismissed] = useState<boolean>(false);
   const [isExportExcelModalOpen, setIsExportExcelModalOpen] = useState<boolean>(false);
+  const [revealedPasswordRows, setRevealedPasswordRows] = useState<Record<string, boolean>>({});
+  const [permissionEditingUser, setPermissionEditingUser] = useState<RecordRow | null>(null);
+
+  const currentUserRecord = currentUser
+    ? users.find(
+        (u) =>
+          String(u.Username ?? u.username ?? '').trim().toLowerCase() ===
+          String(currentUser.username || '').trim().toLowerCase()
+      ) || null
+    : null;
+  const activeUserPermissions = resolveUserPermissions(currentUserRecord, currentUser);
+  const canAccessUsers = canManageUsers(activeUserPermissions, currentUser?.username);
+  const isAccountViewOnly = isViewOnlyAccount(activeUserPermissions, currentUser?.username);
+  const canEditCurrentTab = canEditTab(activeTab, activeUserPermissions, currentUser?.username);
+  const canEditItemList = canEditTab('ItemList', activeUserPermissions, currentUser?.username);
+  const canEditMaterialRequest = canEditTab('MaterialRequest', activeUserPermissions, currentUser?.username);
+
+  const getEditorStamp = () => {
+    const now = new Date();
+    const editorName = currentUser
+      ? (currentUser.fullname &&
+         currentUser.fullname.trim() !== '' &&
+         currentUser.fullname.trim().toLowerCase() !== currentUser.username.trim().toLowerCase()
+          ? `${currentUser.fullname.trim()} (${currentUser.username})`
+          : currentUser.username)
+      : 'System';
+    const formattedAt = now.toLocaleString('id-ID', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    return {
+      UpdatedBy: editorName,
+      UpdatedAt: formattedAt,
+      UpdatedAtISO: now.toISOString()
+    };
+  };
+
+  const getColLabel = (col: string) => customColHeaders[col] || DEFAULT_COLUMN_LABELS[col] || col;
 
   const isFirestoreHydratedRef = React.useRef<boolean>(false);
   const latestAppliedUpdatedRef = React.useRef<number>(0);
@@ -875,10 +929,19 @@ export default function App() {
     }
 
     const maxRowIndex = users.reduce((max, u) => Math.max(max, u._rowIndex || 0), 1);
+    const now = new Date();
     const createdUser: RecordRow = {
       ...newUser,
       _rowIndex: maxRowIndex + 1,
-      UpdatedBy: 'Self-Registered'
+      UpdatedBy: newUser.UpdatedBy || 'Self-Registered',
+      UpdatedAt: now.toLocaleString('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
+      UpdatedAtISO: now.toISOString()
     };
 
     const updatedUsers = [...users, createdUser];
@@ -886,6 +949,50 @@ export default function App() {
     latestStoreRef.current.users = updatedUsers;
     await pushSyncToServer({ users: updatedUsers });
     return true;
+  };
+
+  const requireEditPermission = (tabToCheck: TabName = activeTab): boolean => {
+    if (!canEditTab(tabToCheck, activeUserPermissions, currentUser?.username)) {
+      const tabLabel = tabToCheck.replace(/([A-Z])/g, ' $1').trim();
+      showToast(`Akses dibatasi: Akun Anda hanya memiliki izin lihat pada modul ${tabLabel}.`, 'error');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSaveUserPermissions = (
+    targetRow: RecordRow,
+    mode: AccessMode,
+    editableTabs: EditableModule[]
+  ) => {
+    if (!requireEditPermission('Users')) return;
+    const currentUsers = [...latestStoreRef.current.users];
+    let targetIdx = currentUsers.indexOf(targetRow);
+    if (targetIdx < 0) {
+      const targetName = String(targetRow.Username ?? targetRow.username ?? '').trim().toLowerCase();
+      targetIdx = currentUsers.findIndex(
+        (u) => String(u.Username ?? u.username ?? '').trim().toLowerCase() === targetName
+      );
+    }
+    if (targetIdx < 0) {
+      setPermissionEditingUser(null);
+      return;
+    }
+
+    const targetUsername = String(currentUsers[targetIdx].Username ?? currentUsers[targetIdx].username ?? '');
+    const effectiveFields = isSuperAdmin(targetUsername)
+      ? buildPermissionFields('full_edit', [...ALL_EDITABLE_MODULES])
+      : buildPermissionFields(mode, editableTabs);
+
+    currentUsers[targetIdx] = {
+      ...currentUsers[targetIdx],
+      ...effectiveFields,
+      ...getEditorStamp()
+    };
+
+    updateDataForTab('Users', currentUsers);
+    setPermissionEditingUser(null);
+    showToast(`Izin akun "${targetUsername || 'User'}" berhasil diperbarui!`);
   };
 
   const handleLoginSuccess = (userObj: UserSession) => {
@@ -1061,9 +1168,9 @@ export default function App() {
 
   const getDisplayColumns = (): string[] => {
     const original = TAB_SCHEMAS[activeTab] || [];
-    if (currentViewMode === 'report') return original;
-    if (activeTab === 'ItemList') return ['ItemID', 'ItemName', 'Category', 'Location', 'Photo'];
-    if (activeTab === 'Inventory') return ['ItemID', 'ItemName', 'UoM', 'LastStock', 'StockIn', 'StockOut', 'CurrentStock', 'Status', 'Location'];
+    if (currentViewMode === 'report' || activeTab === 'Users') return original;
+    if (activeTab === 'ItemList') return ['ItemID', 'ItemName', 'Category', 'Location', 'Photo', 'UpdatedBy'];
+    if (activeTab === 'Inventory') return ['ItemID', 'ItemName', 'UoM', 'LastStock', 'StockIn', 'StockOut', 'CurrentStock', 'Status', 'Location', 'UpdatedBy'];
     
     if (['MaterialRequest', 'PurchaseOrder', 'MaterialReceive', 'MaterialIssued'].includes(activeTab)) {
       const primary = original[0];
@@ -1079,6 +1186,7 @@ export default function App() {
       if (original.includes('Priority')) cols.push('Priority');
       if (original.includes('Remark')) cols.push('Remark');
       if (original.includes('Attachment')) cols.push('Attachment');
+      if (original.includes('UpdatedBy')) cols.push('UpdatedBy');
       return Array.from(new Set(cols.filter(c => original.includes(c))));
     }
 
@@ -1089,6 +1197,7 @@ export default function App() {
     if (original.includes('Priority')) cols.push('Priority');
     if (original.includes('Remark')) cols.push('Remark');
     if (original.includes('Attachment')) cols.push('Attachment');
+    if (original.includes('UpdatedBy')) cols.push('UpdatedBy');
     return Array.from(new Set(cols));
   };
 
@@ -1125,7 +1234,8 @@ export default function App() {
   const startIdx = (currentPage - 1) * rowsPerPage;
   const pageData = filteredData.slice(startIdx, startIdx + rowsPerPage);
 
-  const canMultiDelete = activeTab !== 'Dashboard' && activeTab !== 'Inventory' && (activeTab !== 'Users' || isYudit);
+  const canMultiDelete = canEditCurrentTab;
+  const activeSheetLastEdit = getLatestSheetEditInfo(rawData);
   const pageRowIndices = pageData.map((_, i) => startIdx + i);
   const isAllPageSelected = pageRowIndices.length > 0 && pageRowIndices.every(idx => selectedRowIndices.includes(idx));
   const isAllFilteredSelected = filteredData.length > 0 && selectedRowIndices.length === filteredData.length;
@@ -1189,10 +1299,7 @@ export default function App() {
 
   const openSingleModal = (editRecord?: RecordRow, index?: number) => {
     flushPendingSync();
-    if (activeTab === 'Users' && !isYudit) {
-      showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
-      return;
-    }
+    if (!requireEditPermission()) return;
     if (editRecord) {
       const primaryKey = (TAB_SCHEMAS[activeTab] || [])[0] || 'ID';
       setEditingOriginalRecord(editRecord);
@@ -1205,6 +1312,7 @@ export default function App() {
       const schema = TAB_SCHEMAS[activeTab] || [];
       const primaryKey = schema[0] || 'ID';
       const nextId = getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
+      const stamp = getEditorStamp();
 
       const newObj: RecordRow = {};
       schema.forEach(col => {
@@ -1212,9 +1320,17 @@ export default function App() {
         else if (col === 'Date') newObj[col] = new Date().toISOString().split('T')[0];
         else if (col === 'Status' && activeTab === 'MaterialRequest') newObj[col] = 'Pending';
         else if (col === 'Priority' && activeTab === 'MaterialRequest') newObj[col] = 'Normal';
-        else if (col === 'UpdatedBy') newObj[col] = currentUser ? currentUser.username : 'System';
+        else if (col === 'UpdatedBy') newObj[col] = stamp.UpdatedBy;
+        else if (col === 'Permissions') return;
         else newObj[col] = '';
       });
+      if (activeTab === 'Users') {
+        newObj.Role = 'Operator';
+        newObj.AccessMode = 'view_only';
+        newObj.EditableTabs = [];
+      }
+      newObj.UpdatedAt = stamp.UpdatedAt;
+      newObj.UpdatedAtISO = stamp.UpdatedAtISO;
       setEditingRecord(newObj);
       setEditingRowIndex(null);
     }
@@ -1226,10 +1342,7 @@ export default function App() {
     columnKeyOrObject: string | Record<string, any>,
     newValue?: any
   ) => {
-    if (activeTab === 'Users' && !isYudit) {
-      showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
-      return;
-    }
+    if (!requireEditPermission()) return;
     const currentData = [...getLatestArrayForTab(activeTab)];
     let targetIdx = -1;
 
@@ -1273,7 +1386,7 @@ export default function App() {
     }
 
     row = processPriceUpdates(updates, row);
-    row.UpdatedBy = currentUser ? currentUser.username : 'System';
+    Object.assign(row, getEditorStamp());
 
     currentData[targetIdx] = row;
 
@@ -1311,6 +1424,8 @@ export default function App() {
       'Status' in updates ||
       'Priority' in updates ||
       'Role' in updates ||
+      'AccessMode' in updates ||
+      'EditableTabs' in updates ||
       'Attachment' in updates ||
       'Photo' in updates ||
       'Date' in updates;
@@ -1319,11 +1434,12 @@ export default function App() {
 
   const promptDeleteRow = (globalRowIndex: number, rowObj?: RecordRow) => {
     flushPendingSync();
-    if (activeTab === 'Users' && !isYudit) {
-      showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
+    if (!requireEditPermission()) return;
+    const item = rowObj || filteredData[globalRowIndex] || getRawDataForTab(activeTab)[globalRowIndex];
+    if (activeTab === 'Users' && item && isSuperAdmin(String(item.Username ?? item.username ?? ''))) {
+      showToast('Akun Super Admin (yudit061200) tidak dapat dihapus.', 'error');
       return;
     }
-    const item = rowObj || filteredData[globalRowIndex] || getRawDataForTab(activeTab)[globalRowIndex];
     setRecordToDelete(item || null);
     setDeleteRowIndex(globalRowIndex);
     setIsBatchDelete(false);
@@ -1381,9 +1497,21 @@ export default function App() {
   };
 
   const confirmDeleteSingleRow = () => {
+    if (!requireEditPermission()) {
+      setIsDeleteModalOpen(false);
+      return;
+    }
     const targetItem = recordToDelete || (deleteRowIndex !== null ? filteredData[deleteRowIndex] : null);
 
     if (!targetItem) {
+      setIsDeleteModalOpen(false);
+      setRecordToDelete(null);
+      setDeleteRowIndex(null);
+      return;
+    }
+
+    if (activeTab === 'Users' && isSuperAdmin(String(targetItem.Username ?? targetItem.username ?? ''))) {
+      showToast('Akun Super Admin (yudit061200) tidak dapat dihapus.', 'error');
       setIsDeleteModalOpen(false);
       setRecordToDelete(null);
       setDeleteRowIndex(null);
@@ -1414,10 +1542,7 @@ export default function App() {
 
   const promptBatchDelete = () => {
     flushPendingSync();
-    if (activeTab === 'Users' && !isYudit) {
-      showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
-      return;
-    }
+    if (!requireEditPermission()) return;
     if (activeTab === 'Inventory') return;
     if (selectedRowIndices.length === 0) {
       showToast('Pilih minimal 1 data terlebih dahulu untuk dihapus', 'error');
@@ -1429,9 +1554,14 @@ export default function App() {
   };
 
   const confirmBatchDelete = () => {
+    if (!requireEditPermission()) {
+      setIsDeleteModalOpen(false);
+      return;
+    }
     const selectedRecords = selectedRowIndices
       .map(idx => filteredData[idx])
-      .filter((r): r is RecordRow => r !== undefined && r !== null);
+      .filter((r): r is RecordRow => r !== undefined && r !== null)
+      .filter(r => !(activeTab === 'Users' && isSuperAdmin(String(r.Username ?? r.username ?? ''))));
 
     if (selectedRecords.length === 0) {
       setSelectedRowIndices([]);
@@ -1467,8 +1597,16 @@ export default function App() {
       showToast('No data to export', 'error');
       return;
     }
-    const header = cols.join(',');
-    const rows = data.map(row => cols.map(c => `"${String(row[c] || '').replace(/"/g, '""')}"`).join(','));
+    const header = cols.map(c => `"${getColLabel(c).replace(/"/g, '""')}"`).join(',');
+    const rows = data.map(row =>
+      cols.map(c => {
+        if (c === 'Permissions') {
+          const summary = getPermissionSummary(resolveUserPermissions(row), String(row.Username ?? row.username ?? ''));
+          return `"${summary.label.replace(/"/g, '""')}"`;
+        }
+        return `"${String(row[c] || '').replace(/"/g, '""')}"`;
+      }).join(',')
+    );
     const csvContent = "data:text/csv;charset=utf-8," + [header, ...rows].join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
@@ -1517,10 +1655,7 @@ export default function App() {
   const handleSaveSingleRecord = (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingRecord) return;
-    if (activeTab === 'Users' && !isYudit) {
-      showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
-      return;
-    }
+    if (!requireEditPermission()) return;
 
     const currentData = [...getLatestArrayForTab(activeTab)];
     const primaryKey = (TAB_SCHEMAS[activeTab] || [])[0] || 'ID';
@@ -1548,7 +1683,11 @@ export default function App() {
       return;
     }
 
-    recordToSave['UpdatedBy'] = currentUser ? currentUser.username : 'System';
+    if (activeTab === 'Users' && isSuperAdmin(String(recordToSave.Username ?? recordToSave.username ?? ''))) {
+      Object.assign(recordToSave, buildPermissionFields('full_edit', [...ALL_EDITABLE_MODULES]));
+    }
+    delete recordToSave.Permissions;
+    Object.assign(recordToSave, getEditorStamp());
 
     const primaryVal = recordToSave[primaryKey];
     let targetIdx = -1;
@@ -1608,21 +1747,25 @@ export default function App() {
 
   const openMultiModal = () => {
     flushPendingSync();
-    if (activeTab === 'Users' && !isYudit) {
-      showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
-      return;
-    }
+    if (!requireEditPermission()) return;
     const schema = TAB_SCHEMAS[activeTab] || [];
     const primaryKey = schema[0] || 'ID';
     const nextId = getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
+    const stamp = getEditorStamp();
     const newRow: RecordRow = {};
     schema.forEach(col => {
       if (col === primaryKey && nextId) newRow[col] = nextId;
       else if (col === 'Date') newRow[col] = new Date().toISOString().split('T')[0];
       else if (col === 'Priority') newRow[col] = 'Normal';
-      else if (col === 'UpdatedBy') newRow[col] = currentUser ? currentUser.username : 'System';
+      else if (col === 'UpdatedBy') newRow[col] = stamp.UpdatedBy;
+      else if (col === 'Permissions') return;
       else newRow[col] = '';
     });
+    if (activeTab === 'Users') {
+      newRow.Role = 'Operator';
+      newRow.AccessMode = 'view_only';
+      newRow.EditableTabs = [];
+    }
     setMultiRows([newRow]);
     setIsMultiModalOpen(true);
   };
@@ -1632,6 +1775,7 @@ export default function App() {
     const primaryKey = schema[0] || 'ID';
     const fallbackId = getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
     const today = new Date().toISOString().split('T')[0];
+    const stamp = getEditorStamp();
 
     setMultiRows(prev => {
       const currentId = prev.length > 0 && prev[0][primaryKey]
@@ -1646,9 +1790,15 @@ export default function App() {
         if (col === primaryKey && currentId) newRow[col] = currentId;
         else if (col === 'Date') newRow[col] = firstRowDate;
         else if (col === 'Priority') newRow[col] = 'Normal';
-        else if (col === 'UpdatedBy') newRow[col] = currentUser ? currentUser.username : 'System';
+        else if (col === 'UpdatedBy') newRow[col] = stamp.UpdatedBy;
+        else if (col === 'Permissions') return;
         else newRow[col] = '';
       });
+      if (activeTab === 'Users') {
+        newRow.Role = 'Operator';
+        newRow.AccessMode = 'view_only';
+        newRow.EditableTabs = [];
+      }
       return [...prev, newRow];
     });
   };
@@ -1710,10 +1860,7 @@ export default function App() {
   };
 
   const saveMultiRecords = () => {
-    if (activeTab === 'Users' && !isYudit) {
-      showToast('Akses ditolak: Hanya akun yudit061200 yang dapat mengelola users', 'error');
-      return;
-    }
+    if (!requireEditPermission()) return;
     const primaryKey = (TAB_SCHEMAS[activeTab] || [])[0] || 'ID';
     const validRows = multiRows.filter(r => r[primaryKey] || r.ItemName || r.ItemID || r.Username);
     if (validRows.length === 0) {
@@ -1728,10 +1875,14 @@ export default function App() {
     }
 
     const currentData = [...getRawDataForTab(activeTab)];
+    const stamp = getEditorStamp();
 
     const processedRows = validRows.map((r) => {
-      const copy = { ...r };
-      copy['UpdatedBy'] = currentUser ? currentUser.username : 'System';
+      const copy: RecordRow = { ...r, ...stamp };
+      delete copy.Permissions;
+      if (activeTab === 'Users' && isSuperAdmin(String(copy.Username ?? copy.username ?? ''))) {
+        Object.assign(copy, buildPermissionFields('full_edit', [...ALL_EDITABLE_MODULES]));
+      }
       return copy;
     });
 
@@ -1751,6 +1902,7 @@ export default function App() {
     attachmentName: string
   ) => {
     setIsQrScannerInputOpen(false);
+    if (!requireEditPermission()) return;
 
     const priceInfo = processPriceUpdates({}, {
       UnitPriceUSD: scannedItem.UnitPriceUSD || 0,
@@ -1815,6 +1967,7 @@ export default function App() {
         const primaryKey = schema[0] || 'ID';
         const fallbackId = getNextSimpleDocId(activeTab, getRawDataForTab(activeTab));
         const today = new Date().toISOString().split('T')[0];
+        const stamp = getEditorStamp();
 
         setMultiRows(prev => {
           const currentId = prev.length > 0 && prev[0][primaryKey]
@@ -1829,7 +1982,7 @@ export default function App() {
             if (col === primaryKey && currentId) newRow[col] = currentId;
             else if (col === 'Date') newRow[col] = firstRowDate;
             else if (col === 'Priority') newRow[col] = 'Normal';
-            else if (col === 'UpdatedBy') newRow[col] = currentUser ? currentUser.username : 'System';
+            else if (col === 'UpdatedBy') newRow[col] = stamp.UpdatedBy;
             else newRow[col] = '';
           });
           newRow.ItemID = scannedItem.ItemID;
@@ -1872,7 +2025,8 @@ export default function App() {
       TotalPriceIDR: priceInfo.TotalPriceIDR,
       Remark: remark || 'Input via QR Code Scanner',
       Attachment: attachment || '',
-      AttachmentName: attachmentName || ''
+      AttachmentName: attachmentName || '',
+      ...getEditorStamp()
     };
 
     if (activeTab === 'MaterialReceive') {
@@ -1912,13 +2066,16 @@ export default function App() {
 
       const existingHeader = savedDocHeaders[targetId];
 
+      const latestMatchedEdit = getLatestSheetEditInfo(matched);
       const initialHeader = existingHeader ? {
         ...existingHeader,
         DocTitle: activeTab === 'MaterialReceive' ? 'MATERIAL RECEIVE REPORT' : existingHeader.DocTitle,
         DocNoLabel: activeTab === 'MaterialReceive' && (!existingHeader.DocNoLabel || existingHeader.DocNoLabel === 'Doc No.') ? 'MRR No.' : existingHeader.DocNoLabel,
         ApprovedBy: (activeTab === 'MaterialRequest' && (existingHeader.ApprovedBy === 'Ashley Moggy' || !existingHeader.ApprovedBy))
           ? 'General Manager'
-          : (existingHeader.ApprovedBy || (activeTab === 'MaterialReceive' ? '' : 'General Manager'))
+          : (existingHeader.ApprovedBy || (activeTab === 'MaterialReceive' ? '' : 'General Manager')),
+        UpdatedBy: existingHeader.UpdatedBy || latestMatchedEdit?.updatedBy || main.UpdatedBy || '',
+        UpdatedAt: existingHeader.UpdatedAt || latestMatchedEdit?.updatedAt || main.UpdatedAt || ''
       } : {
         DocTitle: docTypeTitle,
         RequestID: targetId,
@@ -1961,7 +2118,9 @@ export default function App() {
         Requisitioner: main.Requisitioner || '',
         ShipVia: main.ShipVia || '',
         Fob: main.Fob || '',
-        ShippingTerms: main.ShippingTerms || ''
+        ShippingTerms: main.ShippingTerms || '',
+        UpdatedBy: latestMatchedEdit?.updatedBy || main.UpdatedBy || '',
+        UpdatedAt: latestMatchedEdit?.updatedAt || main.UpdatedAt || ''
       };
 
       setPrintDocHeader(initialHeader);
@@ -2047,18 +2206,26 @@ export default function App() {
       }
       setPrintDocItems(docRows);
     }
-    setIsHeaderEditMode(true);
+    setIsHeaderEditMode(canEditCurrentTab);
     setIsPrintModalOpen(true);
   };
 
   const handleSaveDocForm = () => {
     if (!printDocId) return;
+    if (!requireEditPermission()) return;
 
+    const stamp = getEditorStamp();
     const effectiveDocId = String(printDocHeader.RequestID || printDocId).trim() || printDocId;
+    const stampedHeader = {
+      ...printDocHeader,
+      RequestID: effectiveDocId,
+      ...stamp
+    };
     const updatedDocHeaders = {
       ...savedDocHeaders,
-      [effectiveDocId]: { ...printDocHeader, RequestID: effectiveDocId }
+      [effectiveDocId]: stampedHeader
     };
+    setPrintDocHeader(stampedHeader);
     setSavedDocHeaders(updatedDocHeaders);
     latestStoreRef.current.savedDocHeaders = updatedDocHeaders;
     latestStoreRef.current.companyHeader = companyHeader;
@@ -2081,7 +2248,8 @@ export default function App() {
         WellLoc: printDocHeader.WellLoc || firstMatched?.WellLoc || '',
         RigName: printDocHeader.RigName || firstMatched?.RigName || '',
         Priority: printDocHeader.Priority || firstMatched?.Priority || 'Normal',
-        Remark: item.Remark || printDocHeader.Remark || firstMatched?.Remark || ''
+        Remark: item.Remark || printDocHeader.Remark || firstMatched?.Remark || '',
+        ...stamp
       }));
 
       if (existingIdx >= 0) {
@@ -2104,7 +2272,8 @@ export default function App() {
             Date: printDocHeader.Date || r.Date,
             Department: printDocHeader.Department || r.Department,
             Priority: printDocHeader.Priority || r.Priority,
-            Remark: printDocHeader.Remark || r.Remark
+            Remark: printDocHeader.Remark || r.Remark,
+            ...stamp
           };
         }
         return r;
@@ -2120,6 +2289,7 @@ export default function App() {
 
   const handleSaveColHeaders = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!requireEditPermission()) return;
     const updated = {
       ...customColHeaders,
       ...editingColHeaders
@@ -2148,6 +2318,7 @@ export default function App() {
   const handleSaveItemDetailsInline = (e: React.FormEvent) => {
     e.preventDefault();
     if (!viewingItem) return;
+    if (!requireEditPermission('ItemList')) return;
     if (!viewingItem.ItemID || String(viewingItem.ItemID).trim() === '') {
       showToast('Mohon isi ItemID terlebih dahulu!', 'error');
       return;
@@ -2161,7 +2332,7 @@ export default function App() {
     cleanItem.MinStock = parseNumberValue(cleanItem.MinStock);
     cleanItem.UnitPriceUSD = parseNumberValue(cleanItem.UnitPriceUSD);
     cleanItem.UnitPriceIDR = parseNumberValue(cleanItem.UnitPriceIDR);
-    cleanItem.UpdatedBy = currentUser ? currentUser.username : 'System';
+    Object.assign(cleanItem, getEditorStamp());
     const orig = editingOriginalItemId || cleanItem.ItemID;
     const currentItems = [...latestStoreRef.current.items];
     const existingIdx = currentItems.findIndex(i => String(i.ItemID).toLowerCase() === String(orig).toLowerCase());
@@ -2213,12 +2384,13 @@ export default function App() {
               latestStoreRef.current.items.forEach(p => {
                 if (p.ItemID) itemMap.set(String(p.ItemID).toLowerCase(), p);
               });
+              const stamp = getEditorStamp();
               parsedRecords.forEach(rec => {
                 const key = rec.ItemID ? String(rec.ItemID).toLowerCase() : null;
                 if (key) {
-                  itemMap.set(key, { ...(itemMap.get(key) || {}), ...rec });
+                  itemMap.set(key, { ...(itemMap.get(key) || {}), ...rec, ...stamp });
                 } else {
-                  itemMap.set(`_custom_${Math.random()}`, rec);
+                  itemMap.set(`_custom_${Math.random()}`, { ...rec, ...stamp });
                 }
               });
               const updatedItems = Array.from(itemMap.values());
@@ -2271,11 +2443,13 @@ export default function App() {
   });
 
   const handleCreateSingleRequestFromReorder = (item: RecordRow) => {
+    if (!requireEditPermission('MaterialRequest')) return;
     setIsReorderModalOpen(false);
     setActiveTab('MaterialRequest');
     const cur = parseNumberValue(item.CurrentStock);
     const min = parseNumberValue(item.MinStock);
     const deficit = Math.max(1, min - cur);
+    const stamp = getEditorStamp();
 
     const nextReqId = getNextSimpleDocId('MaterialRequest', requests);
     const schema = TAB_SCHEMAS['MaterialRequest'] || [];
@@ -2291,8 +2465,11 @@ export default function App() {
       else if (col === 'UoM') newObj[col] = item.UoM || 'Pcs';
       else if (col === 'Remark') newObj[col] = 'Auto-reorder requirement (Stok <= Min Stock)';
       else if (col === 'Department') newObj[col] = 'Purchasing';
+      else if (col === 'UpdatedBy') newObj[col] = stamp.UpdatedBy;
       else newObj[col] = '';
     });
+    newObj.UpdatedAt = stamp.UpdatedAt;
+    newObj.UpdatedAtISO = stamp.UpdatedAtISO;
 
     setEditingRecord(newObj);
     setEditingRowIndex(null);
@@ -2301,10 +2478,12 @@ export default function App() {
   };
 
   const handleCreateBatchRequestFromReorder = (orderItems: RecordRow[]) => {
+    if (!requireEditPermission('MaterialRequest')) return;
     setIsReorderModalOpen(false);
     setActiveTab('MaterialRequest');
     const today = new Date().toISOString().split('T')[0];
     const nextReqId = getNextSimpleDocId('MaterialRequest', requests);
+    const stamp = getEditorStamp();
 
     const rows = orderItems.map(item => {
       const cur = Number(item.CurrentStock) || 0;
@@ -2321,11 +2500,12 @@ export default function App() {
         ItemName: item.ItemName || '',
         Qty: deficit,
         UoM: item.UoM || 'Pcs',
-        Remark: 'Auto-reorder (Batch Need Order)'
+        Remark: 'Auto-reorder (Batch Need Order)',
+        ...stamp
       };
     });
 
-    setMultiRows(rows.length > 0 ? rows : [{ RequestID: nextReqId, Date: today, Department: 'Purchasing', Priority: 'Normal' }]);
+    setMultiRows(rows.length > 0 ? rows : [{ RequestID: nextReqId, Date: today, Department: 'Purchasing', Priority: 'Normal', ...stamp }]);
     setIsMultiModalOpen(true);
     showToast(`${orderItems.length} items prepared in Multi-Record Material Request!`);
   };
@@ -2382,6 +2562,8 @@ export default function App() {
             isFirebaseConnected={isFirebaseConnected}
             isSavingToFirestore={isSavingToFirestore}
             isFirestoreQuotaBlocked={isFirestoreQuotaBlocked}
+            canAccessUsersTab={canAccessUsers}
+            isViewOnly={isAccountViewOnly}
           />
 
           <div className="flex-grow flex flex-col min-w-0">
@@ -2462,7 +2644,7 @@ export default function App() {
               {activeTab !== 'Dashboard' && (
                 <div className="space-y-4 sm:space-y-5">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4 bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-3xl shadow-xs border border-slate-100 dark:border-slate-800 transition-colors">
-                    <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
                       <h2 className="text-xs sm:text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider">
                         {activeTab.replace(/([A-Z])/g, ' $1').trim()}
                       </h2>
@@ -2487,6 +2669,34 @@ export default function App() {
                           </button>
                         </div>
                       )}
+
+                      {!canEditCurrentTab && activeTab !== 'Inventory' && (
+                        <span
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 text-[11px] font-bold"
+                          title="Akun Anda hanya memiliki izin lihat pada modul ini"
+                        >
+                          <i className="fa-solid fa-eye text-amber-500 text-[10px]"></i>
+                          Mode Hanya Lihat
+                        </span>
+                      )}
+
+                      <span
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-50/80 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200 border border-amber-200/80 dark:border-amber-800/60 text-[11px] font-semibold"
+                        title="Pengguna terakhir yang mengubah data pada file/modul ini"
+                      >
+                        <i className="fa-solid fa-user-pen text-amber-500 text-[10px]"></i>
+                        <span>
+                          Last edit by:{' '}
+                          <strong className="font-extrabold">
+                            {activeSheetLastEdit?.updatedBy || 'System'}
+                          </strong>
+                          {activeSheetLastEdit?.updatedAt && (
+                            <span className="ml-1 text-[10px] opacity-80">
+                              &bull; {activeSheetLastEdit.updatedAt}
+                            </span>
+                          )}
+                        </span>
+                      </span>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full md:w-auto">
@@ -2497,7 +2707,7 @@ export default function App() {
                       >
                         <option value="all">All Columns</option>
                         {getDisplayColumns().map(col => (
-                          <option key={col} value={col}>{customColHeaders[col] || col}</option>
+                          <option key={col} value={col}>{getColLabel(col)}</option>
                         ))}
                       </select>
 
@@ -2595,7 +2805,7 @@ export default function App() {
                         </select>
                       </div>
 
-                      {(activeTab === 'MaterialReceive' || activeTab === 'MaterialIssued') && (
+                      {canEditCurrentTab && (activeTab === 'MaterialReceive' || activeTab === 'MaterialIssued') && (
                         <button
                           onClick={() => {
                             setQrScanTargetRowIndex(null);
@@ -2608,7 +2818,7 @@ export default function App() {
                         </button>
                       )}
 
-                      {activeTab !== 'Inventory' && (activeTab !== 'Users' || isYudit) && (
+                      {canEditCurrentTab && (
                         <>
                           <button
                             onClick={() => openSingleModal()}
@@ -2657,14 +2867,14 @@ export default function App() {
                   </div>
 
                   {/* Data Content View (Data List View or Spreadsheet Table View) */}
-                  {activeTab === 'Users' && !isYudit ? (
+                  {activeTab === 'Users' && !canAccessUsers ? (
                     <div className="bg-white dark:bg-slate-900 rounded-3xl p-10 text-center border border-slate-200 dark:border-slate-800 shadow-md space-y-4 my-6 max-w-lg mx-auto">
                       <div className="w-16 h-16 bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 rounded-3xl flex items-center justify-center text-2xl mx-auto shadow-inner">
                         <i className="fa-solid fa-lock"></i>
                       </div>
                       <h3 className="text-base font-extrabold text-slate-900 dark:text-white">Akses Dibatasi (Restricted Access)</h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400">
-                        Hanya akun <span className="font-extrabold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-md border border-amber-200 dark:border-amber-800">yudit061200</span> yang memiliki wewenang untuk mengelola pengguna.
+                        Hanya akun dengan izin kelola pengguna (<span className="font-extrabold text-amber-600 dark:text-amber-400">Users &amp; Izin Akun</span>) yang dapat membuka halaman ini.
                       </p>
                       <button
                         onClick={() => setActiveTab('Dashboard')}
@@ -2731,7 +2941,7 @@ export default function App() {
                         {pageData.length === 0 ? (
                           <div className="bg-white dark:bg-slate-900 rounded-3xl p-10 text-center text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800 font-medium flex flex-col items-center justify-center gap-3">
                             <div>No Data Found</div>
-                            {activeTab !== 'Inventory' && (
+                            {canEditCurrentTab && (
                               <div className="flex items-center gap-2 mt-1">
                                 <button
                                   onClick={() => openSingleModal()}
@@ -2835,11 +3045,18 @@ export default function App() {
                                     <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white whitespace-normal break-words leading-snug">
                                       {itemName}
                                     </h4>
-                                    {row.Location && (
+                                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                      {row.Location && (
+                                        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1">
+                                          <i className="fa-solid fa-location-dot text-rose-500 text-[10px]"></i> {row.Location}
+                                        </span>
+                                      )}
                                       <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1">
-                                        <i className="fa-solid fa-location-dot text-rose-500 text-[10px]"></i> {row.Location}
+                                        <i className="fa-solid fa-user-pen text-amber-500 text-[10px]"></i>
+                                        Last edit by: <strong className="text-slate-700 dark:text-slate-300 font-bold">{row.UpdatedBy || 'System'}</strong>
+                                        {row.UpdatedAt ? <span className="text-[10px] opacity-80">({row.UpdatedAt})</span> : null}
                                       </span>
-                                    )}
+                                    </div>
                                   </div>
                                 </div>
 
@@ -2848,7 +3065,7 @@ export default function App() {
                                   {(activeTab === 'Inventory'
                                     ? ['CurrentStock', 'LastStock', 'StockIn', 'StockOut', 'MinStock', 'UoM']
                                     : getDisplayColumns()
-                                        .filter(col => col !== primaryKeyCol && col !== 'ItemName' && col !== 'Status' && col !== 'Photo' && col !== 'Location')
+                                        .filter(col => col !== primaryKeyCol && col !== 'ItemName' && col !== 'Status' && col !== 'Photo' && col !== 'Location' && col !== 'UpdatedBy')
                                         .slice(0, 4)
                                   ).map(col => {
                                     let v = row[col] !== undefined && row[col] !== null ? row[col] : '-';
@@ -2859,10 +3076,52 @@ export default function App() {
                                     if (col.includes('IDR') && typeof v === 'number') v = `Rp ${v.toLocaleString('id-ID')}`;
                                     if (col === 'CurrentStock' && typeof v === 'number') v = v.toLocaleString('id-ID');
 
+                                    if (col === 'Permissions') {
+                                      const perms = resolveUserPermissions(row);
+                                      const summary = getPermissionSummary(perms, String(row.Username ?? row.username ?? ''));
+                                      return (
+                                        <div key={col} className="min-w-0">
+                                          <span className="text-[9px] sm:text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider block truncate">
+                                            {getColLabel(col)}
+                                          </span>
+                                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[10px] font-bold border mt-0.5 max-w-full truncate ${summary.colorClass}`} title={summary.detail}>
+                                            <i className={`fa-solid ${summary.icon} text-[9px] shrink-0`}></i>
+                                            <span className="truncate">{summary.label}</span>
+                                          </span>
+                                        </div>
+                                      );
+                                    }
+
+                                    if (col === 'Password') {
+                                      const rowKey = String(row._rowIndex ?? row.Username ?? actualRowIndex);
+                                      const isRevealed = !!revealedPasswordRows[rowKey];
+                                      return (
+                                        <div key={col} className="min-w-0">
+                                          <span className="text-[9px] sm:text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider block truncate">
+                                            {getColLabel(col)}
+                                          </span>
+                                          <div className="flex items-center gap-1.5">
+                                            <span className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 truncate">
+                                              {isRevealed ? String(v) : '••••••••'}
+                                            </span>
+                                            <button
+                                              type="button"
+                                              onClick={() => setRevealedPasswordRows(prev => ({ ...prev, [rowKey]: !prev[rowKey] }))}
+                                              title={isRevealed ? 'Sembunyikan password' : 'Intip password'}
+                                              aria-label={isRevealed ? 'Sembunyikan password' : 'Intip password'}
+                                              className="text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition cursor-pointer shrink-0 p-0.5"
+                                            >
+                                              <i className={`fa-solid ${isRevealed ? 'fa-eye-slash' : 'fa-eye'} text-xs`}></i>
+                                            </button>
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+
                                     return (
                                       <div key={col} className="min-w-0">
                                         <span className="text-[9px] sm:text-[10px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider block truncate">
-                                          {customColHeaders[col] || col}
+                                          {getColLabel(col)}
                                         </span>
                                         <span className={`text-xs truncate block ${
                                           col === 'CurrentStock'
@@ -2878,6 +3137,15 @@ export default function App() {
 
                                 {/* Right: Action Buttons */}
                                 <div className="flex flex-wrap items-center gap-1.5 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
+                                  {activeTab === 'Users' && canEditCurrentTab && (
+                                    <button
+                                      onClick={() => setPermissionEditingUser(row)}
+                                      className="px-2.5 py-1.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 border border-indigo-200 dark:border-indigo-800 rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer"
+                                    >
+                                      <i className="fa-solid fa-user-shield text-[11px]"></i> Atur Izin
+                                    </button>
+                                  )}
+
                                   {row.ItemID && (
                                     <button
                                       onClick={() => openQrModal(row)}
@@ -2907,7 +3175,7 @@ export default function App() {
                                     </button>
                                   )}
 
-                                  {activeTab !== 'Inventory' && (
+                                  {canEditCurrentTab && (
                                     <button
                                       onClick={() => openSingleModal(row, actualRowIndex)}
                                       className="px-2.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer shadow-xs"
@@ -2916,7 +3184,7 @@ export default function App() {
                                     </button>
                                   )}
 
-                                  {activeTab !== 'Inventory' && (
+                                  {canEditCurrentTab && !(activeTab === 'Users' && isSuperAdmin(String(row.Username ?? row.username ?? ''))) && (
                                     <button
                                       onClick={() => promptDeleteRow(actualRowIndex, row)}
                                       className="px-2.5 py-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer shadow-xs"
@@ -3021,7 +3289,7 @@ export default function App() {
                                 </th>
                               {getDisplayColumns().map((col, colIdx) => {
                                 const isSorted = sortCol === col;
-                                const colLabel = customColHeaders[col] || col;
+                                const colLabel = getColLabel(col);
                                 return (
                                   <th
                                     key={`col-hdr-${col}-${colIdx}`}
@@ -3060,6 +3328,7 @@ export default function App() {
                                 const actualRowIndex = startIdx + index;
                                 const isSelected = selectedRowIndices.includes(actualRowIndex);
                                 const primaryKeyCol = (TAB_SCHEMAS[activeTab] || [])[0];
+                                const isTargetSuperAdmin = activeTab === 'Users' && isSuperAdmin(String(row.Username ?? row.username ?? ''));
 
                                 return (
                                   <tr
@@ -3071,7 +3340,7 @@ export default function App() {
                                     }`}
                                   >
                                     <td className="p-2 border-b border-slate-100 dark:border-slate-800 font-bold text-slate-400 dark:text-slate-500 text-center bg-slate-50/40 dark:bg-slate-900/40 select-none whitespace-nowrap min-w-[105px]">
-                                      {activeTab !== 'Inventory' ? (
+                                      {canEditCurrentTab ? (
                                         <div className="flex items-center justify-center gap-1.5">
                                           {canMultiDelete && (
                                             <input
@@ -3090,13 +3359,15 @@ export default function App() {
                                           >
                                             <i className="fa-solid fa-pencil"></i>
                                           </button>
-                                          <button
-                                            onClick={() => promptDeleteRow(actualRowIndex, row)}
-                                            title="Delete this row"
-                                            className="inline-flex items-center justify-center w-5.5 h-5.5 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition text-[10px] shadow-xs cursor-pointer shrink-0"
-                                          >
-                                            <i className="fa-solid fa-trash"></i>
-                                          </button>
+                                          {!isTargetSuperAdmin && (
+                                            <button
+                                              onClick={() => promptDeleteRow(actualRowIndex, row)}
+                                              title="Delete this row"
+                                              className="inline-flex items-center justify-center w-5.5 h-5.5 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition text-[10px] shadow-xs cursor-pointer shrink-0"
+                                            >
+                                              <i className="fa-solid fa-trash"></i>
+                                            </button>
+                                          )}
                                         </div>
                                       ) : (
                                         <span className="text-slate-500 dark:text-slate-400 font-extrabold text-xs">{globalIdx}</span>
@@ -3109,8 +3380,55 @@ export default function App() {
                                         val = String(val).split('T')[0];
                                       }
 
-                                      const isReadOnlyTab = activeTab === 'Inventory';
+                                      const isReadOnlyTab = activeTab === 'Inventory' || !canEditCurrentTab;
                                       const isComputedCol = ['TotalPriceIDR', 'TotalPriceUSD', 'CurrentStock', 'StockIn', 'StockOut'].includes(col);
+
+                                      if (col === 'UpdatedBy') {
+                                        return (
+                                          <td key={col} className="p-2.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[155px]">
+                                            <div className="flex flex-col gap-0.5">
+                                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 w-fit">
+                                                <i className="fa-solid fa-user-pen text-amber-500 text-[9px]"></i>
+                                                {val || 'System'}
+                                              </span>
+                                              {row.UpdatedAt && (
+                                                <span className="text-[9px] text-slate-400 dark:text-slate-500 font-semibold pl-1">
+                                                  {row.UpdatedAt}
+                                                </span>
+                                              )}
+                                            </div>
+                                          </td>
+                                        );
+                                      }
+
+                                      if (col === 'Permissions') {
+                                        const perms = resolveUserPermissions(row);
+                                        const summary = getPermissionSummary(perms, String(row.Username ?? row.username ?? ''));
+                                        return (
+                                          <td key={col} className="p-2 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[200px]">
+                                            <div className="flex items-center gap-2">
+                                              <span
+                                                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold border ${summary.colorClass}`}
+                                                title={summary.detail}
+                                              >
+                                                <i className={`fa-solid ${summary.icon} text-[9px]`}></i>
+                                                {summary.label}
+                                              </span>
+                                              {canEditCurrentTab && (
+                                                <button
+                                                  type="button"
+                                                  onClick={() => setPermissionEditingUser(row)}
+                                                  title="Atur izin akses akun ini"
+                                                  className="px-2 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 text-[10px] font-extrabold transition cursor-pointer shrink-0 flex items-center gap-1"
+                                                >
+                                                  <i className="fa-solid fa-sliders text-[9px]"></i>
+                                                  Atur
+                                                </button>
+                                              )}
+                                            </div>
+                                          </td>
+                                        );
+                                      }
 
                                       if (isReadOnlyTab || isComputedCol) {
                                         if (col === 'Status' && val) {
@@ -3144,6 +3462,83 @@ export default function App() {
                                           );
                                         }
 
+                                        if (col === 'ItemID' && val) {
+                                          return (
+                                            <td key={col} className="p-3 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[130px]">
+                                              <div className="flex items-center gap-1.5">
+                                                <span className="text-xs font-bold text-blue-600 dark:text-blue-400">{val}</span>
+                                                <button
+                                                  onClick={() => openItemDetails(String(val))}
+                                                  title="View Item Details"
+                                                  className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 p-1 rounded hover:bg-blue-50 dark:hover:bg-blue-950/50 transition shrink-0 cursor-pointer text-xs"
+                                                >
+                                                  <i className="fa-solid fa-circle-info"></i>
+                                                </button>
+                                              </div>
+                                            </td>
+                                          );
+                                        }
+
+                                        if (col === primaryKeyCol && ['MaterialRequest', 'PurchaseOrder', 'MaterialReceive', 'MaterialIssued'].includes(activeTab) && val) {
+                                          return (
+                                            <td key={col} className="p-3 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[130px]">
+                                              <div className="flex items-center gap-1.5">
+                                                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{val}</span>
+                                                <button
+                                                  onClick={() => openPrintModal(String(val))}
+                                                  title="View Document Form"
+                                                  className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 p-1 rounded hover:bg-indigo-50 dark:hover:bg-indigo-950/50 transition shrink-0 cursor-pointer text-xs"
+                                                >
+                                                  <i className="fa-solid fa-file-lines"></i>
+                                                </button>
+                                              </div>
+                                            </td>
+                                          );
+                                        }
+
+                                        if (col === 'Photo') {
+                                          return (
+                                            <td key={col} className="p-2.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[100px]">
+                                              {val ? (
+                                                <img
+                                                  src={val}
+                                                  alt="Thumb"
+                                                  onClick={() => {
+                                                    setLightboxSrc(val);
+                                                    setLightboxCaption(row.ItemName || 'Item Photo');
+                                                    setIsLightboxOpen(true);
+                                                  }}
+                                                  className="h-8 w-8 object-cover rounded-lg border border-slate-200 dark:border-slate-700 cursor-pointer shadow-xs"
+                                                />
+                                              ) : (
+                                                <span className="text-[10px] text-slate-400 font-semibold">-</span>
+                                              )}
+                                            </td>
+                                          );
+                                        }
+
+                                        if (col === 'Attachment') {
+                                          const isImage = typeof val === 'string' && (val.startsWith('data:image/') || val.match(/\.(jpeg|jpg|gif|png|webp)$/i));
+                                          return (
+                                            <td key={col} className="p-2.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[130px]">
+                                              {val ? (
+                                                <a
+                                                  href={val}
+                                                  download={row.AttachmentName || 'Attachment'}
+                                                  target="_blank"
+                                                  rel="noreferrer"
+                                                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:underline text-[11px] font-bold border border-slate-200 dark:border-slate-700"
+                                                >
+                                                  <i className={`fa-solid ${isImage ? 'fa-image text-emerald-500' : 'fa-file-pdf text-blue-500'}`}></i>
+                                                  <span className="max-w-[110px] truncate">{row.AttachmentName || 'Dokumen'}</span>
+                                                </a>
+                                              ) : (
+                                                <span className="text-[10px] text-slate-400 font-semibold">-</span>
+                                              )}
+                                            </td>
+                                          );
+                                        }
+
                                         return (
                                           <td
                                             key={col}
@@ -3158,17 +3553,6 @@ export default function App() {
                                               : col.includes('IDR') && typeof val === 'number'
                                               ? `Rp ${val.toLocaleString('id-ID')}`
                                               : val}
-                                          </td>
-                                        );
-                                      }
-
-                                      if (col === 'UpdatedBy') {
-                                        return (
-                                          <td key={col} className="p-3 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[120px]">
-                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                                              <i className="fa-solid fa-user-pen text-amber-500 text-[9px]"></i>
-                                              {val || 'System'}
-                                            </span>
                                           </td>
                                         );
                                       }
@@ -3323,17 +3707,30 @@ export default function App() {
                                       }
 
                                       if (col === 'Password') {
+                                        const rowKey = String(row._rowIndex ?? row.Username ?? actualRowIndex);
+                                        const isRevealed = !!revealedPasswordRows[rowKey];
                                         return (
-                                          <td key={col} className="p-1.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[130px]">
-                                            <input
-                                              type="password"
-                                              value={val}
-                                              onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
-                                              onBlur={() => flushPendingSync()}
-                                              onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
-                                              placeholder="••••••••"
-                                              className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[100px] text-xs font-mono text-slate-800 dark:text-slate-100 outline-none transition"
-                                            />
+                                          <td key={col} className="p-1.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[160px]">
+                                            <div className="relative flex items-center">
+                                              <input
+                                                type={isRevealed ? 'text' : 'password'}
+                                                value={val}
+                                                onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                                onBlur={() => flushPendingSync()}
+                                                onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
+                                                placeholder="••••••••"
+                                                className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg pl-2 pr-8 py-1 w-full min-w-[125px] text-xs font-mono text-slate-800 dark:text-slate-100 outline-none transition"
+                                              />
+                                              <button
+                                                type="button"
+                                                onClick={() => setRevealedPasswordRows(prev => ({ ...prev, [rowKey]: !prev[rowKey] }))}
+                                                title={isRevealed ? 'Sembunyikan password' : 'Intip password'}
+                                                aria-label={isRevealed ? 'Sembunyikan password' : 'Intip password'}
+                                                className="absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-200/70 dark:hover:bg-slate-700/70 rounded-md p-1 transition cursor-pointer"
+                                              >
+                                                <i className={`fa-solid ${isRevealed ? 'fa-eye-slash' : 'fa-eye'} text-xs`}></i>
+                                              </button>
+                                            </div>
                                           </td>
                                         );
                                       }
@@ -3615,6 +4012,7 @@ export default function App() {
           items={items}
           receives={receives}
           issued={issued}
+          canEdit={canEditCurrentTab}
           onClose={() => setIsPrintModalOpen(false)}
           onSaveDocForm={handleSaveDocForm}
         />
@@ -3637,6 +4035,7 @@ export default function App() {
           setViewingItem={setViewingItem}
           isEditingInDetails={isEditingInDetails}
           setIsEditingInDetails={setIsEditingInDetails}
+          canEdit={canEditItemList}
           onClose={() => setIsItemDetailsModalOpen(false)}
           onSaveInline={handleSaveItemDetailsInline}
           onOpenQr={openQrModal}
@@ -3684,6 +4083,14 @@ export default function App() {
         />
       )}
 
+      {permissionEditingUser && (
+        <UserPermissionsModal
+          userRow={permissionEditingUser}
+          onClose={() => setPermissionEditingUser(null)}
+          onSave={handleSaveUserPermissions}
+        />
+      )}
+
       {/* Interactive Delete Modal */}
       <DeleteConfirmModal
         isOpen={isDeleteModalOpen}
@@ -3708,12 +4115,14 @@ export default function App() {
             setCurrentPage(1);
           }}
           onOpenSingleModal={() => openSingleModal()}
+          canEditCurrentTab={canEditCurrentTab}
         />
       )}
 
       {isReorderModalOpen && (
         <ReorderNotificationModal
           itemsNeedingOrder={itemsNeedingOrder}
+          canCreateRequest={canEditMaterialRequest}
           onClose={() => setIsReorderModalOpen(false)}
           onCreateSingleRequest={handleCreateSingleRequestFromReorder}
           onCreateBatchRequest={handleCreateBatchRequestFromReorder}

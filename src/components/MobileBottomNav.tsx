@@ -5,12 +5,14 @@ interface MobileBottomNavProps {
   activeTab: TabName;
   setActiveTab: (tab: TabName) => void;
   onOpenSingleModal: () => void;
+  canEditCurrentTab?: boolean;
 }
 
 export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   activeTab,
   setActiveTab,
-  onOpenSingleModal
+  onOpenSingleModal,
+  canEditCurrentTab = true
 }) => {
   const navItems: { name: TabName; label: string; icon: string }[] = [
     { name: 'Dashboard', label: 'Home', icon: 'fa-chart-pie' },
@@ -40,7 +42,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         );
       })}
 
-      {activeTab !== 'Dashboard' && activeTab !== 'Inventory' && (
+      {activeTab !== 'Dashboard' && activeTab !== 'Inventory' && canEditCurrentTab && (
         <button
           onClick={onOpenSingleModal}
           className="w-10 h-10 rounded-full bg-amber-400 text-slate-950 font-black shadow-lg shadow-amber-400/40 flex items-center justify-center -mt-5 border-2 border-white dark:border-slate-900 transition active:scale-95 cursor-pointer"

@@ -12,6 +12,8 @@ interface SidebarProps {
   setSidebarWidth: (width: number) => void;
   isDarkMode?: boolean;
   onToggleDarkMode?: () => void;
+  canAccessUsersTab?: boolean;
+  isViewOnly?: boolean;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -24,8 +26,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
   sidebarWidth,
   setSidebarWidth,
   isDarkMode = false,
-  onToggleDarkMode
+  onToggleDarkMode,
+  canAccessUsersTab,
+  isViewOnly = false
 }) => {
+  const showUsersTab =
+    canAccessUsersTab !== undefined
+      ? canAccessUsersTab
+      : currentUser?.username?.trim().toLowerCase() === 'yudit061200';
   const [isResizingSidebar, setIsResizingSidebar] = useState(false);
 
   useEffect(() => {
@@ -145,7 +153,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             );
           })}
 
-          {currentUser?.username?.trim().toLowerCase() === 'yudit061200' && (
+          {showUsersTab && (
             <>
               <div className="pt-4 pb-1 px-3 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Administration</div>
 
@@ -205,7 +213,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <div>
                 <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate w-32">{currentUser.fullname}</p>
                 <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Online
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>{isViewOnly ? 'Hanya Lihat' : 'Online'}</span>
                 </p>
               </div>
             </div>

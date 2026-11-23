@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { RecordRow, TabName, TAB_SCHEMAS } from '../types';
+import { DEFAULT_COLUMN_LABELS, RecordRow, TabName, TAB_SCHEMAS } from '../types';
+import { ALL_EDITABLE_MODULES, OPERATIONAL_MODULES, resolveUserPermissions } from '../utils/permissions';
 import { processFileUpload } from '../utils/fileUpload';
 import { findMatchingItems } from '../utils/search';
 
@@ -27,6 +28,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
   onOpenQrScanner
 }) => {
   const [focusedCell, setFocusedCell] = useState<{ idx: number; field: 'ItemID' | 'ItemName' } | null>(null);
+  const [revealedPasswordRows, setRevealedPasswordRows] = useState<Record<number, boolean>>({});
   const isTransactionTab = ['MaterialRequest', 'PurchaseOrder', 'MaterialReceive', 'MaterialIssued'].includes(activeTab);
   return (
     <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50 animate-fadeIn">
@@ -64,7 +66,9 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                 <tr>
                   <th className="p-3.5 w-12 text-center">#</th>
                   {(TAB_SCHEMAS[activeTab] || []).map((col, cIdx) => (
-                    <th key={`multi-hdr-${col}-${cIdx}`} className="p-3.5 whitespace-nowrap min-w-[140px]">{col}</th>
+                    <th key={`multi-hdr-${col}-${cIdx}`} className="p-3.5 whitespace-nowrap min-w-[140px]">
+                      {DEFAULT_COLUMN_LABELS[col] || col}
+                    </th>
                   ))}
                   <th className="p-3.5 text-center w-14">Action</th>
                 </tr>
@@ -331,23 +335,67 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                       }
 
                       if (col === 'Password') {
+                        const isRevealed = !!revealedPasswordRows[idx];
                         return (
-                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[120px]">
-                            <input
-                              type="password"
-                              value={val}
-                              onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
-                              placeholder="••••••••"
-                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-mono outline-none focus:ring-1 focus:ring-yellow-400"
-                            />
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[160px]">
+                            <div className="relative flex items-center">
+                              <input
+                                type={isRevealed ? 'text' : 'password'}
+                                value={val}
+                                onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
+                                placeholder="••••••••"
+                                className="w-full border border-slate-200 dark:border-slate-700 rounded-xl pl-3 pr-10 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-mono outline-none focus:ring-1 focus:ring-yellow-400"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => setRevealedPasswordRows(prev => ({ ...prev, [idx]: !prev[idx] }))}
+                                title={isRevealed ? 'Sembunyikan password' : 'Intip password'}
+                                aria-label={isRevealed ? 'Sembunyikan password' : 'Intip password'}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-slate-700/70 rounded-lg p-1.5 transition cursor-pointer"
+                              >
+                                <i className={`fa-solid ${isRevealed ? 'fa-eye-slash' : 'fa-eye'} text-xs`}></i>
+                              </button>
+                            </div>
+                          </td>
+                        );
+                      }
+
+                      if (col === 'Permissions') {
+                        const resolved = resolveUserPermissions(r);
+                        const selectVal =
+                          resolved.mode === 'view_only'
+                            ? 'view_only'
+                            : resolved.mode === 'full_edit'
+                            ? 'full_edit'
+                            : 'operational';
+                        return (
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[175px]">
+                            <select
+                              value={selectVal}
+                              onChange={(e) => {
+                                const choice = e.target.value;
+                                if (choice === 'view_only') {
+                                  handleMultiRowChange(idx, { AccessMode: 'view_only', EditableTabs: [] });
+                                } else if (choice === 'full_edit') {
+                                  handleMultiRowChange(idx, { AccessMode: 'full_edit', EditableTabs: [...ALL_EDITABLE_MODULES] });
+                                } else {
+                                  handleMultiRowChange(idx, { AccessMode: 'custom', EditableTabs: [...OPERATIONAL_MODULES] });
+                                }
+                              }}
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold outline-none cursor-pointer"
+                            >
+                              <option value="view_only" className="dark:bg-slate-800">Hanya Lihat (View Only)</option>
+                              <option value="operational" className="dark:bg-slate-800">Edit Operasional</option>
+                              <option value="full_edit" className="dark:bg-slate-800">Edit Semua (Full)</option>
+                            </select>
                           </td>
                         );
                       }
 
                       if (col === 'UpdatedBy') {
                         return (
-                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[120px]">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[135px]">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                               <i className="fa-solid fa-user-pen text-amber-500"></i>
                               {val || 'System'}
                             </span>

@@ -30,6 +30,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [signUpPassword, setSignUpPassword] = useState('');
   const [signUpConfirmPassword, setSignUpConfirmPassword] = useState('');
   const [showSignUpPassword, setShowSignUpPassword] = useState(false);
+  const [showSignUpConfirmPassword, setShowSignUpConfirmPassword] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
 
   // Quick helper to auto-populate username when typing email if username is empty
@@ -243,7 +244,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="block text-[11px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                <label className="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wide">
                   Password
                 </label>
               </div>
@@ -255,13 +256,14 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="w-full pl-11 pr-11 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
+                  className="w-full pl-11 pr-12 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
                 />
                 <button
                   type="button"
                   onClick={() => setShowLoginPassword(!showLoginPassword)}
-                  className="absolute right-3.5 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs cursor-pointer p-1"
-                  title={showLoginPassword ? 'Hide password' : 'Show password'}
+                  aria-label={showLoginPassword ? 'Sembunyikan password' : 'Intip password'}
+                  className="absolute right-2.5 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-slate-700/70 rounded-xl text-sm cursor-pointer p-1.5 transition"
+                  title={showLoginPassword ? 'Sembunyikan password' : 'Intip password'}
                 >
                   <i className={`fa-solid ${showLoginPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
                 </button>
@@ -389,12 +391,14 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                     value={signUpPassword}
                     onChange={(e) => setSignUpPassword(e.target.value)}
                     placeholder="Min 4 characters"
-                    className="w-full pl-11 pr-9 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
+                    className="w-full pl-11 pr-11 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
                   />
                   <button
                     type="button"
                     onClick={() => setShowSignUpPassword(!showSignUpPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs cursor-pointer p-1"
+                    aria-label={showSignUpPassword ? 'Sembunyikan password' : 'Intip password'}
+                    title={showSignUpPassword ? 'Sembunyikan password' : 'Intip password'}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-slate-700/70 rounded-xl text-sm cursor-pointer p-1.5 transition"
                   >
                     <i className={`fa-solid ${showSignUpPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
                   </button>
@@ -408,17 +412,26 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 <div className="relative">
                   <i className="fa-solid fa-shield-halved absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
                   <input
-                    type={showSignUpPassword ? 'text' : 'password'}
+                    type={showSignUpConfirmPassword ? 'text' : 'password'}
                     required
                     value={signUpConfirmPassword}
                     onChange={(e) => setSignUpConfirmPassword(e.target.value)}
                     placeholder="Re-enter password"
-                    className={`w-full pl-11 pr-4 py-2.5 border rounded-2xl text-sm font-bold outline-none focus:ring-2 transition shadow-xs ${
+                    className={`w-full pl-11 pr-11 py-2.5 border rounded-2xl text-sm font-bold outline-none focus:ring-2 transition shadow-xs ${
                       signUpConfirmPassword && signUpPassword !== signUpConfirmPassword
                         ? 'border-rose-400 bg-rose-50/60 text-rose-900 focus:ring-rose-400 dark:bg-rose-950/40 dark:text-rose-200'
                         : 'border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800'
                     }`}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowSignUpConfirmPassword(!showSignUpConfirmPassword)}
+                    aria-label={showSignUpConfirmPassword ? 'Sembunyikan konfirmasi password' : 'Intip konfirmasi password'}
+                    title={showSignUpConfirmPassword ? 'Sembunyikan password' : 'Intip password'}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-slate-700/70 rounded-xl text-sm cursor-pointer p-1.5 transition"
+                  >
+                    <i className={`fa-solid ${showSignUpConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                  </button>
                 </div>
               </div>
             </div>

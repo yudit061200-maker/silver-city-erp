@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { RecordRow, TabName } from '../types';
 import { parseNumberValue } from '../utils/currency';
+import { getLatestSheetEditInfo } from '../utils/permissions';
 
 interface DashboardViewProps {
   items: RecordRow[];
@@ -36,6 +37,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
     const min = parseNumberValue(item.MinStock);
     return cur <= min;
   });
+
+  const itemsLastEdit = getLatestSheetEditInfo(items);
+  const requestsLastEdit = getLatestSheetEditInfo(requests);
+  const posLastEdit = getLatestSheetEditInfo(purchaseOrders);
+  const receivesLastEdit = getLatestSheetEditInfo(receives);
+  const issuedLastEdit = getLatestSheetEditInfo(issued);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -164,9 +171,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
         <div className="bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-3xl shadow-xs border border-slate-100 dark:border-slate-800 flex items-center justify-between hover:shadow-md transition">
-          <div>
+          <div className="min-w-0">
             <p className="text-[11px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Total Items</p>
             <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1.5">{totalItemsCount}</h3>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-1 truncate">
+              <i className="fa-solid fa-user-pen text-amber-500 mr-1"></i>
+              Last edit: <span className="text-slate-600 dark:text-slate-300 font-bold">{itemsLastEdit?.updatedBy || 'System'}</span>
+            </p>
           </div>
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-base sm:text-lg shadow-xs shrink-0">
             <i className="fa-solid fa-boxes-stacked"></i>
@@ -214,6 +225,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <h3 className="text-2xl font-black text-slate-900 dark:text-white">{requests.length}</h3>
             <span className="text-xs text-indigo-600 dark:text-indigo-400 font-bold group-hover:translate-x-1.5 transition-transform">View &rarr;</span>
           </div>
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800 truncate">
+            <i className="fa-solid fa-user-pen text-amber-500 mr-1"></i>
+            Last edit by: <span className="text-slate-600 dark:text-slate-300 font-bold">{requestsLastEdit?.updatedBy || 'System'}</span>
+          </p>
         </div>
 
         <div
@@ -225,6 +240,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <h3 className="text-2xl font-black text-slate-900 dark:text-white">{purchaseOrders.length}</h3>
             <span className="text-xs text-amber-600 dark:text-amber-400 font-bold group-hover:translate-x-1.5 transition-transform">View &rarr;</span>
           </div>
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800 truncate">
+            <i className="fa-solid fa-user-pen text-amber-500 mr-1"></i>
+            Last edit by: <span className="text-slate-600 dark:text-slate-300 font-bold">{posLastEdit?.updatedBy || 'System'}</span>
+          </p>
         </div>
 
         <div
@@ -236,6 +255,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <h3 className="text-2xl font-black text-slate-900 dark:text-white">{receives.length}</h3>
             <span className="text-xs text-teal-600 dark:text-teal-400 font-bold group-hover:translate-x-1.5 transition-transform">View &rarr;</span>
           </div>
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800 truncate">
+            <i className="fa-solid fa-user-pen text-amber-500 mr-1"></i>
+            Last edit by: <span className="text-slate-600 dark:text-slate-300 font-bold">{receivesLastEdit?.updatedBy || 'System'}</span>
+          </p>
         </div>
 
         <div
@@ -247,6 +270,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <h3 className="text-2xl font-black text-slate-900 dark:text-white">{issued.length}</h3>
             <span className="text-xs text-rose-600 dark:text-rose-400 font-bold group-hover:translate-x-1.5 transition-transform">View &rarr;</span>
           </div>
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800 truncate">
+            <i className="fa-solid fa-user-pen text-amber-500 mr-1"></i>
+            Last edit by: <span className="text-slate-600 dark:text-slate-300 font-bold">{issuedLastEdit?.updatedBy || 'System'}</span>
+          </p>
         </div>
       </div>
 

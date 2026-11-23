@@ -15,6 +15,8 @@ interface HeaderProps {
   isFirebaseConnected?: boolean;
   isSavingToFirestore?: boolean;
   isFirestoreQuotaBlocked?: boolean;
+  canAccessUsersTab?: boolean;
+  isViewOnly?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -30,9 +32,12 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleDarkMode,
   isFirebaseConnected = true,
   isSavingToFirestore = false,
-  isFirestoreQuotaBlocked = false
+  isFirestoreQuotaBlocked = false,
+  canAccessUsersTab,
+  isViewOnly = false
 }) => {
   const isYudit = currentUser?.username?.trim().toLowerCase() === 'yudit061200';
+  const showUsersTab = canAccessUsersTab !== undefined ? canAccessUsersTab : isYudit;
   const navTabs: { name: TabName; label: string; icon: string }[] = [
     { name: 'Dashboard', label: 'Dashboard', icon: 'fa-chart-pie' },
     { name: 'ItemList', label: 'Item Master', icon: 'fa-boxes-stacked' },
@@ -41,7 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
     { name: 'MaterialReceive', label: 'Receives', icon: 'fa-truck-ramp-box' },
     { name: 'MaterialIssued', label: 'Issued', icon: 'fa-share-nodes' },
     { name: 'Inventory', label: 'Inventory', icon: 'fa-warehouse' },
-    ...(isYudit ? [{ name: 'Users' as TabName, label: 'Users', icon: 'fa-users-gear' }] : []),
+    ...(showUsersTab ? [{ name: 'Users' as TabName, label: 'Users', icon: 'fa-users-gear' }] : []),
   ];
 
   return (
@@ -125,11 +130,16 @@ export const Header: React.FC<HeaderProps> = ({
           {currentUser && (
             <div className="flex items-center gap-2 border-l border-slate-200 dark:border-slate-800 pl-2 sm:pl-3">
               <div className="hidden md:flex flex-col text-right">
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate max-w-[120px]">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate max-w-[140px]">
                   {currentUser.fullname}
                 </span>
-                <span className="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider">
-                  {currentUser.role}
+                <span className="text-[9px] font-bold uppercase tracking-wider flex items-center justify-end gap-1.5">
+                  <span className="text-emerald-600 dark:text-emerald-400">{currentUser.role}</span>
+                  {isViewOnly && (
+                    <span className="px-1.5 py-0.2 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
+                      View Only
+                    </span>
+                  )}
                 </span>
               </div>
               {onLogout && (

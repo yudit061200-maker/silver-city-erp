@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { RecordRow, TabName, TAB_SCHEMAS } from '../types';
+import {
+  AccessMode,
+  EDITABLE_MODULES,
+  EditableModule,
+  RecordRow,
+  TabName,
+  TAB_SCHEMAS,
+} from '../types';
+import {
+  ALL_EDITABLE_MODULES,
+  OPERATIONAL_MODULES,
+  isSuperAdmin,
+  resolveUserPermissions,
+} from '../utils/permissions';
 import { processFileUpload } from '../utils/fileUpload';
 import { findMatchingItems } from '../utils/search';
 import { normalizeDateStr } from '../utils/stock';
@@ -26,6 +39,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
   onOpenQrScanner
 }) => {
   const [focusedField, setFocusedField] = useState<'ItemID' | 'ItemName' | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   if (!editingRecord) return null;
 
   const isEdit = editingRowIndex !== null;
@@ -457,14 +471,134 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                     <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                       <i className="fa-solid fa-lock mr-1 text-slate-400"></i> Password
                     </label>
-                    <input
-                      type="text"
-                      value={val}
-                      onChange={(e) => handleSingleFieldChange(col, e.target.value)}
-                      required
-                      placeholder="Enter password..."
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
-                    />
+                    <div className="relative">
+                      <input
+                        type={showPassword ? 'text' : 'password'}
+                        value={val}
+                        onChange={(e) => handleSingleFieldChange(col, e.target.value)}
+                        required
+                        placeholder="Enter password..."
+                        className="w-full pl-4 pr-12 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(prev => !prev)}
+                        title={showPassword ? 'Sembunyikan password' : 'Intip password'}
+                        aria-label={showPassword ? 'Sembunyikan password' : 'Intip password'}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-slate-700/70 rounded-xl p-1.5 transition cursor-pointer"
+                      >
+                        <i className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-sm`}></i>
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
+
+              if (col === 'Permissions') {
+                const resolved = resolveUserPermissions(editingRecord);
+                const targetIsSuper = isSuperAdmin(editingRecord.Username);
+                const setMode = (nextMode: AccessMode) => {
+                  if (targetIsSuper) return;
+                  if (nextMode === 'view_only') {
+                    handleSingleFieldChange({ AccessMode: 'view_only', EditableTabs: [] });
+                  } else if (nextMode === 'full_edit') {
+                    handleSingleFieldChange({ AccessMode: 'full_edit', EditableTabs: [...ALL_EDITABLE_MODULES] });
+                  } else {
+                    const nextTabs = resolved.editableTabs.length > 0 ? resolved.editableTabs : ['MaterialReceive', 'MaterialIssued'];
+                    handleSingleFieldChange({ AccessMode: 'custom', EditableTabs: nextTabs });
+                  }
+                };
+                const toggleMod = (modKey: EditableModule) => {
+                  if (targetIsSuper) return;
+                  const nextTabs = resolved.editableTabs.includes(modKey)
+                    ? resolved.editableTabs.filter((m) => m !== modKey)
+                    : [...resolved.editableTabs, modKey];
+                  handleSingleFieldChange({
+                    AccessMode: nextTabs.length === 0 ? 'view_only' : 'custom',
+                    EditableTabs: nextTabs,
+                  });
+                };
+
+                return (
+                  <div key={col} className="space-y-2.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <div className="flex items-center justify-between gap-2">
+                      <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-700 dark:text-slate-200">
+                        <i className="fa-solid fa-user-shield mr-1.5 text-amber-500"></i> Izin Akun (Hak Edit)
+                      </label>
+                      {targetIsSuper && (
+                        <span className="text-[11px] font-extrabold text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-950/60 px-2 py-0.5 rounded-lg">
+                          Super Admin (Full)
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2">
+                      {(
+                        [
+                          { id: 'view_only', label: 'Hanya Lihat', icon: 'fa-eye' },
+                          { id: 'custom', label: 'Edit Pilihan', icon: 'fa-sliders' },
+                          { id: 'full_edit', label: 'Edit Semua', icon: 'fa-shield-halved' },
+                        ] as { id: AccessMode; label: string; icon: string }[]
+                      ).map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          disabled={targetIsSuper}
+                          onClick={() => setMode(opt.id)}
+                          className={`py-2.5 px-2.5 rounded-xl border text-xs font-extrabold flex items-center justify-center gap-1.5 transition cursor-pointer disabled:opacity-60 ${
+                            resolved.mode === opt.id
+                              ? 'bg-slate-900 dark:bg-amber-400 text-white dark:text-slate-950 border-slate-900 dark:border-amber-400 shadow-xs'
+                              : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-400'
+                          }`}
+                        >
+                          <i className={`fa-solid ${opt.icon}`}></i>
+                          <span>{opt.label}</span>
+                        </button>
+                      ))}
+                    </div>
+
+                    {resolved.mode === 'custom' && !targetIsSuper && (
+                      <div className="space-y-2 pt-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                            Centang modul yang boleh diedit (lainnya hanya lihat):
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleSingleFieldChange({ AccessMode: 'custom', EditableTabs: [...OPERATIONAL_MODULES] })
+                            }
+                            className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer"
+                          >
+                            Semua Operasional
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {EDITABLE_MODULES.map((mod) => {
+                            const checked = resolved.editableTabs.includes(mod.key);
+                            return (
+                              <label
+                                key={mod.key}
+                                className={`flex items-center gap-2.5 px-3 py-2 rounded-xl border text-xs font-bold cursor-pointer transition ${
+                                  checked
+                                    ? 'bg-indigo-50/70 dark:bg-indigo-950/50 border-indigo-400 dark:border-indigo-500 text-indigo-900 dark:text-indigo-200'
+                                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'
+                                }`}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={checked}
+                                  onChange={() => toggleMod(mod.key)}
+                                  className="w-4 h-4 accent-indigo-600 rounded cursor-pointer"
+                                />
+                                <i className={`fa-solid ${mod.icon} text-xs`}></i>
+                                <span>{mod.label}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               }
@@ -473,11 +607,18 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                 return (
                   <div key={col} className="space-y-1.5">
                     <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
-                      Last Updated By
+                      Last Edit By
                     </label>
-                    <div className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold bg-slate-100 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 flex items-center gap-2">
-                      <i className="fa-solid fa-user-pen text-amber-500"></i>
-                      <span>{val || 'System'}</span>
+                    <div className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold bg-slate-100 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 flex items-center justify-between gap-2">
+                      <span className="flex items-center gap-2">
+                        <i className="fa-solid fa-user-pen text-amber-500"></i>
+                        <span>{val || 'System'}</span>
+                      </span>
+                      {editingRecord.UpdatedAt && (
+                        <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500">
+                          {editingRecord.UpdatedAt}
+                        </span>
+                      )}
                     </div>
                   </div>
                 );

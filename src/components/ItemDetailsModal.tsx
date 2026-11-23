@@ -9,6 +9,7 @@ interface ItemDetailsModalProps {
   onClose: () => void;
   onSaveInline: (e: React.FormEvent) => void;
   onOpenQr: (item: RecordRow) => void;
+  canEdit?: boolean;
 }
 
 export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
@@ -18,7 +19,8 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
   setIsEditingInDetails,
   onClose,
   onSaveInline,
-  onOpenQr
+  onOpenQr,
+  canEdit = true
 }) => {
   if (!viewingItem) return null;
 
@@ -84,6 +86,20 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                 <div className="col-span-2 bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700/60">
                   <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Warehouse Location</p>
                   <p className="font-bold text-slate-800 dark:text-slate-200">{viewingItem.Location || '-'}</p>
+                </div>
+                <div className="col-span-2 bg-amber-50/70 dark:bg-amber-950/30 p-3.5 rounded-2xl border border-amber-200/70 dark:border-amber-800/50 flex items-center justify-between gap-2">
+                  <div>
+                    <p className="text-xs text-amber-700 dark:text-amber-400 font-bold uppercase tracking-wider mb-0.5">Last Edit By</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                      <i className="fa-solid fa-user-pen text-amber-500 text-xs"></i>
+                      <span>{viewingItem.UpdatedBy || 'System'}</span>
+                    </p>
+                  </div>
+                  {viewingItem.UpdatedAt && (
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                      {viewingItem.UpdatedAt}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -269,13 +285,15 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
               >
                 Close
               </button>
-              <button
-                type="button"
-                onClick={() => setIsEditingInDetails(true)}
-                className="px-5 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-sm font-bold hover:bg-yellow-500 transition shadow-xs flex items-center gap-2 cursor-pointer"
-              >
-                <i className="fa-solid fa-pen text-xs"></i> Edit Item
-              </button>
+              {canEdit && (
+                <button
+                  type="button"
+                  onClick={() => setIsEditingInDetails(true)}
+                  className="px-5 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-sm font-bold hover:bg-yellow-500 transition shadow-xs flex items-center gap-2 cursor-pointer"
+                >
+                  <i className="fa-solid fa-pen text-xs"></i> Edit Item
+                </button>
+              )}
             </>
           ) : (
             <>
