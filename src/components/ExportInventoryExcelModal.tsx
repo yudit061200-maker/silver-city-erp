@@ -102,16 +102,16 @@ export const ExportInventoryExcelModal: React.FC<ExportInventoryExcelModalProps>
 
   return (
     <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fadeIn">
-      <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 dark:border-slate-800">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-200 dark:border-slate-800">
         {/* Header */}
         <div className="bg-emerald-700 text-white px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-2xl bg-white/15 flex items-center justify-center text-base">
+            <div className="w-10 h-10 rounded-2xl bg-white/15 flex items-center justify-center text-lg">
               <i className="fa-solid fa-file-excel"></i>
             </div>
             <div>
-              <h3 className="font-extrabold text-sm tracking-wide">Export Excel Inventory Sheet</h3>
-              <p className="text-[11px] text-emerald-100 font-medium">
+              <h3 className="font-extrabold text-base tracking-wide">Export Excel Inventory Sheet</h3>
+              <p className="text-xs text-emerald-100 font-medium">
                 Format List IN &amp; OUT Harian per Tanggal (.xlsx)
               </p>
             </div>
@@ -119,28 +119,28 @@ export const ExportInventoryExcelModal: React.FC<ExportInventoryExcelModalProps>
           <button
             type="button"
             onClick={onClose}
-            className="text-emerald-100 hover:text-white text-xl leading-none px-1 cursor-pointer"
+            className="text-emerald-100 hover:text-white text-2xl leading-none px-1 cursor-pointer"
           >
             &times;
           </button>
         </div>
 
         {/* Body */}
-        <div className="p-6 space-y-5 text-xs">
+        <div className="p-6 space-y-5 text-sm">
           {/* Month selector */}
           <div className="space-y-2">
-            <label className="block font-extrabold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-[11px]">
+            <label className="block font-extrabold text-slate-700 dark:text-slate-200 uppercase tracking-wide text-xs">
               Pilih Periode Bulan &amp; Tahun
             </label>
             <input
               type="month"
               value={selectedMonthStr}
               onChange={(e) => setSelectedMonthStr(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-bold text-sm outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-bold text-base outline-none focus:ring-2 focus:ring-emerald-500"
             />
             {availableMonths.length > 0 && (
-              <div className="space-y-1 pt-1">
-                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">
+              <div className="space-y-1.5 pt-1">
+                <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
                   Periode dengan data transaksi:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -151,7 +151,7 @@ export const ExportInventoryExcelModal: React.FC<ExportInventoryExcelModalProps>
                         key={ym}
                         type="button"
                         onClick={() => setSelectedMonthStr(ym)}
-                        className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition cursor-pointer border ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer border ${
                           active
                             ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -225,7 +225,7 @@ export const ExportInventoryExcelModal: React.FC<ExportInventoryExcelModalProps>
             </div>
           </div>
 
-          <div className="text-[11px] text-slate-600 dark:text-slate-400 bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-900/60 rounded-xl p-3 leading-relaxed">
+          <div className="text-xs text-slate-600 dark:text-slate-400 bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-900/60 rounded-xl p-3.5 leading-relaxed">
             <strong className="text-sky-900 dark:text-sky-200">Kolom Excel:</strong> INV. CODE, DESCRIPTION FULL, FIRST STOCK (awal bulan), TRANSAKSI IN &amp; OUT per tanggal (1–31), TOTAL TRANSAKSI (IN/OUT), STOCK ON HAND (akhir bulan), STORAGE, MSL, STATUS, By. Supplier, <strong>PRICE (USD &amp; IDR)</strong>, dan <strong>TOTAL PRICE (USD &amp; IDR)</strong> — dilengkapi rumus Excel otomatis serta sheet detail transaksi.
           </div>
         </div>
@@ -236,7 +236,7 @@ export const ExportInventoryExcelModal: React.FC<ExportInventoryExcelModalProps>
             type="button"
             onClick={onClose}
             disabled={isExporting}
-            className="px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600 transition cursor-pointer"
+            className="px-5 py-2.5 rounded-xl text-sm font-bold bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600 transition cursor-pointer"
           >
             Batal
           </button>
@@ -244,7 +244,7 @@ export const ExportInventoryExcelModal: React.FC<ExportInventoryExcelModalProps>
             type="button"
             onClick={handleDownload}
             disabled={isExporting || targetItems.length === 0}
-            className="px-5 py-2.5 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white shadow-md shadow-emerald-600/20 flex items-center gap-2 transition cursor-pointer"
+            className="px-5 py-2.5 rounded-xl text-sm font-extrabold bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white shadow-md shadow-emerald-600/20 flex items-center gap-2 transition cursor-pointer"
           >
             <i className={`fa-solid ${isExporting ? 'fa-spinner fa-spin' : 'fa-file-excel'}`}></i>
             <span>{isExporting ? 'Membuat Excel...' : 'Download Excel (.xlsx)'}</span>

@@ -29,60 +29,60 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100 dark:border-slate-800 text-slate-800 dark:text-slate-100 flex flex-col max-h-[92vh]"
+        className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-100 dark:border-slate-800 text-slate-800 dark:text-slate-100 flex flex-col max-h-[92vh]"
       >
-        <div className="bg-slate-900 text-white px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center shrink-0">
-          <h3 className="font-bold text-xs uppercase tracking-wider">Record Details</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-white text-base cursor-pointer px-2">&times;</button>
+        <div className="bg-slate-900 text-white px-5 sm:px-6 py-4 flex justify-between items-center shrink-0">
+          <h3 className="font-bold text-sm uppercase tracking-wider">Record Details</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-white text-xl cursor-pointer px-2">&times;</button>
         </div>
 
-        <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-grow">
+        <div className="p-5 sm:p-6 space-y-5 overflow-y-auto flex-grow">
           {!isEditingInDetails ? (
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div className="flex items-center space-x-4 border-b border-slate-100 dark:border-slate-800 pb-4">
                 {viewingItem.Photo ? (
-                  <img src={viewingItem.Photo} alt="Item" className="w-16 h-16 object-cover rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xs" />
+                  <img src={viewingItem.Photo} alt="Item" className="w-18 h-18 object-cover rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xs" />
                 ) : (
                   <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 font-bold">
-                    <i className="fa-solid fa-box text-xl"></i>
+                    <i className="fa-solid fa-box text-2xl"></i>
                   </div>
                 )}
                 <div className="min-w-0">
-                  <h2 className="text-base font-black text-slate-900 dark:text-slate-100 whitespace-pre-wrap break-words leading-snug">{viewingItem.ItemName || '-'}</h2>
-                  <p className="text-xs font-bold text-blue-600 dark:text-blue-400 mt-0.5">{viewingItem.ItemID || '-'}</p>
+                  <h2 className="text-lg font-black text-slate-900 dark:text-slate-100 whitespace-pre-wrap break-words leading-snug">{viewingItem.ItemName || '-'}</h2>
+                  <p className="text-sm font-bold text-blue-600 dark:text-blue-400 mt-0.5">{viewingItem.ItemID || '-'}</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="bg-blue-50 dark:bg-blue-950/50 p-3 rounded-2xl border border-blue-200 dark:border-blue-800/70">
-                  <p className="text-[10px] text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider mb-1">Current Stock</p>
-                  <p className="font-black text-blue-700 dark:text-blue-300 flex items-center gap-1.5">
-                    <i className="fa-solid fa-boxes-stacked text-[11px]"></i>
+              <div className="grid grid-cols-2 gap-3.5 text-sm">
+                <div className="bg-blue-50 dark:bg-blue-950/50 p-3.5 rounded-2xl border border-blue-200 dark:border-blue-800/70">
+                  <p className="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider mb-1">Current Stock</p>
+                  <p className="text-base font-black text-blue-700 dark:text-blue-300 flex items-center gap-1.5">
+                    <i className="fa-solid fa-boxes-stacked text-xs"></i>
                     {Number(viewingItem.CurrentStock ?? viewingItem.LastStock ?? 0).toLocaleString('id-ID')} {viewingItem.UoM || ''}
                   </p>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Min Stock</p>
-                  <p className="font-bold text-slate-800 dark:text-slate-200">{viewingItem.MinStock || 0} {viewingItem.UoM || ''}</p>
+                <div className="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700/60">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Min Stock</p>
+                  <p className="text-base font-bold text-slate-800 dark:text-slate-200">{viewingItem.MinStock || 0} {viewingItem.UoM || ''}</p>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Category</p>
+                <div className="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700/60">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Category</p>
                   <p className="font-bold text-slate-800 dark:text-slate-200">{viewingItem.Category || '-'}</p>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Unit of Measure</p>
+                <div className="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700/60">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Unit of Measure</p>
                   <p className="font-bold text-slate-800 dark:text-slate-200">{viewingItem.UoM || '-'}</p>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Price (USD)</p>
+                <div className="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700/60">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Price (USD)</p>
                   <p className="font-bold text-slate-800 dark:text-slate-200">${Number(viewingItem.UnitPriceUSD || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Price (IDR)</p>
+                <div className="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700/60">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Price (IDR)</p>
                   <p className="font-bold text-slate-800 dark:text-slate-200">Rp {Number(viewingItem.UnitPriceIDR || 0).toLocaleString('id-ID')}</p>
                 </div>
-                <div className="col-span-2 bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl border border-slate-100 dark:border-slate-700/60">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Warehouse Location</p>
+                <div className="col-span-2 bg-slate-50 dark:bg-slate-800 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-700/60">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Warehouse Location</p>
                   <p className="font-bold text-slate-800 dark:text-slate-200">{viewingItem.Location || '-'}</p>
                 </div>
               </div>
@@ -90,7 +90,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
           ) : (
             <form id="inlineEditForm" onSubmit={onSaveInline} noValidate className="space-y-3.5">
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Item Photo</label>
+                <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide mb-1.5">Item Photo</label>
                 <input
                   type="file"
                   accept="image/*"
@@ -120,27 +120,27 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Item ID / Code</label>
+                  <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide mb-1.5">Item ID / Code</label>
                   <input
                     type="text"
                     value={viewingItem.ItemID || ''}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, ItemID: e.target.value } : null)}
                     required
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-bold text-blue-600 dark:text-blue-400 outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 font-bold text-blue-600 dark:text-blue-400 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Location</label>
+                  <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide mb-1.5">Location</label>
                   <input
                     type="text"
                     value={viewingItem.Location || ''}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, Location: e.target.value } : null)}
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
                 <div className="col-span-2">
                   <div className="flex justify-between items-center mb-1">
-                    <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Item Name</label>
+                    <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide">Item Name</label>
                     <span className="text-[9px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950 px-1.5 py-0.5 rounded">
                       Wrap Text
                     </span>
@@ -150,31 +150,31 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                     value={viewingItem.ItemName || ''}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, ItemName: e.target.value } : null)}
                     required
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400 whitespace-pre-wrap break-words resize-y min-h-[52px]"
+                    className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400 whitespace-pre-wrap break-words resize-y min-h-[52px]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Category</label>
+                  <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide mb-1.5">Category</label>
                   <input
                     type="text"
                     value={viewingItem.Category || ''}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, Category: e.target.value } : null)}
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">UoM</label>
+                  <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide mb-1.5">UoM</label>
                   <input
                     type="text"
                     value={viewingItem.UoM || ''}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, UoM: e.target.value } : null)}
                     required
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Price (USD)</label>
+                    <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide">Price (USD)</label>
                     <span className="text-[9px] font-extrabold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950 px-1.5 py-0.5 rounded">
                       Auto-convert to Rp
                     </span>
@@ -196,12 +196,12 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                         UnitPriceIDR: Number.isFinite(usd) ? Math.round(usd * 16000) : prev.UnitPriceIDR
                       } : null);
                     }}
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Price (IDR)</label>
+                    <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide">Price (IDR)</label>
                     <span className="text-[9px] font-bold text-slate-400">Rupiah</span>
                   </div>
                   <input
@@ -221,27 +221,27 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                         UnitPriceUSD: Number.isFinite(idr) ? parseFloat((idr / 16000).toFixed(2)) : prev.UnitPriceUSD
                       } : null);
                     }}
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Min Stock</label>
+                  <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide mb-1.5">Min Stock</label>
                   <input
                     type="number"
                     step="any"
                     value={viewingItem.MinStock ?? ''}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, MinStock: e.target.value } : null)}
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Last Stock</label>
+                  <label className="block text-xs font-extrabold text-slate-600 dark:text-slate-300 uppercase tracking-wide mb-1.5">Last Stock</label>
                   <input
                     type="number"
                     step="any"
                     value={viewingItem.LastStock ?? ''}
                     onChange={(e) => setViewingItem(prev => prev ? { ...prev, LastStock: e.target.value } : null)}
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
               </div>
@@ -249,7 +249,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
           )}
         </div>
 
-        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2 shrink-0">
+        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2.5 shrink-0">
           {!isEditingInDetails ? (
             <>
               <button
@@ -258,23 +258,23 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
                   onClose();
                   onOpenQr(viewingItem);
                 }}
-                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-xs flex items-center gap-1.5 cursor-pointer"
+                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold transition shadow-xs flex items-center gap-2 cursor-pointer"
               >
-                <i className="fa-solid fa-qrcode text-xs"></i> QR Code
+                <i className="fa-solid fa-qrcode text-sm"></i> QR Code
               </button>
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition shadow-xs cursor-pointer"
+                className="px-5 py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition shadow-xs cursor-pointer"
               >
                 Close
               </button>
               <button
                 type="button"
                 onClick={() => setIsEditingInDetails(true)}
-                className="px-5 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-xs font-bold hover:bg-yellow-500 transition shadow-xs flex items-center gap-1.5 cursor-pointer"
+                className="px-5 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-sm font-bold hover:bg-yellow-500 transition shadow-xs flex items-center gap-2 cursor-pointer"
               >
-                <i className="fa-solid fa-pen text-[10px]"></i> Edit Item
+                <i className="fa-solid fa-pen text-xs"></i> Edit Item
               </button>
             </>
           ) : (
@@ -282,16 +282,16 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({
               <button
                 type="button"
                 onClick={() => setIsEditingInDetails(false)}
-                className="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition shadow-xs cursor-pointer"
+                className="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition shadow-xs cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 form="inlineEditForm"
-                className="px-5 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-xs font-bold hover:bg-yellow-500 transition shadow-xs flex items-center gap-1.5 cursor-pointer"
+                className="px-5 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-sm font-bold hover:bg-yellow-500 transition shadow-xs flex items-center gap-2 cursor-pointer"
               >
-                <i className="fa-solid fa-floppy-disk text-[10px]"></i> Save
+                <i className="fa-solid fa-floppy-disk text-xs"></i> Save
               </button>
             </>
           )}

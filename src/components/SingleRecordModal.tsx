@@ -38,25 +38,25 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Slide-over Container */}
-      <div className="relative w-full sm:max-w-xl bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col z-10 overflow-hidden border-l border-slate-200 dark:border-slate-800 transition-all">
+      <div className="relative w-full sm:max-w-2xl bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col z-10 overflow-hidden border-l border-slate-200 dark:border-slate-800 transition-all">
         {/* Header */}
-        <div className="bg-slate-900 text-white p-4 sm:p-6 flex items-center justify-between shrink-0 shadow-md">
-          <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-2xl flex items-center justify-center text-lg font-bold shadow-xs ${isEdit ? 'bg-amber-500 text-slate-950' : 'bg-indigo-600 text-white'}`}>
+        <div className="bg-slate-900 text-white p-5 sm:p-6 flex items-center justify-between shrink-0 shadow-md">
+          <div className="flex items-center gap-3.5">
+            <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-lg font-bold shadow-xs ${isEdit ? 'bg-amber-500 text-slate-950' : 'bg-indigo-600 text-white'}`}>
               <i className={`fa-solid ${isEdit ? 'fa-pen-to-square' : 'fa-plus'}`}></i>
             </div>
             <div>
-              <h3 className="font-black text-sm uppercase tracking-wider text-white">
+              <h3 className="font-black text-base uppercase tracking-wider text-white">
                 {isEdit ? `Edit Record` : `Create Record`}
               </h3>
-              <p className="text-[11px] font-semibold text-slate-400">
+              <p className="text-xs font-semibold text-slate-400 mt-0.5">
                 Module: <span className="text-yellow-400 font-extrabold">{activeTab}</span>
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition cursor-pointer text-lg"
+            className="w-10 h-10 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition cursor-pointer text-xl"
           >
             &times;
           </button>
@@ -71,11 +71,11 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               if (activeTab === 'MaterialRequest' && col === 'Status') {
                 return (
                   <div key={col} className="space-y-1.5">
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
+                    <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">{col}</label>
                     <select
                       value={val}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition cursor-pointer"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition cursor-pointer"
                     >
                       <option value="Pending">Pending</option>
                       <option value="Approve">Approve</option>
@@ -89,11 +89,11 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               if (activeTab === 'MaterialRequest' && col === 'Priority') {
                 return (
                   <div key={col} className="space-y-1.5">
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
+                    <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">{col}</label>
                     <select
                       value={val}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition cursor-pointer"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition cursor-pointer"
                     >
                       <option value="Normal">Normal</option>
                       <option value="Urgent">Urgent</option>
@@ -105,7 +105,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               if (col === 'Photo') {
                 return (
                   <div key={col} className="space-y-2">
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                       <i className="fa-solid fa-camera mr-1 text-slate-400"></i> {col} Image
                     </label>
                     <div className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-4 bg-slate-50 dark:bg-slate-800/50 hover:border-yellow-400 transition text-center">
@@ -150,12 +150,12 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                 const dateVal = val ? normalizeDateStr(val) : '';
                 return (
                   <div key={col} className="space-y-1.5">
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
+                    <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">{col}</label>
                     <input
                       type="date"
                       value={dateVal}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
                     />
                   </div>
                 );
@@ -168,7 +168,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                 return (
                   <div key={col} className="space-y-1.5 relative">
                     <div className="flex justify-between items-center">
-                      <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
+                      <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">{col}</label>
                       {onOpenQrScanner && (
                         <button
                           type="button"
@@ -188,7 +188,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       required={col === primaryKeyCol}
                       placeholder="Ketik min. 2 karakter Item ID / Nama..."
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-blue-600 dark:text-blue-400 transition"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-blue-600 dark:text-blue-400 transition"
                     />
                     {suggestions.length > 0 && (
                       <div className="absolute left-0 right-0 top-full mt-1 z-30 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl max-h-48 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-700">
@@ -220,7 +220,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                 const isImage = typeof val === 'string' && (val.startsWith('data:image/') || val.match(/\.(jpeg|jpg|gif|png|webp)$/i));
                 return (
                   <div key={col} className="space-y-1.5">
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                       <i className="fa-solid fa-paperclip mr-1 text-slate-400"></i> Attachment File
                     </label>
                     <div className="border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-yellow-400 rounded-2xl p-3 bg-slate-50 dark:bg-slate-800/50 transition">
@@ -306,7 +306,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                 return (
                   <div key={col} className="space-y-1.5 relative">
                     <div className="flex justify-between items-center">
-                      <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
+                      <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">{col}</label>
                       <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-md border border-amber-200 dark:border-amber-800 flex items-center gap-1">
                         <i className="fa-solid fa-text-height"></i> Wrap Text
                       </span>
@@ -319,7 +319,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       required={activeTab === 'ItemList'}
                       placeholder={isTransactionTab ? 'Ketik min. 2 karakter untuk mencari nama item...' : 'Enter or select Item Name...'}
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition whitespace-pre-wrap break-words resize-y min-h-[60px]"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition whitespace-pre-wrap break-words resize-y min-h-[60px]"
                     />
                     {nameSuggestions.length > 0 && (
                       <div className="absolute left-0 right-0 top-full mt-1 z-30 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl max-h-48 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-700">
@@ -351,7 +351,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                 return (
                   <div key={col} className="space-y-1.5">
                     <div className="flex justify-between items-center">
-                      <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
+                      <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">{col}</label>
                       <span className="text-[10px] font-medium text-slate-400">
                         Wrap Text
                       </span>
@@ -361,7 +361,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       value={val}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       placeholder="Enter remark or details..."
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition whitespace-pre-wrap break-words resize-y min-h-[50px]"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition whitespace-pre-wrap break-words resize-y min-h-[50px]"
                     />
                   </div>
                 );
@@ -371,7 +371,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                 return (
                   <div key={col} className="space-y-1.5">
                     <div className="flex justify-between items-center">
-                      <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                         {col} ($)
                       </label>
                       <span className="text-[10px] font-extrabold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-md border border-amber-200 dark:border-amber-800">
@@ -384,7 +384,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       value={val}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       placeholder="Enter price in USD ($)..."
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-emerald-600 dark:text-emerald-400 transition"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-emerald-600 dark:text-emerald-400 transition"
                     />
                   </div>
                 );
@@ -394,7 +394,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                 return (
                   <div key={col} className="space-y-1.5">
                     <div className="flex justify-between items-center">
-                      <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                         {col} (Rp)
                       </label>
                       <span className="text-[10px] font-medium text-slate-400">
@@ -406,7 +406,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       value={val}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       placeholder="Enter price in IDR (Rp)..."
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-blue-600 dark:text-blue-400 transition"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-blue-600 dark:text-blue-400 transition"
                     />
                   </div>
                 );
@@ -415,7 +415,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               if (col === 'Email') {
                 return (
                   <div key={col} className="space-y-1.5">
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                       <i className="fa-solid fa-envelope mr-1 text-slate-400"></i> Alamat Email
                     </label>
                     <input
@@ -423,7 +423,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       value={val}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       placeholder="user@silvercitydrilling.co.id"
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
                     />
                   </div>
                 );
@@ -432,13 +432,13 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               if (col === 'Role') {
                 return (
                   <div key={col} className="space-y-1.5">
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                       <i className="fa-solid fa-briefcase mr-1 text-slate-400"></i> Role / Peran
                     </label>
                     <select
                       value={val || 'Operator'}
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition cursor-pointer"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition cursor-pointer"
                     >
                       <option value="Operator">Operator</option>
                       <option value="Materialman">Materialman</option>
@@ -454,7 +454,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               if (col === 'Password') {
                 return (
                   <div key={col} className="space-y-1.5">
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                       <i className="fa-solid fa-lock mr-1 text-slate-400"></i> Password
                     </label>
                     <input
@@ -463,7 +463,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
                       onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                       required
                       placeholder="Enter password..."
-                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
                     />
                   </div>
                 );
@@ -472,7 +472,7 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
               if (col === 'UpdatedBy') {
                 return (
                   <div key={col} className="space-y-1.5">
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">
                       Last Updated By
                     </label>
                     <div className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold bg-slate-100 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 flex items-center gap-2">
@@ -485,14 +485,14 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
 
               return (
                 <div key={col} className="space-y-1.5">
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">{col}</label>
+                  <label className="block text-xs font-extrabold uppercase tracking-wide text-slate-600 dark:text-slate-300">{col}</label>
                   <input
                     type={col.includes('Price') || col.includes('Stock') || col === 'Qty' ? 'number' : 'text'}
                     step={col.includes('Price') || col.includes('Stock') || col === 'Qty' ? 'any' : undefined}
                     value={val}
                     onChange={(e) => handleSingleFieldChange(col, e.target.value)}
                     required={col === primaryKeyCol}
-                    className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
+                    className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 transition"
                   />
                 </div>
               );
@@ -504,13 +504,13 @@ export const SingleRecordModal: React.FC<SingleRecordModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer"
+              className="px-5 py-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-6 py-3 rounded-2xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs shadow-md shadow-amber-400/20 transition cursor-pointer flex items-center gap-2"
+              className="px-6 py-3 rounded-2xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-sm shadow-md shadow-amber-400/20 transition cursor-pointer flex items-center gap-2"
             >
               <i className="fa-solid fa-floppy-disk"></i>
               Save Changes

@@ -2,6 +2,78 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+/* ========================================================================= */
+/* Document Blueprint Forms (#printBlueprintDoc) - Larger & Neater Readability */
+/* ========================================================================= */
+#printBlueprintDoc {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+#printBlueprintDoc .text-\[9px\] {
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+#printBlueprintDoc .text-\[10px\] {
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+#printBlueprintDoc .text-\[11px\] {
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+
+#printBlueprintDoc .text-xs {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+#printBlueprintDoc .text-sm {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+#printBlueprintDoc .text-base,
+#printBlueprintDoc .sm\:text-lg {
+  font-size: 19px;
+  line-height: 1.3;
+}
+
+#printBlueprintDoc .text-2xl {
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+#printBlueprintDoc table {
+  border-collapse: collapse;
+}
+
+#printBlueprintDoc table th {
+  padding: 7px 8px;
+  vertical-align: middle;
+  line-height: 1.35;
+}
+
+#printBlueprintDoc table td {
+  padding: 5px 8px;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+
+#printBlueprintDoc table tr {
+  height: auto;
+}
+
+#printBlueprintDoc input,
+#printBlueprintDoc select,
+#printBlueprintDoc textarea {
+  font-size: inherit;
+  line-height: 1.4;
+  padding: 3px 6px;
+}
+
 @media print {
   /* Reset page background and dimensions for printing */
   html, body {
@@ -107,46 +179,46 @@
     min-width: 0 !important;
   }
 
-  /* Print typography scale: slightly larger, crisp, and neatly spaced for readability */
+  /* Print typography scale: crisp, larger, and neatly spaced for effortless reading */
   #printBlueprintDoc {
-    font-size: 13px !important;
-    line-height: 1.4 !important;
+    font-size: 14px !important;
+    line-height: 1.45 !important;
     -webkit-font-smoothing: antialiased;
   }
 
   #printBlueprintDoc .text-\[9px\] {
-    font-size: 10.5px !important;
+    font-size: 11px !important;
     line-height: 1.35 !important;
   }
 
   #printBlueprintDoc .text-\[10px\] {
-    font-size: 11.5px !important;
-    line-height: 1.35 !important;
-  }
-
-  #printBlueprintDoc .text-\[11px\] {
     font-size: 12.5px !important;
-    line-height: 1.35 !important;
-  }
-
-  #printBlueprintDoc .text-xs {
-    font-size: 13px !important;
     line-height: 1.4 !important;
   }
 
+  #printBlueprintDoc .text-\[11px\] {
+    font-size: 13.5px !important;
+    line-height: 1.4 !important;
+  }
+
+  #printBlueprintDoc .text-xs {
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+  }
+
   #printBlueprintDoc .text-sm {
-    font-size: 15px !important;
+    font-size: 16px !important;
     line-height: 1.35 !important;
   }
 
   #printBlueprintDoc .text-base,
   #printBlueprintDoc .sm\:text-lg {
-    font-size: 18px !important;
+    font-size: 19px !important;
     line-height: 1.3 !important;
   }
 
   #printBlueprintDoc .text-2xl {
-    font-size: 26px !important;
+    font-size: 28px !important;
     line-height: 1.2 !important;
   }
 
@@ -167,15 +239,15 @@
   }
 
   #printBlueprintDoc table th {
-    padding: 5px 6px !important;
+    padding: 6px 7px !important;
     vertical-align: middle !important;
-    line-height: 1.3 !important;
+    line-height: 1.35 !important;
   }
 
   #printBlueprintDoc table td {
-    padding: 4px 6px !important;
+    padding: 5px 7px !important;
     vertical-align: middle !important;
-    line-height: 1.35 !important;
+    line-height: 1.4 !important;
   }
 
   #printBlueprintDoc .print-keep-together {

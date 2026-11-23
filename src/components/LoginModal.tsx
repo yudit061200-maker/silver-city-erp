@@ -198,7 +198,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           <button
             type="button"
             onClick={() => setAuthMode('login')}
-            className={`flex-1 py-2.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center justify-center gap-2 ${
+            className={`flex-1 py-2.5 rounded-xl text-sm font-black transition cursor-pointer flex items-center justify-center gap-2 ${
               authMode === 'login'
                 ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
@@ -210,7 +210,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           <button
             type="button"
             onClick={() => setAuthMode('signup')}
-            className={`flex-1 py-2.5 rounded-xl text-xs font-black transition cursor-pointer flex items-center justify-center gap-2 ${
+            className={`flex-1 py-2.5 rounded-xl text-sm font-black transition cursor-pointer flex items-center justify-center gap-2 ${
               authMode === 'signup'
                 ? 'bg-amber-400 text-slate-950 shadow-xs'
                 : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
@@ -225,7 +225,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         {authMode === 'login' && (
           <form onSubmit={handleLoginSubmit} className="space-y-4">
             <div>
-              <label className="block text-[11px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-1.5">
                 Email or Username
               </label>
               <div className="relative">
@@ -236,7 +236,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   value={loginIdentifier}
                   onChange={(e) => setLoginIdentifier(e.target.value)}
                   placeholder="Enter your Email or Username"
-                  className="w-full pl-11 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
+                  className="w-full pl-11 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
                 />
               </div>
             </div>
@@ -255,7 +255,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="w-full pl-11 pr-11 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
+                  className="w-full pl-11 pr-11 py-3 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
                 />
                 <button
                   type="button"
@@ -271,7 +271,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             <button
               type="submit"
               disabled={isAuthenticating}
-              className="w-full py-3.5 bg-gradient-to-r from-yellow-400 to-amber-400 hover:from-yellow-500 hover:to-amber-500 text-slate-950 font-black rounded-2xl text-xs shadow-lg shadow-yellow-400/25 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer mt-2"
+              className="w-full py-3.5 bg-gradient-to-r from-yellow-400 to-amber-400 hover:from-yellow-500 hover:to-amber-500 text-slate-950 font-black rounded-2xl text-sm shadow-lg shadow-yellow-400/25 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer mt-2"
             >
               {isAuthenticating ? (
                 <><i className="fa-solid fa-circle-notch fa-spin"></i> Authenticating...</>
@@ -305,7 +305,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
             {/* Email Address */}
             <div>
-              <label className="block text-[11px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-1.5">
                 Email Address <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
@@ -316,7 +316,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   value={signUpEmail}
                   onChange={(e) => handleEmailChange(e.target.value)}
                   placeholder="e.g. user@silvercitydrilling.co.id"
-                  className="w-full pl-11 pr-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
+                  className="w-full pl-11 pr-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
                 />
               </div>
             </div>
@@ -324,7 +324,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             {/* Username & Fullname in 2 cols */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[11px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-1.5">
                   Username <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
@@ -335,13 +335,13 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                     value={signUpUsername}
                     onChange={(e) => setSignUpUsername(e.target.value)}
                     placeholder="Unique username"
-                    className="w-full pl-11 pr-3 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
+                    className="w-full pl-11 pr-3 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-1.5">
                   Full Name <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
@@ -352,7 +352,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                     value={signUpFullname}
                     onChange={(e) => setSignUpFullname(e.target.value)}
                     placeholder="Your Full Name"
-                    className="w-full pl-11 pr-3 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
+                    className="w-full pl-11 pr-3 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
                   />
                 </div>
               </div>
@@ -360,7 +360,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
             {/* Job Title / Role Manual Input */}
             <div>
-              <label className="block text-[11px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-1.5">
                 Job Title / Position (Role) <span className="text-slate-400 font-normal text-[10px]">(Type manually)</span>
               </label>
               <div className="relative">
@@ -370,7 +370,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   value={signUpRole}
                   onChange={(e) => setSignUpRole(e.target.value)}
                   placeholder="e.g. Drilling Engineer, Materialman, Operator, Supervisor..."
-                  className="w-full pl-11 pr-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
+                  className="w-full pl-11 pr-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
                 />
               </div>
             </div>
@@ -378,7 +378,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             {/* Password & Confirm Password */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[11px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-1.5">
                   Password <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
@@ -389,7 +389,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                     value={signUpPassword}
                     onChange={(e) => setSignUpPassword(e.target.value)}
                     placeholder="Min 4 characters"
-                    className="w-full pl-11 pr-9 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
+                    className="w-full pl-11 pr-9 py-2.5 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 font-bold outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800 transition shadow-xs"
                   />
                   <button
                     type="button"
@@ -402,7 +402,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-[11px] font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-1.5">
                   Confirm Password <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
@@ -413,7 +413,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                     value={signUpConfirmPassword}
                     onChange={(e) => setSignUpConfirmPassword(e.target.value)}
                     placeholder="Re-enter password"
-                    className={`w-full pl-11 pr-4 py-2.5 border rounded-2xl text-xs font-bold outline-none focus:ring-2 transition shadow-xs ${
+                    className={`w-full pl-11 pr-4 py-2.5 border rounded-2xl text-sm font-bold outline-none focus:ring-2 transition shadow-xs ${
                       signUpConfirmPassword && signUpPassword !== signUpConfirmPassword
                         ? 'border-rose-400 bg-rose-50/60 text-rose-900 focus:ring-rose-400 dark:bg-rose-950/40 dark:text-rose-200'
                         : 'border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 focus:ring-yellow-400 focus:bg-white dark:focus:bg-slate-800'
@@ -441,7 +441,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             <button
               type="submit"
               disabled={isRegistering}
-              className="w-full py-3.5 bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black rounded-2xl text-xs shadow-lg shadow-amber-400/25 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer mt-2"
+              className="w-full py-3.5 bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black rounded-2xl text-sm shadow-lg shadow-amber-400/25 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer mt-2"
             >
               {isRegistering ? (
                 <><i className="fa-solid fa-circle-notch fa-spin"></i> Creating Account...</>

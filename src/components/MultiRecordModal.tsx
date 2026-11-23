@@ -30,49 +30,49 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
   const isTransactionTab = ['MaterialRequest', 'PurchaseOrder', 'MaterialReceive', 'MaterialIssued'].includes(activeTab);
   return (
     <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50 animate-fadeIn">
-      <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-6xl w-full overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col max-h-[92vh] text-slate-800 dark:text-slate-100">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-[96vw] xl:max-w-7xl w-full overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col max-h-[92vh] text-slate-800 dark:text-slate-100">
         {/* Header */}
-        <div className="bg-slate-900 text-white px-4 sm:px-6 py-4 flex justify-between items-center shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center text-base font-bold shadow-xs">
+        <div className="bg-slate-900 text-white px-5 sm:px-6 py-4 flex justify-between items-center shrink-0">
+          <div className="flex items-center gap-3.5">
+            <div className="w-10 h-10 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center text-lg font-bold shadow-xs">
               <i className="fa-solid fa-layer-group"></i>
             </div>
             <div>
-              <h3 className="font-extrabold text-xs sm:text-sm uppercase tracking-wider text-white">
+              <h3 className="font-extrabold text-sm sm:text-base uppercase tracking-wider text-white">
                 Batch Record Entry - {activeTab}
               </h3>
-              <p className="text-[10px] text-slate-400 font-medium">Add multiple line items in a single operation</p>
+              <p className="text-xs text-slate-400 font-medium">Add multiple line items in a single operation</p>
             </div>
             {onOpenQrScanner && (activeTab === 'MaterialReceive' || activeTab === 'MaterialIssued') && (
               <button
                 type="button"
                 onClick={() => onOpenQrScanner()}
-                className="ml-2 px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 text-slate-950 rounded-xl text-[10px] font-black transition flex items-center gap-1.5 cursor-pointer shadow-xs"
+                className="ml-2 px-3.5 py-2 bg-yellow-400 hover:bg-yellow-500 text-slate-950 rounded-xl text-xs font-black transition flex items-center gap-1.5 cursor-pointer shadow-xs"
               >
                 <i className="fa-solid fa-qrcode"></i> Scan QR & Append
               </button>
             )}
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-white text-lg cursor-pointer px-2">&times;</button>
+          <button onClick={onClose} className="text-slate-400 hover:text-white text-xl cursor-pointer px-2">&times;</button>
         </div>
 
         {/* Form Body */}
-        <div className="p-3 sm:p-6 space-y-4 overflow-y-auto flex-grow">
-          <div className="max-h-[58vh] overflow-auto border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs">
-            <table className="w-full min-w-[700px] text-left text-xs border-collapse">
-              <thead className="bg-slate-100 dark:bg-slate-800 uppercase text-[10px] text-slate-600 dark:text-slate-300 font-extrabold sticky top-0 z-10 border-b border-slate-200 dark:border-slate-700">
+        <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-grow">
+          <div className="max-h-[60vh] overflow-auto border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs">
+            <table className="w-full min-w-[780px] text-left text-sm border-collapse">
+              <thead className="bg-slate-100 dark:bg-slate-800 uppercase text-xs text-slate-700 dark:text-slate-200 font-extrabold sticky top-0 z-10 border-b border-slate-200 dark:border-slate-700">
                 <tr>
-                  <th className="p-3 w-10 text-center">#</th>
+                  <th className="p-3.5 w-12 text-center">#</th>
                   {(TAB_SCHEMAS[activeTab] || []).map((col, cIdx) => (
-                    <th key={`multi-hdr-${col}-${cIdx}`} className="p-3 whitespace-nowrap min-w-[120px]">{col}</th>
+                    <th key={`multi-hdr-${col}-${cIdx}`} className="p-3.5 whitespace-nowrap min-w-[140px]">{col}</th>
                   ))}
-                  <th className="p-3 text-center w-12">Action</th>
+                  <th className="p-3.5 text-center w-14">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {multiRows.map((r, idx) => (
                   <tr key={`multi-row-${idx}`} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition">
-                    <td className="p-3 text-center font-bold text-slate-400 dark:text-slate-500 bg-slate-50/50 dark:bg-slate-900/50">
+                    <td className="p-3 text-center font-bold text-sm text-slate-500 dark:text-slate-400 bg-slate-50/50 dark:bg-slate-900/50">
                       {idx + 1}
                     </td>
                     {(TAB_SCHEMAS[activeTab] || []).map((col, cIdx) => {
@@ -94,7 +94,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                                 onBlur={() => setFocusedCell(null)}
                                 onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
                                 placeholder="Min. 2 karakter..."
-                                className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2 text-xs bg-slate-50 dark:bg-slate-800 font-bold text-blue-600 dark:text-blue-400 outline-none focus:ring-1 focus:ring-yellow-400"
+                                className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 font-bold text-blue-600 dark:text-blue-400 outline-none focus:ring-1 focus:ring-yellow-400"
                               />
                               {onOpenQrScanner && (
                                 <button
@@ -118,7 +118,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                                       handleMultiRowChange(idx, 'ItemID', item.ItemID);
                                       setFocusedCell(null);
                                     }}
-                                    className="w-full text-left px-3 py-1.5 text-[11px] hover:bg-yellow-50 dark:hover:bg-slate-700 transition flex items-center justify-between gap-2 cursor-pointer"
+                                    className="w-full text-left px-3.5 py-2 text-xs hover:bg-yellow-50 dark:hover:bg-slate-700 transition flex items-center justify-between gap-2 cursor-pointer"
                                   >
                                     <div className="min-w-0 truncate">
                                       <span className="font-black text-blue-600 dark:text-blue-400 mr-1.5">{item.ItemID}</span>
@@ -139,7 +139,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                           ? findMatchingItems(items, String(val), 6)
                           : [];
                         return (
-                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[220px] relative">
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2.5 min-w-[260px] relative">
                             <textarea
                               rows={2}
                               value={val}
@@ -147,7 +147,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                               onBlur={() => setFocusedCell(null)}
                               onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
                               placeholder={isTransactionTab ? 'Ketik min. 2 karakter...' : 'Item Name'}
-                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400 whitespace-pre-wrap break-words resize-y min-h-[44px]"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400 whitespace-pre-wrap break-words resize-y min-h-[44px]"
                             />
                             {nameSuggestions.length > 0 && (
                               <div className="absolute left-2 right-2 top-full mt-0.5 z-30 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl max-h-40 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-700">
@@ -160,7 +160,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                                       handleMultiRowChange(idx, 'ItemID', item.ItemID);
                                       setFocusedCell(null);
                                     }}
-                                    className="w-full text-left px-3 py-1.5 text-[11px] hover:bg-yellow-50 dark:hover:bg-slate-700 transition flex items-center justify-between gap-2 cursor-pointer"
+                                    className="w-full text-left px-3.5 py-2 text-xs hover:bg-yellow-50 dark:hover:bg-slate-700 transition flex items-center justify-between gap-2 cursor-pointer"
                                   >
                                     <div className="min-w-0 truncate">
                                       <span className="font-black text-blue-600 dark:text-blue-400 mr-1.5">{item.ItemID}</span>
@@ -177,13 +177,13 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
 
                       if (col === 'Remark') {
                         return (
-                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2 min-w-[180px]">
+                          <td key={`multi-cell-${col}-${cIdx}`} className="p-2.5 min-w-[210px]">
                             <textarea
                               rows={2}
                               value={val}
                               onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
                               placeholder="Remark"
-                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400 whitespace-pre-wrap break-words resize-y min-h-[44px]"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm bg-slate-50 dark:bg-slate-800 font-medium text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400 whitespace-pre-wrap break-words resize-y min-h-[44px]"
                             />
                           </td>
                         );
@@ -270,7 +270,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                             <select
                               value={val || 'Pending'}
                               onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
-                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold outline-none"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold outline-none"
                             >
                               <option value="Pending">Pending</option>
                               <option value="Approve">Approve</option>
@@ -288,7 +288,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                             <select
                               value={val || 'Normal'}
                               onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
-                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold outline-none"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold outline-none"
                             >
                               <option value="Normal">Normal</option>
                               <option value="Urgent">Urgent</option>
@@ -303,7 +303,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                             <select
                               value={val || 'Operator'}
                               onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
-                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold outline-none"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold outline-none"
                             >
                               <option value="Operator">Operator</option>
                               <option value="Materialman">Materialman</option>
@@ -324,7 +324,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                               value={val}
                               onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
                               placeholder="user@example.com"
-                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400"
                             />
                           </td>
                         );
@@ -338,7 +338,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                               value={val}
                               onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
                               placeholder="••••••••"
-                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-mono outline-none focus:ring-1 focus:ring-yellow-400"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-mono outline-none focus:ring-1 focus:ring-yellow-400"
                             />
                           </td>
                         );
@@ -362,7 +362,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                               type="date"
                               value={val}
                               onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
-                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-medium outline-none"
+                              className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-medium outline-none"
                             />
                           </td>
                         );
@@ -374,7 +374,7 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
                             type={col.includes('Price') || col.includes('Stock') || col === 'Qty' ? 'number' : 'text'}
                             value={val}
                             onChange={(e) => handleMultiRowChange(idx, col, e.target.value)}
-                            className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2 text-xs bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400"
+                            className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-yellow-400"
                           />
                         </td>
                       );
@@ -399,22 +399,22 @@ export const MultiRecordModal: React.FC<MultiRecordModalProps> = ({
             <button
               type="button"
               onClick={addMultiRow}
-              className="w-full sm:w-auto px-4 py-2.5 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl text-xs font-bold hover:bg-slate-800 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2 cursor-pointer border border-slate-700"
+              className="w-full sm:w-auto px-5 py-2.5 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl text-sm font-bold hover:bg-slate-800 dark:hover:bg-slate-700 transition flex items-center justify-center gap-2 cursor-pointer border border-slate-700"
             >
-              <i className="fa-solid fa-plus text-[10px]"></i> Add More Row
+              <i className="fa-solid fa-plus text-xs"></i> Add More Row
             </button>
             <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-2xl text-xs font-bold hover:bg-slate-200 transition cursor-pointer"
+                className="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-2xl text-sm font-bold hover:bg-slate-200 transition cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={onSave}
-                className="px-6 py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-950 rounded-2xl text-xs font-black shadow-md shadow-amber-400/20 transition cursor-pointer flex items-center gap-2"
+                className="px-6 py-2.5 bg-amber-400 hover:bg-amber-500 text-slate-950 rounded-2xl text-sm font-black shadow-md shadow-amber-400/20 transition cursor-pointer flex items-center gap-2"
               >
                 <i className="fa-solid fa-check"></i> Save All {multiRows.length} Items
               </button>

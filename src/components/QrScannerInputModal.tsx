@@ -402,7 +402,7 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
 
           {/* Manual Search & Item Selection */}
           <div className="space-y-1.5 relative">
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <label className="block text-xs font-extrabold text-slate-600 uppercase tracking-wide">
               Atau Cari Kode Item ID / Nama Item (ketik min. 2 karakter):
             </label>
             <div className="relative">
@@ -411,9 +411,9 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
                 value={manualCode}
                 onChange={(e) => handleManualSearch(e.target.value)}
                 placeholder="Ketik beberapa huruf/angka (misal: fil, 32.00, pump)..."
-                className="w-full pl-9 pr-8 py-2.5 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 font-medium"
+                className="w-full pl-9 pr-8 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50 font-medium"
               />
-              <i className="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+              <i className="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-400 text-sm"></i>
               {manualCode && (
                 <button
                   type="button"
@@ -479,7 +479,7 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
           {/* Transaction Fields: Qty, Department/Supplier, Remark, Attachment */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-extrabold text-slate-600 uppercase tracking-wide mb-1.5">
                 Jumlah Quantity ({selectedItem?.UoM || 'Pcs'})
               </label>
               <input
@@ -488,12 +488,12 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
                 value={qty}
                 onChange={(e) => setQty(Number(e.target.value))}
                 required
-                className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50"
+                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-extrabold text-slate-600 uppercase tracking-wide mb-1.5">
                 {activeTab === 'MaterialReceive' ? 'Pemasok / Supplier' : 'Departemen Peminta'}
               </label>
               <input
@@ -502,12 +502,12 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
                 onChange={(e) => setDeptOrSupplier(e.target.value)}
                 required
                 placeholder={activeTab === 'MaterialReceive' ? 'Nama Supplier...' : 'Nama Departemen...'}
-                className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs font-medium focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50"
+                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-extrabold text-slate-600 uppercase tracking-wide mb-1.5">
                 Catatan / Keterangan
               </label>
               <input
@@ -515,13 +515,13 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
                 value={remark}
                 onChange={(e) => setRemark(e.target.value)}
                 placeholder="contoh: Rig Silver City 20 Well Site A / Batch Pengiriman..."
-                className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs font-medium focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50"
+                className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-yellow-400 outline-none bg-slate-50"
               />
             </div>
 
             {/* Attachment Field */}
             <div className="sm:col-span-2">
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-extrabold text-slate-600 uppercase tracking-wide mb-1.5">
                 <i className="fa-solid fa-paperclip mr-1 text-slate-400"></i> Lampiran (Surat Jalan / Bukti)
               </label>
               <div className="flex items-center gap-2">
@@ -583,7 +583,7 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
                 ) : (
                   <label
                     htmlFor="qr-scan-attachment"
-                    className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer transition border border-slate-200 flex items-center gap-1.5"
+                    className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-bold cursor-pointer transition border border-slate-200 flex items-center gap-2"
                   >
                     <i className="fa-solid fa-file-arrow-up"></i> Upload Surat Jalan / Dokumen Bukti
                   </label>
@@ -593,21 +593,21 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end space-x-2 pt-3 border-t border-slate-100">
+          <div className="flex justify-end space-x-2.5 pt-4 border-t border-slate-100">
             <button
               type="button"
               onClick={() => {
                 stopCameraScanner();
                 onClose();
               }}
-              className="px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 transition cursor-pointer"
+              className="px-5 py-2.5 bg-slate-100 text-slate-700 rounded-xl text-sm font-bold hover:bg-slate-200 transition cursor-pointer"
             >
               Batal
             </button>
             <button
               type="submit"
               disabled={!selectedItem}
-              className="px-6 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-xs font-bold hover:bg-yellow-500 shadow-md shadow-yellow-400/20 transition cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
+              className="px-6 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-sm font-bold hover:bg-yellow-500 shadow-md shadow-yellow-400/20 transition cursor-pointer disabled:opacity-50 flex items-center gap-2"
             >
               <i className="fa-solid fa-circle-check"></i>
               Simpan Data Transaksi ({activeTab === 'MaterialReceive' ? 'Receive' : 'Issued'})

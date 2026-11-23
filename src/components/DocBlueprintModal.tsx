@@ -350,16 +350,16 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 z-50 print:p-0 print:m-0 print:bg-transparent print:static print:block">
-      <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full overflow-hidden flex flex-col max-h-[95vh] border border-slate-100 print:border-none print:shadow-none print:rounded-none print:max-w-none print:max-h-none print:p-0 print:m-0 print:bg-transparent">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-5xl w-full overflow-hidden flex flex-col max-h-[95vh] border border-slate-100 print:border-none print:shadow-none print:rounded-none print:max-w-none print:max-h-none print:p-0 print:m-0 print:bg-transparent">
         
         {/* Top Control Bar */}
-        <div className="bg-slate-900 text-white px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 print:hidden">
+        <div className="bg-slate-900 text-white px-4 sm:px-6 py-3.5 sm:py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 print:hidden">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-xl bg-yellow-400 text-slate-900 flex items-center justify-center font-bold text-xs shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-yellow-400 text-slate-900 flex items-center justify-center font-bold text-sm shrink-0">
               <i className="fa-solid fa-file-pen"></i>
             </div>
             <div>
-              <h3 className="font-bold text-xs uppercase tracking-wider">
+              <h3 className="font-bold text-sm uppercase tracking-wider">
                 {isMaterialIssued
                   ? 'Material Issued Slip Blueprint'
                   : isPurchaseOrder
@@ -368,7 +368,7 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                   ? 'Material Receiving Report Blueprint'
                   : 'Document Blueprint Header Form'}
               </h3>
-              <p className="text-[10px] text-yellow-400 font-semibold">
+              <p className="text-xs text-yellow-400 font-semibold">
                 Editable & Printable Official Document Form
               </p>
             </div>
@@ -378,14 +378,14 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
             <button
               type="button"
               onClick={() => setIsHeaderEditMode(!isHeaderEditMode)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 cursor-pointer ${
                 isHeaderEditMode ? 'bg-yellow-400 text-slate-900 shadow-xs' : 'bg-slate-800 text-slate-300 hover:text-white'
               }`}
             >
               <i className={`fa-solid ${isHeaderEditMode ? 'fa-pen-to-square' : 'fa-eye'}`}></i>
               <span>{isHeaderEditMode ? 'Form Edit Mode Active' : 'Print Preview Mode'}</span>
             </button>
-            <button onClick={onClose} className="text-slate-400 hover:text-white text-base cursor-pointer px-2">&times;</button>
+            <button onClick={onClose} className="text-slate-400 hover:text-white text-xl cursor-pointer px-2">&times;</button>
           </div>
         </div>
 
@@ -2030,29 +2030,29 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="px-4 sm:px-6 py-3 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2.5 print:hidden">
+        <div className="px-4 sm:px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2.5 print:hidden">
           <button
             type="button"
             onClick={onSaveDocForm}
-            className="px-4 sm:px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 shadow-md shadow-emerald-600/20 transition flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+            className="px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 shadow-md shadow-emerald-600/20 transition flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
           >
-            <i className="fa-solid fa-floppy-disk text-xs"></i> Save Form Header
+            <i className="fa-solid fa-floppy-disk text-sm"></i> Save Form Header
           </button>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 bg-slate-200 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-300 transition cursor-pointer flex-1 sm:flex-none text-center"
+              className="px-5 py-2.5 bg-slate-200 text-slate-700 rounded-xl text-sm font-bold hover:bg-slate-300 transition cursor-pointer flex-1 sm:flex-none text-center"
             >
               Close
             </button>
             <button
               type="button"
               onClick={handlePrintDocument}
-              className="px-4 sm:px-5 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-xs font-bold hover:bg-yellow-500 shadow-md shadow-yellow-400/20 transition flex items-center justify-center gap-2 cursor-pointer flex-1 sm:flex-none"
+              className="px-5 py-2.5 bg-yellow-400 text-slate-900 rounded-xl text-sm font-bold hover:bg-yellow-500 shadow-md shadow-yellow-400/20 transition flex items-center justify-center gap-2 cursor-pointer flex-1 sm:flex-none"
             >
-              <i className="fa-solid fa-print text-xs"></i> Print Document
+              <i className="fa-solid fa-print text-sm"></i> Print Document
             </button>
           </div>
         </div>
