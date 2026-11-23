@@ -41,6 +41,7 @@ import { MobileBottomNav } from './components/MobileBottomNav';
 import { SpreadsheetSyncModal } from './components/SpreadsheetSyncModal';
 import { ExportInventoryExcelModal } from './components/ExportInventoryExcelModal';
 import { UserPermissionsModal } from './components/UserPermissionsModal';
+import { RackQrModal, RackQrModalMode } from './components/RackQrModal';
 import {
   ALL_EDITABLE_MODULES,
   buildPermissionFields,
@@ -177,6 +178,63 @@ export default function App() {
   const [isExportExcelModalOpen, setIsExportExcelModalOpen] = useState<boolean>(false);
   const [revealedPasswordRows, setRevealedPasswordRows] = useState<Record<string, boolean>>({});
   const [permissionEditingUser, setPermissionEditingUser] = useState<RecordRow | null>(null);
+  const [urlRackParam, setUrlRackParam] = useState<string | null>(() => {
+    try {
+      const param = new URLSearchParams(window.location.search).get('rack');
+      return param && param.trim() ? param.trim() : null;
+    } catch {
+      return null;
+    }
+  });
+  const [isRackQrModalOpen, setIsRackQrModalOpen] = useState<boolean>(() => {
+    try {
+      const param = new URLSearchParams(window.location.search).get('rack');
+      return Boolean(param && param.trim());
+    } catch {
+      return false;
+    }
+  });
+  const [rackQrModalMode, setRackQrModalMode] = useState<RackQrModalMode>(() => {
+    try {
+      const param = new URLSearchParams(window.location.search).get('rack');
+      return param && param.trim() ? 'view' : 'print';
+    } catch {
+      return 'print';
+    }
+  });
+  const [rackQrSelectedName, setRackQrSelectedName] = useState<string | null>(() => {
+    try {
+      const param = new URLSearchParams(window.location.search).get('rack');
+      return param && param.trim() ? param.trim() : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const clearRackQueryParam = () => {
+    setUrlRackParam(null);
+    try {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has('rack')) {
+        url.searchParams.delete('rack');
+        window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+      }
+    } catch {
+      // Ignore history errors
+    }
+  };
+
+  const openRackQrModal = (mode: RackQrModalMode = 'print', rackName?: string | null) => {
+    flushPendingSync();
+    setRackQrModalMode(mode);
+    setRackQrSelectedName(rackName ?? null);
+    setIsRackQrModalOpen(true);
+  };
+
+  const closeRackQrModal = () => {
+    setIsRackQrModalOpen(false);
+    clearRackQueryParam();
+  };
 
   const currentUserRecord = currentUser
     ? users.find(
@@ -2528,8 +2586,25 @@ export default function App() {
         ))}
       </div>
 
+      {/* STANDALONE PUBLIC RACK QR VIEW (when scanned via smartphone camera before login) */}
+      {!currentUser && urlRackParam && (
+        <RackQrModal
+          inventoryItems={inventoryItems}
+          companyHeader={companyHeader}
+          initialMode="view"
+          initialRackName={urlRackParam}
+          isStandalonePublicView
+          onClose={closeRackQrModal}
+          onOpenLightbox={(src, caption) => {
+            setLightboxSrc(src);
+            setLightboxCaption(caption);
+            setIsLightboxOpen(true);
+          }}
+        />
+      )}
+
       {/* LOGIN OVERLAY SCREEN */}
-      {!currentUser && (
+      {!currentUser && !urlRackParam && (
         <LoginModal
           users={users}
           onLoginSuccess={handleLoginSuccess}
@@ -2847,6 +2922,25 @@ export default function App() {
                         </button>
                       )}
 
+                      {(activeTab === 'ItemList' || activeTab === 'Inventory') && (
+                        <>
+                          <button
+                            onClick={() => openRackQrModal('print')}
+                            className="bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-yellow-400 font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-xs shadow-md flex items-center justify-center gap-2 transition cursor-pointer w-full sm:w-auto border border-slate-700"
+                            title="Cetak QR Code sesuai Rak / Lokasi agar bisa dipindai untuk melihat barang di rak tersebut"
+                          >
+                            <i className="fa-solid fa-qrcode"></i> Cetak QR Rak
+                          </button>
+                          <button
+                            onClick={() => openRackQrModal('scan')}
+                            className="bg-yellow-400 hover:bg-yellow-500 text-slate-950 font-extrabold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-xs shadow-md shadow-yellow-400/20 flex items-center justify-center gap-2 transition cursor-pointer w-full sm:w-auto"
+                            title="Scan QR Rak untuk melihat daftar barang yang ada di rak tersebut"
+                          >
+                            <i className="fa-solid fa-camera"></i> Scan QR Rak
+                          </button>
+                        </>
+                      )}
+
                       {activeTab === 'Inventory' && (
                         <button
                           onClick={() => setIsExportExcelModalOpen(true)}
@@ -3047,9 +3141,16 @@ export default function App() {
                                     </h4>
                                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                                       {row.Location && (
-                                        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1">
-                                          <i className="fa-solid fa-location-dot text-rose-500 text-[10px]"></i> {row.Location}
-                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={() => openRackQrModal('view', String(row.Location))}
+                                          title={`Lihat semua barang & QR Code Rak ${row.Location}`}
+                                          className="text-[11px] text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 font-bold inline-flex items-center gap-1 cursor-pointer bg-slate-100 dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/50 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-slate-700 transition"
+                                        >
+                                          <i className="fa-solid fa-location-dot text-rose-500 text-[10px]"></i>
+                                          <span>Rak: {row.Location}</span>
+                                          <i className="fa-solid fa-qrcode text-[9px] text-amber-500 ml-0.5"></i>
+                                        </button>
                                       )}
                                       <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1">
                                         <i className="fa-solid fa-user-pen text-amber-500 text-[10px]"></i>
@@ -3539,6 +3640,23 @@ export default function App() {
                                           );
                                         }
 
+                                        if (col === 'Location' && val) {
+                                          return (
+                                            <td key={col} className="p-2.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[125px]">
+                                              <button
+                                                type="button"
+                                                onClick={() => openRackQrModal('view', String(val))}
+                                                title={`Lihat semua barang & QR Rak ${val}`}
+                                                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/50 text-slate-700 dark:text-slate-200 hover:text-amber-700 dark:hover:text-amber-300 border border-slate-200 dark:border-slate-700 text-xs font-bold transition cursor-pointer"
+                                              >
+                                                <i className="fa-solid fa-location-dot text-rose-500 text-[10px]"></i>
+                                                <span>{val}</span>
+                                                <i className="fa-solid fa-qrcode text-amber-500 text-[10px]"></i>
+                                              </button>
+                                            </td>
+                                          );
+                                        }
+
                                         return (
                                           <td
                                             key={col}
@@ -3553,6 +3671,34 @@ export default function App() {
                                               : col.includes('IDR') && typeof val === 'number'
                                               ? `Rp ${val.toLocaleString('id-ID')}`
                                               : val}
+                                          </td>
+                                        );
+                                      }
+
+                                      if (col === 'Location') {
+                                        return (
+                                          <td key={col} className="p-1.5 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap min-w-[135px]">
+                                            <div className="flex items-center gap-1">
+                                              <input
+                                                type="text"
+                                                value={val}
+                                                onChange={(e) => handleSheetCellChange(row, col, e.target.value)}
+                                                onBlur={() => flushPendingSync()}
+                                                onKeyDown={(e) => { if (e.key === 'Enter') { e.currentTarget.blur(); } }}
+                                                placeholder="Rak / Lokasi"
+                                                className="bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-yellow-400 border border-transparent focus:border-yellow-400 rounded-lg px-2 py-1 w-full min-w-[80px] text-xs font-semibold text-slate-800 dark:text-slate-100 outline-none transition"
+                                              />
+                                              {val && (
+                                                <button
+                                                  type="button"
+                                                  onClick={() => openRackQrModal('view', String(val))}
+                                                  title={`Lihat isi & cetak QR Rak ${val}`}
+                                                  className="text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 p-1 rounded hover:bg-amber-50 dark:hover:bg-amber-950/50 transition shrink-0 cursor-pointer text-xs"
+                                                >
+                                                  <i className="fa-solid fa-qrcode"></i>
+                                                </button>
+                                              )}
+                                            </div>
                                           </td>
                                         );
                                       }
@@ -4088,6 +4234,28 @@ export default function App() {
           userRow={permissionEditingUser}
           onClose={() => setPermissionEditingUser(null)}
           onSave={handleSaveUserPermissions}
+        />
+      )}
+
+      {currentUser && isRackQrModalOpen && (
+        <RackQrModal
+          inventoryItems={inventoryItems}
+          companyHeader={companyHeader}
+          initialMode={rackQrModalMode}
+          initialRackName={rackQrSelectedName}
+          onClose={closeRackQrModal}
+          onOpenItemDetails={openItemDetails}
+          onFilterInventoryByRack={(rackName) => {
+            setActiveTab('Inventory');
+            setFilterColumn('Location');
+            setSearchTerm(rackName);
+            setCurrentPage(1);
+          }}
+          onOpenLightbox={(src, caption) => {
+            setLightboxSrc(src);
+            setLightboxCaption(caption);
+            setIsLightboxOpen(true);
+          }}
         />
       )}
 

@@ -3,6 +3,7 @@ import { Html5Qrcode } from 'html5-qrcode';
 import { RecordRow, TabName } from '../types';
 import { processFileUpload } from '../utils/fileUpload';
 import { findMatchingItems } from '../utils/search';
+import { extractRackFromQrText, groupItemsByRack } from '../utils/rackQr';
 
 interface QrScannerInputModalProps {
   activeTab: TabName;
@@ -26,6 +27,7 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
   const [isScanning, setIsScanning] = useState<boolean>(true);
   const [manualCode, setManualCode] = useState<string>('');
   const [scannedMessage, setScannedMessage] = useState<string>('');
+  const [scannedRackName, setScannedRackName] = useState<string | null>(null);
 
   const [cameras, setCameras] = useState<{ id: string; label: string }[]>([]);
   const [selectedCameraId, setSelectedCameraId] = useState<string>('');
@@ -150,6 +152,25 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
 
   const handleCodeDetected = (scannedText: string) => {
     const cleaned = scannedText.trim();
+
+    // Check if scanned QR is a Rack QR (?rack=... or RACK:...)
+    const racks = groupItemsByRack(items);
+    const detectedRack = extractRackFromQrText(cleaned, racks);
+    if (detectedRack) {
+      const rackGroup = racks.find(
+        (r) => r.rackName.toLowerCase() === detectedRack.toLowerCase()
+      );
+      setScannedRackName(detectedRack);
+      if (rackGroup && rackGroup.items.length > 0) {
+        setScannedMessage(
+          `QR Rak Terdeteksi: Rak ${detectedRack} (${rackGroup.items.length} barang) — silakan pilih barang di bawah`
+        );
+      } else {
+        setScannedMessage(`QR Rak Terdeteksi: Rak ${detectedRack} (belum ada barang di rak ini)`);
+      }
+      return;
+    }
+
     const itemIdCandidate = cleaned.includes('|') ? cleaned.split('|')[0].trim() : cleaned;
 
     const match = items.find(
@@ -160,6 +181,7 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
     );
 
     if (match) {
+      setScannedRackName(null);
       setSelectedItemId(match.ItemID);
       setScannedMessage(`QR Code Terdeteksi: ${match.ItemID} - ${match.ItemName}`);
     } else {
@@ -374,6 +396,58 @@ export const QrScannerInputModal: React.FC<QrScannerInputModalProps> = ({
               <span>{scannedMessage}</span>
             </div>
           )}
+
+          {/* Scanned Rack Contents Quick Picker */}
+          {scannedRackName && (() => {
+            const rackItems = items.filter(
+              (i) => String(i.Location || '').trim().toLowerCase() === scannedRackName.trim().toLowerCase()
+            );
+            return (
+              <div className="p-3.5 bg-indigo-50 border border-indigo-200 rounded-2xl space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-black text-indigo-900 flex items-center gap-1.5">
+                    <i className="fa-solid fa-boxes-packing text-indigo-600"></i>
+                    Daftar Barang di Rak {scannedRackName} ({rackItems.length} item)
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setScannedRackName(null)}
+                    className="text-[10px] font-bold text-indigo-600 hover:underline cursor-pointer"
+                  >
+                    Tutup Daftar Rak
+                  </button>
+                </div>
+                {rackItems.length === 0 ? (
+                  <p className="text-[11px] text-indigo-700 font-medium">
+                    Tidak ada barang terdaftar di rak ini.
+                  </p>
+                ) : (
+                  <div className="max-h-44 overflow-y-auto space-y-1.5 pr-1">
+                    {rackItems.map((item, idx) => (
+                      <button
+                        key={`scanned-rack-item-${item.ItemID}-${idx}`}
+                        type="button"
+                        onClick={() => handleItemSelect(item)}
+                        className={`w-full text-left px-3 py-2 rounded-xl text-xs transition flex items-center justify-between gap-2 cursor-pointer border ${
+                          selectedItemId === item.ItemID
+                            ? 'bg-yellow-400 text-slate-950 border-yellow-500 font-black'
+                            : 'bg-white hover:bg-indigo-100/70 text-slate-800 border-indigo-100 font-semibold'
+                        }`}
+                      >
+                        <div className="min-w-0 truncate">
+                          <span className="font-mono font-black text-blue-700 mr-2">{item.ItemID}</span>
+                          <span>{item.ItemName}</span>
+                        </div>
+                        <span className="text-[10px] font-extrabold shrink-0">
+                          {item.LastStock ?? 0} {item.UoM || 'Pcs'}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {/* Quick QR Code Preset Buttons for Testing */}
           <div className="space-y-1.5">
