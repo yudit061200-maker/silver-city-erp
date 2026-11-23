@@ -1918,7 +1918,7 @@ export default function App() {
         DocNoLabel: activeTab === 'MaterialReceive' && (!existingHeader.DocNoLabel || existingHeader.DocNoLabel === 'Doc No.') ? 'MRR No.' : existingHeader.DocNoLabel,
         ApprovedBy: (activeTab === 'MaterialRequest' && (existingHeader.ApprovedBy === 'Ashley Moggy' || !existingHeader.ApprovedBy))
           ? 'General Manager'
-          : (existingHeader.ApprovedBy || (activeTab === 'MaterialReceive' ? 'Ashley Moggy' : 'General Manager'))
+          : (existingHeader.ApprovedBy || (activeTab === 'MaterialReceive' ? '' : 'General Manager'))
       } : {
         DocTitle: docTypeTitle,
         RequestID: targetId,
@@ -1939,12 +1939,12 @@ export default function App() {
         PoNo: main.PoNo || main.PONO || '',
         MainGroup: main.MainGroup || '',
         PreparedBy: main.PreparedBy || 'Material Man',
-        ReceivedByName: main.ReceivedByName || main.UserBy || 'Yuditira',
+        ReceivedByName: activeTab === 'MaterialReceive' ? '' : (main.ReceivedByName || main.UserBy || ''),
         ReceivedByTitle: main.ReceivedByTitle || 'MATERIAL MAN',
-        ApprovedByName: main.ApprovedByName || main.ApprovedBy || (activeTab === 'MaterialReceive' ? 'Ashley Moggy' : 'General Manager'),
+        ApprovedByName: activeTab === 'MaterialReceive' ? '' : (main.ApprovedByName || main.ApprovedBy || 'General Manager'),
         ApprovedByTitle: main.ApprovedByTitle || (activeTab === 'MaterialReceive' ? 'RIG MANAGER' : 'GENERAL MANAGER'),
         AcknowledgedBy: main.AcknowledgedBy || 'Rig Manager',
-        ApprovedBy: main.ApprovedBy || (activeTab === 'MaterialReceive' ? 'Ashley Moggy' : 'General Manager'),
+        ApprovedBy: activeTab === 'MaterialReceive' ? '' : (main.ApprovedBy || 'General Manager'),
         // Purchase Order defaults matching standard document
         Quotation: main.Quotation || 'Penawaran Harga',
         VendorName: main.VendorName || main.Supplier || '',

@@ -1678,54 +1678,48 @@ export const DocBlueprintModal: React.FC<DocBlueprintModalProps> = ({
                 <div className="print-keep-together grid grid-cols-12 border-b-2 border-black text-black">
                   
                   {/* Box 1: RECEIVED BY */}
-                  <div className="col-span-3 border-r-2 border-black p-1.5 flex flex-col justify-between h-28">
+                  <div className="col-span-3 border-r-2 border-black p-2 flex flex-col justify-between h-28">
                     <span className="font-bold text-[10px] uppercase">RECEIVED BY,</span>
                     
                     {/* Signature Area */}
-                    <div className="my-1 h-10"></div>
+                    <div className="flex-1"></div>
 
-                    <div className="text-center">
+                    <div className="text-center border-t border-black pt-1">
                       {isHeaderEditMode ? (
                         <input
                           type="text"
-                          value={printDocHeader.ReceivedByName || printDocHeader.UserBy || 'Yuditira'}
-                          onChange={(e) => setPrintDocHeader(prev => ({ ...prev, ReceivedByName: e.target.value }))}
-                          className="w-full text-center border-b border-black text-blue-900 font-bold text-[11px] bg-yellow-50 outline-none"
+                          value={printDocHeader.ReceivedByTitle || 'MATERIAL MAN'}
+                          onChange={(e) => setPrintDocHeader(prev => ({ ...prev, ReceivedByTitle: e.target.value }))}
+                          className="w-full text-center font-extrabold text-[10px] uppercase bg-yellow-50 outline-none"
                         />
                       ) : (
-                        <u className="font-extrabold text-[#000080] text-[11px] block">
-                          {printDocHeader.ReceivedByName || printDocHeader.UserBy || 'Yuditira'}
-                        </u>
+                        <span className="font-extrabold text-[10px] uppercase block">
+                          {printDocHeader.ReceivedByTitle || 'MATERIAL MAN'}
+                        </span>
                       )}
-                      <span className="font-extrabold text-[10px] uppercase block mt-0.5">
-                        {printDocHeader.ReceivedByTitle || 'MATERIAL MAN'}
-                      </span>
                     </div>
                   </div>
 
                   {/* Box 2: APPROVED BY */}
-                  <div className="col-span-3 border-r-2 border-black p-1.5 flex flex-col justify-between h-28">
+                  <div className="col-span-3 border-r-2 border-black p-2 flex flex-col justify-between h-28">
                     <span className="font-bold text-[10px] uppercase">APPROVED BY</span>
                     
                     {/* Signature Area */}
-                    <div className="my-1 h-10"></div>
+                    <div className="flex-1"></div>
 
-                    <div className="text-center">
+                    <div className="text-center border-t border-black pt-1">
                       {isHeaderEditMode ? (
                         <input
                           type="text"
-                          value={printDocHeader.ApprovedByName || printDocHeader.ApprovedBy || 'Ashley Moggy'}
-                          onChange={(e) => setPrintDocHeader(prev => ({ ...prev, ApprovedByName: e.target.value }))}
-                          className="w-full text-center border-b border-black text-blue-900 font-bold text-[11px] bg-yellow-50 outline-none"
+                          value={printDocHeader.ApprovedByTitle || 'RIG MANAGER'}
+                          onChange={(e) => setPrintDocHeader(prev => ({ ...prev, ApprovedByTitle: e.target.value }))}
+                          className="w-full text-center font-extrabold text-[10px] uppercase bg-yellow-50 outline-none"
                         />
                       ) : (
-                        <u className="font-extrabold text-[#000080] text-[11px] block">
-                          {printDocHeader.ApprovedByName || printDocHeader.ApprovedBy || 'Ashley Moggy'}
-                        </u>
+                        <span className="font-extrabold text-[10px] uppercase block">
+                          {printDocHeader.ApprovedByTitle || 'RIG MANAGER'}
+                        </span>
                       )}
-                      <span className="font-extrabold text-[10px] uppercase block mt-0.5">
-                        {printDocHeader.ApprovedByTitle || 'RIG MANAGER'}
-                      </span>
                     </div>
                   </div>
 
